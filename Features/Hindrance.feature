@@ -1,6 +1,6 @@
 Feature:  Hindrance
           As a gamer,
-	        in order to enjoy this game,
+	  in order to enjoy this game,
           I need to play a challenging game.
           I want that hindrances are generated
           and placed in the map.
