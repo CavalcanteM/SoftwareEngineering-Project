@@ -1,6 +1,6 @@
 Feature:  Challenging increases
           As a gamer,
-	        in order to enjoy this game,
+	  in order to enjoy this game,
           I need to play a challenging game.
           I want that the challenging increases at each level.
           The challenging increasing provide:
