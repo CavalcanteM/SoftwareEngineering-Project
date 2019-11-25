@@ -1,4 +1,3 @@
-  
 Feature:  Hindrance
           As a gamer,
 	        in order to enjoy this game,
