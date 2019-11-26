@@ -15,7 +15,4 @@ Feature: main menu
             When the game is opened
             Then the main menu is displayed.
             
-        Scenario: the player wants to exit the game
-            Given that I am playing
-            When I want to exit
-            Then the main menu is displayed.
+      
