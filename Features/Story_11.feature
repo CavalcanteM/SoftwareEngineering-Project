@@ -6,6 +6,7 @@ Feature: main menu
         - the game title
         - a New Story button
         - a Continue Story button
+        - a Settings button
         - an exit button (X)
         - a credit button
         - a volume button
