@@ -1,6 +1,6 @@
 Feature: options
-        As a developer,
-        in order to make tha game more customizable
+        As a gamer,
+        in order to make the game more customizable
         i want the possibility to customize all the keys
         
         Scenario: From the main main
