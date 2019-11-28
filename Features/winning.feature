@@ -6,4 +6,4 @@ Feature: winning
         Scenario: I collect the nth item
             When I collect the nth item
             Then a winning screen is displayed
-            And a checkpoint is saved
+            And a checkpoint is set
