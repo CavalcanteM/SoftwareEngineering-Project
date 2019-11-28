@@ -1,10 +1,10 @@
-Feature:  Hindrance
+Feature:  Weapons
           As a gamer,
 	  in order to enjoy this game,
           I need to play a challenging game.
           I want that hindrances are generated
           and placed in the map.
-          The set of hindrances includes:
+          The set of weapons includes:
           - Lasers
           - Flame throwers
           - Three-shot lasers
@@ -15,6 +15,4 @@ Feature:  Hindrance
                     or the "Continue Story" buttom
                     Then the game session starts
                     And the map is generated
-                    And the hindrances are put in it in random positions
-                    chosen from a set of pre-defined positions
-                    And the character is put in it
+                    And the hindrances are put in it 
