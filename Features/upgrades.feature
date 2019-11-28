@@ -1,7 +1,7 @@
 Feature: upgrades
-        As a developer,
-        in order to help the player in the adventure
-        i want that some upgrades spawn during the run
+        As a gamer,
+        in order to have fun
+	i want that some upgrades spawn during the run
 	The upgrades consist in:
 	- Shield
 	- Speed Up
