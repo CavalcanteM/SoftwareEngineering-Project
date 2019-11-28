@@ -1,4 +1,4 @@
-Feature:  The story
+Feature:  story
           As a gamer,
           in order to make the game more exciting,
           I want that the game has a story mode.
