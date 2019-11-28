@@ -1,4 +1,4 @@
 Feature: automatic save
-        As a developer,
+        As a gamer,
         in order to track the progress in the game
-        I want to automatically save the game at each checkpoint (level end).
+        I want the game to automatically save at each checkpoint (level end).
