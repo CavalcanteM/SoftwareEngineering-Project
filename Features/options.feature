@@ -1,7 +1,7 @@
 Feature: options
         As a developer,
         in order to make tha game more customizable
-        i want the possibility to choose between two sets of commands 
+        i want the possibility to customize all the keys
         
         Scenario: From the main main
             When the user is in the main menu
@@ -11,5 +11,4 @@ Feature: options
             
         Scenario: the player begins the game
             When the player starts a new run
-	    Then he can choose between two configuration
-            (one with WASD - movement and arrows for gravity; the other the inverse) 
+	    Then he can choose to change all the keys
