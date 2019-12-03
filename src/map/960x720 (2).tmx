@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="TileSet (30)" tilewidth="30" tileheight="30" tilecount="10" columns="5">
+  <image source="TileSet (30).png" width="150" height="60"/>
+ </tileset>
+ <layer id="2" name="Back" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu2Q0Q6AIAhF7f9/Ol07m7sPBhmjmW7thnI5QCn556gtZHxMnsFuTM5f+DqvxtF7UJ7G0XytvyKfmVCduY8tOX2+5Z+a6MhjyRn5Z982/9qAd4/sDfX6yX/qx4dSz6uzfi9P87/Kp6+m2vObMRytyX0WX/uJipkzqv5d3c1nA3l6AmSjQLoADAAA
+  </data>
+ </layer>
+ <layer id="1" name="Obj" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu2W0QrAIAhFYzDY+v8Pnj4c6MFADG0PCXIjwkNXiXpr7dmUXbiv5K64BXz4de5fgtIkqv1nznfx4aLV94eLZvDpMQrL0gw+PUYtLnsZfGp79PBj7y+zhXq8ts5E/We2UKu2Zy/K99T2nPkrn76qZsbs/vRVNTNm/EzmWPvwY+/P6OHKWv3XP/A475VrZX/Ef544AAwAAA==
+  </data>
+ </layer>
+</map>
