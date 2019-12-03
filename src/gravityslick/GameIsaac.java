@@ -69,7 +69,9 @@ public class GameIsaac extends BasicGame{
     public void render(GameContainer gc, Graphics g) throws SlickException {
         level.render(gc,g);
         player.render(gc, g);
-        point.render(gc, g);
+        if(level.getScore() >= player.getScore()){
+            point.render(gc, g);
+        }
         if(gc.isPaused() && level.getScore() <= player.getScore()){
             dark.renderOpacity(gc, g);
             menu.renderMenu(gc, g);
