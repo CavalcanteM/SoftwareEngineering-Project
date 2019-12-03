@@ -2,6 +2,7 @@ package gravityslick;
 
 import static java.lang.Math.signum;
 import java.util.ArrayList;
+import java.util.Random;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,7 +21,8 @@ public class Player {
     private float speed = 5;
     private float iterations = 20;
     private int dashValue = 10;
-
+    private int score=0;
+    
     private Shape player;
     private StaticLevel level;
 
@@ -38,6 +40,7 @@ public class Player {
 
     private Player(StaticLevel level) {
         this.level = level;
+        this.score = score;
     }
     
     public static Player getPlayerInstance(StaticLevel level) {
@@ -94,6 +97,13 @@ public class Player {
     public boolean isPaused() {
         return isPaused;
     }
+
+    public int getScore() {
+        return score;
+    }
+    
+    
+    
     /*--------------------
      * Setter Methods 
      *--------------------*/
@@ -204,7 +214,15 @@ public class Player {
 
         //X collisions
         moveWithCollisionsX();
-
+        
+        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            gc.pause();
+        }
+        
+        
+        if(this.score >= this.level.getScore()){
+            gc.pause();
+        }
     }
     
     /**
@@ -362,8 +380,19 @@ public class Player {
      */
     public boolean collidesWith(ArrayList<Shape> objects){
         for(int i = 0; i < objects.size(); i++){
-            if(this.player.intersects(objects.get(i)))
-                return true;
+            if(this.player.intersects(objects.get(i))){
+                if(i==objects.size()-1 && !(this.score > this.level.getScore())){
+                    this.score++;
+                    if(this.score < this.level.getScore()){
+                        Random random = new Random();
+                        objects.get(i).setCenterX((float) random.nextInt(960-300)+300);
+                        objects.get(i).setCenterY((float) random.nextInt(720-300)+300);
+                    }
+                }
+                else{
+                    return true;
+                }
+            }
         }
         return false;
     }

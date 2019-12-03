@@ -17,7 +17,7 @@ public class StaticLevel {
     private TiledMap map;
     private FactoryMap cmap;
     private ArrayList<Shape> rtl;
-
+    private int score;
     /** 
      * @return the arrayList of the object in the map
      */
@@ -31,11 +31,18 @@ public class StaticLevel {
      * @param player
      * @throws org.newdawn.slick.SlickException
      */
-    public void init(GameContainer gc, Shape player) throws SlickException {
+    public void init(GameContainer gc, Shape player, int score) throws SlickException {
         this.map = new TiledMap("\\src\\map\\960x720 (2).tmx");
         this.cmap = new ObjFactoryMap(this.map);
         this.rtl = cmap.getShapes();
+        this.score= score;
     }
+
+    public int getScore() {
+        return score;
+    }
+    
+    
     
     /**  
      * This method is invoked only by GravitySlick.render()
