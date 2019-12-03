@@ -284,11 +284,8 @@ public class Player {
         player.setY(player.getY() + sign * 0.5f);
         this.isChangingGravity = true;
         this.rotated = !this.rotated;
-        if (this.collidesWith(level.getRtl())) {
-            player.setY(player.getY() - sign * 0.5f);
-            return -gravity;
-        }
-        return gravity;
+        player.setY(player.getY() - sign * 0.5f);
+        return -gravity;
     }
     
     /**
