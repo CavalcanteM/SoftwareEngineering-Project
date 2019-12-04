@@ -30,11 +30,13 @@ public class Player {
     private Animation forwardAnimation;
     private Animation backwardAnimation;
     private Animation idleAnimation;
+    private Animation idleAnimationLeft;
     private boolean isChangingGravity;
     private boolean rotated = false;
     private static final int WIDTH = 40;
     private static final int HEIGHT = 60;
     private boolean isPaused;
+    private boolean isMovingRight = true;
 
     private Player(StaticLevel level) {
         this.level = level;
@@ -179,6 +181,13 @@ public class Player {
         frames[9] = new Image("./graphics/png/Idle (10).png").getScaledCopy(WIDTH, HEIGHT);
         
         this.idleAnimation = new Animation(frames, 60);
+        
+        for(int i=0; i<frames.length; i++) {
+            frames[i] = frames[i].getFlippedCopy(true, false);
+        }
+        
+        // Create the animation for the character moving on the left
+        this.idleAnimationLeft = new Animation(frames, 60);
     }
     
     /**
@@ -260,12 +269,42 @@ public class Player {
         }
         else { // The character doesn't move
             if(!isPaused){
-                this.idleAnimation.draw(X, Y);
-                this.idleAnimation.start();
+                if(isMovingRight){
+                    if(rotated){
+                        this.idleAnimationLeft.draw(X,Y);
+                        this.idleAnimationLeft.start();
+                    } else {
+                        this.idleAnimation.draw(X,Y);
+                        this.idleAnimation.start();
+                    }
+                } else {
+                    if(rotated){
+                        this.idleAnimation.draw(X,Y);
+                        this.idleAnimation.start();
+                    } else {
+                        this.idleAnimationLeft.draw(X,Y);
+                        this.idleAnimationLeft.start();
+                    }
+                }
             } else {
-                this.idleAnimation.draw(X, Y);
-                this.idleAnimation.stop();
-            }  
+                if(isMovingRight){
+                        if(rotated){
+                            this.idleAnimationLeft.draw(X,Y);
+                            this.idleAnimationLeft.stop();
+                        } else {
+                            this.idleAnimation.draw(X,Y);
+                            this.idleAnimation.stop();
+                        }
+                    } else {
+                        if(rotated){
+                            this.idleAnimation.draw(X,Y);
+                            this.idleAnimation.stop();
+                        } else {
+                            this.idleAnimationLeft.draw(X,Y);
+                            this.idleAnimationLeft.stop();
+                        }
+                    }
+                }
         }
         
         if(this.isChangingGravity) {
@@ -330,12 +369,14 @@ public class Player {
         // If we hold down A, the character will move to the left
         if (in.isKeyDown(Input.KEY_A)) {
             vX = -speed;
+            this.isMovingRight = false;
             if (in.isKeyPressed(Input.KEY_LSHIFT)) {
                 dash(LEFT);
             }
         // If we hold down D, the character will move to the right
         } else if (in.isKeyDown(Input.KEY_D)) {
             vX = speed;
+             this.isMovingRight = true;
             if (in.isKeyPressed(Input.KEY_LSHIFT)) {
                 dash(RIGHT);
             }
@@ -375,14 +416,16 @@ public class Player {
         for(int i=0; i<10; i++){
             Image currentImage = this.idleAnimation.getImage(i);
             if(rotated && currentImage.getRotation() != 180){
+                this.idleAnimation.getImage(i).rotate(5);
+                this.idleAnimationLeft.getImage(i).rotate(5);
                 if(i<8){
                     this.forwardAnimation.getImage(i).rotate(5);
                     this.backwardAnimation.getImage(i).rotate(5);
                 }
-                this.idleAnimation.getImage(i).rotate(5);
             } 
             if(!rotated && currentImage.getRotation() != 0){
                 this.idleAnimation.getImage(i).rotate(5);
+                this.idleAnimationLeft.getImage(i).rotate(5);
                 if(i<8){
                     this.forwardAnimation.getImage(i).rotate(5);
                     this.backwardAnimation.getImage(i).rotate(5);
