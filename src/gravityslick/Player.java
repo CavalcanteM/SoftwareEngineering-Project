@@ -2,6 +2,7 @@ package gravityslick;
 
 import static java.lang.Math.signum;
 import java.util.ArrayList;
+import java.util.Random;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,7 +21,8 @@ public class Player {
     private float speed = 5;
     private float iterations = 20;
     private int dashValue = 10;
-
+    private int score=0;
+    
     private Shape player;
     private StaticLevel level;
 
@@ -33,13 +35,15 @@ public class Player {
     private Animation idleAnimationLeft;
     private boolean isChangingGravity;
     private boolean rotated = false;
-    private static final int WIDTH = 40;
+    private static final int WIDTH = 55;
     private static final int HEIGHT = 60;
     private boolean isPaused;
     private boolean isMovingRight = true;
+    private int rotationAngle = 20;
 
     private Player(StaticLevel level) {
         this.level = level;
+        this.score = score;
     }
     
     public static Player getPlayerInstance(StaticLevel level) {
@@ -96,6 +100,13 @@ public class Player {
     public boolean isPaused() {
         return isPaused;
     }
+
+    public int getScore() {
+        return score;
+    }
+    
+    
+    
     /*--------------------
      * Setter Methods 
      *--------------------*/
@@ -144,7 +155,7 @@ public class Player {
      * @throws SlickException 
      */
     public void init(GameContainer gc) throws SlickException {
-        player = new Rectangle(200, 200, WIDTH, HEIGHT);
+        player = new Rectangle(250, 200, 29, 59);
         
         // Create the character animation
         Image[] frames = new Image[8];
@@ -213,7 +224,15 @@ public class Player {
 
         //X collisions
         moveWithCollisionsX();
-
+        
+        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            gc.pause();
+        }
+        
+        
+        if(this.score >= this.level.getScore()){
+            gc.pause();
+        }
     }
     
     /**
@@ -403,8 +422,19 @@ public class Player {
      */
     public boolean collidesWith(ArrayList<Shape> objects){
         for(int i = 0; i < objects.size(); i++){
-            if(this.player.intersects(objects.get(i)))
-                return true;
+            if(this.player.intersects(objects.get(i))){
+                if(i==objects.size()-1 && !(this.score > this.level.getScore())){
+                    this.score++;
+                    if(this.score < this.level.getScore()){
+                        Random random = new Random();
+                        objects.get(i).setCenterX((float) random.nextInt(960-300)+300);
+                        objects.get(i).setCenterY((float) random.nextInt(720-300)+300);
+                    }
+                }
+                else{
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -416,19 +446,19 @@ public class Player {
         for(int i=0; i<10; i++){
             Image currentImage = this.idleAnimation.getImage(i);
             if(rotated && currentImage.getRotation() != 180){
-                this.idleAnimation.getImage(i).rotate(5);
-                this.idleAnimationLeft.getImage(i).rotate(5);
+                this.idleAnimation.getImage(i).rotate(this.rotationAngle);
+                this.idleAnimationLeft.getImage(i).rotate(this.rotationAngle);
                 if(i<8){
-                    this.forwardAnimation.getImage(i).rotate(5);
-                    this.backwardAnimation.getImage(i).rotate(5);
+                    this.forwardAnimation.getImage(i).rotate(this.rotationAngle);
+                    this.backwardAnimation.getImage(i).rotate(this.rotationAngle);
                 }
             } 
             if(!rotated && currentImage.getRotation() != 0){
-                this.idleAnimation.getImage(i).rotate(5);
-                this.idleAnimationLeft.getImage(i).rotate(5);
+                this.idleAnimation.getImage(i).rotate(this.rotationAngle);
+                this.idleAnimationLeft.getImage(i).rotate(this.rotationAngle);
                 if(i<8){
-                    this.forwardAnimation.getImage(i).rotate(5);
-                    this.backwardAnimation.getImage(i).rotate(5);
+                    this.forwardAnimation.getImage(i).rotate(this.rotationAngle);
+                    this.backwardAnimation.getImage(i).rotate(this.rotationAngle);
                 }
             }
         }

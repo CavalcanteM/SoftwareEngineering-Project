@@ -14,6 +14,7 @@ public class GameIsaac extends BasicGame{
     private Menu menu;
     private Menu dark;
     private Button button;
+    private Point point;
     
     /**
      * @throws org.newdawn.slick.SlickException
@@ -32,13 +33,15 @@ public class GameIsaac extends BasicGame{
         player = Player.getPlayerInstance(level);   // Using Singleton class Player
         menu = new Menu(150,300);
         dark = new Menu(gc.getScreenHeight(), gc.getScreenWidth());
-        
-        level.init(gc, player.getPlayer());
+        point = new Point(60,60,30,30);
+        level.init(gc, player.getPlayer(), 5);
         player.init(gc);
         menu.init(gc);
-        button = new Button(50, 150, menu, "Resume");
+        button = new Button(50,150, menu);
         button.init(gc);
         dark.init(gc);
+        point.init(gc);
+        level.getRtl().add(point.getPoint());
         
     }
     
@@ -50,18 +53,10 @@ public class GameIsaac extends BasicGame{
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         if(!gc.isPaused()){
-            if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){
-                player.setIsPaused(true);
-                gc.pause();
-            } else {
-                player.setIsPaused(false);
-                player.update(gc, delta);
-            }   
-        } else {
-            button.update(gc, delta);
-            if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){
-                gc.resume();
-            }
+            player.update(gc, delta);
+        }
+        else if(gc.isPaused() && !(level.getScore()<= player.getScore())){
+            button.update(gc,delta);
         }
     }
     
@@ -72,12 +67,22 @@ public class GameIsaac extends BasicGame{
      */
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        level.render(gc, g);
+        level.render(gc,g);
         player.render(gc, g);
-        if(gc.isPaused()){
+        if(level.getScore() >= player.getScore()){
+            point.render(gc, g);
+        }
+        if(gc.isPaused() && level.getScore() <= player.getScore()){
             dark.renderOpacity(gc, g);
             menu.renderMenu(gc, g);
-            button.renderWin(gc, g);
+            button.render(gc, g, "Bravissimo!");
+        }
+        else if(gc.isPaused() && level.getScore()> player.getScore()){
+            System.out.println(player.getScore() + " " + level.getScore());
+            dark.renderOpacity(gc, g);
+            menu.renderMenu(gc, g);
+            button.render(gc, g, "Resume");
+            point.render(gc, g);
         }
     }
 }
