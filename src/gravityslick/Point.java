@@ -68,7 +68,7 @@ public class Point {
         return point;
     }
   
-    public void init(GameContainer gc){
+    public void init(){
         point = new Rectangle(this.l, this.h, this.x, this.y); 
         
     }
