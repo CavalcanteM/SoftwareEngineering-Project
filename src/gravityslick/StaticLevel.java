@@ -53,10 +53,6 @@ public class StaticLevel {
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
         map.render(0, 0);
-        g.setColor(new Color(0,0,0,100));
-        for(int i = 0; i<rtl.size(); i++){
-            g.fill(rtl.get(i));
-        }
     }
     
 }
