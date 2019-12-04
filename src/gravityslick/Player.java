@@ -4,6 +4,7 @@ import static java.lang.Math.signum;
 import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -22,6 +23,7 @@ public class Player {
     private float iterations = 20;
     private int dashValue = 10;
     private int score=0;
+    private int rotationAngle = 30;
     
     private Shape player;
     private StaticLevel level;
@@ -35,11 +37,11 @@ public class Player {
     private Animation idleAnimationLeft;
     private boolean isChangingGravity;
     private boolean rotated = false;
-    private static final int WIDTH = 55;
-    private static final int HEIGHT = 60;
+    private static final int WIDTH = 58;
+    private static final int HEIGHT = 70;
     private boolean isPaused;
     private boolean isMovingRight = true;
-    private int rotationAngle = 20;
+
 
     private Player(StaticLevel level) {
         this.level = level;
@@ -155,7 +157,12 @@ public class Player {
      * @throws SlickException 
      */
     public void init(GameContainer gc) throws SlickException {
-        player = new Rectangle(250, 200, 29, 59);
+        /*
+        I used a shrinkage of 1 pixel in both dimentions to avoid that the
+        player is unable to pass through slight parts of the map.
+        i.e. passing through a 5x2 tile space could have caused problems 
+        */
+        player = new Rectangle(200, 200, 29, 59);
         
         // Create the character animation
         Image[] frames = new Image[8];
@@ -242,10 +249,16 @@ public class Player {
      * @throws SlickException 
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
+        //used to hyde the hitbox
+        g.setColor(new Color(0,0,0,0));
         g.fill(player);
-        // Take coordinates
-        float X = this.player.getMinX();
-        float Y = this.player.getMinY();
+        /* 
+        Take coordinates have an offset value to make the sprite perfectly
+        match the Shape rectangle, that aclually is the hitbox of the player. 
+        */
+        float X = this.player.getMinX()-14;
+        float Y = this.player.getMinY()-5;
+
         
         if(this.vX > 0){ // The character is moving on the right
             if(!isPaused){
@@ -290,22 +303,29 @@ public class Player {
             if(!isPaused){
                 if(isMovingRight){
                     if(rotated){
-                        this.idleAnimationLeft.draw(X,Y);
+                        /*
+                        The +2 and -2 are used to make the idle in left and 
+                        right position match the position of the center axis
+                        if the character. That's caused by a misallignement of
+                        the character in the sprite.
+                        */
+                        this.idleAnimationLeft.draw(X+2,Y);
                         this.idleAnimationLeft.start();
                     } else {
-                        this.idleAnimation.draw(X,Y);
+                        this.idleAnimation.draw(X+2,Y);
                         this.idleAnimation.start();
                     }
                 } else {
                     if(rotated){
-                        this.idleAnimation.draw(X,Y);
+                        this.idleAnimation.draw(X-2,Y);
                         this.idleAnimation.start();
                     } else {
-                        this.idleAnimationLeft.draw(X,Y);
+                        this.idleAnimationLeft.draw(X-2,Y);
                         this.idleAnimationLeft.start();
                     }
                 }
             } else {
+
                 if(isMovingRight){
                         if(rotated){
                             this.idleAnimationLeft.draw(X,Y);

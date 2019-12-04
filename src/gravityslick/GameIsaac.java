@@ -40,7 +40,7 @@ public class GameIsaac extends BasicGame{
         button = new Button(50,150, menu);
         button.init(gc);
         dark.init(gc);
-        point.init(gc);
+        point.init();
         level.getRtl().add(point.getPoint());
         
     }
