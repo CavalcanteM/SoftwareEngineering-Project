@@ -34,9 +34,10 @@ public class Player {
     private Animation idleAnimation;
     private boolean isChangingGravity;
     private boolean rotated = false;
-    private static final int WIDTH = 40;
+    private static final int WIDTH = 55;
     private static final int HEIGHT = 60;
     private boolean isPaused;
+    private int rotationAngle = 20;
 
     private Player(StaticLevel level) {
         this.level = level;
@@ -152,7 +153,7 @@ public class Player {
      * @throws SlickException 
      */
     public void init(GameContainer gc) throws SlickException {
-        player = new Rectangle(200, 200, WIDTH, HEIGHT);
+        player = new Rectangle(250, 200, 29, 59);
         
         // Create the character animation
         Image[] frames = new Image[8];
@@ -405,16 +406,16 @@ public class Player {
             Image currentImage = this.idleAnimation.getImage(i);
             if(rotated && currentImage.getRotation() != 180){
                 if(i<8){
-                    this.forwardAnimation.getImage(i).rotate(5);
-                    this.backwardAnimation.getImage(i).rotate(5);
+                    this.forwardAnimation.getImage(i).rotate(this.rotationAngle);
+                    this.backwardAnimation.getImage(i).rotate(this.rotationAngle);
                 }
-                this.idleAnimation.getImage(i).rotate(5);
+                this.idleAnimation.getImage(i).rotate(this.rotationAngle);
             } 
             if(!rotated && currentImage.getRotation() != 0){
-                this.idleAnimation.getImage(i).rotate(5);
+                this.idleAnimation.getImage(i).rotate(this.rotationAngle);
                 if(i<8){
-                    this.forwardAnimation.getImage(i).rotate(5);
-                    this.backwardAnimation.getImage(i).rotate(5);
+                    this.forwardAnimation.getImage(i).rotate(this.rotationAngle);
+                    this.backwardAnimation.getImage(i).rotate(this.rotationAngle);
                 }
             }
         }
