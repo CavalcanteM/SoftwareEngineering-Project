@@ -61,10 +61,11 @@ public class StaticLevelTest {
     @Test
     public void testInit() throws Exception {
         System.out.println("init");
+        int score = 0;
         GameContainer gc = null;
         Shape player = null;
         StaticLevel instance = new StaticLevel();
-        instance.init(gc, player);
+        instance.init(gc, player, score);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
