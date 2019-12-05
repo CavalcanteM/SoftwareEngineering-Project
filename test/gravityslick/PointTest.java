@@ -13,6 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -21,6 +22,8 @@ import org.newdawn.slick.geom.Shape;
  * @author Marco
  */
 public class PointTest {
+    
+    private Point p;
     
     public PointTest() {
     }
@@ -35,8 +38,8 @@ public class PointTest {
     }
     
     @Before
-    public void setUp() {
-        
+    public void setUp() throws SlickException{
+        this.p = new Point(10, 20, 30, 40);
     }
     
     @After
@@ -49,11 +52,6 @@ public class PointTest {
     @Test
     public void testGetL() {
         System.out.println("getL");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 10;
         int result = p.getL();
         assertSame(expResult, result);
@@ -65,11 +63,6 @@ public class PointTest {
     @Test
     public void testSetL() {
         System.out.println("setL");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 15;
         p.setL(expResult);
         assertSame(expResult, p.getL());
@@ -81,11 +74,6 @@ public class PointTest {
     @Test
     public void testGetH() {
         System.out.println("getH");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 20;
         int result = p.getH();
         assertSame(expResult, result);
@@ -97,11 +85,6 @@ public class PointTest {
     @Test
     public void testSetH() {
         System.out.println("setH");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 15;
         p.setH(expResult);
         assertSame(expResult, p.getH());
@@ -113,11 +96,6 @@ public class PointTest {
     @Test
     public void testGetX() {
         System.out.println("getX");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 30;
         int result = p.getX();
         assertSame(expResult, result);
@@ -129,11 +107,6 @@ public class PointTest {
     @Test
     public void testSetX() {
         System.out.println("setX");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 15;
         p.setX(expResult);
         assertSame(expResult, p.getX());
@@ -145,11 +118,6 @@ public class PointTest {
     @Test
     public void testGetY() {
         System.out.println("getY");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 40;
         int result = p.getY();
         assertSame(expResult, result);
@@ -161,11 +129,6 @@ public class PointTest {
     @Test
     public void testSetY() {
         System.out.println("setY");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         int expResult = 15;
         p.setY(expResult);
         assertSame(expResult, p.getY());
@@ -177,11 +140,6 @@ public class PointTest {
     @Test
     public void testGetPoint() {
         System.out.println("getPoint");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
         p.init();
         Shape expResult = new Rectangle(10, 20, 30, 40);
         Shape result = p.getPoint();
@@ -195,11 +153,7 @@ public class PointTest {
     @Test
     public void testInit() {
         System.out.println("init");
-        int l = 10;
-        int h = 20;
-        int x = 30;
-        int y = 40;
-        Point p = new Point(l, h, x, y);
+       
         p.init();
         Shape expResult = new Rectangle(10, 20, 30, 40);
         assertTrue((expResult.getMinX() == p.getPoint().getMinX()) && (expResult.getMinY() == p.getPoint().getMinY())
