@@ -504,19 +504,23 @@ public class Player {
     
     /**
      * Draw the hearts that represent the current life of the character
-     * @dim the dimension of the hearts in pixels
+     * @param dim the dimension of the hearts in pixels
      * @throws SlickException 
      */
     public void drawHearts(int dim) throws SlickException{
         SpriteSheet hearts = new SpriteSheet("./graphics/png/hearts.png", 300, 300); // Must be modified after the image modification        
         hearts.startUse();
         int i;
+        
+        // Draws the void hearts
         for(i = 0; i<this.numVoidHearts/2; i++){
             hearts.getSubImage(2, 0).getScaledCopy(dim, dim).draw(40*i, 0);
         }
+        // Draws the full hearts
         for(i = 0; i<this.numHearts/2 ; i++){
             hearts.getSprite(0, 0).getScaledCopy(dim, dim).draw(40*i, 0);
         }
+        // Draws the mid hearts
         if(this.numHearts - 2*i > 0){
             hearts.getSubImage(1,0).getScaledCopy(dim, dim).draw(40*i, 0);
         }
@@ -524,8 +528,8 @@ public class Player {
     }
     
     /**
-     * The number of mid hearts to subtract
-     * @param points 
+     * Manages the damage on the character
+     * @param points The number of mid hearts to subtract
      */
     public void getDamaged(int points){
         this.numHearts -= points;
