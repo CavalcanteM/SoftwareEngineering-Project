@@ -36,12 +36,15 @@ public class Player {
     private Animation backwardAnimation;
     private Animation idleAnimation;
     private Animation idleAnimationLeft;
+    private Animation deathAnimation;
+    private Animation deathAnimationLeft;
     private boolean isChangingGravity;
     private boolean rotated = false;
     private static final int WIDTH = 58;
     private static final int HEIGHT = 70;
     private boolean isPaused;
     private boolean isMovingRight = true;
+    private boolean isDead;
     private int numHearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
 
@@ -112,6 +115,10 @@ public class Player {
     public int getNumHearts() {
         return numHearts;
     }
+
+    public int getNumVoidHearts() {
+        return numVoidHearts;
+    }
     
     /*--------------------
      * Setter Methods 
@@ -156,6 +163,10 @@ public class Player {
         this.numHearts = numHearts;
     }
     
+    public void setNumVoidHearts(int numVoidHearts) {
+        this.numVoidHearts = numVoidHearts;
+    }
+    
     /*--------------------
      * Other methods 
      *--------------------*/
@@ -173,48 +184,43 @@ public class Player {
         */
         player = new Rectangle(200, 200, 29, 59);
         
-        // Create the character animation
+        // Create the animations for character moving on both the right and the left
         Image[] frames = new Image[8];
-        frames[0] = new Image("./graphics/png/Run (1).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[1] = new Image("./graphics/png/Run (2).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[2] = new Image("./graphics/png/Run (3).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[3] = new Image("./graphics/png/Run (4).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[4] = new Image("./graphics/png/Run (5).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[5] = new Image("./graphics/png/Run (6).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[6] = new Image("./graphics/png/Run (7).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[7] = new Image("./graphics/png/Run (8).png").getScaledCopy(WIDTH, HEIGHT);
-        
-        // Create the animation for the character moving on the right
-        this.forwardAnimation = new Animation(frames, 60);  
-        
+        this.forwardAnimation = new Animation(); 
+        this.backwardAnimation = new Animation();
         for(int i=0; i<frames.length; i++) {
+            frames[i] = new Image("./graphics/png/Run (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);  
+            // Adding current image to animation for moving to the right
+            this.forwardAnimation.addFrame(frames[i], 60);
+            // Flip and add current image to animation for moving to the left
             frames[i] = frames[i].getFlippedCopy(true, false);
+            this.backwardAnimation.addFrame(frames[i], 60);
         }
         
-        // Create the animation for the character moving on the left
-        this.backwardAnimation = new Animation(frames, 60);
-        
-        // Create the animation for the character not moving (idle animation)
+        // Create the animations for character not moving (idle animation)
         frames = new Image[10];
-        frames[0] = new Image("./graphics/png/Idle (1).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[1] = new Image("./graphics/png/Idle (2).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[2] = new Image("./graphics/png/Idle (3).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[3] = new Image("./graphics/png/Idle (4).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[4] = new Image("./graphics/png/Idle (5).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[5] = new Image("./graphics/png/Idle (6).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[6] = new Image("./graphics/png/Idle (7).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[7] = new Image("./graphics/png/Idle (8).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[8] = new Image("./graphics/png/Idle (9).png").getScaledCopy(WIDTH, HEIGHT);
-        frames[9] = new Image("./graphics/png/Idle (10).png").getScaledCopy(WIDTH, HEIGHT);
-        
-        this.idleAnimation = new Animation(frames, 60);
-        
+        this.idleAnimation = new Animation();
+        this.idleAnimationLeft = new Animation();
         for(int i=0; i<frames.length; i++) {
+            frames[i] = new Image("./graphics/png/Idle (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
+            // Adding current image to animation idle looking to the right
+            this.idleAnimation.addFrame(frames[i], 60);
+            // Flip and add current image to the animation idle looking to the left
             frames[i] = frames[i].getFlippedCopy(true, false);
+            this.idleAnimationLeft.addFrame(frames[i], 60);
         }
         
-        // Create the animation for the character moving on the left
-        this.idleAnimationLeft = new Animation(frames, 60);
+        // Create the animation for the character dying
+        this.deathAnimation = new Animation();
+        this.deathAnimationLeft = new Animation();
+        for(int i = 0; i < frames.length; i++) {
+            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png");
+            // Adding current image to animation death falling to the right
+            this.deathAnimation.addFrame(frames[i], 60);
+            // Flip and add current image to the animation death falling to the left
+            frames[i] = frames[i].getFlippedCopy(true, false);
+            this.deathAnimationLeft.addFrame(frames[i], 60);
+        }
     }
     
     /**
@@ -255,6 +261,10 @@ public class Player {
         }
         if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
             this.getDamaged(2);
+        }
+        if(isDead) {
+            System.out.println("You are dead!");
+            this.isDead = false;
         }
     }
     
@@ -533,5 +543,8 @@ public class Player {
      */
     public void getDamaged(int points){
         this.numHearts -= points;
+        if(this.numHearts <= 0) {
+            this.isDead = true;
+        }
     }
 }
