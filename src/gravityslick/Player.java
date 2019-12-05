@@ -24,7 +24,6 @@ public class Player {
     private float iterations = 20;
     private int dashValue = 10;
     private int score=0;
-    private int rotationAngle = 30;
     
     private Shape player;
     private StaticLevel level;
@@ -256,16 +255,17 @@ public class Player {
         }
         
         // Temporary code: used only for graphically testing the damage
+        if(isDead) {
+            System.out.println("You are dead!");
+            this.isDead = false;
+        }
         if (gc.getInput().isKeyPressed(Input.KEY_T)) {
             this.getDamaged(1);
         }
         if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
             this.getDamaged(2);
         }
-        if(isDead) {
-            System.out.println("You are dead!");
-            this.isDead = false;
-        }
+        
     }
     
     /**
@@ -373,7 +373,7 @@ public class Player {
         }
         
         if(this.isChangingGravity) {
-            this.rotate();
+            this.rotate(30);
         }
         
         this.drawHearts(35);
@@ -489,24 +489,20 @@ public class Player {
     
     /**
      * Manages the rotation of the character. (Has to be refactored)
+     * @param angle the rotation angle
      */
-    public void rotate(){
+    public void rotate(int angle){
         for(int i=0; i<10; i++){
             Image currentImage = this.idleAnimation.getImage(i);
-            if(rotated && currentImage.getRotation() != 180){
-                this.idleAnimation.getImage(i).rotate(this.rotationAngle);
-                this.idleAnimationLeft.getImage(i).rotate(this.rotationAngle);
+            /* The character rotates if the gravity is changed but it's 180 rotation
+             * is not yet completed
+            */
+            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
+                this.idleAnimation.getImage(i).rotate(angle);
+                this.idleAnimationLeft.getImage(i).rotate(angle);
                 if(i<8){
-                    this.forwardAnimation.getImage(i).rotate(this.rotationAngle);
-                    this.backwardAnimation.getImage(i).rotate(this.rotationAngle);
-                }
-            } 
-            if(!rotated && currentImage.getRotation() != 0){
-                this.idleAnimation.getImage(i).rotate(this.rotationAngle);
-                this.idleAnimationLeft.getImage(i).rotate(this.rotationAngle);
-                if(i<8){
-                    this.forwardAnimation.getImage(i).rotate(this.rotationAngle);
-                    this.backwardAnimation.getImage(i).rotate(this.rotationAngle);
+                    this.forwardAnimation.getImage(i).rotate(angle);
+                    this.backwardAnimation.getImage(i).rotate(angle);
                 }
             }
         }
@@ -518,13 +514,13 @@ public class Player {
      * @throws SlickException 
      */
     public void drawHearts(int dim) throws SlickException{
-        SpriteSheet hearts = new SpriteSheet("./graphics/png/hearts.png", 300, 300); // Must be modified after the image modification        
+        SpriteSheet hearts = new SpriteSheet("./graphics/png/hearts.png", 300, 300); // Must be modified after the image is changed        
         hearts.startUse();
         int i;
         
         // Draws the void hearts
         for(i = 0; i<this.numVoidHearts/2; i++){
-            hearts.getSubImage(2, 0).getScaledCopy(dim, dim).draw(40*i, 0);
+            hearts.getSprite(2, 0).getScaledCopy(dim, dim).draw(40*i, 0);
         }
         // Draws the full hearts
         for(i = 0; i<this.numHearts/2 ; i++){
@@ -532,7 +528,7 @@ public class Player {
         }
         // Draws the mid hearts
         if(this.numHearts - 2*i > 0){
-            hearts.getSubImage(1,0).getScaledCopy(dim, dim).draw(40*i, 0);
+            hearts.getSprite(1,0).getScaledCopy(dim, dim).draw(40*i, 0);
         }
         hearts.endUse();
     }
