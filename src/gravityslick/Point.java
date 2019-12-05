@@ -5,12 +5,13 @@
  */
 package gravityslick;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.ShapeRenderer;
 
 /**
  *
@@ -23,13 +24,13 @@ public class Point {
     private int h;
     private int x;
     private int y;
+    private Image image;
     
-    public Point(int l, int h, int x, int y){
+    public Point(int l, int h, int x, int y) throws SlickException{
         this.h=h;
         this.l=l;
         this.x=x;
-        this.y=y;
-                
+        this.y=y; 
     }
 
     public int getL() {
@@ -77,9 +78,9 @@ public class Point {
         
     }
     
-    public void render(GameContainer gc, Graphics g){
-       g.setColor(Color.yellow);
-       g.draw(point);
+    public void render(GameContainer gc, Graphics g) throws SlickException{
+       Image image = new Image("./graphics/png/burger_s.png");
+       ShapeRenderer.textureFit(point, image);
     }
     
 }
