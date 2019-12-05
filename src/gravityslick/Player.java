@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -41,7 +42,8 @@ public class Player {
     private static final int HEIGHT = 70;
     private boolean isPaused;
     private boolean isMovingRight = true;
-
+    private int numHearts = 6; // Measured in mid hearts
+    private int numVoidHearts = 6; // Measured in mid hearts
 
     private Player(StaticLevel level) {
         this.level = level;
@@ -107,7 +109,9 @@ public class Player {
         return score;
     }
     
-    
+    public int getNumHearts() {
+        return numHearts;
+    }
     
     /*--------------------
      * Setter Methods 
@@ -147,6 +151,11 @@ public class Player {
     public void setIsPaused(boolean isPaused) {
         this.isPaused = isPaused;
     }
+    
+    public void setNumHearts(int numHearts) {
+        this.numHearts = numHearts;
+    }
+    
     /*--------------------
      * Other methods 
      *--------------------*/
@@ -236,9 +245,16 @@ public class Player {
             gc.pause();
         }
         
-        
         if(this.score >= this.level.getScore()){
             gc.pause();
+        }
+        
+        // Temporary code: used only for graphically testing the damage
+        if (gc.getInput().isKeyPressed(Input.KEY_T)) {
+            this.getDamaged(1);
+        }
+        if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
+            this.getDamaged(2);
         }
     }
     
@@ -259,7 +275,7 @@ public class Player {
         float X = this.player.getMinX()-14;
         float Y = this.player.getMinY()-5;
 
-        
+        // From this point the code has to be refactored
         if(this.vX > 0){ // The character is moving on the right
             if(!isPaused){
                 if(rotated){
@@ -349,6 +365,8 @@ public class Player {
         if(this.isChangingGravity) {
             this.rotate();
         }
+        
+        this.drawHearts(35);
     }
     
     /**
@@ -415,7 +433,7 @@ public class Player {
         // If we hold down D, the character will move to the right
         } else if (in.isKeyDown(Input.KEY_D)) {
             vX = speed;
-             this.isMovingRight = true;
+            this.isMovingRight = true;
             if (in.isKeyPressed(Input.KEY_LSHIFT)) {
                 dash(RIGHT);
             }
@@ -460,7 +478,7 @@ public class Player {
     }
     
     /**
-     * 
+     * Manages the rotation of the character. (Has to be refactored)
      */
     public void rotate(){
         for(int i=0; i<10; i++){
@@ -482,5 +500,34 @@ public class Player {
                 }
             }
         }
+    }
+    
+    /**
+     * Draw the hearts that represent the current life of the character
+     * @dim the dimension of the hearts in pixels
+     * @throws SlickException 
+     */
+    public void drawHearts(int dim) throws SlickException{
+        SpriteSheet hearts = new SpriteSheet("./graphics/png/hearts.png", 300, 300); // Must be modified after the image modification        
+        hearts.startUse();
+        int i;
+        for(i = 0; i<this.numVoidHearts/2; i++){
+            hearts.getSubImage(2, 0).getScaledCopy(dim, dim).draw(40*i, 0);
+        }
+        for(i = 0; i<this.numHearts/2 ; i++){
+            hearts.getSprite(0, 0).getScaledCopy(dim, dim).draw(40*i, 0);
+        }
+        if(this.numHearts - 2*i > 0){
+            hearts.getSubImage(1,0).getScaledCopy(dim, dim).draw(40*i, 0);
+        }
+        hearts.endUse();
+    }
+    
+    /**
+     * The number of mid hearts to subtract
+     * @param points 
+     */
+    public void getDamaged(int points){
+        this.numHearts -= points;
     }
 }
