@@ -4,7 +4,6 @@ package gravityslick;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -13,15 +12,22 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
 
+/*
+    After StaticLevel has taken informations from the "Rwd" layer of the TiledMap
+    and has produced an ArrayList of Shapes that represent the positions of the
+    Isaac's girlfriend pieces, this class has the scope of randomly iterates this
+    ArrayList<Shape>, return to the Collision class the Shape of the current
+    reward and renders on Graphics g the image of the reward.
+*/
 public class Points implements Iterable<Shape> {
     
-    private ArrayList<Shape> rwd;
-    private Random ran;
+    private final ArrayList<Shape> rwd;
+    private final Random ran;
     private int nObj;
     private Shape current;
     private Shape toDraw;
         
-    private Image image;
+    private Image imm;
 
     public Points(ArrayList<Shape> rwd, int nObj){
         this.rwd = rwd;
@@ -44,8 +50,10 @@ public class Points implements Iterable<Shape> {
     }
     
     public void render(GameContainer gc, Graphics g) throws SlickException{
-       Image image = new Image("./graphics/png/burger_s.png");
-       ShapeRenderer.textureFit(this.current, image);
+        if(nObj != 0){
+            Image imm = new Image("./graphics/png/burger_s.png");
+            ShapeRenderer.textureFit(this.current, imm);
+        }
     }
 
     @Override

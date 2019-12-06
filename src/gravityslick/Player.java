@@ -221,7 +221,7 @@ public class Player {
             frames[i] = frames[i].getFlippedCopy(true, false);
             this.deathAnimationLeft.addFrame(frames[i], 60);
         }
-        
+        //Takes the Shape of the current reward that Isacc has to collect
         this.rwd = level.getPts().iterator().next();
     }
     
@@ -524,6 +524,10 @@ public class Player {
         return false;
     }
     
+    /*
+        This method has the scope of the detection of the collision between Isaac 
+        and the Shape of the current reward that Isacc has to collect
+    */
     public void getReward(){
         if(this.player.intersects(this.rwd)){
             //this.score++;

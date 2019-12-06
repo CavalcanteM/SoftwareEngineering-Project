@@ -51,6 +51,10 @@ public class GameIsaac extends BasicGame{
             level.update(gc, delta);
             player.update(gc, delta);
         }
+        /*
+            The second condition means that Isaac has not already collected all
+            pieces of its girlfriend
+        */
         else if(gc.isPaused() && level.getPts().iterator().hasNext()){
             button.update(gc,delta);
         }
@@ -65,6 +69,10 @@ public class GameIsaac extends BasicGame{
     public void render(GameContainer gc, Graphics g) throws SlickException {
         level.render(gc,g);
         player.render(gc, g);
+        /*
+            The second condition means that Isaac has already collected all
+            pieces of its girlfriend
+        */
         if(gc.isPaused() && !level.getPts().iterator().hasNext()){
             dark.renderOpacity(gc, g);
             menu.renderMenu(gc, g);
