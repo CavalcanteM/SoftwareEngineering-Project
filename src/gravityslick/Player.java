@@ -421,7 +421,7 @@ public class Player {
             this.rotate(30);
         }
         
-        this.drawHearts(35);
+        this.drawHearts(35, 30);
     }
     
     /**
@@ -557,25 +557,26 @@ public class Player {
     
     /**
      * Draw the hearts that represent the current life of the character
-     * @param dim the dimension of the hearts in pixels
+     * @param dim1 the width of the hearts in pixels
+     * @param dim2 the height of the hearts in pixels
      * @throws SlickException 
      */
-    public void drawHearts(int dim) throws SlickException{
-        SpriteSheet hearts = new SpriteSheet("./graphics/png/hearts.png", 300, 300); // Must be modified after the image is changed        
+    public void drawHearts(int dim1, int dim2) throws SlickException{
+        SpriteSheet hearts = new SpriteSheet("./graphics/png/hearts.png", 265, 231); // Must be modified after the image is changed        
         hearts.startUse();
         int i;
         
         // Draws the void hearts
         for(i = 0; i<this.numVoidHearts/2; i++){
-            hearts.getSprite(2, 0).getScaledCopy(dim, dim).draw(40*i, 0);
+            hearts.getSprite(2, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the full hearts
         for(i = 0; i<this.numHearts/2 ; i++){
-            hearts.getSprite(0, 0).getScaledCopy(dim, dim).draw(40*i, 0);
+            hearts.getSprite(0, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the mid hearts
         if(this.numHearts - 2*i > 0){
-            hearts.getSprite(1,0).getScaledCopy(dim, dim).draw(40*i, 0);
+            hearts.getSprite(1,0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         hearts.endUse();
     }
