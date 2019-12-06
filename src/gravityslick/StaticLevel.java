@@ -15,16 +15,18 @@ import org.newdawn.slick.tiled.TiledMap;
 public class StaticLevel {
     
     private TiledMap map;
-    private FactoryMap cmap;
-    private ArrayList<Shape> rtl;
+    private ArrayList<Shape> ObjectShapes, SpikeShapes, BoltShapes;
     private int score;
     /** 
      * @return the arrayList of the object in the map
      */
-    public ArrayList<Shape> getRtl() {
-        return rtl;
+    public ArrayList<Shape> getObjectShapes() {
+        return ObjectShapes;
     }
     
+    public ArrayList<Shape> getSpikeShapes() {
+        return SpikeShapes;
+    }
     /**
      * Is a sort of constructor for this class
      * @param gc
@@ -32,9 +34,12 @@ public class StaticLevel {
      * @throws org.newdawn.slick.SlickException
      */
     public void init(GameContainer gc, Shape player, int score) throws SlickException {
-        this.map = new TiledMap("\\src\\map\\960x720 (2).tmx");
-        this.cmap = new ObjFactoryMap(this.map);
-        this.rtl = cmap.getShapes();
+
+        this.map = new TiledMap("\\src\\map\\Level_"+readFromFile()+".tmx");
+        
+        this.ObjectShapes = new LayerShapeFactory(this.map, "Obj").getShapes();
+        this.SpikeShapes = new LayerShapeFactory(this.map, "Spikes").getShapes();     
+        
         this.score= score;
     }
 
@@ -52,7 +57,14 @@ public class StaticLevel {
      * @throws org.newdawn.slick.SlickException
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        map.render(0, 0);
+        map.render(0, 0, map.getLayerIndex("Back"));
+        map.render(0, 0, map.getLayerIndex("Obj"));
+        map.render(0, 0, map.getLayerIndex("Spikes"));
+
+    }
+    
+    private int readFromFile(){
+        return 1;
     }
     
 }

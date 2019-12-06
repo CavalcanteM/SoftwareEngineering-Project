@@ -24,6 +24,7 @@ public class Player {
     private float iterations = 20;
     private int dashValue = 10;
     private int score=0;
+    private long lastHitTime = System.currentTimeMillis();
     
     private Shape player;
     private StaticLevel level;
@@ -37,6 +38,7 @@ public class Player {
     private Animation idleAnimationLeft;
     private Animation deathAnimation;
     private Animation deathAnimationLeft;
+    
     private boolean isChangingGravity;
     private boolean rotated = false;
     private static final int WIDTH = 58;
@@ -179,9 +181,10 @@ public class Player {
         /*
         I used a shrinkage of 1 pixel in both dimentions to avoid that the
         player is unable to pass through slight parts of the map.
-        i.e. passing through a 5x2 tile space could have caused problems 
+        i.e. passing through a 5x2 tile space could have caused problems.
+        The 2 values 30, 720-90, are the spawn point of the character.
         */
-        player = new Rectangle(200, 200, 29, 59);
+        player = new Rectangle(30, 720-90, 29, 59);
         
         // Create the animations for character moving on both the right and the left
         Image[] frames = new Image[8];
@@ -259,12 +262,7 @@ public class Player {
 //            System.out.println("You are dead!");
 //            this.isDead = false;
 //        }
-        if (gc.getInput().isKeyPressed(Input.KEY_T)) {
-            this.getDamaged(1);
-        }
-        if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
-            this.getDamaged(2);
-        }
+
         
     }
     
@@ -449,9 +447,12 @@ public class Player {
 
         for (int t = 0; t < iterations; t++) {
             player.setX(player.getX() + vXtemp);
-            if (this.collidesWith(level.getRtl())) {
+            if (this.collidesWith(level.getObjectShapes())) {
                 player.setX(player.getX() - vXtemp);
                 vX = 0;
+            }
+            if (this.collidesWith( level.getSpikeShapes())) {
+                this.getDamaged(1);
             }
         }
     }
@@ -465,7 +466,7 @@ public class Player {
         
         for (int t = 0; t < iterations; t++) {
             player.setY(player.getY() + vYtemp);
-            if (this.collidesWith(level.getRtl())) {
+            if (this.collidesWith(level.getObjectShapes())) {
                 player.setY(player.getY() - vYtemp);
                 vY = 0;
             }
@@ -585,11 +586,22 @@ public class Player {
      * Manages the damage on the character
      * @param points The number of mid hearts to subtract
      */
-    public void getDamaged(int points){
-        this.numHearts -= points;
-        if(this.numHearts <= 0) {
-            this.isDead = true;
-            this.vX = 0;
+   synchronized public void getDamaged(int points){
+
+        
+        if( (System.currentTimeMillis()-this.lastHitTime)> 3000 ){
+            this.lastHitTime=System.currentTimeMillis();
+            
+            System.out.println(System.currentTimeMillis());
+            
+            this.numHearts -= points;
+            if(this.numHearts <= 0) {
+                this.isDead = true;
+                this.vX = 0;
+                
+            }    
         }
+        
+
     }
 }

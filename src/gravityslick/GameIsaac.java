@@ -41,7 +41,7 @@ public class GameIsaac extends BasicGame{
         button.init(gc);
         dark.init(gc);
         point.init();
-        level.getRtl().add(point.getPoint());
+        level.getObjectShapes().add(point.getPoint());
         
     }
     
