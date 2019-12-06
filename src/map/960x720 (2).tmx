@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="3" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="4" nextobjectid="1">
  <tileset firstgid="1" name="TileSet (30)" tilewidth="30" tileheight="30" tilecount="10" columns="5">
   <image source="TileSet (30).png" width="150" height="60"/>
  </tileset>
@@ -11,6 +11,11 @@
  <layer id="1" name="Obj" width="32" height="24">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECuWWSwqAMAxEiyKo9z+wmcXAUFqVwaYLA6HBNnn5LTxLKfskPYN7hGYLmVuAaWfmQOYMPtmodxR/idh3yl6P4vf2eQ0w7iij+IzPExywoRn9J5cn+JTR/Hru4Gby69ln89lnPTPrV+6Tjbx0H57ef33v8ls75uTm8ls7lsl3WC0ft/5WLOdbj6/zdeK+9enxdb5vYznvenwnluPzR77WrLbTP8dHmbDxD6z7nmmDfQFmFW6FAAwAAA==
+  </data>
+ </layer>
+ <layer id="3" name="Rwd" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGFmACepdGE3I98SqI2TOqDzhEBgNa8JhBFJBTjiRo4c41wxPVaPhNTzjlV6+Gk0/1AnpwRyOg9lt1An9kWHKQMTjQNiJLTYBWfuDXQAMAAA=
   </data>
  </layer>
 </map>

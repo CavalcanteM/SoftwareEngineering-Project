@@ -22,10 +22,10 @@ public class ObjFactoryMap extends FactoryMap{
      * if the layer called "Obj"
      * @param map
      */
-    public ObjFactoryMap(TiledMap map) {
+    public ObjFactoryMap(TiledMap map, int idLayer) {
         super(map);
         this.map = super.getMap();
-        this.objlayer = super.getMap().getLayerIndex("Obj");
+        this.objlayer = idLayer;
     }
     
     /**  This method has the scope of the creation of a collection (ArrayList)
