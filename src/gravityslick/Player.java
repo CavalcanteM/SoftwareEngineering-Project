@@ -26,6 +26,7 @@ public class Player {
     private int score=0;
     
     private Shape player;
+    private Shape rwd;
     private StaticLevel level;
 
     private float vX = 0;
@@ -220,6 +221,8 @@ public class Player {
             frames[i] = frames[i].getFlippedCopy(true, false);
             this.deathAnimationLeft.addFrame(frames[i], 60);
         }
+        
+        this.rwd = level.getPts().iterator().next();
     }
     
     /**
@@ -250,9 +253,7 @@ public class Player {
             gc.pause();
         }
         
-        if(this.score >= this.level.getScore()){
-            gc.pause();
-        }
+        getReward();
         
         // Temporary code: used only for graphically testing the damage
 //        if(isDead) {
@@ -275,6 +276,7 @@ public class Player {
      * @throws SlickException 
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
+        
         //used to hyde the hitbox
         g.setColor(new Color(0,0,0,0));
         g.fill(player);
@@ -516,20 +518,17 @@ public class Player {
     public boolean collidesWith(ArrayList<Shape> objects){
         for(int i = 0; i < objects.size(); i++){
             if(this.player.intersects(objects.get(i))){
-                if(i==objects.size()-1 && !(this.score > this.level.getScore())){
-                    this.score++;
-                    if(this.score < this.level.getScore()){
-                        Random random = new Random();
-                        objects.get(i).setCenterX((float) random.nextInt(960-300)+300);
-                        objects.get(i).setCenterY((float) random.nextInt(720-300)+300);
-                    }
-                }
-                else{
-                    return true;
-                }
+                return true;
             }
         }
         return false;
+    }
+    
+    public void getReward(){
+        if(this.player.intersects(this.rwd)){
+            //this.score++;
+            this.rwd = level.getPts().iterator().next();
+        }
     }
     
     /**
