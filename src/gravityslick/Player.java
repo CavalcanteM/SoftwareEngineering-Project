@@ -213,7 +213,7 @@ public class Player {
         this.deathAnimation = new Animation();
         this.deathAnimationLeft = new Animation();
         for(int i = 0; i < frames.length; i++) {
-            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png");
+            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
             // Adding current image to animation death falling to the right
             this.deathAnimation.addFrame(frames[i], 60);
             // Flip and add current image to the animation death falling to the left
@@ -255,10 +255,10 @@ public class Player {
         }
         
         // Temporary code: used only for graphically testing the damage
-        if(isDead) {
-            System.out.println("You are dead!");
-            this.isDead = false;
-        }
+//        if(isDead) {
+//            System.out.println("You are dead!");
+//            this.isDead = false;
+//        }
         if (gc.getInput().isKeyPressed(Input.KEY_T)) {
             this.getDamaged(1);
         }
@@ -286,91 +286,136 @@ public class Player {
         float Y = this.player.getMinY()-5;
 
         // From this point the code has to be refactored
-        if(this.vX > 0){ // The character is moving on the right
-            if(!isPaused){
-                if(rotated){
-                    this.backwardAnimation.draw(X, Y);
-                    this.backwardAnimation.start();
-                } else {
-                    this.forwardAnimation.draw(X, Y);
-                    this.forwardAnimation.start();
-                }   
-            } else {
-                if(rotated){
-                    this.backwardAnimation.draw(X, Y);
-                    this.backwardAnimation.stop();
-                } else {
-                    this.forwardAnimation.draw(X, Y);
-                    this.forwardAnimation.stop();
-                }
-            }
-             
-        }
-        else if(this.vX < 0){ // The character is moving on the left
-            if(!isPaused){
-                if(rotated){
-                    this.forwardAnimation.draw(X, Y);
-                    this.forwardAnimation.start();
-                } else {
-                    this.backwardAnimation.draw(X, Y);
-                    this.backwardAnimation.start(); 
-                }
-            } else {
-                if(rotated){
-                    this.forwardAnimation.draw(X, Y);
-                    this.forwardAnimation.stop();
-                } else {
-                    this.backwardAnimation.draw(X, Y);
-                    this.backwardAnimation.stop(); 
-                }
-            }
-        }
-        else { // The character doesn't move
-            if(!isPaused){
+//        if(this.vX > 0){ // The character is moving on the right
+//            if(!isPaused){
+//                if(rotated){
+//                    this.backwardAnimation.draw(X, Y);
+//                    this.backwardAnimation.start();
+//                } else {
+//                    this.forwardAnimation.draw(X, Y);
+//                    this.forwardAnimation.start();
+//                }   
+//            } else {
+//                if(rotated){
+//                    this.backwardAnimation.draw(X, Y);
+//                    this.backwardAnimation.stop();
+//                } else {
+//                    this.forwardAnimation.draw(X, Y);
+//                    this.forwardAnimation.stop();
+//                }
+//            }
+//             
+//        }
+//        else if(this.vX < 0){ // The character is moving on the left
+//            if(!isPaused){
+//                if(rotated){
+//                    this.forwardAnimation.draw(X, Y);
+//                    this.forwardAnimation.start();
+//                } else {
+//                    this.backwardAnimation.draw(X, Y);
+//                    this.backwardAnimation.start(); 
+//                }
+//            } else {
+//                if(rotated){
+//                    this.forwardAnimation.draw(X, Y);
+//                    this.forwardAnimation.stop();
+//                } else {
+//                    this.backwardAnimation.draw(X, Y);
+//                    this.backwardAnimation.stop(); 
+//                }
+//            }
+//        }
+//        else { 
+        if(this.vX == 0) {// The character doesn't move
+            if(!isPaused){             
                 if(isMovingRight){
                     if(rotated){
-                        /*
-                        The +2 and -2 are used to make the idle in left and 
-                        right position match the position of the center axis
-                        if the character. That's caused by a misallignement of
-                        the character in the sprite.
-                        */
-                        this.idleAnimationLeft.draw(X+2,Y);
-                        this.idleAnimationLeft.start();
+                        if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
+                            this.deathAnimationLeft.draw(X, Y);
+                            this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
+                            this.deathAnimationLeft.start();
+                        } else {
+                            /*
+                            The +2 and -2 are used to make the idle in left and 
+                            right position match the position of the center axis
+                            if the character. That's caused by a misallignement of
+                            the character in the sprite.
+                            */
+                            this.idleAnimationLeft.draw(X+2,Y);
+                            this.idleAnimationLeft.start();
+                        }
+                        
                     } else {
-                        this.idleAnimation.draw(X+2,Y);
-                        this.idleAnimation.start();
+                        if(isDead && !this.deathAnimation.isStopped()){ // You can't die when the game is in pause
+                            this.deathAnimation.draw(X, Y);
+                            this.deathAnimation.stopAt(this.deathAnimation.getFrameCount()-1);
+                            this.deathAnimation.start();
+                        } else {
+                            this.idleAnimation.draw(X+2,Y);
+                            this.idleAnimation.start();
+                        }
                     }
                 } else {
                     if(rotated){
-                        this.idleAnimation.draw(X-2,Y);
-                        this.idleAnimation.start();
+                        if(isDead && !this.deathAnimation.isStopped()){ // You can't die when the game is in pause
+                            this.deathAnimation.draw(X, Y);
+                            this.deathAnimation.stopAt(this.deathAnimation.getFrameCount()-1);
+                            this.deathAnimation.start();
+                        } else {
+                            this.idleAnimation.draw(X-2,Y);
+                            this.idleAnimation.start();
+                        }    
                     } else {
-                        this.idleAnimationLeft.draw(X-2,Y);
-                        this.idleAnimationLeft.start();
+                        if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
+                            this.deathAnimationLeft.draw(X, Y);
+                            this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
+                            this.deathAnimationLeft.start();
+                        } else {
+                            this.idleAnimationLeft.draw(X-2,Y);
+                            this.idleAnimationLeft.start();
+                        }   
                     }
                 }
             } else {
 
                 if(isMovingRight){
-                        if(rotated){
-                            this.idleAnimationLeft.draw(X,Y);
-                            this.idleAnimationLeft.stop();
-                        } else {
-                            this.idleAnimation.draw(X,Y);
-                            this.idleAnimation.stop();
-                        }
+                    if(rotated){
+                        this.idleAnimationLeft.draw(X,Y);
+                        this.idleAnimationLeft.stop();
                     } else {
-                        if(rotated){
-                            this.idleAnimation.draw(X,Y);
-                            this.idleAnimation.stop();
-                        } else {
-                            this.idleAnimationLeft.draw(X,Y);
-                            this.idleAnimationLeft.stop();
-                        }
+                        this.idleAnimation.draw(X,Y);
+                        this.idleAnimation.stop();
+                    }
+                } else {
+                    if(rotated){
+                        this.idleAnimation.draw(X,Y);
+                        this.idleAnimation.stop();
+                    } else {
+                        this.idleAnimationLeft.draw(X,Y);
+                        this.idleAnimationLeft.stop();
                     }
                 }
+            }
         }
+        
+        if((this.vX > 0 && !rotated) || (this.vX < 0 && rotated)) {
+            this.forwardAnimation.draw(X, Y);
+            if(!isPaused){ 
+                this.forwardAnimation.start(); 
+            } else {
+                this.forwardAnimation.stop();
+            }
+        }
+            
+        if((this.vX > 0 && rotated) || (this.vX < 0 && !rotated)) {
+            this.backwardAnimation.draw(X, Y);
+            if(!isPaused){
+                this.backwardAnimation.start();
+            } else {
+                this.backwardAnimation.stop();
+            }
+        }
+        
         
         if(this.isChangingGravity) {
             this.rotate(30);
@@ -500,6 +545,8 @@ public class Player {
             if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
                 this.idleAnimation.getImage(i).rotate(angle);
                 this.idleAnimationLeft.getImage(i).rotate(angle);
+                this.deathAnimation.getImage(i).rotate(angle);
+                this.deathAnimationLeft.getImage(i).rotate(angle);
                 if(i<8){
                     this.forwardAnimation.getImage(i).rotate(angle);
                     this.backwardAnimation.getImage(i).rotate(angle);
@@ -541,6 +588,7 @@ public class Player {
         this.numHearts -= points;
         if(this.numHearts <= 0) {
             this.isDead = true;
+            this.vX = 0;
         }
     }
 }
