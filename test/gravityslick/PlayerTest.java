@@ -333,4 +333,28 @@ public class PlayerTest {
         assertTrue(vx2 < vx1);
     }
     
+    /**
+     * Test of getDamaged method, of class Player
+     */
+    @Test
+    public void testGetDamaged() {
+        System.out.println("getDamaged");
+        int expHearts = 4;
+        this.player.setNumHearts(6);
+        this.player.getDamaged(2);
+        assertEquals(expHearts, this.player.getNumHearts());
+    }
+    
+    /**
+     * Test of resetStats method, of class Player
+     */
+    @Test
+    public void testResetStats() {
+        System.out.println("getDamaged");
+        int expHearts = 6;
+        this.player.setNumHearts(6);
+        this.player.getDamaged(4);
+        this.player.resetStats();
+        assertEquals(expHearts, this.player.getNumHearts());
+    }
 }
