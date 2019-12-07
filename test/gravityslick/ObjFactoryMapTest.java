@@ -5,7 +5,6 @@
  */
 package gravityslick;
 
-import Main.FactoryMap;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;

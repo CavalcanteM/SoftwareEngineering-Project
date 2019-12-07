@@ -1,6 +1,4 @@
-package Main;
-
-import CollisionDetection.*;
+package gravityslick;
 
 import static java.lang.Math.signum;
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ public class Player {
     private Shape player;
     private Shape rwd;
     private StaticLevel level;
-    private CollisionDetectionStrategy wallCollision;
 
     private float vX = 0;
     private float vY = 0;
@@ -91,7 +88,7 @@ public class Player {
         return level;
     }
 
-    public Shape getShape() {
+    public Shape getPlayer() {
         return player;
     }
 
@@ -186,8 +183,6 @@ public class Player {
         i.e. passing through a 5x2 tile space could have caused problems 
         */
         player = new Rectangle(200, 200, 29, 59);
-        
-        wallCollision = new CollisionDetectionWall(this.level);
         
         // Create the animations for character moving on both the right and the left
         Image[] frames = new Image[8];
@@ -459,7 +454,7 @@ public class Player {
 
         for (int t = 0; t < iterations; t++) {
             player.setX(player.getX() + vXtemp);
-            if (wallCollision.detectCollision(this)) {
+            if (this.collidesWith(level.getRtl())) {
                 player.setX(player.getX() - vXtemp);
                 vX = 0;
             }
@@ -475,7 +470,7 @@ public class Player {
         
         for (int t = 0; t < iterations; t++) {
             player.setY(player.getY() + vYtemp);
-            if (wallCollision.detectCollision(this)) {
+            if (this.collidesWith(level.getRtl())) {
                 player.setY(player.getY() - vYtemp);
                 vY = 0;
             }

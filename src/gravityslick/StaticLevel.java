@@ -1,6 +1,5 @@
-package Main;
+package gravityslick;
 
-import Entities.Wall;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -16,9 +15,9 @@ public class StaticLevel {
     
     private TiledMap map;
     private FactoryMap cmap;
-    private ArrayList<Wall> rtl;
+    private ArrayList<Shape> rtl;
     private FactoryMap rwdMap;
-    private ArrayList<Wall> rwd;
+    private ArrayList<Shape> rwd;
     private int score;
     
     private int idBackLayer;
@@ -29,20 +28,12 @@ public class StaticLevel {
     /** 
      * @return the arrayList of the object in the map
      */
-    public ArrayList<Wall> getRtl() {
+    public ArrayList<Shape> getRtl() {
         return rtl;
     }
 
     public Points getPts() {
         return pts;
-    }
-    
-    public TiledMap getMap(){
-        return this.map;
-    }
-    
-    public ArrayList<Wall> getWalls(){
-        return new ObjFactoryMap(this.map, 1).getShapes();
     }
     
     /**

@@ -1,4 +1,4 @@
-package Main;
+package gravityslick;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;

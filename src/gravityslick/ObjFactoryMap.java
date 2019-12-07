@@ -1,6 +1,5 @@
-package Main;
+package gravityslick;
 
-import Entities.Wall;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -34,16 +33,14 @@ public class ObjFactoryMap extends FactoryMap{
      * @return 
      */
     @Override
-    public ArrayList<Wall> getShapes(){
-        
-        ArrayList<Wall> rtl = new ArrayList<>();
-        
+    public ArrayList<Shape> getShapes(){
+        ArrayList<Shape> rtl = new ArrayList<>();
         for(y = 0; y < map.getHeight(); y++){
             for(x = 0; x < map.getWidth(); x++){
                 /*  In this "if" we check if in the tiles with coordinates(x,y) there is an object. 
                     If it is present, we create a shape 30x30 pixels in the position of the object. */
                 if(map.getTileId(x, y, objlayer) != 0){
-                    rtl.add(new Wall(x*30, y*30, 30, 30));
+                    rtl.add(new Rectangle(x*30, y*30, 30, 30));
                 }
             }
         }

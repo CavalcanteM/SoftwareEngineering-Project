@@ -1,4 +1,4 @@
-package Main;
+package gravityslick;
 
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -31,7 +31,7 @@ public class GameIsaac extends BasicGame{
         player = Player.getPlayerInstance(level);   // Using Singleton class Player
         menu = new Menu(150,300);
         dark = new Menu(gc.getScreenHeight(), gc.getScreenWidth());
-        level.init(gc, player.getShape(), 5);
+        level.init(gc, player.getPlayer(), 5);
         player.init(gc);
         menu.init(gc);
         button = new Button(50,150, menu);

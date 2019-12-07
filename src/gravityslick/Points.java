@@ -1,7 +1,6 @@
 
-package Main;
+package gravityslick;
 
-import Entities.Wall;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
@@ -22,7 +21,7 @@ import org.newdawn.slick.geom.ShapeRenderer;
 */
 public class Points implements Iterable<Shape> {
     
-    private final ArrayList<Wall> rwd;
+    private final ArrayList<Shape> rwd;
     private final Random ran;
     private int nObj;
     private Shape current;
@@ -30,13 +29,13 @@ public class Points implements Iterable<Shape> {
         
     private Image imm;
 
-    public Points(ArrayList<Wall> rwd, int nObj){
+    public Points(ArrayList<Shape> rwd, int nObj){
         this.rwd = rwd;
         this.nObj = nObj+1;
         this.ran = new Random();
     }
 
-    public ArrayList<Wall> getRwd() {
+    public ArrayList<Shape> getRwd() {
         return rwd;
     }
 

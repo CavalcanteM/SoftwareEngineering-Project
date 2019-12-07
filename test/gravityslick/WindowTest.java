@@ -5,7 +5,6 @@
  */
 package gravityslick;
 
-import Main.Window;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.newdawn.slick.SlickException;
