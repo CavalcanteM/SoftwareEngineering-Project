@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gravityslick;
+package Main;
 
 
 import org.newdawn.slick.Color;

@@ -1,5 +1,6 @@
-package gravityslick;
+package Main;
 
+import Entities.Wall;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -17,7 +18,7 @@ public abstract class FactoryMap{
     }
     
     // Returns a different collection of Shapes depending on the implementation
-    public abstract ArrayList<Shape> getShapes();
+    public abstract ArrayList<Wall> getShapes();
 
     public TiledMap getMap() {
         return map;

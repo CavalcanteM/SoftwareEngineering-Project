@@ -5,6 +5,8 @@
  */
 package gravityslick;
 
+import Main.StaticLevel;
+import Main.Player;
 import static java.lang.Math.signum;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -121,7 +123,7 @@ public class PlayerTest {
         System.out.println("getPlayer");
         Shape expResult = new Rectangle(200, 200, 29, 59);
         player.setPlayer(expResult);
-        Shape result = player.getPlayer();
+        Shape result = player.getShape();
         assertEquals(expResult, result);
     }
 
@@ -210,7 +212,7 @@ public class PlayerTest {
         System.out.println("setPlayer");
         Shape shape = new Rectangle(200, 200, 30, 60);
         player.setPlayer(shape);
-        assertSame(player.getPlayer(), shape);
+        assertSame(player.getShape(), shape);
     }
 
     /**
