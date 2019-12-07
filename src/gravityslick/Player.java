@@ -2,7 +2,7 @@ package gravityslick;
 
 import static java.lang.Math.signum;
 import java.util.ArrayList;
-import java.util.Random;
+//import java.util.Random;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -265,6 +265,9 @@ public class Player {
         }
         if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
             this.getDamaged(2);
+        }
+        if (gc.getInput().isKeyPressed(Input.KEY_R)) {
+            this.resetStats();
         }
         
     }
@@ -594,5 +597,12 @@ public class Player {
             this.isDead = true;
             this.vX = 0;
         }
+    }
+    
+    /**
+     * Resets the number of hearts of the character
+     */
+    public void resetStats(){
+        this.numHearts = this.numVoidHearts;
     }
 }
