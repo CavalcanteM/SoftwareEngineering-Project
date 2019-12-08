@@ -19,7 +19,7 @@ public class StaticLevel {
     private FactoryMap rwdMap;
     private ArrayList<Shape> rwd;
     private int score;
-    
+    private Collision collision;
     private int idBackLayer;
     private int idObjLayer;
     private int idRwdLayer;
@@ -53,6 +53,7 @@ public class StaticLevel {
         this.rwd = rwdMap.getShapes();
         this.pts = new Points(rwd, score);
         this.score= score;
+        this.collision = new Collision(this);
     }
 
     public int getScore() {

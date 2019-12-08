@@ -47,7 +47,8 @@ public class Player {
     private boolean isDead;
     private int numHearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
-
+    private Collision collision;
+    
     private Player(StaticLevel level) {
         this.level = level;
         this.score = score;
@@ -167,6 +168,13 @@ public class Player {
         this.numVoidHearts = numVoidHearts;
     }
     
+    public void scoreIncreases(){
+        this.score++;
+    }
+    
+    public void setCollision(Collision collision){
+        this.collision=collision;
+    }
     /*--------------------
      * Other methods 
      *--------------------*/
@@ -221,8 +229,6 @@ public class Player {
             frames[i] = frames[i].getFlippedCopy(true, false);
             this.deathAnimationLeft.addFrame(frames[i], 60);
         }
-        //Takes the Shape of the current reward that Isacc has to collect
-        this.rwd = level.getPts().iterator().next();
     }
     
     /**
@@ -252,8 +258,6 @@ public class Player {
         if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             gc.pause();
         }
-        
-        getReward();
         
         // Temporary code: used only for graphically testing the damage
 //        if(isDead) {
@@ -454,7 +458,7 @@ public class Player {
 
         for (int t = 0; t < iterations; t++) {
             player.setX(player.getX() + vXtemp);
-            if (this.collidesWith(level.getRtl())) {
+            if(collision.collidesWith()){
                 player.setX(player.getX() - vXtemp);
                 vX = 0;
             }
@@ -470,7 +474,7 @@ public class Player {
         
         for (int t = 0; t < iterations; t++) {
             player.setY(player.getY() + vYtemp);
-            if (this.collidesWith(level.getRtl())) {
+            if(collision.collidesWith()){
                 player.setY(player.getY() - vYtemp);
                 vY = 0;
             }
@@ -512,32 +516,7 @@ public class Player {
         vX = dir * dashValue * speed;
     }
 
-    /**
-     * This method has to detect the collisions of the character
-     * and the map's objects.
-     * @param objects
-     * @return 
-     */
-    public boolean collidesWith(ArrayList<Shape> objects){
-        for(int i = 0; i < objects.size(); i++){
-            if(this.player.intersects(objects.get(i))){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    /*
-        This method has the scope of the detection of the collision between Isaac 
-        and the Shape of the current reward that Isacc has to collect
-    */
-    public void getReward(){
-        if(this.player.intersects(this.rwd)){
-            //this.score++;
-            this.rwd = level.getPts().iterator().next();
-        }
-    }
-    
+
     /**
      * Manages the rotation of the character. (Has to be refactored)
      * @param angle the rotation angle

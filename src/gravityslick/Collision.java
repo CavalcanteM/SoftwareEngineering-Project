@@ -8,9 +8,13 @@ package gravityslick;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-
+//Questa classe viene inizializzata nel costruttore di player (riga 55) e 
+//ne tiene un riferimento come parametro di classe (riga 50).
+//è stato commentato il metodo collidesWith in player in riga 527
+//e sono stati modificati gli if in riga 463 e 479
 /**
  * Manages collisions within the map. In this class the character's life and points 
  * are updated, with relative generation of subsequent rewards.
@@ -19,10 +23,9 @@ public class Collision {
     //It keeps a reference for all objects that can cause collisions
     private HashMap<String,Integer> damageMap = new HashMap();
     private Player playerInstance;
-    private Shape player;
     private StaticLevel level;
     private ArrayList<Shape> rtl;
-    private Points pt;
+    private Points pts;
     private Shape rwd;
     private ArrayList<Shape> spikes;
     
@@ -36,13 +39,13 @@ public class Collision {
         this.damageMap.put("Spk", 2);//Chiedere ai ragazzi se il danno deve essere 1 o 2
         this.level = level;
         this.rtl = level.getRtl();
-        this.pt = level.getPts();
-        this.spikes = null;//Aggiungere get delle spikes
+        this.pts = level.getPts();
+        this.spikes = new ArrayList<Shape>();//Aggiungere get delle spikes
+        spikes.add(new Rectangle(30,30,30,30));//Creazione di uno spuntone fake
         this.playerInstance = Player.getPlayerInstance(level);
-        this.player = playerInstance.getPlayer();
-        if(pt!=null){
-            //rimuovere questa riga da player liin riga 224 e 225
-            rwd = pt.iterator().next();
+        this.playerInstance.setCollision(this);
+        if(pts!=null){
+            rwd = pts.iterator().next();
         }
     }
     
@@ -58,24 +61,22 @@ public class Collision {
      */
     public boolean collidesWith(){
         int i;
-        //rimuovere getReward() dalla classe Player
-        if(pt != null){
+        if(pts != null){
             getReward();
         }
+        
         //Check if the player collides with a spike
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){
-                if(player.intersects(spikes.get(i))){
-                    playerInstance.getDamaged(damageMap.get(i));
-                    //Inserire in Player funzione per far lampeggiare il player
+                if(playerInstance.getPlayer().intersects(spikes.get(i))){
+                    playerInstance.getDamaged(damageMap.get("Spk"));
                 }
             }
         }
-        
         //check if the player collides with a obstacle
         if(rtl != null){
             for(i = 0; i < rtl.size(); i++){
-                if(player.intersects(rtl.get(i))){
+                if(playerInstance.getPlayer().intersects(rtl.get(i))){
                     return true;
                 }
             }
@@ -89,9 +90,9 @@ public class Collision {
      * and the Shape of the current reward that Isacc has to collect
      */
     private void getReward(){
-        if(player.intersects(this.rwd)){
-            //this.score++;
-            this.rwd = level.getPts().iterator().next();
+        if(playerInstance.getPlayer().intersects(this.rwd)){
+            playerInstance.scoreIncreases();
+            this.rwd = pts.iterator().next();
         }
     }
 
