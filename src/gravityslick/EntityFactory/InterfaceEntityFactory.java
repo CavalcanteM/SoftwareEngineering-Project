@@ -10,7 +10,7 @@ import org.newdawn.slick.tiled.TiledMap;
  * we use this abstract class as the Creator class.
 */
 
-public interface  InterfaceFactory{
+public interface  InterfaceEntityFactory{
    
 
    

@@ -15,7 +15,7 @@ import org.newdawn.slick.tiled.TiledMap;
  *
  * @author Adria
  */
-public class RewardFactory implements InterfaceFactory {
+public class RewardFactory implements InterfaceEntityFactory {
 
        private int x;
     private int y;

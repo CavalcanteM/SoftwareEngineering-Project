@@ -35,7 +35,7 @@ public class GameIsaac extends BasicGame{
         player = Player.getPlayerInstance(level);   // Using Singleton class Player
         menu = new Menu(150,300);
         dark = new Menu(gc.getScreenHeight(), gc.getScreenWidth());
-        level.init(gc, player.getPlayer(), 5);
+        level.init(gc, 5);
         player.init(gc);
         menu.init(gc);
         button = new Button(50,150, menu);

@@ -1,9 +1,12 @@
 package gravityslick;
 
 
-import Entities.Entity;
+import Entities.*;
+import Entities.Spikes.StaticDamage;
 import Entities.Turret.Turret;
-import gravityslick.Factory.*;
+import gravityslick.Factory.RewardFactory;
+import gravityslick.Factory.WallsLayerFactory;
+import gravityslick.StaticDamageFactory.*;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -19,10 +22,14 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Level {
     
     private TiledMap map;
-    private ArrayList<Entity> Block, Spikes, Bolts;
+    private ArrayList<Entity> Walls, Rewards;
+    private ArrayList<StaticDamage> Spikes;
     private ArrayList<Turret> Turret;
     private int score;
     
+     public int getScore() {
+        return score;
+    }
     
     public TiledMap getMap() {
         return map;
@@ -33,21 +40,15 @@ public class Level {
     }
     
     public ArrayList<Entity> getBolts() {
-        return Bolts;
+        return Rewards;
     }
-    public int getScore() {
-        return score;
-    }
-    
-    /** 
-     * @return the arrayList of the object in the map
-     */
-    
+   
+       
     public ArrayList<Entity> getBlock() {
-        return Block;
+        return Walls;
     }
     
-    public ArrayList<Entity> getSpikes() {
+    public ArrayList<StaticDamage> getSpikes() {
         return Spikes;
     }
     
@@ -58,13 +59,16 @@ public class Level {
      * @param player
      * @throws org.newdawn.slick.SlickException
      */
-    public void init(GameContainer gc, Shape player, int score) throws SlickException {
+    public void init(GameContainer gc, int score) throws SlickException {
 
         this.map = new TiledMap("\\src\\map\\Level_"+readFromFile()+".tmx");
-        this.Spikes = new SpikesLayerFactory(this.map).getEntities();
-        this.Block = new ObjLayerFactory(this.map).getEntities();
-        this.Bolts = new RewardFactory(this.map).getEntities();
-        this.Turret = new TurretFactory(this.map).getTurrets();
+        
+        this.Spikes = new SpikesLayerFactory(this.map).getStaticDamage();
+        
+        this.Walls = new WallsLayerFactory(this.map).getEntities();
+        this.Rewards = new RewardFactory(this.map).getEntities();
+        
+        //this.Turret = new TurretFactory(this.map).getShootingEnemy();
         
         this.score= score;
     }

@@ -13,13 +13,13 @@ import org.newdawn.slick.geom.Shape;
  *
  * @author Adria
  */
-public abstract class Turret {
+public abstract class Turret implements ShootingEnemy {
     
     int Damage,x,y,FireRate;
     Shape Hitbox;
     
     public Turret(int x,int y){
-        this.Hitbox = new Rectangle (x,y,30,30);
+        this.Hitbox = new Rectangle(x,y,30,30);
         this.Damage=4;
         this.FireRate=2;
     }

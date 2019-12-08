@@ -18,25 +18,21 @@ import org.newdawn.slick.geom.Shape;
  * @author Adria
  */
 public class OneHeartSpike extends Spike {
-     
-    
-    private final Shape Hitbox;
-    
-    public OneHeartSpike( int x, int y){
-      
-        Hitbox= new Rectangle(x,y,30,30);
+
+
+    public OneHeartSpike(int x, int y) {
+        super(x,y);
     }
-    
-     @Override
-    public void render(GameContainer gc, Graphics g) throws SlickException{
-       
+
+    public void render(GameContainer gc, Graphics g) throws SlickException {
     }
-    
-    @Override
-    public Shape getHitBox() {
-        return Hitbox;
+
+    public Shape getHitbox() {
+        return super.hitbox;
     }
-    
-    public void Dodamage(Player player){player.getDamaged(4);}
-    
+
+    public void doDamage(Player player) {
+        player.getDamaged(4);
+    }
+
 }
