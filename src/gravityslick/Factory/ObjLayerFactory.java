@@ -1,17 +1,26 @@
-package gravityslick;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gravityslick.Factory;
 
+import Entities.Block;
+import Entities.Entity;
+import Entities.Spikes.HalfHeartSpike;
+import Entities.Spikes.OneHeartSpike;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
 
-/**  
- * This class has as scope of the adaptation
- * of pixel-by-pixel movements in a TileDMap
- */ 
-public class LayerShapeFactory extends FactoryMap{
+/**
+ *
+ * @author Adria
+ */
+public class ObjLayerFactory implements InterfaceFactory {
     
-    private int x;
+    
+      private int x;
     private int y;
     private final int objlayer;
     private TiledMap map;
@@ -22,10 +31,9 @@ public class LayerShapeFactory extends FactoryMap{
      * if the layer called "Obj"
      * @param map
      */
-    public LayerShapeFactory(TiledMap map, String layerName) {
-        super(map);
-        this.map = super.getMap();
-        this.objlayer = super.getMap().getLayerIndex(layerName);
+    public ObjLayerFactory(TiledMap map) {
+        this.map = map;
+        this.objlayer = this.map.getLayerIndex("Obj");
     }
     
     /**  This method has the scope of the creation of a collection (ArrayList)
@@ -33,17 +41,19 @@ public class LayerShapeFactory extends FactoryMap{
      * @return 
      */
     @Override
-    public ArrayList<Shape> getShapes(){
-        ArrayList<Shape> rtl = new ArrayList<>();
+    public ArrayList<Entity> getEntities(){
+        ArrayList<Entity> Spikes = new ArrayList<>();
         for(y = 0; y < map.getHeight(); y++){
             for(x = 0; x < map.getWidth(); x++){
                 /*  In this "if" we check if in the tiles with coordinates(x,y) there is an object. 
                     If it is present, we create a shape 30x30 pixels in the position of the object. */
                 if(map.getTileId(x, y, objlayer) != 0){
-                    rtl.add(new Rectangle(x*30, y*30, 30, 30));
+                    Spikes.add(new Block(x*30, y*30));
                 }
             }
         }
-        return rtl;
+        return Spikes;
     }
+
+    
 }

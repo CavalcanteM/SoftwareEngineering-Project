@@ -42,12 +42,12 @@ public class StaticLevelTest {
     }
 
     /**
-     * Test of getRtl method, of class StaticLevel.
+     * Test of getRtl method, of class Level.
      */
     @Test
     public void testGetRtl() {
         System.out.println("getRtl");
-        StaticLevel instance = new StaticLevel();
+        Level instance = new Level();
         ArrayList<Shape> expResult = null;
         ArrayList<Shape> result = instance.getRtl();
         assertEquals(expResult, result);
@@ -56,7 +56,7 @@ public class StaticLevelTest {
     }
 
     /**
-     * Test of init method, of class StaticLevel.
+     * Test of init method, of class Level.
      */
     @Test
     public void testInit() throws Exception {
@@ -64,21 +64,21 @@ public class StaticLevelTest {
         int score = 0;
         GameContainer gc = null;
         Shape player = null;
-        StaticLevel instance = new StaticLevel();
+        Level instance = new Level();
         instance.init(gc, player, score);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of render method, of class StaticLevel.
+     * Test of render method, of class Level.
      */
     @Test
     public void testRender() throws Exception {
         System.out.println("render");
         GameContainer gc = null;
         Graphics g = null;
-        StaticLevel instance = new StaticLevel();
+        Level instance = new Level();
         instance.render(gc, g);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

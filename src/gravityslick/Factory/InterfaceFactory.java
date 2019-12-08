@@ -1,5 +1,6 @@
-package gravityslick;
+package gravityslick.Factory;
 
+import Entities.Entity;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -9,17 +10,13 @@ import org.newdawn.slick.tiled.TiledMap;
  * we use this abstract class as the Creator class.
 */
 
-public abstract class FactoryMap{
-    private TiledMap map;
+public interface  InterfaceFactory{
+   
 
-    public FactoryMap(TiledMap map) {
-        this.map = map;
-    }
+   
     
     // Returns a different collection of Shapes depending on the implementation
-    public abstract ArrayList<Shape> getShapes();
+    public abstract ArrayList<Entity> getEntities();
 
-    public TiledMap getMap() {
-        return map;
-    }
+    
 }

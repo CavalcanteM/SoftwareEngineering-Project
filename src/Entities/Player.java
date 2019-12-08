@@ -1,9 +1,11 @@
-package gravityslick;
+package Entities;
 
+import gravityslick.Level;
 import static java.lang.Math.signum;
 import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,7 +16,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class Player {
+public class Player implements Entity{
     
     private static Player playerInstance = null;
     
@@ -25,18 +27,17 @@ public class Player {
     private int dashValue = 10;
     private int score=0;
     private long lastHitTime = System.currentTimeMillis();
-    
-    private Shape player;
-    private StaticLevel level;
+    private Shape Hitbox;
+    private Level level;
 
     private float vX = 0;
     private float vY = 0;
     
-    private Animation forwardAnimation;
-    private Animation backwardAnimation;
-    private Animation idleAnimation;
+    private Animation rightAnimation;
+    private Animation leftAnimation;
+    private Animation idleAnimationRight;
     private Animation idleAnimationLeft;
-    private Animation deathAnimation;
+    private Animation deathAnimationRight;
     private Animation deathAnimationLeft;
     
     private boolean isChangingGravity;
@@ -46,15 +47,16 @@ public class Player {
     private boolean isPaused;
     private boolean isMovingRight = true;
     private boolean isDead;
-    private int numHearts = 6; // Measured in mid hearts
+    private int Hearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
 
-    private Player(StaticLevel level) {
+    private Player(Level level) {
         this.level = level;
         this.score = score;
+        this.Hitbox = new Rectangle(30, 720-90, 29, 59);
     }
     
-    public static Player getPlayerInstance(StaticLevel level) {
+    public static Player getPlayerInstance(Level level) {
         if(playerInstance == null) {
             Player.playerInstance = new Player(level);
             
@@ -85,12 +87,12 @@ public class Player {
         return iterations;
     }
 
-    public StaticLevel getLevel() {
+    public Level getLevel() {
         return level;
     }
 
     public Shape getPlayer() {
-        return player;
+        return Hitbox;
     }
 
     public float getSpeed() {
@@ -114,7 +116,7 @@ public class Player {
     }
     
     public int getNumHearts() {
-        return numHearts;
+        return Hearts;
     }
 
     public int getNumVoidHearts() {
@@ -136,12 +138,12 @@ public class Player {
         this.iterations = iterations;
     }
     
-    public void setLevel(StaticLevel level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
     
     public void setPlayer(Shape player) {
-        this.player = player;
+        this.Hitbox = player;
     }
     
     public void setSpeed(float speed) {
@@ -161,7 +163,7 @@ public class Player {
     }
     
     public void setNumHearts(int numHearts) {
-        this.numHearts = numHearts;
+        this.Hearts = numHearts;
     }
     
     public void setNumVoidHearts(int numVoidHearts) {
@@ -180,45 +182,48 @@ public class Player {
     public void init(GameContainer gc) throws SlickException {
         /*
         I used a shrinkage of 1 pixel in both dimentions to avoid that the
-        player is unable to pass through slight parts of the map.
+        Hitbox is unable to pass through slight parts of the map.
         i.e. passing through a 5x2 tile space could have caused problems.
         The 2 values 30, 720-90, are the spawn point of the character.
         */
-        player = new Rectangle(30, 720-90, 29, 59);
+        
         
         // Create the animations for character moving on both the right and the left
         Image[] frames = new Image[8];
-        this.forwardAnimation = new Animation(); 
-        this.backwardAnimation = new Animation();
-        for(int i=0; i<frames.length; i++) {
-            frames[i] = new Image("./graphics/png/Run (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);  
+        this.rightAnimation = new Animation(); 
+        this.leftAnimation =  new Animation();
+        for(int i=0; i<frames.length; i++)
+        {
             // Adding current image to animation for moving to the right
-            this.forwardAnimation.addFrame(frames[i], 60);
+            frames[i] = new Image("./graphics/png/Run (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);  
+            this.rightAnimation.addFrame(frames[i], 60);
             // Flip and add current image to animation for moving to the left
             frames[i] = frames[i].getFlippedCopy(true, false);
-            this.backwardAnimation.addFrame(frames[i], 60);
+            this.leftAnimation.addFrame(frames[i], 60);
         }
         
         // Create the animations for character not moving (idle animation)
         frames = new Image[10];
-        this.idleAnimation = new Animation();
-        this.idleAnimationLeft = new Animation();
-        for(int i=0; i<frames.length; i++) {
-            frames[i] = new Image("./graphics/png/Idle (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
+        this.idleAnimationRight = new Animation();
+        this.idleAnimationLeft =  new Animation();
+        for(int i=0; i<frames.length; i++) 
+        {
             // Adding current image to animation idle looking to the right
-            this.idleAnimation.addFrame(frames[i], 60);
+            frames[i] = new Image("./graphics/png/Idle (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
+            this.idleAnimationRight.addFrame(frames[i], 60);
             // Flip and add current image to the animation idle looking to the left
             frames[i] = frames[i].getFlippedCopy(true, false);
             this.idleAnimationLeft.addFrame(frames[i], 60);
         }
         
         // Create the animation for the character dying
-        this.deathAnimation = new Animation();
-        this.deathAnimationLeft = new Animation();
-        for(int i = 0; i < frames.length; i++) {
-            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
+        this.deathAnimationRight = new Animation();
+        this.deathAnimationLeft =  new Animation();
+        for(int i = 0; i < frames.length; i++)
+        {
             // Adding current image to animation death falling to the right
-            this.deathAnimation.addFrame(frames[i], 60);
+            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
+            this.deathAnimationRight.addFrame(frames[i], 60);
             // Flip and add current image to the animation death falling to the left
             frames[i] = frames[i].getFlippedCopy(true, false);
             this.deathAnimationLeft.addFrame(frames[i], 60);
@@ -232,26 +237,27 @@ public class Player {
      * @throws SlickException 
      */
     public void update(GameContainer gc, int delta) throws SlickException {
+       
+         // Gravity check and change
+        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+            gravity = changeGravity(signum(gravity));
+        }        
+
         // y acceleration 
         vY += gravity;
         
         // Y movement collisions
         moveAlongY();
-
-        // Gravity check and change
-        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
-            gravity = changeGravity(signum(gravity));
-        }
         
         //X movement
-        moveAlongX(gc.getInput());
+        set_speedx(gc.getInput());
 
         //X collisions
         moveWithCollisionsX();
         
-        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-            gc.pause();
-        }
+        
+        
+        
         
         if(this.score >= this.level.getScore()){
             gc.pause();
@@ -274,32 +280,33 @@ public class Player {
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
         //used to hyde the hitbox
-        g.setColor(new Color(0,0,0,0));
-        g.fill(player);
+        hideHitbox(g);
         /* 
         Take coordinates have an offset value to make the sprite perfectly
-        match the Shape rectangle, that aclually is the hitbox of the player. 
+        match the Shape rectangle, that aclually is the hitbox of the Hitbox. 
         */
-        float X = this.player.getMinX()-14;
-        float Y = this.player.getMinY()-5;
+        float X = this.Hitbox.getMinX()-14;
+        float Y = this.Hitbox.getMinY()-5;
+
+        
 
         // From this point the code has to be refactored
 //        if(this.vX > 0){ // The character is moving on the right
 //            if(!isPaused){
 //                if(rotated){
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.start();
+//                    this.leftAnimation.draw(X, Y);
+//                    this.leftAnimation.start();
 //                } else {
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.start();
+//                    this.rightAnimation.draw(X, Y);
+//                    this.rightAnimation.start();
 //                }   
 //            } else {
 //                if(rotated){
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.stop();
+//                    this.leftAnimation.draw(X, Y);
+//                    this.leftAnimation.stop();
 //                } else {
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.stop();
+//                    this.rightAnimation.draw(X, Y);
+//                    this.rightAnimation.stop();
 //                }
 //            }
 //             
@@ -307,19 +314,19 @@ public class Player {
 //        else if(this.vX < 0){ // The character is moving on the left
 //            if(!isPaused){
 //                if(rotated){
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.start();
+//                    this.rightAnimation.draw(X, Y);
+//                    this.rightAnimation.start();
 //                } else {
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.start(); 
+//                    this.leftAnimation.draw(X, Y);
+//                    this.leftAnimation.start(); 
 //                }
 //            } else {
 //                if(rotated){
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.stop();
+//                    this.rightAnimation.draw(X, Y);
+//                    this.rightAnimation.stop();
 //                } else {
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.stop(); 
+//                    this.leftAnimation.draw(X, Y);
+//                    this.leftAnimation.stop(); 
 //                }
 //            }
 //        }
@@ -329,7 +336,7 @@ public class Player {
                 if(isMovingRight){
                     if(rotated){
                         if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimationLeft.draw(X, Y);
+                            this.deathAnimationLeft.draw(X,Y);
                             this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
                             this.deathAnimationLeft.start();
                         } else {
@@ -344,24 +351,24 @@ public class Player {
                         }
                         
                     } else {
-                        if(isDead && !this.deathAnimation.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimation.draw(X, Y);
-                            this.deathAnimation.stopAt(this.deathAnimation.getFrameCount()-1);
-                            this.deathAnimation.start();
+                        if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
+                            this.deathAnimationRight.draw(X, Y);
+                            this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
+                            this.deathAnimationRight.start();
                         } else {
-                            this.idleAnimation.draw(X+2,Y);
-                            this.idleAnimation.start();
+                            this.idleAnimationRight.draw(X+2,Y);
+                            this.idleAnimationRight.start();
                         }
                     }
                 } else {
                     if(rotated){
-                        if(isDead && !this.deathAnimation.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimation.draw(X, Y);
-                            this.deathAnimation.stopAt(this.deathAnimation.getFrameCount()-1);
-                            this.deathAnimation.start();
+                        if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
+                            this.deathAnimationRight.draw(X, Y);
+                            this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
+                            this.deathAnimationRight.start();
                         } else {
-                            this.idleAnimation.draw(X-2,Y);
-                            this.idleAnimation.start();
+                            this.idleAnimationRight.draw(X-2,Y);
+                            this.idleAnimationRight.start();
                         }    
                     } else {
                         if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
@@ -375,19 +382,20 @@ public class Player {
                     }
                 }
             } else {
+                
 
                 if(isMovingRight){
                     if(rotated){
                         this.idleAnimationLeft.draw(X,Y);
                         this.idleAnimationLeft.stop();
                     } else {
-                        this.idleAnimation.draw(X,Y);
-                        this.idleAnimation.stop();
+                        this.idleAnimationRight.draw(X,Y);
+                        this.idleAnimationRight.stop();
                     }
                 } else {
                     if(rotated){
-                        this.idleAnimation.draw(X,Y);
-                        this.idleAnimation.stop();
+                        this.idleAnimationRight.draw(X,Y);
+                        this.idleAnimationRight.stop();
                     } else {
                         this.idleAnimationLeft.draw(X,Y);
                         this.idleAnimationLeft.stop();
@@ -397,20 +405,20 @@ public class Player {
         }
         
         if((this.vX > 0 && !rotated) || (this.vX < 0 && rotated)) {
-            this.forwardAnimation.draw(X, Y);
+            this.rightAnimation.draw(X, Y);
             if(!isPaused){ 
-                this.forwardAnimation.start(); 
+                this.rightAnimation.start(); 
             } else {
-                this.forwardAnimation.stop();
+                this.rightAnimation.stop();
             }
         }
             
         if((this.vX > 0 && rotated) || (this.vX < 0 && !rotated)) {
-            this.backwardAnimation.draw(X, Y);
+            this.leftAnimation.draw(X, Y);
             if(!isPaused){
-                this.backwardAnimation.start();
+                this.leftAnimation.start();
             } else {
-                this.backwardAnimation.stop();
+                this.leftAnimation.stop();
             }
         }
         
@@ -430,10 +438,10 @@ public class Player {
      */
     public float changeGravity(float sign) {
 
-        player.setY(player.getY() + sign * 0.5f);
+        Hitbox.setY(Hitbox.getY() + sign * 0.5f);
         this.isChangingGravity = true;
         this.rotated = !this.rotated;
-        player.setY(player.getY() - sign * 0.5f);
+        Hitbox.setY(Hitbox.getY() - sign * 0.5f);
         return -gravity;
     }
     
@@ -446,12 +454,12 @@ public class Player {
         float vXtemp = vX / iterations;
 
         for (int t = 0; t < iterations; t++) {
-            player.setX(player.getX() + vXtemp);
-            if (this.collidesWith(level.getObjectShapes())) {
-                player.setX(player.getX() - vXtemp);
+            Hitbox.setX(Hitbox.getX() + vXtemp);
+            if (this.collidesWith(level.getBlock())) {
+                Hitbox.setX(Hitbox.getX() - vXtemp);
                 vX = 0;
             }
-            if (this.collidesWith( level.getSpikeShapes())) {
+            if (this.collidesWith( level.getSpikes())) {
                 this.getDamaged(1);
             }
         }
@@ -465,9 +473,9 @@ public class Player {
         float vYtemp = vY / iterations;
         
         for (int t = 0; t < iterations; t++) {
-            player.setY(player.getY() + vYtemp);
-            if (this.collidesWith(level.getObjectShapes())) {
-                player.setY(player.getY() - vYtemp);
+            Hitbox.setY(Hitbox.getY() + vYtemp);
+            if (this.collidesWith(level.getBlock())) {
+                Hitbox.setY(Hitbox.getY() - vYtemp);
                 vY = 0;
             }
         }
@@ -477,7 +485,7 @@ public class Player {
      * Manages the movement on the X axis. 
      * @param in the key button we have pressed
      */
-    private void moveAlongX(Input in) {
+    private void set_speedx(Input in) {
         
         // If we hold down A, the character will move to the left
         if (in.isKeyDown(Input.KEY_A)) {
@@ -516,7 +524,7 @@ public class Player {
      */
     public boolean collidesWith(ArrayList<Shape> objects){
         for(int i = 0; i < objects.size(); i++){
-            if(this.player.intersects(objects.get(i))){
+            if(this.Hitbox.intersects(objects.get(i))){
                 if(i==objects.size()-1 && !(this.score > this.level.getScore())){
                     this.score++;
                     if(this.score < this.level.getScore()){
@@ -538,22 +546,26 @@ public class Player {
      * @param angle the rotation angle
      */
     public void rotate(int angle){
+        
+       // idleAnimationRight.getCurrentFrame().setRotation(180);
+        
         for(int i=0; i<10; i++){
-            Image currentImage = this.idleAnimation.getImage(i);
+            Image currentImage = this.idleAnimationRight.getImage(i);
             /* The character rotates if the gravity is changed but it's 180 rotation
              * is not yet completed
             */
             if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
-                this.idleAnimation.getImage(i).rotate(angle);
+                this.idleAnimationRight.getImage(i).rotate(angle);
                 this.idleAnimationLeft.getImage(i).rotate(angle);
-                this.deathAnimation.getImage(i).rotate(angle);
+                this.deathAnimationRight.getImage(i).rotate(angle);
                 this.deathAnimationLeft.getImage(i).rotate(angle);
                 if(i<8){
-                    this.forwardAnimation.getImage(i).rotate(angle);
-                    this.backwardAnimation.getImage(i).rotate(angle);
+                    this.rightAnimation.getImage(i).rotate(angle);
+                    this.leftAnimation.getImage(i).rotate(angle);
                 }
             }
         }
+        
     }
     
     /**
@@ -572,11 +584,11 @@ public class Player {
             hearts.getSprite(2, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the full hearts
-        for(i = 0; i<this.numHearts/2 ; i++){
+        for(i = 0; i<this.Hearts/2 ; i++){
             hearts.getSprite(0, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the mid hearts
-        if(this.numHearts - 2*i > 0){
+        if(this.Hearts - 2*i > 0){
             hearts.getSprite(1,0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         hearts.endUse();
@@ -586,7 +598,7 @@ public class Player {
      * Manages the damage on the character
      * @param points The number of mid hearts to subtract
      */
-   synchronized public void getDamaged(int points){
+   synchronized public void getDamaged(int damage){
 
         
         if( (System.currentTimeMillis()-this.lastHitTime)> 3000 ){
@@ -594,8 +606,8 @@ public class Player {
             
             System.out.println(System.currentTimeMillis());
             
-            this.numHearts -= points;
-            if(this.numHearts <= 0) {
+            this.Hearts -= damage;
+            if(this.Hearts <= 0) {
                 this.isDead = true;
                 this.vX = 0;
                 
@@ -603,5 +615,17 @@ public class Player {
         }
         
 
+    }
+
+   void hideHitbox(Graphics g)
+   {
+        g.setColor(new Color(0,0,0,0));
+        g.fill(Hitbox);
+   }
+   
+    @Override
+    public Shape getHitBox()
+    {
+        return Hitbox;
     }
 }

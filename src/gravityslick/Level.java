@@ -1,5 +1,9 @@
 package gravityslick;
 
+
+import Entities.Entity;
+import Entities.Turret.Turret;
+import gravityslick.Factory.*;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -12,21 +16,42 @@ import org.newdawn.slick.tiled.TiledMap;
  * This class has the scope of the definition of a level's
  * enviroment.
  */
-public class StaticLevel {
+public class Level {
     
     private TiledMap map;
-    private ArrayList<Shape> ObjectShapes, SpikeShapes, BoltShapes;
+    private ArrayList<Entity> Block, Spikes, Bolts;
+    private ArrayList<Turret> Turret;
     private int score;
+    
+    
+    public TiledMap getMap() {
+        return map;
+    } 
+    
+    public ArrayList<Turret> getTurret() {
+        return Turret;
+    }
+    
+    public ArrayList<Entity> getBolts() {
+        return Bolts;
+    }
+    public int getScore() {
+        return score;
+    }
+    
     /** 
      * @return the arrayList of the object in the map
      */
-    public ArrayList<Shape> getObjectShapes() {
-        return ObjectShapes;
+    
+    public ArrayList<Entity> getBlock() {
+        return Block;
     }
     
-    public ArrayList<Shape> getSpikeShapes() {
-        return SpikeShapes;
+    public ArrayList<Entity> getSpikes() {
+        return Spikes;
     }
+    
+   
     /**
      * Is a sort of constructor for this class
      * @param gc
@@ -36,16 +61,15 @@ public class StaticLevel {
     public void init(GameContainer gc, Shape player, int score) throws SlickException {
 
         this.map = new TiledMap("\\src\\map\\Level_"+readFromFile()+".tmx");
-        
-        this.ObjectShapes = new LayerShapeFactory(this.map, "Obj").getShapes();
-        this.SpikeShapes = new LayerShapeFactory(this.map, "Spikes").getShapes();     
+        this.Spikes = new SpikesLayerFactory(this.map).getEntities();
+        this.Block = new ObjLayerFactory(this.map).getEntities();
+        this.Bolts = new RewardFactory(this.map).getEntities();
+        this.Turret = new TurretFactory(this.map).getTurrets();
         
         this.score= score;
     }
 
-    public int getScore() {
-        return score;
-    }
+    
     
     
     

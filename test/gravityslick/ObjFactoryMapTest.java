@@ -5,6 +5,7 @@
  */
 package gravityslick;
 
+import gravityslick.Factory.InterfaceFactory;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,7 +46,7 @@ public class ObjFactoryMapTest {
     @Test
     public void testGetShapes() {
         System.out.println("getShapes");
-        FactoryMap instance = null;
+        InterfaceFactory instance = null;
         ArrayList<Shape> expResult = null;
         ArrayList<Shape> result = instance.getShapes();
         assertEquals(expResult, result);

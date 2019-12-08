@@ -1,5 +1,6 @@
 package gravityslick;
 
+import Entities.Player;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,8 +10,9 @@ import org.newdawn.slick.SlickException;
 
 public class GameIsaac extends BasicGame{
 
-    private StaticLevel level;
+    private Level level;
     private Player player;
+    private CollisionManager cm;
     private Menu menu;
     private Menu dark;
     private Button button;
@@ -29,19 +31,18 @@ public class GameIsaac extends BasicGame{
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
-        level = new StaticLevel();
+        level = new Level();
         player = Player.getPlayerInstance(level);   // Using Singleton class Player
         menu = new Menu(150,300);
         dark = new Menu(gc.getScreenHeight(), gc.getScreenWidth());
-        point = new Point(60,60,30,30);
         level.init(gc, player.getPlayer(), 5);
         player.init(gc);
         menu.init(gc);
         button = new Button(50,150, menu);
         button.init(gc);
         dark.init(gc);
-        point.init();
-        level.getObjectShapes().add(point.getPoint());
+      
+        level.getBlock().add(point.getPoint());
         
     }
     
@@ -52,13 +53,22 @@ public class GameIsaac extends BasicGame{
      */
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
+        
+        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            gc.pause();
+        }
+        
         if(!gc.isPaused()){
             player.update(gc, delta);
         }
-        else if(gc.isPaused() && !(level.getScore()<= player.getScore())){
+        
+        
+        else if(gc.isPaused() && (level.getScore() >= player.getScore())){
             button.update(gc,delta);
         }
+        
     }
+    
     
     /**
      * @param gc
@@ -85,4 +95,7 @@ public class GameIsaac extends BasicGame{
             point.render(gc, g);
         }
     }
+    
+    void setLevel(){level = new Level();}
+    
 }

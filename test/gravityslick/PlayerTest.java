@@ -5,6 +5,7 @@
  */
 package gravityslick;
 
+import Entities.Player;
 import static java.lang.Math.signum;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,7 +23,7 @@ import org.newdawn.slick.geom.Shape;
 public class PlayerTest {
     
     private Player player;
-    private StaticLevel level;
+    private Level level;
     
     public PlayerTest() {
      
@@ -40,7 +41,7 @@ public class PlayerTest {
     
     @Before
     public void setUp() {
-        level = new StaticLevel();
+        level = new Level();
         player = Player.getPlayerInstance(level);
     }
     
@@ -109,7 +110,7 @@ public class PlayerTest {
     @Test
     public void testGetLevel() {
         System.out.println("getLevel");
-        StaticLevel result = player.getLevel();
+        Level result = player.getLevel();
         assertNotNull(result);
     }
 
@@ -197,7 +198,7 @@ public class PlayerTest {
     @Test
     public void testSetLevel() {
         System.out.println("setLevel");
-        StaticLevel level = new StaticLevel();
+        Level level = new Level();
         player.setLevel(level);
         assertSame(level, player.getLevel());
     }
