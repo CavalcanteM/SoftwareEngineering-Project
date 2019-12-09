@@ -12,9 +12,9 @@ import org.newdawn.slick.geom.ShapeRenderer;
 
 /*
     After StaticLevel has taken informations from the "Rwd" layer of the TiledMap
-    and has produced an ArrayList of Shapes that represent the positions of the
+    and EntityClient has produced an ArrayList<Entity> that is a collection of the
     Isaac's girlfriend pieces, this class has the scope of randomly iterates this
-    ArrayList<Shape>, return to the Collision class the Shape of the current
+    ArrayList<Entity>, return to the CollisionManager the Entity of the current
     reward and renders on Graphics g the image of the reward.
 */
 public class Points implements Iterable<Entity> {
