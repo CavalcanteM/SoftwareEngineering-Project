@@ -63,10 +63,10 @@ public class Level {
 
         this.map = new TiledMap("\\src\\map\\Level_"+readFromFile()+".tmx");
         
-        this.Spikes = new SpikesLayerFactory(this.map).getStaticDamage();
+        this.Spikes = new SpikesList(this.map).getStaticDamage();
         
-        this.Walls = new WallsLayerFactory(this.map).getEntities();
-        this.Rewards = new RewardFactory(this.map).getEntities();
+        this.Walls = new WallsList(this.map).getEntities();
+        this.Rewards = new RewardList(this.map).getEntities();
         
         //this.Turret = new TurretFactory(this.map).getShootingEnemy();
         

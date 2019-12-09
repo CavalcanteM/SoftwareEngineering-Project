@@ -1,4 +1,4 @@
-package gravityslick.Factory;
+package gravityslick.EntityFactory;
 
 import Entities.Entity;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public interface  InterfaceEntityFactory{
    
     
     // Returns a different collection of Shapes depending on the implementation
-    public abstract ArrayList<Entity> getEntities();
+    public Entity getEntity(int x, int y);
 
     
 }

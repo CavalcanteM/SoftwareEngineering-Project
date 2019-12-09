@@ -18,7 +18,7 @@ import org.newdawn.slick.geom.Shape;
 
 
 
-class AcidLake implements StaticDamage {
+ abstract class AcidLake implements StaticDamage {
 
     private Shape hitbox;
 
@@ -26,15 +26,12 @@ class AcidLake implements StaticDamage {
         return hitbox;
     }
 
-    ;
+    
 
-    public void doDamage(Player player) {
-    }
-
-    ;
+    public int doDamage(){return 5;}
     
     public void render(GameContainer gc, Graphics g) throws SlickException {
     }
-;
+
 
 }

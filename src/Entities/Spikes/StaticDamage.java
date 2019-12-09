@@ -19,7 +19,7 @@ public interface StaticDamage {
     
      public Shape getHitbox();
 
-    public void doDamage(Player player);
+    public int doDamage();
     
     public void render(GameContainer gc, Graphics g) throws SlickException;
     

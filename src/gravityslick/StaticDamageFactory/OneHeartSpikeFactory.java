@@ -5,15 +5,28 @@
  */
 package gravityslick.StaticDamageFactory;
 
+import Entities.Spikes.OneHeartSpike;
 import Entities.Spikes.StaticDamage;
 import java.util.ArrayList;
 
 /**
  *
- * @author Heisenberg
+ * @author Adria
  */
-public interface InterfaceStaticDamageFactory {
+public class OneHeartSpikeFactory implements InterfaceStaticDamageFactory {
+
     
-    public StaticDamage create();
+    
+    
+    public OneHeartSpikeFactory()
+    {
+        
+    }
+    
+    
+    public StaticDamage create(int x,int y) {
+      return  new OneHeartSpike(x,y);
+        
+    }
     
 }

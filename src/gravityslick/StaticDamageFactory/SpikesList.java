@@ -14,7 +14,7 @@ import org.newdawn.slick.tiled.TiledMap;
  * This class has as scope of the adaptation
  * of pixel-by-pixel movements in a TileDMap
  */ 
-public class SpikesLayerFactory implements InterfaceStaticDamageFactory{
+public class SpikesList {
     
     private int x;
     private int y;
@@ -27,7 +27,7 @@ public class SpikesLayerFactory implements InterfaceStaticDamageFactory{
      * if the layer called "Obj"
      * @param map
      */
-    public SpikesLayerFactory(TiledMap map) {
+    public SpikesList(TiledMap map) {
         
         this.map = map;
         this.objlayer = this.map.getLayerIndex("Spikes");
@@ -37,13 +37,16 @@ public class SpikesLayerFactory implements InterfaceStaticDamageFactory{
      * of shapes in the position of the objects in the "Obj" layer.
      * @return 
      */
-    public ArrayList<StaticDamage> getStaticDamage(){
+    public ArrayList<StaticDamage> getStaticDamageList(){
+        OneHeartSpikeFactory oneFactory = new OneHeartSpikeFactory();
+        OneHeartSpikeFactory halfFactory = new HalfHeartSpikeFactory();
         ArrayList<StaticDamage> Spikes = new ArrayList<>();
         for(y = 0; y < map.getHeight(); y++){
             for(x = 0; x < map.getWidth(); x++){
                 
                 if(map.getTileId(x,y,objlayer) == 1){
                     Spikes.add( new OneHeartSpike(x*30,y*30));
+                                    oneFactory.create(x*30,y*30);
                 }
                 
                 else if(map.getTileId(x,y,objlayer) == 2){

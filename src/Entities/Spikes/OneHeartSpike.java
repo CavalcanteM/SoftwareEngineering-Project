@@ -31,8 +31,8 @@ public class OneHeartSpike extends Spike {
         return super.hitbox;
     }
 
-    public void doDamage(Player player) {
-        player.getDamaged(4);
+    public int doDamage() {
+        return 6;
     }
 
 }

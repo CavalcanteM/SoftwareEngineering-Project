@@ -20,7 +20,8 @@ import org.newdawn.slick.geom.Shape;
 public abstract class Spike implements StaticDamage {
 
     public Shape hitbox;
-
+    
+    
     public Spike(int x, int y) {
         hitbox = new Rectangle(x, y, 30, 30);
     }
@@ -31,10 +32,11 @@ public abstract class Spike implements StaticDamage {
 
     ;
 
-    public void doDamage(Player player) {
+    public int doDamage(Player player) {
+        return 5;
     }
 
-    ;
+    
     
     public void render(GameContainer gc, Graphics g) throws SlickException {
     }

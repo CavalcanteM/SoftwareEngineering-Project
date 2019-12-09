@@ -17,11 +17,11 @@ import org.newdawn.slick.geom.ShapeRenderer;
  *
  * @author Adria
  */
-public class Block implements Entity{
+public class Wall implements Entity{
 
     private Shape Hitbox;
     
-    public Block(int x,int y){
+    public Wall(int x,int y){
         Hitbox = new Rectangle(x,y,30,30);
     }
     

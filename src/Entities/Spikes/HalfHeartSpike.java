@@ -32,7 +32,8 @@ public class HalfHeartSpike extends Spike {
         return super.hitbox;
     }
 
-    public void doDamage(Player player) {
-        player.getDamaged(2);
+    public int doDamage() {
+        return 2;
+        
     }
 }
