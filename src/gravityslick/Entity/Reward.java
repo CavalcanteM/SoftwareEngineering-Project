@@ -11,7 +11,8 @@ import org.newdawn.slick.geom.Shape;
 public class Reward implements Entity {
 
     private Shape Hitbox;
-    private int x, y;
+    private final int x;
+    private final int y;
 
     public Reward(int x, int y) {
         this.x = x;
@@ -29,12 +30,7 @@ public class Reward implements Entity {
         changes according to the size of the reward image.
     */
     @Override
-    public void setHeight(int i) {
-        this.Hitbox = new Rectangle(this.x, this.y, this.Hitbox.getWidth(), i);
-    }
-
-    @Override
-    public void setWidth(int i) {
-        this.Hitbox = new Rectangle(this.x, this.y, i, this.Hitbox.getWidth());
+    public void setHeightAndWidth(int i, int j) {
+        this.Hitbox = new Rectangle(this.x, this.y, j, i);
     }
 }

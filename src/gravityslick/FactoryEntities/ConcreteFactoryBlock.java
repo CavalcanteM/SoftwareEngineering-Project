@@ -1,6 +1,5 @@
 package gravityslick.FactoryEntities;
 
-
 import gravityslick.Entity.Block;
 import gravityslick.Entity.Entity;
 

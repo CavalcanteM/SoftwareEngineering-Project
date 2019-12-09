@@ -40,11 +40,14 @@ public class Points implements Iterable<Entity> {
         return nObj;
     }
     
+    /*
+        Set the Height and the Width of the reward's shapes according to the
+        size of the reward pic.
+    */
     public void init() throws SlickException{
         this.imm = new Image("./graphics/png/burger_s.png");
         for (Entity reward: rwd) {
-            reward.setHeight(imm.getHeight());
-            reward.setWidth(imm.getWidth());
+            reward.setHeightAndWidth(imm.getHeight(), imm.getWidth());
         }
     }
     

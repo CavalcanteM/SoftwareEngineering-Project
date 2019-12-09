@@ -8,7 +8,6 @@ public interface  Entity {
     //returns a shape  
     public Shape getHitBox();
     
-    public void setHeight(int i);
-    public void setWidth(int i);
+    public void setHeightAndWidth(int i, int y);
     
 }

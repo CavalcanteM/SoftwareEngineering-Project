@@ -11,9 +11,9 @@ import org.newdawn.slick.tiled.TiledMap;
 */
 public class EntityClient {
     private static EntityFactory et;
-    private int layerIndex;
-    private String layerName;
-    private TiledMap map;
+    private final int layerIndex;
+    private final String layerName;
+    private final TiledMap map;
 
     public EntityClient(TiledMap map, String layerName) {
         this.map = map;
@@ -46,5 +46,4 @@ public class EntityClient {
         }
         return rtl;
     }
-    
 }

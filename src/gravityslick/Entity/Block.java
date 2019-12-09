@@ -26,10 +26,6 @@ public class Block implements Entity{
     
     //These methods are not implemented because Hitbox is final
     @Override
-    public void setHeight(int i) {
-    }
-
-    @Override
-    public void setWidth(int i) {
+    public void setHeightAndWidth(int i, int y){
     }
 }

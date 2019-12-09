@@ -23,7 +23,6 @@ public class StaticLevel {
     private CollisionManager collision;
     private int idBackLayer;
     private int idObjLayer;
-    private int idRwdLayer;
     
     private Points pts;
     /** 
