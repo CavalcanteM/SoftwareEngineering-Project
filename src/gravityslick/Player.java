@@ -43,7 +43,7 @@ public class Player {
     private boolean isDead;
     private int numHearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
-    private Collision collision;
+    private CollisionManager collision;
     
     private Player() {
     }
@@ -51,10 +51,6 @@ public class Player {
     public static Player getPlayerInstance() {
         if(playerInstance == null) {
             Player.playerInstance = new Player();
-            System.out.println("playerInstance null");
-        }else{
-            System.out.println("playerInstance NOT null");
-
         }
         return Player.playerInstance;
     }
@@ -153,7 +149,7 @@ public class Player {
         this.numVoidHearts = numVoidHearts;
     }
     
-    public void setCollision(Collision collision){
+    public void setCollisionManager(CollisionManager collision){
         this.collision=collision;
     }
     /*--------------------

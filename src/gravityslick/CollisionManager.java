@@ -19,7 +19,7 @@ import org.newdawn.slick.geom.Shape;
  * Manages collisions within the map. In this class the character's life and points 
  * are updated, with relative generation of subsequent rewards.
  */
-public class Collision {
+public class CollisionManager implements Mediator{
     //It keeps a reference for all objects that can cause collisions
     private HashMap<String,Integer> damageMap = new HashMap();
     private Player playerInstance;
@@ -33,7 +33,7 @@ public class Collision {
      * Inizialize all the instance of the class
      * @param level     
      */
-    public Collision(StaticLevel level){
+    public CollisionManager(StaticLevel level){
         this.damageMap.put("Obj", 0);
         this.damageMap.put("Rwd", 0);
         this.damageMap.put("Spk", 2);//Chiedere ai ragazzi se il danno deve essere 1 o 2
@@ -43,7 +43,7 @@ public class Collision {
         this.spikes = new ArrayList<Shape>();//Aggiungere get delle spikes
         spikes.add(new Rectangle(30,30,30,30));//Creazione di uno spuntone fake
         this.playerInstance = Player.getPlayerInstance();
-        this.playerInstance.setCollision(this);
+        this.playerInstance.setCollisionManager(this);
         if(pts!=null){
             rwd = pts.iterator().next();
         }

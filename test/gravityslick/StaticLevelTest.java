@@ -5,6 +5,7 @@
  */
 package gravityslick;
 
+import gravityslick.Entity.Entity;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -49,7 +50,7 @@ public class StaticLevelTest {
         System.out.println("getRtl");
         StaticLevel instance = new StaticLevel();
         ArrayList<Shape> expResult = null;
-        ArrayList<Shape> result = instance.getRtl();
+        ArrayList<Entity> result = instance.getRtl();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
