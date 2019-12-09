@@ -56,6 +56,8 @@ public class StaticLevel {
         
         this.score= score;
         this.collision = new Collision(this);
+        
+        this.pts.init();
     }
 
     public int getScore() {
