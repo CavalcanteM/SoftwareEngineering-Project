@@ -66,20 +66,17 @@ public class Points implements Iterable<Shape> {
             public boolean hasNext() {
                 return nObj != 0;
             }
-
+            
             @Override
             public Shape next() {
                 nObj--;
-                ret = rwd.get(ran.nextInt(rwd.size()));
                 if(current == null){
-                    ret = rwd.get(ran.nextInt(rwd.size()));
+                    current = rwd.get(ran.nextInt(rwd.size()));
                 }else{
-                    while(current == ret){
-                            ret = rwd.get(ran.nextInt(rwd.size()));
-                    }
+                    rwd.remove(current);
+                    current = rwd.get(ran.nextInt(rwd.size()));
                 }
-                current = ret;
-                toDraw = new Rectangle(ret.getX(), ret.getY(), 30, 30);
+                toDraw = new Rectangle(current.getX(), current.getY(), 30, 30);
                 return toDraw;
             }
         };
