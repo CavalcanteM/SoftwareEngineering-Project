@@ -5,6 +5,7 @@
  */
 package gravityslick;
 
+import gravityslick.Entity.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -24,7 +25,7 @@ public class Collision {
     private HashMap<String,Integer> damageMap = new HashMap();
     private Player playerInstance;
     private StaticLevel level;
-    private ArrayList<Shape> rtl;
+    private ArrayList<Entity> rtl;
     private Points pts;
     private Shape rwd;
     private ArrayList<Shape> spikes;
@@ -76,7 +77,7 @@ public class Collision {
         //check if the player collides with a obstacle
         if(rtl != null){
             for(i = 0; i < rtl.size(); i++){
-                if(playerInstance.getPlayer().intersects(rtl.get(i))){
+                if(playerInstance.getPlayer().intersects(rtl.get(i).getHitBox())){
                     return true;
                 }
             }

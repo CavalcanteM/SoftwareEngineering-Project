@@ -1,5 +1,6 @@
 package gravityslick;
 
+import gravityslick.Entity.*;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,10 +15,10 @@ import org.newdawn.slick.tiled.TiledMap;
 public class StaticLevel {
     
     private TiledMap map;
-    private FactoryMap cmap;
-    private ArrayList<Shape> rtl;
-    private FactoryMap rwdMap;
-    private ArrayList<Shape> rwd;
+    private EntityClient etBlocks;
+    private EntityClient etRewards;
+    private ArrayList<Entity> rtl;
+    private ArrayList<Entity> rwd;
     private int score;
     private Collision collision;
     private int idBackLayer;
@@ -28,7 +29,7 @@ public class StaticLevel {
     /** 
      * @return the arrayList of the object in the map
      */
-    public ArrayList<Shape> getRtl() {
+    public ArrayList<Entity> getRtl() {
         return rtl;
     }
 
@@ -46,12 +47,13 @@ public class StaticLevel {
         this.map = new TiledMap("\\src\\map\\960x720 (2).tmx");
         this.idBackLayer = this.map.getLayerIndex("Back");
         this.idObjLayer = this.map.getLayerIndex("Obj");
-        this.idRwdLayer = this.map.getLayerIndex("Rwd");
-        this.cmap = new ObjFactoryMap(this.map, idObjLayer);
-        this.rtl = cmap.getShapes();
-        this.rwdMap = new ObjFactoryMap(this.map, idRwdLayer);
-        this.rwd = rwdMap.getShapes();
+        
+        this.etBlocks = new EntityClient(this.map, "Obj");
+        this.rtl = etBlocks.getEntities();
+        this.etRewards = new EntityClient(this.map, "Rwd");
+        this.rwd = etRewards.getEntities();
         this.pts = new Points(rwd, score);
+        
         this.score= score;
         this.collision = new Collision(this);
     }
