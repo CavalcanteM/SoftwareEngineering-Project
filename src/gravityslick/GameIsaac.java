@@ -28,7 +28,7 @@ public class GameIsaac extends BasicGame{
     @Override
     public void init(GameContainer gc) throws SlickException {
         level = new StaticLevel();
-        player = Player.getPlayerInstance(level);   // Using Singleton class Player
+        player = Player.getPlayerInstance();   // Using Singleton class Player
         menu = new Menu(150,300);
         dark = new Menu(gc.getScreenHeight(), gc.getScreenWidth());
         level.init(gc, player.getPlayer(), 5);

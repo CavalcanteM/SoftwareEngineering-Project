@@ -1,7 +1,6 @@
 package gravityslick;
 
 import static java.lang.Math.signum;
-import java.util.ArrayList;
 //import java.util.Random;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -23,11 +22,8 @@ public class Player {
     private float speed = 5;
     private float iterations = 20;
     private int dashValue = 10;
-    private int score=0;
     
     private Shape player;
-    private Shape rwd;
-    private StaticLevel level;
 
     private float vX = 0;
     private float vY = 0;
@@ -49,15 +45,16 @@ public class Player {
     private int numVoidHearts = 6; // Measured in mid hearts
     private Collision collision;
     
-    private Player(StaticLevel level) {
-        this.level = level;
-        this.score = score;
+    private Player() {
     }
     
-    public static Player getPlayerInstance(StaticLevel level) {
+    public static Player getPlayerInstance() {
         if(playerInstance == null) {
-            Player.playerInstance = new Player(level);
-            
+            Player.playerInstance = new Player();
+            System.out.println("playerInstance null");
+        }else{
+            System.out.println("playerInstance NOT null");
+
         }
         return Player.playerInstance;
     }
@@ -85,10 +82,6 @@ public class Player {
         return iterations;
     }
 
-    public StaticLevel getLevel() {
-        return level;
-    }
-
     public Shape getPlayer() {
         return player;
     }
@@ -109,10 +102,6 @@ public class Player {
         return isPaused;
     }
 
-    public int getScore() {
-        return score;
-    }
-    
     public int getNumHearts() {
         return numHearts;
     }
@@ -134,10 +123,6 @@ public class Player {
     
     public void setIterations(float iterations) {
         this.iterations = iterations;
-    }
-    
-    public void setLevel(StaticLevel level) {
-        this.level = level;
     }
     
     public void setPlayer(Shape player) {
@@ -166,10 +151,6 @@ public class Player {
     
     public void setNumVoidHearts(int numVoidHearts) {
         this.numVoidHearts = numVoidHearts;
-    }
-    
-    public void scoreIncreases(){
-        this.score++;
     }
     
     public void setCollision(Collision collision){
@@ -293,116 +274,47 @@ public class Player {
         */
         float X = this.player.getMinX()-14;
         float Y = this.player.getMinY()-5;
-
-        // From this point the code has to be refactored
-//        if(this.vX > 0){ // The character is moving on the right
-//            if(!isPaused){
-//                if(rotated){
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.start();
-//                } else {
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.start();
-//                }   
-//            } else {
-//                if(rotated){
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.stop();
-//                } else {
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.stop();
-//                }
-//            }
-//             
-//        }
-//        else if(this.vX < 0){ // The character is moving on the left
-//            if(!isPaused){
-//                if(rotated){
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.start();
-//                } else {
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.start(); 
-//                }
-//            } else {
-//                if(rotated){
-//                    this.forwardAnimation.draw(X, Y);
-//                    this.forwardAnimation.stop();
-//                } else {
-//                    this.backwardAnimation.draw(X, Y);
-//                    this.backwardAnimation.stop(); 
-//                }
-//            }
-//        }
-//        else { 
-        if(this.vX == 0) {// The character doesn't move
-            if(!isPaused){             
-                if(isMovingRight){
-                    if(rotated){
-                        if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimationLeft.draw(X, Y);
-                            this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
-                            this.deathAnimationLeft.start();
-                        } else {
-                            /*
-                            The +2 and -2 are used to make the idle in left and 
-                            right position match the position of the center axis
-                            if the character. That's caused by a misallignement of
-                            the character in the sprite.
-                            */
-                            this.idleAnimationLeft.draw(X+2,Y);
-                            this.idleAnimationLeft.start();
-                        }
-                        
+        
+        if(this.vX ==0){//The character doesn't move
+            if((isMovingRight && !rotated) || (!isMovingRight && rotated)){
+                if(isPaused){
+                    this.idleAnimation.draw(X,Y);
+                    this.idleAnimation.stop();
+                }else{
+                    if(isDead && !this.deathAnimation.isStopped()){ // You can't die when the game is in pause
+                        this.deathAnimation.draw(X, Y);
+                        this.deathAnimation.stopAt(this.deathAnimation.getFrameCount()-1);
+                        this.deathAnimation.start();
                     } else {
-                        if(isDead && !this.deathAnimation.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimation.draw(X, Y);
-                            this.deathAnimation.stopAt(this.deathAnimation.getFrameCount()-1);
-                            this.deathAnimation.start();
-                        } else {
+                        /* The +2 and -2 are used to make the idle in left and 
+                           right position match the position of the center axis
+                           if the character. That's caused by a misallignement of
+                           the character in the sprite.*/
+                        if(isMovingRight){
                             this.idleAnimation.draw(X+2,Y);
-                            this.idleAnimation.start();
-                        }
-                    }
-                } else {
-                    if(rotated){
-                        if(isDead && !this.deathAnimation.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimation.draw(X, Y);
-                            this.deathAnimation.stopAt(this.deathAnimation.getFrameCount()-1);
-                            this.deathAnimation.start();
-                        } else {
+                        }else{
                             this.idleAnimation.draw(X-2,Y);
-                            this.idleAnimation.start();
-                        }    
-                    } else {
-                        if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimationLeft.draw(X, Y);
-                            this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
-                            this.deathAnimationLeft.start();
-                        } else {
-                            this.idleAnimationLeft.draw(X-2,Y);
-                            this.idleAnimationLeft.start();
-                        }   
-                    }
+                        }
+                        this.idleAnimation.start();
+                    }    
                 }
-            } else {
-
-                if(isMovingRight){
-                    if(rotated){
-                        this.idleAnimationLeft.draw(X,Y);
-                        this.idleAnimationLeft.stop();
+            }else{
+                if(isPaused){
+                    this.idleAnimationLeft.draw(X,Y);
+                    this.idleAnimationLeft.stop();
+                }else{
+                    if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
+                        this.deathAnimationLeft.draw(X, Y);
+                        this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
+                        this.deathAnimationLeft.start();
                     } else {
-                        this.idleAnimation.draw(X,Y);
-                        this.idleAnimation.stop();
-                    }
-                } else {
-                    if(rotated){
-                        this.idleAnimation.draw(X,Y);
-                        this.idleAnimation.stop();
-                    } else {
-                        this.idleAnimationLeft.draw(X,Y);
-                        this.idleAnimationLeft.stop();
-                    }
+                        if(isMovingRight){
+                            this.idleAnimationLeft.draw(X+2,Y);
+                        }else{
+                            this.idleAnimationLeft.draw(X-2,Y);
+                        }
+                        this.idleAnimationLeft.start();
+                    }   
                 }
             }
         }

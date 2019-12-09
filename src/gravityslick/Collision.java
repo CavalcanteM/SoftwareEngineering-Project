@@ -7,7 +7,6 @@ package gravityslick;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -42,7 +41,7 @@ public class Collision {
         this.pts = level.getPts();
         this.spikes = new ArrayList<Shape>();//Aggiungere get delle spikes
         spikes.add(new Rectangle(30,30,30,30));//Creazione di uno spuntone fake
-        this.playerInstance = Player.getPlayerInstance(level);
+        this.playerInstance = Player.getPlayerInstance();
         this.playerInstance.setCollision(this);
         if(pts!=null){
             rwd = pts.iterator().next();
@@ -91,7 +90,6 @@ public class Collision {
      */
     private void getReward(){
         if(playerInstance.getPlayer().intersects(this.rwd)){
-            playerInstance.scoreIncreases();
             this.rwd = pts.iterator().next();
         }
     }

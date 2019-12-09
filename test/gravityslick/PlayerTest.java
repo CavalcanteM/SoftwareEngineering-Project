@@ -22,7 +22,6 @@ import org.newdawn.slick.geom.Shape;
 public class PlayerTest {
     
     private Player player;
-    private StaticLevel level;
     
     public PlayerTest() {
      
@@ -40,8 +39,7 @@ public class PlayerTest {
     
     @Before
     public void setUp() {
-        level = new StaticLevel();
-        player = Player.getPlayerInstance(level);
+        player = Player.getPlayerInstance();
     }
     
     @After
@@ -101,16 +99,6 @@ public class PlayerTest {
         float expResult = 20F;
         float result = player.getIterations();
         assertEquals(expResult, result, 0.0);
-    }
-
-    /**
-     * Test of getLevel method, of class Player.
-     */
-    @Test
-    public void testGetLevel() {
-        System.out.println("getLevel");
-        StaticLevel result = player.getLevel();
-        assertNotNull(result);
     }
 
     /**
@@ -189,17 +177,6 @@ public class PlayerTest {
         float iterations = 20F;
         player.setIterations(20F);
         assertEquals(iterations, player.getIterations(), 0.0);
-    }
-
-    /**
-     * Test of setLevel method, of class Player.
-     */
-    @Test
-    public void testSetLevel() {
-        System.out.println("setLevel");
-        StaticLevel level = new StaticLevel();
-        player.setLevel(level);
-        assertSame(level, player.getLevel());
     }
 
     /**
