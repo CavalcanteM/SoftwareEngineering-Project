@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gravityslick.StaticDamageFactory;
 
-import Entities.Spikes.StaticDamage;
-import java.util.ArrayList;
+import Entities.StaticDamage.StaticDamage;
 
-/**
- *
- * @author Heisenberg
+/* 
+    The "InterfaceStaticDamageFactory" is an interface used to define the method
+    that will be implemented by the concrete factories of StaticDamage. 
  */
 public interface InterfaceStaticDamageFactory {
-    
-    public StaticDamage create();
-    
+
+    public StaticDamage create(int x, int y);
+    // Returns an object of the StaticDamage type.
 }

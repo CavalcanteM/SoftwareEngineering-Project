@@ -2,17 +2,15 @@ package gravityslick;
 
 
 import Entities.*;
-import Entities.Spikes.StaticDamage;
+import Entities.StaticDamage.*;
 import Entities.Turret.Turret;
-import gravityslick.Factory.RewardFactory;
-import gravityslick.Factory.WallsLayerFactory;
+import gravityslick.EntityFactory.RewardList;
+import gravityslick.EntityFactory.WallList;
 import gravityslick.StaticDamageFactory.*;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**  
@@ -63,9 +61,9 @@ public class Level {
 
         this.map = new TiledMap("\\src\\map\\Level_"+readFromFile()+".tmx");
         
-        this.Spikes = new SpikesList(this.map).getStaticDamage();
+        this.Spikes = new StaticDamageList(this.map).getStaticDamageList();
         
-        this.Walls = new WallsList(this.map).getEntities();
+        this.Walls = new WallList(this.map).getEntities();
         this.Rewards = new RewardList(this.map).getEntities();
         
         //this.Turret = new TurretFactory(this.map).getShootingEnemy();

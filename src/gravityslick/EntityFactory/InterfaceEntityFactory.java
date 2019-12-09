@@ -1,22 +1,14 @@
 package gravityslick.EntityFactory;
 
 import Entities.Entity;
-import java.util.ArrayList;
-import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.tiled.TiledMap;
 
-/* 
- * Since we are adopting the Factory Method pattern, 
- * we use this abstract class as the Creator class.
-*/
+public interface InterfaceEntityFactory {
 
-public interface  InterfaceEntityFactory{
-   
-
-   
+    /* 
+    The "InterfaceEntityFactory" is an interface used to define the method that
+    will be implemented by the concrete factories of Entities. 
+     */
     
-    // Returns a different collection of Shapes depending on the implementation
     public Entity getEntity(int x, int y);
-
-    
+    // Returns an object of the Entity type.
 }
