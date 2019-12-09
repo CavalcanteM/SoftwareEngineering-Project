@@ -1,4 +1,3 @@
-
 package gravityslick;
 
 import gravityslick.Entity.Entity;
@@ -9,8 +8,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
 
 /*
@@ -20,13 +17,12 @@ import org.newdawn.slick.geom.ShapeRenderer;
     ArrayList<Shape>, return to the Collision class the Shape of the current
     reward and renders on Graphics g the image of the reward.
 */
-public class Points implements Iterable<Shape> {
+public class Points implements Iterable<Entity> {
     
     private final ArrayList<Entity> rwd;
     private final Random ran;
     private int nObj;
-    private Shape current;
-    private Shape toDraw;
+    private Entity current;
         
     private Image imm;
 
@@ -44,43 +40,40 @@ public class Points implements Iterable<Shape> {
         return nObj;
     }
     
-    public void init(){
-    }
-    
-    public void update(GameContainer gc, int delta) throws SlickException{
+    public void init() throws SlickException{
+        this.imm = new Image("./graphics/png/burger_s.png");
+        for (Entity reward: rwd) {
+            reward.setHeight(imm.getHeight());
+            reward.setWidth(imm.getWidth());
+        }
     }
     
     public void render(GameContainer gc, Graphics g) throws SlickException{
         if(nObj != 0){
-            Image imm = new Image("./graphics/png/burger_s.png");
-            ShapeRenderer.textureFit(this.current, imm);
+            ShapeRenderer.textureFit(this.current.getHitBox(), imm);
         }
     }
 
     @Override
-    public Iterator<Shape> iterator() {
-        Iterator<Shape> is = new Iterator<Shape>(){
-            
-            private Shape ret;
-            
+    public Iterator<Entity> iterator() {
+        Iterator<Entity> ie = new Iterator<Entity>(){
             @Override
             public boolean hasNext() {
                 return nObj != 0;
             }
-            
+
             @Override
-            public Shape next() {
+            public Entity next() {
                 nObj--;
                 if(current == null){
-                    current = rwd.get(ran.nextInt(rwd.size())).getHitBox();
+                    current = rwd.get(ran.nextInt(rwd.size()));
                 }else{
-                    rwd.remove(current);
-                    current = rwd.get(ran.nextInt(rwd.size())).getHitBox();
+                    current = rwd.remove(ran.nextInt(rwd.size()));
+                    System.out.println("Restanti: " + nObj + " SizeLista: " + rwd.size());
                 }
-                toDraw = new Rectangle(current.getX(), current.getY(), 30, 30);
-                return toDraw;
+                return current;
             }
         };
-        return is;
+        return ie;
     }
 }

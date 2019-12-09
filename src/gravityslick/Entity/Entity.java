@@ -2,9 +2,13 @@ package gravityslick.Entity;
 
 import org.newdawn.slick.geom.Shape;
 
+//This class is the interface common to all products that the EntityFactory creates
 public interface  Entity {
   
     //returns a shape  
     public Shape getHitBox();
-  
+    
+    public void setHeight(int i);
+    public void setWidth(int i);
+    
 }

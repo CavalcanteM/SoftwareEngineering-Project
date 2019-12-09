@@ -4,6 +4,11 @@ import gravityslick.FactoryEntities.*;
 import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
 
+/*
+    This class is the client of the EntityFactory. In fact, the scope of this
+    class is the creation of an ArrayList<Entity> whose content change according
+    to the LayerName of the TileMap.
+*/
 public class EntityClient {
     private static EntityFactory et;
     private int layerIndex;
@@ -16,6 +21,10 @@ public class EntityClient {
         this.layerName = layerName;
     }
     
+    /*
+        Returns an ArrayList<Block> if layerName == "Obj
+        Returns an ArrayList<Block> if layerName == "Rwd"
+    */
     public ArrayList<Entity> getEntities(){
         int x, y;
         ArrayList<Entity> rtl = new ArrayList<>();
