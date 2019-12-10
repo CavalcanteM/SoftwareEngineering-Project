@@ -20,7 +20,7 @@ public class StaticLevel {
     private ArrayList<Entity> rtl;
     private ArrayList<Entity> rwd;
     private int score;
-    private CollisionManager collision;
+    //private CollisionManager collision;
     private int idBackLayer;
     private int idObjLayer;
     
@@ -54,7 +54,7 @@ public class StaticLevel {
         this.pts = new Points(rwd, score);
         
         this.score= score;
-        this.collision = new CollisionManager(this);
+        //this.collision = new CollisionManager(this);
         
         this.pts.init();
     }

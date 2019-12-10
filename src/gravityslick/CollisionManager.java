@@ -56,7 +56,7 @@ public class CollisionManager implements Mediator{
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){
                 if(playerInstance.getPlayer().intersects(spikes.get(i))){
-                    playerInstance.getDamaged(0); // 0 has to be replaced with the doDamage method
+                    playerInstance.getDamaged(2); // 0 has to be replaced with the doDamage method
                 }
             }
         }

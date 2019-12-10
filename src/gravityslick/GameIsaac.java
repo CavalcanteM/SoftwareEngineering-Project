@@ -35,7 +35,7 @@ public class GameIsaac extends BasicGame{
         level.init(gc, player.getPlayer(), 5);
         this.collisionManager = new CollisionManager(level);
         this.player.setCollisionManager(this.collisionManager);
-        StaticLevel.collision = this.collisionManager;
+        //StaticLevel.collision = this.collisionManager;
         player.init(gc);
         menu.init(gc);
         button = new Button(50,150, menu);
