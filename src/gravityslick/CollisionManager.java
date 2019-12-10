@@ -82,6 +82,11 @@ public class CollisionManager implements Mediator{
         }
     }
     
+    /**
+     * Takes the blocks and the enemies/weapons from the level
+     * Invoked when a level is finished and another one has to start
+     * @param level the current level of the game
+     */
     public void setParameters(StaticLevel level){
         this.rtl = level.getRtl();
         this.pts = level.getPts();
