@@ -172,6 +172,7 @@ public class Player {
         The 2 values 30, 720-90, are the spawn point of the character.
         */
         
+        hitbox = new Rectangle(31, gc.getHeight()-90, 29, 59);
         
         // Create the animations for character moving on both the right and the left
         Image[] frames = new Image[8];

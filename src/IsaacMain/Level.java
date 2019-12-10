@@ -75,6 +75,8 @@ public class Level {
 
         this.pts = new Points(rewards, score);
         this.pts.init();
+        
+        System.out.println(rewards.size());
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -95,6 +97,9 @@ public class Level {
         map.render(0, 0, map.getLayerIndex("Background"));
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
+        if(pts.iterator().hasNext()){
+            pts.render(gc, g);
+        }
     }
 
     private int readFromFile() {

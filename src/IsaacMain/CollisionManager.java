@@ -30,7 +30,7 @@ public class CollisionManager implements Mediator{
         this.level = level;
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
-        if(pts!=null){
+        if(pts.iterator().hasNext()){
            reward = pts.iterator().next().getHitBox();
         }
     }
@@ -77,7 +77,9 @@ public class CollisionManager implements Mediator{
      */
     private void getReward(){
         if(playerInstance.getPlayer().intersects(this.reward)){
-            this.reward = pts.iterator().next().getHitBox();
+            if(pts.iterator().hasNext()){
+                this.reward = pts.iterator().next().getHitBox();
+            }
         }
     }
     
@@ -90,6 +92,6 @@ public class CollisionManager implements Mediator{
         this.blocks = level.getBlock();
         this.pts = level.getPts();
         this.spikes = new ArrayList<Shape>();//Aggiungere get delle spikes
-        spikes.add(new Rectangle(30,30,30,30));//Creazione di uno spuntone fake
+        
     }
 }
