@@ -18,7 +18,7 @@ public class HalfHeartSpike extends Spike {
 
     @Override
     public int doDamage() {
-        return 2;
+        return 1;
 
     }
 }

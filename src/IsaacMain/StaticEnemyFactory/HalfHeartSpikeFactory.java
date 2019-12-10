@@ -6,7 +6,7 @@ public class HalfHeartSpikeFactory extends StaticEnemyFactory {
 
     @Override
     public StaticDamage create(int x, int y) {
-        return new OneHeartSpike(x, y);
+        return new HalfHeartSpike(x, y);
 
     }
 }

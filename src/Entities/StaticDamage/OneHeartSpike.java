@@ -19,7 +19,7 @@ public class OneHeartSpike extends Spike {
 
     @Override
     public int doDamage() {
-        return 6;
+        return 2;
     }
 
 }

@@ -1,6 +1,7 @@
 package IsaacMain;
 
 import Entities.Entity.*;
+import Entities.StaticDamage.StaticDamage;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -20,7 +21,7 @@ public class CollisionManager implements Mediator{
     private ArrayList<Entity> blocks;
     private Points pts;
     private Shape reward;
-    private ArrayList<Shape> spikes;
+    private ArrayList<StaticDamage> spikes;
     
     /**
      * Inizialize all the instance of the class
@@ -54,8 +55,8 @@ public class CollisionManager implements Mediator{
         //Check if the player collides with a spike
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){
-                if(playerInstance.getPlayer().intersects(spikes.get(i))){
-                    playerInstance.getDamaged(2); // 0 has to be replaced with the doDamage method
+                if(playerInstance.getPlayer().intersects(spikes.get(i).getHitbox())){
+                    playerInstance.getDamaged(spikes.get(i).doDamage()); // 0 has to be replaced with the doDamage method
                 }
             }
         }
@@ -91,7 +92,7 @@ public class CollisionManager implements Mediator{
     public void setParameters(Level level){
         this.blocks = level.getBlock();
         this.pts = level.getPts();
-        this.spikes = new ArrayList<Shape>();//Aggiungere get delle spikes
+        this.spikes = level.getSpikes();
         
     }
 }
