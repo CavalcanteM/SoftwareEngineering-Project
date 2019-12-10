@@ -1,13 +1,11 @@
-
-package gravityslick.StaticDamageFactory;
+package IsaacMain.StaticEnemyFactory;
 
 import Entities.StaticDamage.*;
 
-public class AcidLakeFactory implements InterfaceStaticDamageFactory{
+public class AcidLakeFactory extends StaticEnemyFactory{
 
     @Override
     public StaticDamage create(int x, int y) {
         return new AcidLake(x,y);
     }
-    
 }

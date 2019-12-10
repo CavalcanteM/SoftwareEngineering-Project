@@ -1,6 +1,5 @@
 package Entities.StaticDamage;
 
-import Entities.Player;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 

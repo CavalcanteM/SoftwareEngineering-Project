@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package gravityslick;
+package IsaacMain;
 
 import net.java.games.input.Mouse;
 import org.newdawn.slick.Color;
@@ -14,10 +9,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-/**
- *
- * @author fabrizio
- */
 public class Button {
     private int h;
     private int l;
@@ -58,5 +49,4 @@ public class Button {
         }
         
     }
-    
 }

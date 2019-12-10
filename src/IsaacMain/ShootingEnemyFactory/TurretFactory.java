@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package gravityslick.ShootingEnemyFactory;
+package IsaacMain.ShootingEnemyFactory;
 
-import Entities.Entity;
-import Entities.Reward;
 import Entities.Turret.*;
 import Entities.Turret.Turret;
 import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
 
-/**
- *
- * @author Adria
- */
 public class TurretFactory {
     
     private int x;
@@ -56,6 +45,5 @@ public class TurretFactory {
             }
         }
         return Turret;
-    }
-    
+    }    
 }

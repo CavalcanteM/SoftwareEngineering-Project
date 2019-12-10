@@ -1,10 +1,10 @@
-package gravityslick.StaticDamageFactory;
+package IsaacMain.StaticEnemyFactory;
 
 import Entities.StaticDamage.*;
 import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class StaticDamageList {
+public class StaticEnemyList {
 
     /*
         The "StaticDamageList" class uses the concrete factories multiple
@@ -17,14 +17,14 @@ public class StaticDamageList {
     private final int objlayer;
     private final TiledMap map;
 
-    public StaticDamageList(TiledMap map) {
+    public StaticEnemyList(TiledMap map) {
         this.map = map;
-        this.objlayer = this.map.getLayerIndex("Spikes");
+        this.objlayer = this.map.getLayerIndex("StaticEnemies");
     }
 
-    public ArrayList<StaticDamage> getStaticDamageList() {
-        OneHeartSpikeFactory oneFactory = new OneHeartSpikeFactory();
-        HalfHeartSpikeFactory halfFactory = new HalfHeartSpikeFactory();
+    public ArrayList<StaticDamage> getStaticEnemyList() {
+        StaticEnemyFactory oneFactory = new OneHeartSpikeFactory();
+        StaticEnemyFactory halfFactory = new HalfHeartSpikeFactory();
         //AcidLakeFactory acidFactory = new AcidLakeFactory(); late implement suggestion
 
         ArrayList<StaticDamage> StaticDamage = new ArrayList<>();

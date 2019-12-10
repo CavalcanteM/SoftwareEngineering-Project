@@ -1,8 +1,8 @@
-package gravityslick.StaticDamageFactory;
+package IsaacMain.StaticEnemyFactory;
 
 import Entities.StaticDamage.*;
 
-public class HalfHeartSpikeFactory implements InterfaceStaticDamageFactory {
+public class HalfHeartSpikeFactory extends StaticEnemyFactory {
 
     @Override
     public StaticDamage create(int x, int y) {

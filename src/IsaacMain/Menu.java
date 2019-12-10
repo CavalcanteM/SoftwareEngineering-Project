@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package gravityslick;
-
+package IsaacMain;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -13,10 +7,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-/**
- *
- * @author fabrizio
- */
 public class Menu {
     private final int h;
     private final int l;
@@ -38,9 +28,6 @@ public class Menu {
         return l;
     }
     
-    
-    
-    
     public void init(GameContainer gc) throws SlickException {
         menu = new Rectangle(Math.round((gc.getWidth()-this.l)/2),Math.round((gc.getHeight()-this.h)/2),this.l,this.h);
     }
@@ -57,7 +44,5 @@ public class Menu {
     
     public void resume(GameContainer gc) throws SlickException{
         gc.resume();
-    }
-    
+    }    
 }
-

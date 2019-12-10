@@ -1,9 +1,7 @@
-package Entities;
+package IsaacMain;
 
-import gravityslick.Level;
 import static java.lang.Math.signum;
-import java.util.ArrayList;
-import java.util.Random;
+//import java.util.Random;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
@@ -16,7 +14,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class Player implements Entity{
+public class Player {
     
     private static Player playerInstance = null;
     
@@ -25,10 +23,8 @@ public class Player implements Entity{
     private float speed = 5;
     private float iterations = 20;
     private int dashValue = 10;
-    private int score=0;
-    private long lastHitTime = System.currentTimeMillis();
-    private Shape Hitbox;
-    private Level level;
+    
+    private Shape hitbox;
 
     private float vX = 0;
     private float vY = 0;
@@ -47,19 +43,17 @@ public class Player implements Entity{
     private boolean isPaused;
     private boolean isMovingRight = true;
     private boolean isDead;
-    private int Hearts = 6; // Measured in mid hearts
+    private int hearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
-
-    private Player(Level level) {
-        this.level = level;
-        this.score = score;
-        this.Hitbox = new Rectangle(30, 720-90, 29, 59);
+    private CollisionManager collision;
+    private long lastHitTime = System.currentTimeMillis() - 3000;
+    
+    private Player() {
     }
     
-    public static Player getPlayerInstance(Level level) {
+    public static Player getPlayerInstance() {
         if(playerInstance == null) {
-            Player.playerInstance = new Player(level);
-            
+            Player.playerInstance = new Player();
         }
         return Player.playerInstance;
     }
@@ -87,12 +81,8 @@ public class Player implements Entity{
         return iterations;
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
     public Shape getPlayer() {
-        return Hitbox;
+        return hitbox;
     }
 
     public float getSpeed() {
@@ -111,12 +101,8 @@ public class Player implements Entity{
         return isPaused;
     }
 
-    public int getScore() {
-        return score;
-    }
-    
     public int getNumHearts() {
-        return Hearts;
+        return hearts;
     }
 
     public int getNumVoidHearts() {
@@ -138,12 +124,8 @@ public class Player implements Entity{
         this.iterations = iterations;
     }
     
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-    
-    public void setPlayer(Shape player) {
-        this.Hitbox = player;
+    public void setPlayer(Shape hitbox) {
+        this.hitbox = hitbox;
     }
     
     public void setSpeed(float speed) {
@@ -163,13 +145,16 @@ public class Player implements Entity{
     }
     
     public void setNumHearts(int numHearts) {
-        this.Hearts = numHearts;
+        this.hearts = numHearts;
     }
     
     public void setNumVoidHearts(int numVoidHearts) {
         this.numVoidHearts = numVoidHearts;
     }
     
+    public void setCollisionManager(CollisionManager collision){
+        this.collision=collision;
+    }
     /*--------------------
      * Other methods 
      *--------------------*/
@@ -259,16 +244,20 @@ public class Player implements Entity{
         
         
         
-        if(this.score >= this.level.getScore()){
-            gc.pause();
-        }
-        
         // Temporary code: used only for graphically testing the damage
 //        if(isDead) {
 //            System.out.println("You are dead!");
 //            this.isDead = false;
 //        }
-
+        if (gc.getInput().isKeyPressed(Input.KEY_T)) {
+            this.getDamaged(1);
+        }
+        if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
+            this.getDamaged(2);
+        }
+        if (gc.getInput().isKeyPressed(Input.KEY_R)) {
+            this.resetStats();
+        }
         
     }
     
@@ -279,127 +268,56 @@ public class Player implements Entity{
      * @throws SlickException 
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
+        
         //used to hyde the hitbox
         hideHitbox(g);
         /* 
         Take coordinates have an offset value to make the sprite perfectly
         match the Shape rectangle, that aclually is the hitbox of the Hitbox. 
         */
-        float X = this.Hitbox.getMinX()-14;
-        float Y = this.Hitbox.getMinY()-5;
-
+        float X = this.hitbox.getMinX()-14;
+        float Y = this.hitbox.getMinY()-5;
         
-
-        // From this point the code has to be refactored
-//        if(this.vX > 0){ // The character is moving on the right
-//            if(!isPaused){
-//                if(rotated){
-//                    this.leftAnimation.draw(X, Y);
-//                    this.leftAnimation.start();
-//                } else {
-//                    this.rightAnimation.draw(X, Y);
-//                    this.rightAnimation.start();
-//                }   
-//            } else {
-//                if(rotated){
-//                    this.leftAnimation.draw(X, Y);
-//                    this.leftAnimation.stop();
-//                } else {
-//                    this.rightAnimation.draw(X, Y);
-//                    this.rightAnimation.stop();
-//                }
-//            }
-//             
-//        }
-//        else if(this.vX < 0){ // The character is moving on the left
-//            if(!isPaused){
-//                if(rotated){
-//                    this.rightAnimation.draw(X, Y);
-//                    this.rightAnimation.start();
-//                } else {
-//                    this.leftAnimation.draw(X, Y);
-//                    this.leftAnimation.start(); 
-//                }
-//            } else {
-//                if(rotated){
-//                    this.rightAnimation.draw(X, Y);
-//                    this.rightAnimation.stop();
-//                } else {
-//                    this.leftAnimation.draw(X, Y);
-//                    this.leftAnimation.stop(); 
-//                }
-//            }
-//        }
-//        else { 
-        if(this.vX == 0) {// The character doesn't move
-            if(!isPaused){             
-                if(isMovingRight){
-                    if(rotated){
-                        if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimationLeft.draw(X,Y);
-                            this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
-                            this.deathAnimationLeft.start();
-                        } else {
-                            /*
-                            The +2 and -2 are used to make the idle in left and 
-                            right position match the position of the center axis
-                            if the character. That's caused by a misallignement of
-                            the character in the sprite.
-                            */
-                            this.idleAnimationLeft.draw(X+2,Y);
-                            this.idleAnimationLeft.start();
-                        }
-                        
+        if(this.vX ==0){//The character doesn't move
+            if((isMovingRight && !rotated) || (!isMovingRight && rotated)){
+                if(isPaused){
+                    this.idleAnimationRight.draw(X,Y);
+                    this.idleAnimationRight.stop();
+                }else{
+                    if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
+                        this.deathAnimationRight.draw(X, Y);
+                        this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
+                        this.deathAnimationRight.start();
                     } else {
-                        if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimationRight.draw(X, Y);
-                            this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
-                            this.deathAnimationRight.start();
-                        } else {
+                        /* The +2 and -2 are used to make the idle in left and 
+                           right position match the position of the center axis
+                           if the character. That's caused by a misallignement of
+                           the character in the sprite.*/
+                        if(isMovingRight){
                             this.idleAnimationRight.draw(X+2,Y);
-                            this.idleAnimationRight.start();
-                        }
-                    }
-                } else {
-                    if(rotated){
-                        if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimationRight.draw(X, Y);
-                            this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
-                            this.deathAnimationRight.start();
-                        } else {
+                        }else{
                             this.idleAnimationRight.draw(X-2,Y);
-                            this.idleAnimationRight.start();
-                        }    
-                    } else {
-                        if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
-                            this.deathAnimationLeft.draw(X, Y);
-                            this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
-                            this.deathAnimationLeft.start();
-                        } else {
-                            this.idleAnimationLeft.draw(X-2,Y);
-                            this.idleAnimationLeft.start();
-                        }   
-                    }
+                        }
+                        this.idleAnimationRight.start();
+                    }    
                 }
-            } else {
-                
-
-                if(isMovingRight){
-                    if(rotated){
-                        this.idleAnimationLeft.draw(X,Y);
-                        this.idleAnimationLeft.stop();
+            }else{
+                if(isPaused){
+                    this.idleAnimationLeft.draw(X,Y);
+                    this.idleAnimationLeft.stop();
+                }else{
+                    if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
+                        this.deathAnimationLeft.draw(X, Y);
+                        this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
+                        this.deathAnimationLeft.start();
                     } else {
-                        this.idleAnimationRight.draw(X,Y);
-                        this.idleAnimationRight.stop();
-                    }
-                } else {
-                    if(rotated){
-                        this.idleAnimationRight.draw(X,Y);
-                        this.idleAnimationRight.stop();
-                    } else {
-                        this.idleAnimationLeft.draw(X,Y);
-                        this.idleAnimationLeft.stop();
-                    }
+                        if(isMovingRight){
+                            this.idleAnimationLeft.draw(X+2,Y);
+                        }else{
+                            this.idleAnimationLeft.draw(X-2,Y);
+                        }
+                        this.idleAnimationLeft.start();
+                    }   
                 }
             }
         }
@@ -438,10 +356,10 @@ public class Player implements Entity{
      */
     public float changeGravity(float sign) {
 
-        Hitbox.setY(Hitbox.getY() + sign * 0.5f);
+        hitbox.setY(hitbox.getY() + sign * 0.5f);
         this.isChangingGravity = true;
         this.rotated = !this.rotated;
-        Hitbox.setY(Hitbox.getY() - sign * 0.5f);
+        hitbox.setY(hitbox.getY() - sign * 0.5f);
         return -gravity;
     }
     
@@ -454,13 +372,10 @@ public class Player implements Entity{
         float vXtemp = vX / iterations;
 
         for (int t = 0; t < iterations; t++) {
-            Hitbox.setX(Hitbox.getX() + vXtemp);
-            if (this.collidesWith(level.getBlock())) {
-                Hitbox.setX(Hitbox.getX() - vXtemp);
+            hitbox.setX(hitbox.getX() + vXtemp);
+            if(collision.collidesWith()){
+                hitbox.setX(hitbox.getX() - vXtemp);
                 vX = 0;
-            }
-            if (this.collidesWith( level.getSpikes())) {
-                this.getDamaged(1);
             }
         }
     }
@@ -473,9 +388,9 @@ public class Player implements Entity{
         float vYtemp = vY / iterations;
         
         for (int t = 0; t < iterations; t++) {
-            Hitbox.setY(Hitbox.getY() + vYtemp);
-            if (this.collidesWith(level.getBlock())) {
-                Hitbox.setY(Hitbox.getY() - vYtemp);
+            hitbox.setY(hitbox.getY() + vYtemp);
+            if(collision.collidesWith()){
+                hitbox.setY(hitbox.getY() - vYtemp);
                 vY = 0;
             }
         }
@@ -516,31 +431,7 @@ public class Player implements Entity{
         vX = dir * dashValue * speed;
     }
 
-    /**
-     * This method has to detect the collisions of the character
-     * and the map's objects.
-     * @param objects
-     * @return 
-     */
-    public boolean collidesWith(ArrayList<Shape> objects){
-        for(int i = 0; i < objects.size(); i++){
-            if(this.Hitbox.intersects(objects.get(i))){
-                if(i==objects.size()-1 && !(this.score > this.level.getScore())){
-                    this.score++;
-                    if(this.score < this.level.getScore()){
-                        Random random = new Random();
-                        objects.get(i).setCenterX((float) random.nextInt(960-300)+300);
-                        objects.get(i).setCenterY((float) random.nextInt(720-300)+300);
-                    }
-                }
-                else{
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    
+
     /**
      * Manages the rotation of the character. (Has to be refactored)
      * @param angle the rotation angle
@@ -584,11 +475,11 @@ public class Player implements Entity{
             hearts.getSprite(2, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the full hearts
-        for(i = 0; i<this.Hearts/2 ; i++){
+        for(i = 0; i<this.hearts/2 ; i++){
             hearts.getSprite(0, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the mid hearts
-        if(this.Hearts - 2*i > 0){
+        if(this.hearts - 2*i > 0){
             hearts.getSprite(1,0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         hearts.endUse();
@@ -598,34 +489,31 @@ public class Player implements Entity{
      * Manages the damage on the character
      * @param points The number of mid hearts to subtract
      */
-   synchronized public void getDamaged(int damage){
-
-        
-        if( (System.currentTimeMillis()-this.lastHitTime)> 3000 ){
+    synchronized public void getDamaged(int damage){
+        if((System.currentTimeMillis()-this.lastHitTime)> 3000 ){
             this.lastHitTime=System.currentTimeMillis();
             
             System.out.println(System.currentTimeMillis());
             
-            this.Hearts -= damage;
-            if(this.Hearts <= 0) {
+            this.hearts -= damage;
+            if(this.hearts <= 0) {
                 this.isDead = true;
                 this.vX = 0;
                 
             }    
         }
-        
-
     }
 
    void hideHitbox(Graphics g)
    {
         g.setColor(new Color(0,0,0,0));
-        g.fill(Hitbox);
+        g.fill(this.hitbox);
    }
-   
-    @Override
-    public Shape getHitBox()
-    {
-        return Hitbox;
+    
+    /**
+     * Resets the number of hearts of the character
+     */
+    public void resetStats(){
+        this.numVoidHearts = this.numVoidHearts;
     }
 }
