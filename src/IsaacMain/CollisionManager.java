@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-//Questa classe viene inizializzata nel costruttore di player (riga 55) e 
+//Questa classe viene inizializzata nel costruttore di playerHitbox (riga 55) e 
 //ne tiene un riferimento come parametro di classe (riga 50).
-//è stato commentato il metodo collidesWith in player in riga 527
+//è stato commentato il metodo collidesWith in playerHitbox in riga 527
 //e sono stati modificati gli if in riga 463 e 479
 /**
  * Manages collisions within the map. In this class the character's life and points 
@@ -22,6 +22,11 @@ public class CollisionManager implements Mediator{
     private Points pts;
     private Shape reward;
     private ArrayList<StaticDamage> spikes;
+    private Shape playerHitbox;
+    
+    /*This two parameter are used only in the test of the class*/
+    protected boolean test1=false;
+    protected boolean test2=false;
     
     /**
      * Inizialize all the instance of the class
@@ -34,6 +39,9 @@ public class CollisionManager implements Mediator{
         if(pts.iterator().hasNext()){
            reward = pts.iterator().next().getHitBox();
         }
+    }
+
+    public CollisionManager() {
     }
     
     /**
@@ -48,22 +56,26 @@ public class CollisionManager implements Mediator{
     @Override
     public boolean collidesWith(){
         int i;
+        playerHitbox = playerInstance.getPlayer();
+        
         if(pts != null){
             getReward();
         }
         
-        //Check if the player collides with a spike
+        //Check if the playerHitbox collides with a spike
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){
-                if(playerInstance.getPlayer().intersects(spikes.get(i).getHitbox())){
-                    playerInstance.getDamaged(spikes.get(i).doDamage()); // 0 has to be replaced with the doDamage method
+                if(playerHitbox.intersects(spikes.get(i).getHitbox())){
+                    /*this assignment is used in the test of this class and the next linee must be commented
+                    test2=true;*/
+                    playerInstance.getDamaged(spikes.get(i).doDamage());
                 }
             }
         }
-        //check if the player collides with a obstacle
+        //check if the playerHitbox collides with a obstacle
         if(blocks != null){
             for(i = 0; i < blocks.size(); i++){
-                if(playerInstance.getPlayer().intersects(blocks.get(i).getHitBox())){
+                if(playerHitbox.intersects(blocks.get(i).getHitBox())){
                     return true;
                 }
             }
@@ -77,7 +89,9 @@ public class CollisionManager implements Mediator{
      * and the Shape of the current reward that Isacc has to collect
      */
     private void getReward(){
-        if(playerInstance.getPlayer().intersects(this.reward)){
+        if(playerHitbox.intersects(this.reward)){
+            /*This assignment is used for the test of this class
+            test1=true;*/
             if(pts.iterator().hasNext()){
                 this.reward = pts.iterator().next().getHitBox();
             }
@@ -94,5 +108,21 @@ public class CollisionManager implements Mediator{
         this.pts = level.getPts();
         this.spikes = level.getSpikes();
         
+    }
+    
+    /**
+     * This method is used only in the test of this class
+     * @param blocks
+     * @param pts
+     * @param spikes
+     * @param player
+     * @param reward
+     */
+    public void setParameters(ArrayList<Entity> blocks, Points pts, ArrayList<StaticDamage> spikes, Shape player, Shape reward){
+        this.blocks = blocks;
+        this.pts = pts;
+        this.spikes = spikes;
+        this.playerHitbox = player;        
+        this.reward = reward;
     }
 }

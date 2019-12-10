@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gravityslick;
+package IsaacMain;
 
-import Entities.Player;
 import static java.lang.Math.signum;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,6 +14,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.GameContainer;
+
 
 /**
  *
@@ -42,7 +43,7 @@ public class PlayerTest {
     @Before
     public void setUp() {
         level = new Level();
-        player = Player.getPlayerInstance(level);
+        player = Player.getPlayerInstance();
     }
     
     @After
@@ -102,16 +103,6 @@ public class PlayerTest {
         float expResult = 20F;
         float result = player.getIterations();
         assertEquals(expResult, result, 0.0);
-    }
-
-    /**
-     * Test of getLevel method, of class Player.
-     */
-    @Test
-    public void testGetLevel() {
-        System.out.println("getLevel");
-        Level result = player.getLevel();
-        assertNotNull(result);
     }
 
     /**
@@ -191,18 +182,7 @@ public class PlayerTest {
         player.setIterations(20F);
         assertEquals(iterations, player.getIterations(), 0.0);
     }
-
-    /**
-     * Test of setLevel method, of class Player.
-     */
-    @Test
-    public void testSetLevel() {
-        System.out.println("setLevel");
-        Level level = new Level();
-        player.setLevel(level);
-        assertSame(level, player.getLevel());
-    }
-
+    
     /**
      * Test of setPlayer method, of class Player.
      */
