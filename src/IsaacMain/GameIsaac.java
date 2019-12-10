@@ -1,5 +1,6 @@
 package IsaacMain;
 
+import menu.*;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,8 +11,8 @@ public class GameIsaac extends BasicGame {
 
     private Level level;
     private Player player;
-    private Menu menu;
-    private Menu dark;
+    private Menu pause;
+    private Menu end;
     private Button button;
     private CollisionManager collisionManager;
 
@@ -30,16 +31,29 @@ public class GameIsaac extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
         player = Player.getPlayerInstance();   // Using Singleton class Player
         level = new Level();
-        menu = new Menu(150, 300);
-        dark = new Menu(gc.getScreenHeight(), gc.getScreenWidth());
+        pause = new Menu();	
+        end = new Menu();
+        //Initialize the menuend = new Menu();
+        Button resume = new Button(50,150,new Resume(),"Resume");					//Creating the single button
+	Button restart = new Button(50,150,new RestartLevel(),"Restart");			//The constructor will decide, the function executed by the button
+	Button exit = new Button(50,150,new Exit(),"Quit");							//Check the pakage menu to see all the commands
+	Button next = new Button(50,150,new NextLevel(),"Next Level");
+	Button main = new Button(50,150,new BackToMainMenu(),"Main Menu");
+	//Adding the buttons to the menus
+        pause.addButton(resume);
+        pause.addButton(restart);
+        pause.addButton(main);
+        pause.addButton(exit);	
+	end.addButton(next);
+        end.addButton(restart);
+        end.addButton(main);
+        end.addButton(exit);
         level.init(gc, 5);
         this.collisionManager = new CollisionManager(level);
         this.player.setCollisionManager(this.collisionManager);
         player.init(gc);
-        menu.init(gc);
-        button = new Button(50, 150, menu);
-        button.init(gc);
-        dark.init(gc);
+        end.init(gc);
+        pause.init(gc);
     }
 
     /**
@@ -49,20 +63,23 @@ public class GameIsaac extends BasicGame {
      */
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-
-        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+        if (gc.isPaused() && level.getPts().iterator().hasNext()){
+            pause.update(gc, delta);
+	}
+	else if(gc.isPaused() && !level.getPts().iterator().hasNext()){
+            end.update(gc, delta);
+        }
+	if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             gc.pause();
         }
-
-        if (!gc.isPaused()) {
+	if(!gc.isPaused()){
             level.update(gc, delta);
             player.update(gc, delta);
-        } /*
+        }
+        /*
             The second condition means that Isaac has not already collected all
             pieces of its girlfriend
-         */ else if (gc.isPaused() && level.getPts().iterator().hasNext()) {
-            button.update(gc, delta);
-        }
+        */
     }
 
     /**
@@ -79,14 +96,10 @@ public class GameIsaac extends BasicGame {
             pieces of its girlfriend
          */
         if (gc.isPaused() && !level.getPts().iterator().hasNext()) {
-            dark.renderOpacity(gc, g);
-            menu.renderMenu(gc, g);
-            button.render(gc, g, "Bravissimo!");
+            end.render(gc, g);
             this.player.setvX(0);
         } else if (gc.isPaused() && level.getPts().iterator().hasNext()) {
-            dark.renderOpacity(gc, g);
-            menu.renderMenu(gc, g);
-            button.render(gc, g, "Resume");
+            pause.render(gc, g);
             this.player.setvX(0);
         }
     }
