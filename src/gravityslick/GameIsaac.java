@@ -13,6 +13,7 @@ public class GameIsaac extends BasicGame{
     private Menu menu;
     private Menu dark;
     private Button button;
+    private CollisionManager collisionManager;
     
     /**
      * @throws org.newdawn.slick.SlickException
@@ -27,11 +28,14 @@ public class GameIsaac extends BasicGame{
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
-        level = new StaticLevel();
         player = Player.getPlayerInstance();   // Using Singleton class Player
+        level = new StaticLevel();
         menu = new Menu(150,300);
         dark = new Menu(gc.getScreenHeight(), gc.getScreenWidth());
         level.init(gc, player.getPlayer(), 5);
+        this.collisionManager = new CollisionManager(level);
+        this.player.setCollisionManager(this.collisionManager);
+        StaticLevel.collision = this.collisionManager;
         player.init(gc);
         menu.init(gc);
         button = new Button(50,150, menu);
@@ -77,11 +81,13 @@ public class GameIsaac extends BasicGame{
             dark.renderOpacity(gc, g);
             menu.renderMenu(gc, g);
             button.render(gc, g, "Bravissimo!");
+            this.player.setvX(0);
         }
         else if(gc.isPaused() && level.getPts().iterator().hasNext()){
             dark.renderOpacity(gc, g);
             menu.renderMenu(gc, g);
             button.render(gc, g, "Resume");
+            this.player.setvX(0);
         }
     }
 }

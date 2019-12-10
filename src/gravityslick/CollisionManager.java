@@ -2,7 +2,6 @@ package gravityslick;
 
 import gravityslick.Entity.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -16,7 +15,6 @@ import org.newdawn.slick.geom.Shape;
  */
 public class CollisionManager implements Mediator{
     //It keeps a reference for all objects that can cause collisions
-    private HashMap<String,Integer> damageMap = new HashMap();
     private Player playerInstance;
     private StaticLevel level;
     private ArrayList<Entity> rtl;
@@ -29,16 +27,9 @@ public class CollisionManager implements Mediator{
      * @param level     
      */
     public CollisionManager(StaticLevel level){
-        this.damageMap.put("Obj", 0);
-        this.damageMap.put("Rwd", 0);
-        this.damageMap.put("Spk", 2);//Chiedere ai ragazzi se il danno deve essere 1 o 2
         this.level = level;
-        this.rtl = level.getRtl();
-        this.pts = level.getPts();
-        this.spikes = new ArrayList<Shape>();//Aggiungere get delle spikes
-        spikes.add(new Rectangle(30,30,30,30));//Creazione di uno spuntone fake
+        this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
-        this.playerInstance.setCollisionManager(this);
         if(pts!=null){
             rwd = pts.iterator().next().getHitBox();
         }
@@ -48,12 +39,13 @@ public class CollisionManager implements Mediator{
     /**
      * This method has to detect the collisions of the player
      * with the map's objects. This method call the increasing points function
-     * if the player collides with a reward and also call the deacrising life 
+     * if the player collides with a reward and also call the decreasing life 
      * function when the player collides with a spike
      * 
-     * @return false if collides with a not stopping object or not collides, 
+     * @return false if collides with a no stopping object or not collides, 
      * true if collides with a stopping object
      */
+    @Override
     public boolean collidesWith(){
         int i;
         if(pts != null){
@@ -64,7 +56,7 @@ public class CollisionManager implements Mediator{
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){
                 if(playerInstance.getPlayer().intersects(spikes.get(i))){
-                    playerInstance.getDamaged(damageMap.get("Spk"));
+                    playerInstance.getDamaged(0); // 0 has to be replaced with the doDamage method
                 }
             }
         }
@@ -89,5 +81,16 @@ public class CollisionManager implements Mediator{
             this.rwd = pts.iterator().next().getHitBox();
         }
     }
-
+    
+    /**
+     * Takes the blocks and the enemies/weapons from the level
+     * Invoked when a level is finished and another one has to start
+     * @param level the current level of the game
+     */
+    public void setParameters(StaticLevel level){
+        this.rtl = level.getRtl();
+        this.pts = level.getPts();
+        this.spikes = new ArrayList<Shape>();//Aggiungere get delle spikes
+        spikes.add(new Rectangle(30,30,30,30));//Creazione di uno spuntone fake
+    }
 }
