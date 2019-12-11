@@ -13,6 +13,7 @@ public class GameIsaac extends BasicGame {
     private Player player;
     private Menu pause;
     private Menu end;
+    private Menu deathMenu;
     private Button button;
     private CollisionManager collisionManager;
 
@@ -33,6 +34,7 @@ public class GameIsaac extends BasicGame {
         level = new Level();
         pause = new Menu();	
         end = new Menu();
+        deathMenu = new Menu();
         //Initialize the menuend = new Menu();
         Button resume = new Button(50,150,new Resume(),"Resume");					//Creating the single button
 	Button restart = new Button(50,150,new RestartLevel(),"Restart");			//The constructor will decide, the function executed by the button
@@ -40,6 +42,9 @@ public class GameIsaac extends BasicGame {
 	Button next = new Button(50,150,new NextLevel(),"Next Level");
 	Button main = new Button(50,150,new BackToMainMenu(),"Main Menu");
 	//Adding the buttons to the menus
+        deathMenu.addButton(restart);
+        deathMenu.addButton(main);
+        deathMenu.addButton(exit);
         pause.addButton(resume);
         pause.addButton(restart);
         pause.addButton(main);
@@ -54,6 +59,7 @@ public class GameIsaac extends BasicGame {
         player.init(gc);
         end.init(gc);
         pause.init(gc);
+        deathMenu.init(gc);
     }
 
     /**
@@ -76,6 +82,10 @@ public class GameIsaac extends BasicGame {
             level.update(gc, delta);
             player.update(gc, delta);
         }
+        if(player.getNumHearts()<=0){
+            deathMenu.update(gc, delta);
+            gc.pause();
+        }
         /*
             The second condition means that Isaac has not already collected all
             pieces of its girlfriend
@@ -95,7 +105,9 @@ public class GameIsaac extends BasicGame {
             The second condition means that Isaac has already collected all
             pieces of its girlfriend
          */
-        if (gc.isPaused() && !level.getPts().iterator().hasNext()) {
+        if(player.getNumHearts()<=0){
+            deathMenu.render(gc, g);
+        } else if (gc.isPaused() && !level.getPts().iterator().hasNext()) {
             end.render(gc, g);
             this.player.setvX(0);
         } else if (gc.isPaused() && level.getPts().iterator().hasNext()) {
