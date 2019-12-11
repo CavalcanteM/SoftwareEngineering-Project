@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="5" nextobjectid="1">
+ <tileset firstgid="1" source="Tileset_map.tsx"/>
+ <layer id="2" name="Background" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu3SQREAAAyDMOrf9IQsDwxwWTV5wAADDDDAAAMMMMDACwMHOmyYkwAMAAA=
+  </data>
+ </layer>
+ <layer id="1" name="Walls" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu2Wyw7DIAwErao9NP//wWUPllZTi9CEkkuQLLx+DZBLtoh4XmRb476bXbVeDXyE/ygOzBh10RLkq4dW9VWzGaOu5pBf1VSxajZjlVbM46v5vEuPn2f1nf097fdUHbViPb7yZ5afO33OO8vPub6T0dPJ9/70s0/aF/VozuvST37qaieP2nuU+8X+wffz7PlH+b077jE9P8L3+iM+z+ozks8a6VnLZ7mv+cmfxarmONP9Ub56aOQw7xzmvHfF/Z1H/+Z////499J7zdb+De73j9A/sL/xSl/sD2WDvPwADAAA
+  </data>
+ </layer>
+ <layer id="3" name="StaticEnemies" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGAWjITAaArQIAV6ooTCa2nZQ21yQeTBMbbcOJvOGkx+5gQELw4MpjEfdQnwI8ACV8hGvfFQljhAAheNQB7C8DKKxAUrlsZk5mMVAcQrD2NwJk8MV94TksZk5ksQAMoFqJQAMAAA=
+  </data>
+ </layer>
+ <layer id="4" name="Rewards" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu3SIRYAQAQFQDfY+992OwlBGY3nlyFCZYGXB3oCQwG/NIRrxBg3sI5W3WgHz2/nJ02AQBX4c5x+LAAMAAA=
+  </data>
+ </layer>
+</map>

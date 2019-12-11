@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="TileSet (30)" tilewidth="30" tileheight="30" tilecount="10" columns="5">
+  <image source="TileSet (30).png" width="150" height="60"/>
+ </tileset>
+ <layer id="2" name="Back" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu2TsQ0AMAjD6P9Pl6ryDV6MhBgDJpnx6+wKRnO5of00qfT7v+GB/PcJGOzLP+5zsh//+EOg/DsZjD8EvHkBAbapjQAMAAA=
+  </data>
+ </layer>
+ <layer id="1" name="Obj" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu2WUQuAMAiEjyCo/v8PTh8OfNiDetAIHIij3D49G+0BcG2yx7i32a5xGnj4u9QHRv/e93dYy9zUUdWf3OiVHCp8MiNP1aDCj1zOVznxXcb/ma/W7vp06idX7b3Cz/Q2E1Otn7Vn9s7EdPnMgz7DWsVU+as9lGfD7/1/FM3j2tEf8Dswz9HX3tkvrqYqSgAMAAA=
+  </data>
+ </layer>
+</map>
