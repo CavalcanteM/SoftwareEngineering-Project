@@ -13,7 +13,7 @@ public abstract class Spike implements StaticDamage {
     public Shape hitbox;
 
     public Spike(int x, int y) {
-        hitbox = new Rectangle(x, y, 30, 30);
+        hitbox = new Rectangle(x + 5, y + 5, 20, 20);
     }
 
     @Override
