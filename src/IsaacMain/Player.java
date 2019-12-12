@@ -43,7 +43,7 @@ public class Player {
     private boolean isPaused;
     private boolean isMovingRight = true;
     private boolean isDead;
-    private int hearts = 6; // Measured in mid hearts
+    private int numHearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
     private CollisionManager collision;
     private long lastHitTime = System.currentTimeMillis() - 3000;
@@ -102,7 +102,7 @@ public class Player {
     }
 
     public int getNumHearts() {
-        return hearts;
+        return numHearts;
     }
 
     public int getNumVoidHearts() {
@@ -145,7 +145,7 @@ public class Player {
     }
     
     public void setNumHearts(int numHearts) {
-        this.hearts = numHearts;
+        this.numHearts = numHearts;
     }
     
     public void setNumVoidHearts(int numVoidHearts) {
@@ -245,17 +245,17 @@ public class Player {
         
         
         
-        // Temporary code: used only for graphically testing the damage
-//        if(isDead) {
-//            System.out.println("You are dead!");
-//            this.isDead = false;
-//        }
+        /* Temporary code: used only for graphically testing the damage
+        if(isDead) {
+            System.out.println("You are dead!");
+            this.isDead = false;
+        }
         if (gc.getInput().isKeyPressed(Input.KEY_T)) {
             this.getDamaged(1);
         }
         if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
             this.getDamaged(2);
-        }
+        }*/
         if (gc.getInput().isKeyPressed(Input.KEY_R)) {
             this.resetStats();
         }
@@ -476,11 +476,11 @@ public class Player {
             hearts.getSprite(2, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the full hearts
-        for(i = 0; i<this.hearts/2 ; i++){
+        for(i = 0; i<this.numHearts/2 ; i++){
             hearts.getSprite(0, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         // Draws the mid hearts
-        if(this.hearts - 2*i > 0){
+        if(this.numHearts - 2*i > 0){
             hearts.getSprite(1,0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
         }
         hearts.endUse();
@@ -496,8 +496,8 @@ public class Player {
             
             System.out.println(System.currentTimeMillis());
             
-            this.hearts -= damage;
-            if(this.hearts <= 0) {
+            this.numHearts -= damage;
+            if(this.numHearts <= 0) {
                 this.isDead = true;
                 this.vX = 0;
                 
@@ -515,6 +515,6 @@ public class Player {
      * Resets the number of hearts of the character
      */
     public void resetStats(){
-        this.numVoidHearts = this.numVoidHearts;
+        this.numHearts = this.numVoidHearts;
     }
 }
