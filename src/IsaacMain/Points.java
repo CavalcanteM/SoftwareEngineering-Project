@@ -69,17 +69,19 @@ public class Points implements Iterable<Entity> {
             @Override
             public Entity next() {
                 nObj--;
-                if(current == null){
-                    current = rwd.get(ran.nextInt(rwd.size()));
-                }else{
-                    int i;
-                    if(rwd.size() == 1){
-                        i = 0;
+                if(this.hasNext()){
+                    if(current == null){
+                        current = rwd.remove(ran.nextInt(rwd.size()));
                     }else{
-                        i = ran.nextInt(rwd.size()-1);
+                        int i;
+                        if(rwd.size() == 1){
+                            i = 0;
+                        }else{
+                            i = ran.nextInt(rwd.size());
+                        }
+                        current = rwd.remove(i);
+                        System.out.println("Restanti: " + nObj + " SizeLista: " + rwd.size());
                     }
-                    current = rwd.remove(i);
-                    System.out.println("Restanti: " + nObj + " SizeLista: " + rwd.size());
                 }
                 return current;
             }
