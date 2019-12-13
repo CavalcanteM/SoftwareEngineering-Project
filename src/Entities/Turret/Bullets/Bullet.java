@@ -1,6 +1,7 @@
 package Entities.Turret.Bullets;
 
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -43,16 +44,16 @@ public class Bullet {
 
         //Pithagorean theorem to compute the vectorial components and get the velocities.
         double distance = Math.sqrt(x * x + y * y);
-        vX = x / Math.abs(distance) / 60;
-        vY = y / Math.abs(distance) / 60;
+        vX = x / Math.abs(distance) / 6;
+        vY = y / Math.abs(distance) / 6;
 
-        //System.out.println("Start: " + x1 + "," + y1 + " to: " + x2 + "," + y2 + ". Directions: " + vX + "," + vY + ". Components: " + x + " " + y + " Distance: " + distance);
+        System.out.println("Start: " + x1 + "," + y1 + " to: " + x2 + "," + y2 + ". Directions: " + vX + "," + vY + ". Components: " + x + " " + y + " Distance: " + distance);
     }
 
 
     public Shape getShape() {
 
-        if (hitboxArea.contains(bullet)) {
+        if (hitboxArea.intersects(bullet)) {
             move();
             return bullet;
         } else {
@@ -70,8 +71,9 @@ public class Bullet {
     }
 
     public void render(Graphics g) throws SlickException {
-        ShapeRenderer.draw(new Rectangle(1 * 30, 15 * 30, 15 * 30, 90));
-        System.out.println("disegna");
+        g.setColor(Color.blue);
+        g.fillRect(100,100, 20, 20);
+        //System.out.println("disegna");
 
     }
 }

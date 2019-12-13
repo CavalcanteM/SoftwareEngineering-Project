@@ -98,7 +98,7 @@ public class CollisionManager implements Mediator {
                 if (playerHitbox.intersects(turrets.get(i).getHitboxArea())) {
 
                     if ((System.currentTimeMillis() - this.lastHitTime) > 1000) {
-                       // this.lastHitTime = System.currentTimeMillis();
+                        this.lastHitTime = System.currentTimeMillis();
 
                         ShootingEnemy single = turrets.get(i);
 
