@@ -2,9 +2,10 @@ package IsaacMain;
 
 import Entities.Entity.*;
 import Entities.StaticDamage.*;
-import Entities.Turret.Turret;
 import IsaacMain.StaticEnemyFactory.StaticEnemyList;
 import Entities.Entity.EntityClient;
+import Entities.Turret.ShootingEnemy;
+import IsaacMain.ShootingEnemyFactory.ShootingEnemyList;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,8 +21,14 @@ public class Level {
     private EntityClient entityClient;
     private ArrayList<Entity> blocks, rewards;
     private ArrayList<StaticDamage> spikes;
-    private ArrayList<Turret> turret;
+    private ArrayList<ShootingEnemy> turrets;
     private int score;
+    
+    private Graphics g;
+
+    public Graphics getG() {
+        return g;
+    }
 
     private Points pts;
 
@@ -33,8 +40,8 @@ public class Level {
         return map;
     }
 
-    public ArrayList<Turret> getTurret() {
-        return turret;
+    public ArrayList<ShootingEnemy> getShootingEnemy() {
+        return turrets;
     }
 
     public ArrayList<Entity> getRewards() {
@@ -52,7 +59,6 @@ public class Level {
     public Points getPts() {
         return pts;
     }
-
     /**
      * Is a sort of constructor for this class
      *
@@ -69,14 +75,14 @@ public class Level {
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
-
-        //this.turret = new TurretFactory(this.map).getShootingEnemy();
+        
+        //Create an array list of turrets calling the List creator
+        this.turrets = new ShootingEnemyList(this.map).getList();
+        
         this.score = score;
 
         this.pts = new Points(rewards, score);
         this.pts.init();
-        
-        System.out.println(rewards.size());
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -94,9 +100,12 @@ public class Level {
      * @throws org.newdawn.slick.SlickException
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
+        this.g=g;
         map.render(0, 0, map.getLayerIndex("Background"));
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
+        map.render(0,0, map.getLayerIndex("Turrets"));
+        map.render(0,0, map.getLayerIndex("TurretsHitbox"));
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }

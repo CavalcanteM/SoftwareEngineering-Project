@@ -1,10 +1,12 @@
 package Entities.Turret;
 
+import Entities.Turret.Bullets.Bullet;
+import org.newdawn.slick.geom.Shape;
+
+
 public interface ShootingEnemy {
 
-    public void Shoot();
+    public Shape getHitboxArea();
 
-    public void IncreaseDamage();
-
-    public void IncreaseFireRate();
+    public Bullet Shoot(float x2, float y2);
 }

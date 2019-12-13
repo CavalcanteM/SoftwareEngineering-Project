@@ -1,5 +1,6 @@
 package IsaacMain;
 
+import Entities.Turret.Bullets.Bullet;
 import menu.*;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;

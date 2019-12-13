@@ -33,17 +33,18 @@ public class ShootingEnemyList {
 
         for (y = 0; y < map.getHeight(); y++) {
             for (x = 0; x < map.getWidth(); x++) {
-
                 /*
                 Based on the ID of the tiles in the particular layer of the map
                 this method creates an array list of different objects that 
                 match the ID. 
                  */
                 if (map.getTileId(x, y, turretsLayer) > 14 && map.getTileId(x, y, turretsLayer) < 19) {
-                    threeFactory.create( x, y, calculateHitboxArea(x, y) );
+                    array.add(threeFactory.create(x, y, calculateHitboxArea(x, y)) );
                 }
             }
         }
+        //correctly returns the array with the turrets!
+        System.out.println(array.size());
         return array;
     }
 
@@ -51,14 +52,16 @@ public class ShootingEnemyList {
 
         Shape hitboxArea = null;
         int hitboxID = map.getTileId(x, y, turretsHitboxLayer);
-
+        /*
         for (y = 0; y < map.getHeight(); y++) {
             for (x = 0; x < map.getWidth(); x++) {
                 if (map.getTileId(x, y, turretsHitboxLayer) == hitboxID) {
-                    hitboxArea.union(new Rectangle(x, y, 30, 30));
+                    Shape[] union = hitboxArea.union(new Rectangle(x, y, 30, 30));
                 }
             }
         }
-        return hitboxArea; 
+         */
+        hitboxArea = new Rectangle(1 * 30, 15 * 30, 15 * 30, 90);
+        return hitboxArea;
     }
 }
