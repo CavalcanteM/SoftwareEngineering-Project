@@ -7,6 +7,7 @@ import Entities.Entity.EntityClient;
 import Entities.Turret.ShootingEnemy;
 import IsaacMain.ShootingEnemyFactory.ShootingEnemyList;
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -109,6 +110,11 @@ public class Level {
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }
+      
+        if(turrets != null)
+            for(int i=0; i<turrets.size(); i++){
+                turrets.get(i).render(g);
+            }
     }
 
     private int readFromFile() {

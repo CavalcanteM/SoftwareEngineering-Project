@@ -102,6 +102,7 @@ public class GameIsaac extends BasicGame {
     public void render(GameContainer gc, Graphics g) throws SlickException {
         level.render(gc, g);
         player.render(gc, g);
+        
         /*
             The second condition means that Isaac has already collected all
             pieces of its girlfriend

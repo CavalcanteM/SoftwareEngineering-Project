@@ -20,11 +20,6 @@ public class Bullet {
     Shape bullet, hitboxArea;
     ArrayList<Double> increments;
     TiledMap map;
-    public static Graphics g;
-
-    public static void setG(Graphics g) {
-        Bullet.g = g;
-    }
 
     public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea) {
         this.x1 = x1 * 30;
@@ -44,8 +39,8 @@ public class Bullet {
 
         //Pithagorean theorem to compute the vectorial components and get the velocities.
         double distance = Math.sqrt(x * x + y * y);
-        vX = x / Math.abs(distance) / 6;
-        vY = y / Math.abs(distance) / 6;
+        vX = x / Math.abs(distance) *0.2;
+        vY = y / Math.abs(distance) *0.2;
 
         System.out.println("Start: " + x1 + "," + y1 + " to: " + x2 + "," + y2 + ". Directions: " + vX + "," + vY + ". Components: " + x + " " + y + " Distance: " + distance);
     }
@@ -54,7 +49,7 @@ public class Bullet {
     public Shape getShape() {
 
         if (hitboxArea.intersects(bullet)) {
-            move();
+            
             return bullet;
         } else {
             return null;
@@ -66,14 +61,13 @@ public class Bullet {
     }
 
     private void move() {
-        bullet.setX((int) (bullet.getX() + (float)vX));
-        bullet.setY((int) (bullet.getY() + (float)vY));
+        bullet.setX((float) (bullet.getX() + vX));
+        bullet.setY((float) (bullet.getY() + vY));
     }
 
     public void render(Graphics g) throws SlickException {
         g.setColor(Color.blue);
-        g.fillRect(100,100, 20, 20);
-        //System.out.println("disegna");
-
+        g.fill(bullet);
+        move();
     }
 }

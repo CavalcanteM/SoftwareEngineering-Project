@@ -129,6 +129,7 @@ public class CollisionManager implements Mediator {
                     }
                 } else {
                     bulletsList.remove(i);
+                    turrets.get(i).removeBullet(i);
                 }
             }
         }
