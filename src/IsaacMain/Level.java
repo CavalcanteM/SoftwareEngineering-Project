@@ -14,7 +14,7 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * This class has the scope of the definition of a level's enviroment.
  */
-public class Level {
+public class Level implements GalaxyComponent{
 
     private TiledMap map;
     private EntityClient entityClient;
@@ -22,9 +22,16 @@ public class Level {
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Turret> turret;
     private int score;
-
+    private String name;
     private Points pts;
-
+    private int index;
+    
+    public Level(String name, int score, int index){
+        this.name = name;
+        this.score = score;
+        this.index = index;
+    }
+    
     public int getScore() {
         return score;
     }
@@ -60,9 +67,9 @@ public class Level {
      * @param player
      * @throws org.newdawn.slick.SlickException
      */
-    public void init(GameContainer gc, int score) throws SlickException {
+    public void init(GameContainer gc) throws SlickException {
 
-        this.map = new TiledMap("\\src\\map\\Level_" + readFromFile() + ".tmx");
+        this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
 
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
 
@@ -71,7 +78,6 @@ public class Level {
         this.rewards = entityClient.getEntities("Rewards");
 
         //this.turret = new TurretFactory(this.map).getShootingEnemy();
-        this.score = score;
 
         this.pts = new Points(rewards, score);
         this.pts.init();
@@ -93,6 +99,7 @@ public class Level {
      * @param g
      * @throws org.newdawn.slick.SlickException
      */
+    @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         map.render(0, 0, map.getLayerIndex("Background"));
         map.render(0, 0, map.getLayerIndex("Walls"));
@@ -105,4 +112,22 @@ public class Level {
     private int readFromFile() {
         return 1;
     }
+
+    @Override
+    public void add(GalaxyComponent galaxyComponent) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<GalaxyComponent> getChildren() {
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public GalaxyComponent getChild(int index) {
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
