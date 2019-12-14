@@ -14,5 +14,5 @@ public interface ShootingEnemy {
     
     public void render(Graphics g) throws SlickException;
     
-    public void removeBullet(int i);
+    public void removeBullet(Bullet bul);
 }

@@ -3,6 +3,7 @@ package IsaacMain.ShootingEnemyFactory;
 import Entities.StaticDamage.StaticDamage;
 import Entities.Turret.ShootingEnemy;
 import java.util.ArrayList;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -38,30 +39,32 @@ public class ShootingEnemyList {
                 this method creates an array list of different objects that 
                 match the ID. 
                  */
-                if (map.getTileId(x, y, turretsLayer) > 14 && map.getTileId(x, y, turretsLayer) < 19) {
-                    array.add(threeFactory.create(x, y, calculateHitboxArea(x, y)) );
+                if (map.getTileId(x, y, turretsLayer) > 14 && map.getTileId(x, y, turretsLayer) < 20) {
+                    array.add(threeFactory.create(x, y, calculateHitboxArea(x, y)));
                 }
             }
         }
-        //correctly returns the array with the turrets!
-        System.out.println(array.size());
         return array;
     }
 
     private Shape calculateHitboxArea(int x, int y) {
 
-        Shape hitboxArea = null;
         int hitboxID = map.getTileId(x, y, turretsHitboxLayer);
-        /*
+        Shape[] hitboxarea = {null};
+        int k = 0;
+
         for (y = 0; y < map.getHeight(); y++) {
             for (x = 0; x < map.getWidth(); x++) {
                 if (map.getTileId(x, y, turretsHitboxLayer) == hitboxID) {
-                    Shape[] union = hitboxArea.union(new Rectangle(x, y, 30, 30));
+                    if (k == 0) {
+                        hitboxarea[0] = new Rectangle(x * 30, y * 30, 30, 30);
+                        k++;
+                    } else {
+                        hitboxarea = hitboxarea[0].union(new Rectangle(x * 30, y * 30, 30, 30));
+                    }
                 }
             }
         }
-         */
-        hitboxArea = new Rectangle(1 * 30, 15 * 30, 15 * 30, 90);
-        return hitboxArea;
+        return hitboxarea[0];
     }
 }

@@ -95,8 +95,8 @@ public class CollisionManager implements Mediator {
         //check if the playerHitbox enters the HitboxArea of the turret
         if (turrets.size() != 0 && turrets != null) {
             for (i = 0; i < turrets.size(); i++) {
-                if (playerHitbox.intersects(turrets.get(i).getHitboxArea())) {
-
+                 if (playerHitbox.intersects(turrets.get(i).getHitboxArea()) || turrets.get(i).getHitboxArea().contains(playerHitbox)) {
+ 
                     if ((System.currentTimeMillis() - this.lastHitTime) > 1000) {
                         this.lastHitTime = System.currentTimeMillis();
 
@@ -112,20 +112,20 @@ public class CollisionManager implements Mediator {
 
         if (bulletsList != null) {
             Shape bullet;
-
             for (i = 0; i < bulletsList.size(); i++) {
-
+                Bullet bulletObj = bulletsList.get(i);
                 bullet = bulletsList.get(i).getShape();
+                
                
                 if (bullet != null) {
                     if (playerHitbox.intersects(bullet)) {
                         playerInstance.getDamaged(bulletsList.get(i).getDamage());
                         bulletsList.remove(i);
-                    turrets.get(i).removeBullet(i);
+                        turrets.get(i).removeBullet(bulletObj);
                     }
                 } else {
                     bulletsList.remove(i);
-                    turrets.get(i).removeBullet(i);
+                    turrets.get(i).removeBullet(bulletObj);
                 }
             }
         }

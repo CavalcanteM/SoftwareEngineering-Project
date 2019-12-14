@@ -23,12 +23,12 @@
  </layer>
  <layer id="5" name="Turrets" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QAQEAAAiDMCrYv6xBPhqwEgECBAgQILAocIvTngkQ6AGT8EKdAAwAAA==
+   H4sIAAAAAAAECmNgGAWjITAaAqMhMBoCoyEwGgIjMQQER6CnhUegn0e9PBoC6CEAACuC5bUADAAA
   </data>
  </layer>
  <layer id="6" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2QwQoAIAhD/Ynq//80PQzEQ0gHi9pALCmemwjFBJgAE2ACTODdBLpaQ51wCbb1qKGDbMW/2fst/KYLo7B71ru925H3Drb1KoFvvNP8Ks+e4/37edX5d/4q5wlE7PZgAAwAAA==
+   H4sIAAAAAAAECu2RUQoAIAhDu0R0/5umHwORAiFqEBPEkuS51ZpCDsgBOSAH5MCfDnSThWQoBBs17zCsUc08W7mDi5pnqmx/dxrYwSuCzcceL+pK/wtuZETvY//2mak9shn62fzd304pNtJnAAwAAA==
   </data>
  </layer>
 </map>

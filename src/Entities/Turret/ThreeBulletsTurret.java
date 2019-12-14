@@ -43,8 +43,8 @@ public class ThreeBulletsTurret implements ShootingEnemy {
         }
     }
 
-    public void removeBullet(int i) {
-        bulletList.remove(i);
+    public void removeBullet(Bullet bul) {
+        bulletList.remove(bul);
     }
 
 }

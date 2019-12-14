@@ -53,7 +53,7 @@ public class Bullet {
 
     public Shape getShape() {
 
-        if (hitboxArea.intersects(bullet)) {
+        if (hitboxArea.contains(bullet)) {
             return bullet;
         } else {
             return null;
@@ -71,11 +71,10 @@ public class Bullet {
 
     public void render(Graphics g) throws SlickException {
 
-        if (hitboxArea.intersects(bullet)) {
+        if (hitboxArea.contains(bullet)) {
             UpdateImage();
             g.setColor(Color.red);
             g.fill(bullet);
         }
-
     }
 }
