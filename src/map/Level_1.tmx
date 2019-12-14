@@ -8,27 +8,27 @@
  </layer>
  <layer id="1" name="Walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2V3QrAIAiFZT+M9f4PPL0QTiZbrFYMFCRN67BvRYmItkmeWPdkn2U7C4f+M33hhNaLWS3/0Ef6/plduMXzfGWe1fKXe7qCS24N6xjbPsxr9XFNzzj0y7Nkz5DlbeuY217JsS4xWvAv+SOfr+O/8j8YjHoLo7vv1/29sUUT13r6eF+0F+fwDr2d1309fa2NGEOfSN5S+x9H5aJ9AUtEqg8ADAAA
+   H4sIAAAAAAAECu2VzQrAIAyDZT+H+f4PvOYwiFGwB4s7tFBoqC7wtbJaSrk2ZTXfx3JX3Gac/nP64MSxipmXf/oz/fHOHnZklO3NVnn5452elNAa3Odaz7H2+vOdlXX697ukO6S8tc9az0JzHzVH8u/5M5/oOvn/j7++lwj97VXOf//88S+NmLHnm/B+AZPUJEEADAAA
   </data>
  </layer>
- <layer id="3" name="StaticEnemies" width="32" height="24">
+ <layer id="3" name="StaticEnemies" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGDyAB+gUZEyKy/iAitExKfpH1Y6GwGAOAV6o42D0YHbrQLgNlvdhdqPzYeKj9OAOAeTyH8RGB7B4xUajqx3lj4bAQIQAN9BSZDwQbhi1czQEiAkBAA/WJcUADAAA
+   H4sIAAAAAAAECmNgGDyAB+gUZEyKy/iAitExKfpH1Y6GwGAOAV6o42D0YHbrQLgNlvdhdqPzYeKj9OAOAeTyH8RGB7B4xUajqx3lj4bAaAiMhsBoCOAOAQCcqR4IAAwAAA==
   </data>
  </layer>
- <layer id="4" name="Rewards" width="32" height="24">
+ <layer id="4" name="Rewards" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGAWjITAaAtQKAX5qGYTFHFqajcW6UaEBCoHReB6ggB/G1o6mKeIjdzSsiA+rUZVDOwQADksEXwAMAAA=
   </data>
  </layer>
- <layer id="5" name="Turrets" width="32" height="24">
+ <layer id="5" name="Turrets" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGAWjITAaAqMhMBoCoyEwGgIjMQQER6CnhUegn0e9PBoC6CEAACuC5bUADAAA
   </data>
  </layer>
  <layer id="6" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2RUQoAIAhDu0R0/5umHwORAiFqEBPEkuS51ZpCDsgBOSAH5MCfDnSThWQoBBs17zCsUc08W7mDi5pnqmx/dxrYwSuCzcceL+pK/wtuZETvY//2mak9shn62fzd304pNtJnAAwAAA==
+   H4sIAAAAAAAECu3QQQrEMAwDwH5i6f9/us1hQBSCC761DgQJOZKIj2PObGA2MBuYDbxhA7/rE0+v/54XcWmQDuk7vHff3+XcTHYHZWV+xXk6vbyyqs6c88jooKzMrzhPp5dXVtWZcx4ZHZSV+RXn6fTyyqo6c84jY2EeemqL7/Q1y3x86Xl2er4Z/o0N/AFEnnEEAAwAAA==
   </data>
  </layer>
 </map>

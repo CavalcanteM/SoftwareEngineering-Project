@@ -1,5 +1,6 @@
 package Entities.Turret.Bullets;
 
+import Entities.Turret.ShootingEnemy;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -17,6 +18,7 @@ public class Bullet {
     int x1, y1;
     float x2, y2;
     double vX, vY;
+    ShootingEnemy turret;
     Shape bullet, hitboxArea;
     ArrayList<Double> increments;
     TiledMap map;
@@ -26,13 +28,14 @@ public class Bullet {
         this.velocity = velocity;
     }
 
-    public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea) {
+    public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea, ShootingEnemy turret) {
         this.x1 = x1 * 30;
         this.x2 = x2;
         this.y1 = y1 * 30;
         this.y2 = y2;
         this.hitboxArea = hitboxArea;
         velocity = 5;
+        this.turret=turret;
 
         this.bullet = new Circle(this.x1 + 15, this.y1 + 15, 5);
         ComputeVelocity(this.x1, this.y1, x2, y2);
@@ -76,5 +79,9 @@ public class Bullet {
             g.setColor(Color.red);
             g.fill(bullet);
         }
+    }
+    
+    public void remove(){
+        turret.removeBullet(this);
     }
 }

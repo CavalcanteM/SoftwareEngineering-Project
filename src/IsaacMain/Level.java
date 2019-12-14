@@ -106,7 +106,7 @@ public class Level {
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
         map.render(0,0, map.getLayerIndex("Turrets"));
-        map.render(0,0, map.getLayerIndex("TurretsHitbox"));
+      //  map.render(0,0, map.getLayerIndex("TurretsHitbox"));
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }

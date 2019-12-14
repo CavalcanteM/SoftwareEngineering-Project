@@ -26,7 +26,7 @@ public class ThreeBulletsTurret implements ShootingEnemy {
 
     @Override
     public Bullet Shoot(float x2, float y2) {
-        Bullet asd = new Bullet(x, y, x2, y2, hitboxArea);
+        Bullet asd = new Bullet(x, y, x2, y2, hitboxArea, this );
         bulletList.add(asd);
         return asd;
     }
@@ -34,7 +34,7 @@ public class ThreeBulletsTurret implements ShootingEnemy {
     @Override
     public void render(Graphics g) throws SlickException {
         g.setColor(Color.red);
-        g.draw(hitboxArea);     
+      //  g.draw(hitboxArea);     
         
         if (bulletList != null) {
             for (int i = 0; i < bulletList.size(); i++) {

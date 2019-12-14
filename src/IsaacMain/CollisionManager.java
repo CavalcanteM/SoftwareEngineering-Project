@@ -111,21 +111,21 @@ public class CollisionManager implements Mediator {
         }
 
         if (bulletsList != null) {
-            Shape bullet;
+            Shape bulletshape;
             for (i = 0; i < bulletsList.size(); i++) {
-                Bullet bulletObj = bulletsList.get(i);
-                bullet = bulletsList.get(i).getShape();
+                Bullet bullet = bulletsList.get(i);
+                bulletshape = bullet.getShape();
                 
                
-                if (bullet != null) {
-                    if (playerHitbox.intersects(bullet)) {
+                if (bulletshape != null) {
+                    if (playerHitbox.intersects(bulletshape)) {
                         playerInstance.getDamaged(bulletsList.get(i).getDamage());
-                        bulletsList.remove(i);
-                        turrets.get(i).removeBullet(bulletObj);
+                        bulletsList.remove(bullet);
+                        bullet.remove();
                     }
                 } else {
                     bulletsList.remove(i);
-                    turrets.get(i).removeBullet(bulletObj);
+                    turrets.get(i).removeBullet(bullet);
                 }
             }
         }
