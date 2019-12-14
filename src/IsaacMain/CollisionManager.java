@@ -116,16 +116,12 @@ public class CollisionManager implements Mediator {
             for (i = 0; i < bulletsList.size(); i++) {
 
                 bullet = bulletsList.get(i).getShape();
-                try {
-                    bulletsList.get(i).render(level.getG());
-                } catch (SlickException ex) {
-                    Logger.getLogger(CollisionManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                }
-
+               
                 if (bullet != null) {
                     if (playerHitbox.intersects(bullet)) {
                         playerInstance.getDamaged(bulletsList.get(i).getDamage());
-                        bullet = null;
+                        bulletsList.remove(i);
+                    turrets.get(i).removeBullet(i);
                     }
                 } else {
                     bulletsList.remove(i);

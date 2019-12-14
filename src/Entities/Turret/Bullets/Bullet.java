@@ -20,6 +20,11 @@ public class Bullet {
     Shape bullet, hitboxArea;
     ArrayList<Double> increments;
     TiledMap map;
+    int velocity;
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
+    }
 
     public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea) {
         this.x1 = x1 * 30;
@@ -27,8 +32,9 @@ public class Bullet {
         this.y1 = y1 * 30;
         this.y2 = y2;
         this.hitboxArea = hitboxArea;
+        velocity = 5;
 
-        this.bullet = new Rectangle(this.x1, this.y1, 30, 30);
+        this.bullet = new Circle(this.x1 + 15, this.y1 + 15, 5);
         ComputeVelocity(this.x1, this.y1, x2, y2);
     }
 
@@ -39,17 +45,15 @@ public class Bullet {
 
         //Pithagorean theorem to compute the vectorial components and get the velocities.
         double distance = Math.sqrt(x * x + y * y);
-        vX = x / Math.abs(distance) *0.2;
-        vY = y / Math.abs(distance) *0.2;
+        vX = x / Math.abs(distance) * velocity;
+        vY = y / Math.abs(distance) * velocity;
 
         System.out.println("Start: " + x1 + "," + y1 + " to: " + x2 + "," + y2 + ". Directions: " + vX + "," + vY + ". Components: " + x + " " + y + " Distance: " + distance);
     }
 
-
     public Shape getShape() {
 
         if (hitboxArea.intersects(bullet)) {
-            
             return bullet;
         } else {
             return null;
@@ -60,14 +64,18 @@ public class Bullet {
         return 1;
     }
 
-    private void move() {
+    private void UpdateImage() {
         bullet.setX((float) (bullet.getX() + vX));
         bullet.setY((float) (bullet.getY() + vY));
     }
 
     public void render(Graphics g) throws SlickException {
-        g.setColor(Color.blue);
-        g.fill(bullet);
-        move();
+
+        if (hitboxArea.intersects(bullet)) {
+            UpdateImage();
+            g.setColor(Color.red);
+            g.fill(bullet);
+        }
+
     }
 }

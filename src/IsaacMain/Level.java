@@ -110,7 +110,6 @@ public class Level {
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }
-      
         if(turrets != null)
             for(int i=0; i<turrets.size(); i++){
                 turrets.get(i).render(g);

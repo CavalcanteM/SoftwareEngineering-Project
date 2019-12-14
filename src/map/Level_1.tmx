@@ -8,12 +8,12 @@
  </layer>
  <layer id="1" name="Walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2V3QqAMAhGRz8X9f4PnN/F4MwNGrFaFwqCTtcHx0lnSmmb5KfpHuazbDfh0L+nL060Ucx6+Yc+6bff7GItLS9vllkvf+3pClfujXXGvo95rz7vjIxDv35L/g153r7O3PcqZ10xLfjX/Mnn7Tj4/48/9yXPn2fcoafn+bsx//nz17/Uz/GrXNoX9ZWeAgAMAAA=
+   H4sIAAAAAAAECu2V3QrAIAiFZT+M9f4PPL0QTiZbrFYMFCRN67BvRYmItkmeWPdkn2U7C4f+M33hhNaLWS3/0Ef6/plduMXzfGWe1fKXe7qCS24N6xjbPsxr9XFNzzj0y7Nkz5DlbeuY217JsS4xWvAv+SOfr+O/8j8YjHoLo7vv1/29sUUT13r6eF+0F+fwDr2d1309fa2NGEOfSN5S+x9H5aJ9AUtEqg8ADAAA
   </data>
  </layer>
  <layer id="3" name="StaticEnemies" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGDyAB+gUZEyKy/iAitExKfpH1Y6GwGAOAV6o42D0YHbrQLgNlvdhdqPzYeKj9OAOAeTyH8RGB7B4xUajqx3lj4YANUKAG2gIMiZkJrJaEHsUjIbAYA0BAKPDPeYADAAA
+   H4sIAAAAAAAECmNgGDyAB+gUZEyKy/iAitExKfpH1Y6GwGAOAV6o42D0YHbrQLgNlvdhdqPzYeKj9OAOAeTyH8RGB7B4xUajqx3lj4bAQIQAN9BSZDwQbhi1czQEiAkBAA/WJcUADAAA
   </data>
  </layer>
  <layer id="4" name="Rewards" width="32" height="24">
@@ -28,7 +28,7 @@
  </layer>
  <layer id="6" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2QwQoAIAhD+4nq//80PQzEgxdBozYQS6jnNgbFBJgAE2ACTODdBJZYQ3W4BFu715ZBtvyf/n4Lf8piKOyY9a7vI1nvYGuvEvjK6+ZXebYc69/Oq86/86OcD4iythcADAAA
+   H4sIAAAAAAAECu2QwQoAIAhD/Ynq//80PQzEQ0gHi9pALCmemwjFBJgAE2ACTODdBLpaQ51wCbb1qKGDbMW/2fst/KYLo7B71ru925H3Drb1KoFvvNP8Ks+e4/37edX5d/4q5wlE7PZgAAwAAA==
   </data>
  </layer>
 </map>
