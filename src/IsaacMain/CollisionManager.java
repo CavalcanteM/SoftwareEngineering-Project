@@ -2,8 +2,8 @@ package IsaacMain;
 
 import Entities.Entity.*;
 import Entities.StaticDamage.StaticDamage;
+import Entities.Throwers.*;
 import java.util.ArrayList;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 //Questa classe viene inizializzata nel costruttore di playerHitbox (riga 55) e 
@@ -23,6 +23,7 @@ public class CollisionManager implements Mediator{
     private Shape reward;
     private ArrayList<StaticDamage> spikes;
     private Shape playerHitbox;
+    private ArrayList<Thrower> throwers;
     
     /*This two parameter are used only in the test of the class*/
     protected boolean test1=false;
@@ -39,6 +40,7 @@ public class CollisionManager implements Mediator{
         if(pts.iterator().hasNext()){
            reward = pts.iterator().next().getHitBox();
         }
+        this.throwers = level.getThrowers();
     }
 
     public CollisionManager() {
@@ -62,6 +64,18 @@ public class CollisionManager implements Mediator{
             getReward();
         }
         
+        for(Thrower t: throwers){
+            if(playerHitbox.intersects(t.getDamageBox())){
+                System.out.println("Il molise non esiste");
+                playerInstance.getDamaged(1);
+            }
+        }
+        
+        for(Thrower t: throwers){
+            if(playerHitbox.intersects(t.getHitBox())){
+                return true;
+            }
+        }
         //Check if the playerHitbox collides with a spike
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){

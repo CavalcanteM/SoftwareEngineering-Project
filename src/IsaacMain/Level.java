@@ -1,32 +1,38 @@
 package IsaacMain;
 
+import Entities.Throwers.*;
 import Entities.Entity.*;
 import Entities.StaticDamage.*;
 import Entities.Turret.Turret;
 import IsaacMain.StaticEnemyFactory.StaticEnemyList;
 import Entities.Entity.EntityClient;
+import IsaacMain.ThrowersFactory.*;
 import java.util.ArrayList;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
  * This class has the scope of the definition of a level's enviroment.
  */
 public class Level {
-
     private TiledMap map;
+    private Thrower tr;
     private EntityClient entityClient;
+    private ClientThrowersFactory ctf;
     private ArrayList<Entity> blocks, rewards;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Turret> turret;
+    private ArrayList<Thrower> throwers;
     private int score;
 
     private Points pts;
 
     public int getScore() {
         return score;
+    }
+
+    public ArrayList<Thrower> getThrowers() {
+        return throwers;
     }
 
     public TiledMap getMap() {
@@ -61,27 +67,29 @@ public class Level {
      * @throws org.newdawn.slick.SlickException
      */
     public void init(GameContainer gc, int score) throws SlickException {
-
         this.map = new TiledMap("\\src\\map\\Level_" + readFromFile() + ".tmx");
-
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
 
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
-
+        this.ctf = new ClientThrowersFactory(this.map);
+        this.throwers = ctf.getEntities("Fire");
         //this.turret = new TurretFactory(this.map).getShootingEnemy();
         this.score = score;
 
         this.pts = new Points(rewards, score);
         this.pts.init();
         
-        System.out.println(rewards.size());
+        System.out.println(throwers.size());
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
         if (!this.pts.iterator().hasNext()) {
             gc.pause();
+        }
+        for(Thrower t: throwers){
+            t.update(delta);
         }
     }
 
@@ -97,8 +105,15 @@ public class Level {
         map.render(0, 0, map.getLayerIndex("Background"));
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
+        map.render(0, 0, map.getLayerIndex("Fire"));
+        
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
+        }
+        for(Thrower t: throwers){
+            t.render();
+            g.setColor(Color.yellow);
+            g.draw(t.getDamageBox());
         }
     }
 
