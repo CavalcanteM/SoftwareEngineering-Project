@@ -97,13 +97,14 @@ public class CollisionManager implements Mediator {
             for (i = 0; i < turrets.size(); i++) {
                  if (playerHitbox.intersects(turrets.get(i).getHitboxArea()) || turrets.get(i).getHitboxArea().contains(playerHitbox)) {
  
-                    if ((System.currentTimeMillis() - this.lastHitTime) > 1000) {
+                    if ((System.currentTimeMillis() - this.lastHitTime) > 1000 ) {
                         this.lastHitTime = System.currentTimeMillis();
 
-                        ShootingEnemy single = turrets.get(i);
-
-                        Bullet bull = (single.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY()));
-                        bulletsList.add(bull);
+                        ShootingEnemy turret = turrets.get(i);
+                        ArrayList<Bullet> temp= turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
+                        if( null != temp )
+                        bulletsList.addAll(temp);
+                        
 
                     }
                 }

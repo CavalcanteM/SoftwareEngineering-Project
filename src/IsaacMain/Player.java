@@ -19,10 +19,10 @@ public class Player {
     private static Player playerInstance = null;
     
     private final int LEFT = -1, RIGHT = 1;
-    private float gravity = 0.5f;
+    private float gravity = 2f;
     private float speed = 5;
     private float iterations = 20;
-    private int dashValue = 10;
+    private int dashValue = 40;
     
     private Shape hitbox;
 
