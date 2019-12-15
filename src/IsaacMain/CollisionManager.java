@@ -64,18 +64,16 @@ public class CollisionManager implements Mediator{
             getReward();
         }
         
+        //Check if the playerHitbox collides with the fire or the Thrower
         for(Thrower t: throwers){
             if(playerHitbox.intersects(t.getDamageBox())){
-                System.out.println("Il molise non esiste");
                 playerInstance.getDamaged(1);
             }
-        }
-        
-        for(Thrower t: throwers){
             if(playerHitbox.intersects(t.getHitBox())){
                 return true;
             }
         }
+        
         //Check if the playerHitbox collides with a spike
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){

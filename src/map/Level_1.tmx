@@ -18,7 +18,7 @@
  </layer>
  <layer id="4" name="Rewards" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWjITAaAtQKAX5qGYTFHFqajcW6UaEBCoHReB6ggB/G1o6mKeIjdzSsiA+rUZVDOwQADksEXwAMAAA=
+   H4sIAAAAAAAECmNgGAWjITAaAtQKAX5qGYTFHFqajcW6UaEBDoHR+B7gCBhG1o+mJdIiczS8SAuvUdVDMwQAJRLmbAAMAAA=
   </data>
  </layer>
  <layer id="5" name="Fire" width="32" height="24">

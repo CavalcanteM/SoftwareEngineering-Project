@@ -77,11 +77,8 @@ public class Level {
         this.throwers = ctf.getEntities("Fire");
         //this.turret = new TurretFactory(this.map).getShootingEnemy();
         this.score = score;
-
         this.pts = new Points(rewards, score);
         this.pts.init();
-        
-        System.out.println(throwers.size());
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -110,6 +107,7 @@ public class Level {
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }
+        
         for(Thrower t: throwers){
             t.render();
             g.setColor(Color.yellow);

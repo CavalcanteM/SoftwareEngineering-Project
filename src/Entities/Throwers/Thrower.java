@@ -16,9 +16,9 @@ public interface Thrower {
     //Returns the Shape with which if the player collides takes damage
     public Shape getDamageBox();
     
+    //This method has the scope of rendering the ParticleSystem
     public void render();
     
+    //This method has the scope of update each frame the ParticleSystem
     public void update(int delta);
-    
-    public float getYOffset();
 }

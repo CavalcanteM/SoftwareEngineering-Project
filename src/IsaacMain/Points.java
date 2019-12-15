@@ -80,7 +80,6 @@ public class Points implements Iterable<Entity> {
                             i = ran.nextInt(rwd.size());
                         }
                         current = rwd.remove(i);
-                        System.out.println("Restanti: " + nObj + " SizeLista: " + rwd.size());
                     }
                 }
                 return current;

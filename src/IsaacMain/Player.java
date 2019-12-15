@@ -347,6 +347,8 @@ public class Player {
         }
         
         this.drawHearts(35, 30);
+        g.setColor(Color.blue);
+        g.draw(hitbox);
     }
     
     /**
