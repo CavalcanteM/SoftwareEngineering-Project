@@ -104,7 +104,7 @@ public class Menu{
 		}
 	}
 	
-	public void update(GameContainer gc, int delta){
+	public void update(GameContainer gc, int delta) throws SlickException {
 		int posX = Mouse.getX();
 		int posY = Mouse.getY();
 		if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){

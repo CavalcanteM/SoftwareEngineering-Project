@@ -62,7 +62,7 @@ public class Button{
         g.drawString(this.text, x+(this.l/2)-(g.getFont().getWidth(text)/2) , y+(this.h/2)-(g.getFont().getHeight(text)/2)); 
     }
 
-	public void update(GameContainer gc, int delta){
+	public void update(GameContainer gc, int delta) throws SlickException{
 		command.execute(gc, delta);
 	}
 }
