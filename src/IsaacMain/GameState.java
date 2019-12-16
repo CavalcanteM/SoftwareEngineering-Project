@@ -5,6 +5,7 @@
  */
 package IsaacMain;
 
+import java.io.*;
 import menu.BackToMainMenu;
 import menu.Button;
 import menu.Exit;
@@ -33,9 +34,6 @@ public class GameState extends BasicGameState {
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
     
-    /**
-     * 
-     */
     public void setLevel(Level level) {
         this.level = level;
     }
@@ -47,6 +45,10 @@ public class GameState extends BasicGameState {
     public CollisionManager getCollisionManager() {
         return collisionManager;
     }
+
+    public GalaxyComponent getGalaxy() {
+        return galaxy;
+    }
     
     /**
      * 
@@ -55,7 +57,6 @@ public class GameState extends BasicGameState {
     @Override
     public int getID() {
         return 0;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
@@ -66,16 +67,17 @@ public class GameState extends BasicGameState {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         player = Player.getPlayerInstance();   // Using Singleton class Player
-	level = new Level("Level 1", 1, 1);
+	//Inizialize the Level list and set the first level as current level 
+        this.initLevelList();
+        level = (Level)galaxy.getChild(0).getChild(0);
 	pause = new Menu();	
 	end = new Menu();
 	deathMenu = new Menu();
 	//Initialize the menu
-	Button resume = new Button(50,150,new Resume(),"Resume");					//Creating the single button
-	Button restart = new Button(50,150,new RestartLevel(),"Restart");			//The constructor will decide, the function executed by the button
-	Button exit = new Button(50,150,new Exit(),"Quit");							//Check the pakage menu to see all the commands
+	Button resume = new Button(50,150,new Resume(),"Resume");               //Creating the single button
+	Button restart = new Button(50,150,new RestartLevel(),"Restart");       //The constructor will decide, the function executed by the button
+	Button exit = new Button(50,150,new Exit(),"Quit");			//Check the pakage menu to see all the commands
 	Button next = new Button(50,150,new NextLevel(this),"Next Level");
 	Button main = new Button(50,150,new BackToMainMenu(),"Main Menu");
 	//Adding the buttons to the menus
@@ -156,38 +158,87 @@ public class GameState extends BasicGameState {
 	}
     }
     
+    /**
+     * This method create the treeLevel.
+     * It load the tree from the fille "treeLevel".
+     * If there isn't the tree in the file, the load operation returns null 
+     * and the treeLevel is created and saved.
+     */
     public void initLevelList(){
-        this.galaxy = new LevelContainer("Centaurus");
-        
-        // Setting first world
-        GalaxyComponent world1 = new LevelContainer("World 1");
-        GalaxyComponent level1 = new Level("Level 1-1", 5, 1);
-        GalaxyComponent level2 = new Level("Level 1-2", 5, 2);
-        //GalaxyComponent level3 = new Level("Level 1-3", 5);
-        //GalaxyComponent level4 = new Level("Level 1-4", 5);
-        world1.add(level1);
-        world1.add(level2);
-        
-        // Setting second world
-        //GalaxyComponent world2 = new LevelContainer("World 2");
-        //GalaxyComponent level5 = new Level("Level 2-1", 5);
-        //GalaxyComponent level6 = new Level("Level 2-2", 5);
-        //GalaxyComponent level7 = new Level("Level 2-3", 5);
-        //GalaxyComponent level8 = new Level("Level 2-4", 5);
-        
-        // Setting third world
-        //GalaxyComponent world3 = new LevelContainer("World 3");
-        //GalaxyComponent level9 = new Level("Level 3-1", 5);
-        //GalaxyComponent level10 = new Level("Level 3-2", 5);
-        //GalaxyComponent level11 = new Level("Level 3-3", 5);
-        //GalaxyComponent level12 = new Level("Level 3-4", 5);
-        
-        // Setting fourth world
-        //GalaxyComponent world4 = new LevelContainer("World 4");
-        //GalaxyComponent level13 = new Level("Level 4-1", 5);
-        //GalaxyComponent level2 = new Level("Level 4-2", 5);
-        //GalaxyComponent level2 = new Level("Level 4-3", 5);
-        //GalaxyComponent level2 = new Level("Level 4-4", 5);
-        
+        this.galaxy = this.loadTreeLevel();
+        if(this.galaxy == null){
+            this.galaxy = new LevelContainer("Centaurus");
+            System.out.println("Il load non ha funzionato");
+            // Setting first world
+            GalaxyComponent world1 = new LevelContainer("World 1");
+            GalaxyComponent level1 = new Level("Level 1-1", 5, 1);
+            GalaxyComponent level2 = new Level("Level 1-2", 5, 1);
+            //GalaxyComponent level3 = new Level("Level 1-3", 5);
+            //GalaxyComponent level4 = new Level("Level 1-4", 5);
+            world1.add(level1);
+            world1.add(level2);
+            galaxy.add(world1);
+            // Setting second world
+            //GalaxyComponent world2 = new LevelContainer("World 2");
+            //GalaxyComponent level5 = new Level("Level 2-1", 5, 1);
+            //GalaxyComponent level6 = new Level("Level 2-2", 5, 1);
+            //GalaxyComponent level7 = new Level("Level 2-3", 5);
+            //GalaxyComponent level8 = new Level("Level 2-4", 5);
+            
+            // Setting third world
+            //GalaxyComponent world3 = new LevelContainer("World 3");
+            //GalaxyComponent level9 = new Level("Level 3-1", 5);
+            //GalaxyComponent level10 = new Level("Level 3-2", 5);
+            //GalaxyComponent level11 = new Level("Level 3-3", 5);
+            //GalaxyComponent level12 = new Level("Level 3-4", 5);
+            
+            // Setting fourth world
+            //GalaxyComponent world4 = new LevelContainer("World 4");
+            //GalaxyComponent level13 = new Level("Level 4-1", 5);
+            //GalaxyComponent level2 = new Level("Level 4-2", 5);
+            //GalaxyComponent level2 = new Level("Level 4-3", 5);
+            //GalaxyComponent level2 = new Level("Level 4-4", 5);
+            
+            this.saveTreeLevel();
+        }
+    }
+    
+    /**
+     * Save the tree level in the file
+     */
+    public void saveTreeLevel(){
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        try{
+            fos = new FileOutputStream("treeLevel.txt");
+            out = new ObjectOutputStream(fos);
+            out.writeObject(galaxy);
+            out.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Load the tree level from the file
+     * @return galaxy if the load operation works successfully,
+     * else it returns null
+     */
+    public GalaxyComponent loadTreeLevel(){
+        FileInputStream fis = null;
+        ObjectInputStream in = null;
+        try{
+            fis = new FileInputStream("treeLevel.txt");
+            in = new ObjectInputStream(fis);
+            GalaxyComponent galaxy = (GalaxyComponent) in.readObject();
+            in.close();
+            return galaxy;
+        }catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }catch(ClassNotFoundException ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 }

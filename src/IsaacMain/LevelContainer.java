@@ -18,9 +18,11 @@ public class LevelContainer implements GalaxyComponent{
     
     private String name;
     private ArrayList<GalaxyComponent> children;
+    private static final long serialversionUId = 1;
     
     public LevelContainer(String name){
         this.name = name;
+        this.children = new ArrayList<GalaxyComponent>();
     }
     
     public LevelContainer(String name, ArrayList<GalaxyComponent> children){
@@ -36,14 +38,17 @@ public class LevelContainer implements GalaxyComponent{
         return this.name;
     }
     
+    @Override
     public void add(GalaxyComponent galaxyComponent){
         this.children.add(galaxyComponent);
     }
     
+    @Override
     public ArrayList<GalaxyComponent> getChildren(){
         return this.children;
     }
     
+    @Override
     public GalaxyComponent getChild(int index){
         return this.children.get(index);
     }

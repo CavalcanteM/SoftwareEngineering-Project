@@ -5,6 +5,7 @@
  */
 package IsaacMain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,7 +15,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author danya
  */
-public interface GalaxyComponent {
+public interface GalaxyComponent extends Serializable {
     
     public void init(GameContainer gc) throws SlickException;
     

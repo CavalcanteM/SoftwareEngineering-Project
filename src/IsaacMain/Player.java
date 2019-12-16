@@ -510,9 +510,14 @@ public class Player {
    }
     
     /**
-     * Resets the number of hearts of the character
+     * Resets the number of hearts and the speed of the character
      */
     public void resetStats(){
         this.numHearts = this.numVoidHearts;
+        this.gravity = 0.5f;
+        this.rotated=false;
+        this.rotate(30);
+        this.vY=0;
+        this.vX=0;
     }
 }

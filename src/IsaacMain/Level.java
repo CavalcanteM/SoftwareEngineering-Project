@@ -6,6 +6,7 @@ import Entities.Turret.Turret;
 import IsaacMain.StaticEnemyFactory.StaticEnemyList;
 import Entities.Entity.EntityClient;
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -25,6 +26,7 @@ public class Level implements GalaxyComponent{
     private String name;
     private Points pts;
     private int index;
+    private static final long serialversionUId = 1;
     
     public Level(String name, int score, int index){
         this.name = name;
@@ -107,6 +109,8 @@ public class Level implements GalaxyComponent{
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }
+        g.setColor(Color.white);
+        g.drawString(this.name, 850, 5);
     }
 
     private int readFromFile() {
