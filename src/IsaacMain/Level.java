@@ -117,15 +117,9 @@ public class Level {
         }
         for(Thrower t: flameThrowers){
             t.render();
-            g.setColor(Color.yellow);
-            g.draw(t.getDamageBox());
-            g.draw(t.getHitBox());
         }
         for(Thrower t: laserThrowers){
             t.render();
-            g.setColor(Color.yellow);
-            g.draw(t.getDamageBox());
-            g.draw(t.getHitBox());
         }
     }
 

@@ -1,8 +1,10 @@
 package Entities.Throwers;
 
-import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.particles.ConfigurableEmitter;
 import org.newdawn.slick.particles.ParticleSystem;
 
@@ -16,19 +18,21 @@ public class LaserThrower implements Thrower{
     private int i;
     private ParticleSystem ft;
     private ConfigurableEmitter laser;
+    private Image imm;
     
-    public LaserThrower(float x, float y, int size, int type){
+    public LaserThrower(float x, float y, int size, int type) throws SlickException{
         this.laser = new ConfigurableEmitter("laser"); 
         this.laser.spread.setValue(0f);
         this.laser.yOffset.setMax(30f*(size-1));
         this.laser.initialSize.setEnabled(true);
-        this.laser.initialSize.setMin(40f);
-        this.laser.initialSize.setMax(45f);
+        this.laser.initialSize.setMin(10f);
+        this.laser.initialSize.setMax(20f);
         this.laser.initialDistance.setEnabled(true);
         this.i = 0;
         this.active = true;
         this.type = type;
         this.ct = new ConcreteThrower(x,y,type);
+        
         /*  
             This switch represent the management of the ParticleSystem and the
             ConfigurableEmitter according to the type of Thrower, defined by the
@@ -36,6 +40,7 @@ public class LaserThrower implements Thrower{
         */
         switch (this.type) {
             case 1:
+                this.imm = new Image("./src/graphics/png/thrower/renderLaser.png");
                 this.laser.yOffset.setMax(30f*(size-1));
                 this.laser.angularOffset.setValue(0f);
                 this.damageBox = new Rectangle(x + 10f,y -30*size,10,+30*size);
@@ -44,6 +49,7 @@ public class LaserThrower implements Thrower{
                 this.y = y - size*30 + 33;
                 break;
             case 2:
+                this.imm = new Image("./src/graphics/png/thrower/renderLaser90.png");
                 this.laser.yOffset.setMax(10f);
                 this.laser.xOffset.setMax(30f*(size-1));
                 this.laser.angularOffset.setValue(90f);
@@ -53,6 +59,7 @@ public class LaserThrower implements Thrower{
                 this.y = y + 10;
                 break;
             case 3:
+                this.imm = new Image("./src/graphics/png/thrower/renderLaser180.png");
                 this.laser.yOffset.setMax(30f*(size-1));
                 this.laser.xOffset.setMax(10f);
                 this.laser.angularOffset.setValue(180f);
@@ -62,6 +69,7 @@ public class LaserThrower implements Thrower{
                 this.x = x + 10;
                 break;
             default:
+                this.imm = new Image("./src/graphics/png/thrower/renderLaser270.png");
                 this.laser.yOffset.setMax(10f);
                 this.laser.xOffset.setMax(30f*(size-1));
                 this.laser.angularOffset.setValue(270f);
@@ -103,6 +111,8 @@ public class LaserThrower implements Thrower{
     @Override
     public void render(){
         this.ft.render(this.x, this.y);
+        ShapeRenderer.textureFit(this.damageBox, imm);
+        
     }
     
     @Override
