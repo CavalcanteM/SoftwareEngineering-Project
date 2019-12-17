@@ -22,11 +22,11 @@ public class LaserThrower implements Thrower{
     
     public LaserThrower(float x, float y, int size, int type) throws SlickException{
         this.laser = new ConfigurableEmitter("laser"); 
-        this.laser.spread.setValue(0f);
+        this.laser.spread.setValue(0.5f);
         this.laser.yOffset.setMax(30f*(size-1));
         this.laser.initialSize.setEnabled(true);
-        this.laser.initialSize.setMin(15f);
-        this.laser.initialSize.setMax(15f);
+        this.laser.initialSize.setMin(5f);
+        this.laser.initialSize.setMax(10f);
         this.laser.initialDistance.setEnabled(true);
         this.laser.colors.remove(1);
         this.i = 0;
@@ -41,18 +41,20 @@ public class LaserThrower implements Thrower{
         */
         switch (this.type) {
             case 1:
+                this.laser.initialSize.setMin(10f);
+                this.laser.initialSize.setMax(15f);
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser.png");
-                this.laser.yOffset.setMax(30f*(size-1));
+                this.laser.yOffset.setMax(30f*(size-1.5f));
                 this.laser.angularOffset.setValue(0f);
                 this.damageBox = new Rectangle(x + 10f,y -30*size,10,+30*size);
                 this.ft = new ParticleSystem("./src/graphics/png/thrower/laser.png");
-                this.x = x + 12.5f;
+                this.x = x + 13.5f;
                 this.y = y - size*30 + 33;
                 break;
             case 2:
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser90.png");
                 this.laser.yOffset.setMax(10f);
-                this.laser.xOffset.setMax(30f*(size-1));
+                this.laser.xOffset.setMax(30f*(size-1.5f));
                 this.laser.angularOffset.setValue(90f);
                 this.damageBox = new Rectangle(x+27, y+10f ,30*size,10);
                 this.ft = new ParticleSystem("./src/graphics/png/thrower/laser_90.png");
@@ -61,7 +63,7 @@ public class LaserThrower implements Thrower{
                 break;
             case 3:
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser180.png");
-                this.laser.yOffset.setMax(30f*(size-1));
+                this.laser.yOffset.setMax(30f*(size-1.5f));
                 this.laser.xOffset.setMax(10f);
                 this.laser.angularOffset.setValue(180f);
                 this.damageBox = new Rectangle(x+10,y+27,10,30*size);
@@ -72,12 +74,12 @@ public class LaserThrower implements Thrower{
             default:
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser270.png");
                 this.laser.yOffset.setMax(10f);
-                this.laser.xOffset.setMax(30f*(size-1));
+                this.laser.xOffset.setMax(30f*(size-1.5f));
                 this.laser.angularOffset.setValue(270f);
                 this.damageBox = new Rectangle(x-30*size,y+10f,30*size,+10);
                 this.ft = new ParticleSystem("./src/graphics/png/thrower/laser_270.png");   
                 this.y = y + 10;
-                this.x = x - size*30 + 30;
+                this.x = x - size*30 + 45;
                 break;
         }
         this.ft.addEmitter(laser);
@@ -111,10 +113,8 @@ public class LaserThrower implements Thrower{
     
     @Override
     public void render(){
-        ShapeRenderer.textureFit(this.damageBox, imm);
         this.ft.render(this.x, this.y);
-        
-        
+        ShapeRenderer.textureFit(this.damageBox, imm);
     }
     
     @Override
