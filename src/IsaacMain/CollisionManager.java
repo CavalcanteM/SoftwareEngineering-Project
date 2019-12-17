@@ -24,6 +24,7 @@ public class CollisionManager implements Mediator{
     private ArrayList<StaticDamage> spikes;
     private Shape playerHitbox;
     private ArrayList<Thrower> throwers;
+    private ArrayList<Thrower> lasers;
     
     /*This two parameter are used only in the test of the class*/
     protected boolean test1=false;
@@ -41,6 +42,7 @@ public class CollisionManager implements Mediator{
            reward = pts.iterator().next().getHitBox();
         }
         this.throwers = level.getThrowers();
+        this.lasers = level.getLaserThrowers();
     }
 
     public CollisionManager() {
@@ -66,6 +68,15 @@ public class CollisionManager implements Mediator{
         
         //Check if the playerHitbox collides with the fire or the Thrower
         for(Thrower t: throwers){
+            if(playerHitbox.intersects(t.getDamageBox())){
+                playerInstance.getDamaged(1);
+            }
+            if(playerHitbox.intersects(t.getHitBox())){
+                return true;
+            }
+        }
+        
+        for(Thrower t: lasers){
             if(playerHitbox.intersects(t.getDamageBox())){
                 playerInstance.getDamaged(1);
             }

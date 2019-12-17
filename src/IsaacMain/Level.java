@@ -22,7 +22,8 @@ public class Level {
     private ArrayList<Entity> blocks, rewards;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Turret> turret;
-    private ArrayList<Thrower> throwers;
+    private ArrayList<Thrower> flameThrowers;
+    private ArrayList<Thrower> laserThrowers;
     private int score;
 
     private Points pts;
@@ -31,8 +32,12 @@ public class Level {
         return score;
     }
 
+    public ArrayList<Thrower> getLaserThrowers() {
+        return laserThrowers;
+    }
+
     public ArrayList<Thrower> getThrowers() {
-        return throwers;
+        return flameThrowers;
     }
 
     public TiledMap getMap() {
@@ -69,13 +74,12 @@ public class Level {
     public void init(GameContainer gc, int score) throws SlickException {
         this.map = new TiledMap("\\src\\map\\Level_" + readFromFile() + ".tmx");
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
-
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
         this.ctf = new ClientThrowersFactory(this.map);
-        this.throwers = ctf.getEntities("Fire");
-        //this.turret = new TurretFactory(this.map).getShootingEnemy();
+        this.flameThrowers = ctf.getEntities("Fire");
+        this.laserThrowers = ctf.getEntities("Laser");
         this.score = score;
         this.pts = new Points(rewards, score);
         this.pts.init();
@@ -85,7 +89,10 @@ public class Level {
         if (!this.pts.iterator().hasNext()) {
             gc.pause();
         }
-        for(Thrower t: throwers){
+        for(Thrower t: flameThrowers){
+            t.update(delta);
+        }
+        for(Thrower t: laserThrowers){
             t.update(delta);
         }
     }
@@ -103,15 +110,22 @@ public class Level {
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
         map.render(0, 0, map.getLayerIndex("Fire"));
+        map.render(0, 0, map.getLayerIndex("Laser"));
         
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }
-        
-        for(Thrower t: throwers){
+        for(Thrower t: flameThrowers){
             t.render();
             g.setColor(Color.yellow);
             g.draw(t.getDamageBox());
+            g.draw(t.getHitBox());
+        }
+        for(Thrower t: laserThrowers){
+            t.render();
+            g.setColor(Color.yellow);
+            g.draw(t.getDamageBox());
+            g.draw(t.getHitBox());
         }
     }
 

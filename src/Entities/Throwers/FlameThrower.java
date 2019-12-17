@@ -26,8 +26,8 @@ public class FlameThrower implements Thrower{
     public FlameThrower(float x, float y, int size, int type){
         this.fire = new ConfigurableEmitter("fire"); 
         this.fire.spread.setValue(0f);
-        this.fire.initialSize.setMin(5);
-        this.fire.initialSize.setMax(50);
+        this.fire.initialSize.setMin(50);
+        this.fire.initialSize.setMax(60);
         this.i = 0;
         this.active = true;
         this.type = type;
