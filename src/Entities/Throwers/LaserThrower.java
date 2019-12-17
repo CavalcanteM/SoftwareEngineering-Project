@@ -25,9 +25,10 @@ public class LaserThrower implements Thrower{
         this.laser.spread.setValue(0f);
         this.laser.yOffset.setMax(30f*(size-1));
         this.laser.initialSize.setEnabled(true);
-        this.laser.initialSize.setMin(10f);
-        this.laser.initialSize.setMax(20f);
+        this.laser.initialSize.setMin(15f);
+        this.laser.initialSize.setMax(15f);
         this.laser.initialDistance.setEnabled(true);
+        this.laser.colors.remove(1);
         this.i = 0;
         this.active = true;
         this.type = type;
@@ -110,8 +111,9 @@ public class LaserThrower implements Thrower{
     
     @Override
     public void render(){
-        this.ft.render(this.x, this.y);
         ShapeRenderer.textureFit(this.damageBox, imm);
+        this.ft.render(this.x, this.y);
+        
         
     }
     
