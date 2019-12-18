@@ -9,6 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Menu{
 	
@@ -104,7 +105,7 @@ public class Menu{
 		}
 	}
 	
-	public void update(GameContainer gc, int delta) throws SlickException {
+	public void update(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException {
 		int posX = Mouse.getX();
 		int posY = Mouse.getY();
 		if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){

@@ -33,7 +33,7 @@ public class Window {
      * The class' constructor is private in according to the Singleton pattern
      */
     private Window() throws SlickException{
-        gameContainer = new AppGameContainer(new GameIsaac());
+        gameContainer = new AppGameContainer(new GameStatesManager("ISAAC"));
     }
     
     /**
