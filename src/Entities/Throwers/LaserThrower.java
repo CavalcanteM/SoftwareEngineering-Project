@@ -49,7 +49,7 @@ public class LaserThrower implements Thrower{
                 this.damageBox = new Rectangle(x + 10f,y -30*size,10,+30*size);
                 this.ft = new ParticleSystem("./src/graphics/png/thrower/laser.png");
                 this.x = x + 13.5f;
-                this.y = y - size*30 + 33;
+                this.y = y - size*30 + 38;
                 break;
             case 2:
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser90.png");
