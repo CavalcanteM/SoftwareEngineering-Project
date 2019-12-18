@@ -40,6 +40,7 @@ public class NextLevel implements Command{
                 Player.getPlayerInstance().init(gc);
                 
                 gs.getCollisionManager().setParameters(gs.getLevel());
+                gc.resume();
         }
 
 }

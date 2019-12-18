@@ -486,7 +486,7 @@ public class Player {
     
     /**
      * Manages the damage on the character
-     * @param points The number of mid hearts to subtract
+     * @param damage The number of mid hearts to subtract
      */
     synchronized public void getDamaged(int damage){
         if((System.currentTimeMillis()-this.lastHitTime)> 3000 ){

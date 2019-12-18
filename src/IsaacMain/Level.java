@@ -1,5 +1,7 @@
 package IsaacMain;
 
+import IsaacMain.ThrowersFactory.*;
+import Entities.Throwers.*;
 import Entities.Entity.*;
 import Entities.StaticDamage.*;
 import Entities.Turret.Turret;
@@ -18,10 +20,14 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Level implements GalaxyComponent{
 
     private TiledMap map;
+    private Thrower tr;
     private EntityClient entityClient;
+    private ClientThrowersFactory ctf;
     private ArrayList<Entity> blocks, rewards;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Turret> turret;
+    private ArrayList<Thrower> flameThrowers;
+    private ArrayList<Thrower> laserThrowers;
     private int score;
     private String name;
     private Points pts;
@@ -37,7 +43,15 @@ public class Level implements GalaxyComponent{
     public int getScore() {
         return score;
     }
-
+    
+    public ArrayList<Thrower> getLaserThrowers() {
+        return laserThrowers;
+    }
+    
+    public ArrayList<Thrower> getThrowers() {
+        return flameThrowers;
+    }
+    
     public TiledMap getMap() {
         return map;
     }
@@ -66,30 +80,33 @@ public class Level implements GalaxyComponent{
      * Is a sort of constructor for this class
      *
      * @param gc
-     * @param player
      * @throws org.newdawn.slick.SlickException
      */
+    @Override
     public void init(GameContainer gc) throws SlickException {
 
         this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
-
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
-
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
-
-        //this.turret = new TurretFactory(this.map).getShootingEnemy();
-
+        this.ctf = new ClientThrowersFactory(this.map);
+        this.flameThrowers = ctf.getEntities("Fire");
+        this.laserThrowers = ctf.getEntities("Laser");
         this.pts = new Points(rewards, score);
         this.pts.init();
-        
-        System.out.println(rewards.size());
     }
-
+    
+    @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         if (!this.pts.iterator().hasNext()) {
             gc.pause();
+        }
+        for(Thrower t: flameThrowers){
+            t.update(delta);
+        }
+        for(Thrower t: laserThrowers){
+            t.update(delta);
         }
     }
 
@@ -106,8 +123,17 @@ public class Level implements GalaxyComponent{
         map.render(0, 0, map.getLayerIndex("Background"));
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
+        map.render(0, 0, map.getLayerIndex("Fire"));
+        map.render(0, 0, map.getLayerIndex("Laser"));
+        
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
+        }
+        for(Thrower t: flameThrowers){
+            t.render();
+        }
+        for(Thrower t: laserThrowers){
+            t.render();
         }
         g.setColor(Color.white);
         g.drawString(this.name, 850, 5);

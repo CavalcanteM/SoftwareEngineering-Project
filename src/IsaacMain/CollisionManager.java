@@ -2,8 +2,8 @@ package IsaacMain;
 
 import Entities.Entity.*;
 import Entities.StaticDamage.StaticDamage;
+import Entities.Throwers.*;
 import java.util.ArrayList;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 //Questa classe viene inizializzata nel costruttore di playerHitbox (riga 55) e 
@@ -23,10 +23,14 @@ public class CollisionManager implements Mediator{
     private Shape reward;
     private ArrayList<StaticDamage> spikes;
     private Shape playerHitbox;
+    private ArrayList<Thrower> throwers;
+    private ArrayList<Thrower> lasers;
     
     /*This two parameter are used only in the test of the class*/
     protected boolean test1=false;
     protected boolean test2=false;
+    protected boolean test3=false;
+    protected boolean test4=false;
     
     /**
      * Inizialize all the instance of the class
@@ -36,9 +40,8 @@ public class CollisionManager implements Mediator{
         this.level = level;
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
-        if(pts.iterator().hasNext()){
-           reward = pts.iterator().next().getHitBox();
-        }
+        this.throwers = level.getThrowers();
+        this.lasers = level.getLaserThrowers();
     }
 
     public CollisionManager() {
@@ -62,12 +65,33 @@ public class CollisionManager implements Mediator{
             getReward();
         }
         
+        //Check if the playerHitbox collides with the fire or the Thrower
+        for(Thrower t: throwers){
+            if(playerHitbox.intersects(t.getDamageBox())){
+                //this.test3 = true;
+                playerInstance.getDamaged(1);
+            }
+            if(playerHitbox.intersects(t.getHitBox())){
+                return true;
+            }
+        }
+        
+        for(Thrower t: lasers){
+            if(playerHitbox.intersects(t.getDamageBox())){
+                //this.test4 = true;
+                playerInstance.getDamaged(2);
+            }
+            if(playerHitbox.intersects(t.getHitBox())){
+                return true;
+            }
+        }
+        
         //Check if the playerHitbox collides with a spike
         if(spikes != null){
             for(i=0; i < spikes.size(); i++){
                 if(playerHitbox.intersects(spikes.get(i).getHitbox())){
-                    /*this assignment is used in the test of this class and the next linee must be commented
-                    test2=true;*/
+                    /*this assignment is used in the test of this class and the next linee must be commented*/
+                    //test2=true;
                     playerInstance.getDamaged(spikes.get(i).doDamage());
                 }
             }
@@ -90,8 +114,8 @@ public class CollisionManager implements Mediator{
      */
     private void getReward(){
         if(playerHitbox.intersects(this.reward)){
-            /*This assignment is used for the test of this class
-            test1=true;*/
+            /*This assignment is used for the test of this class*/
+            //test1=true;
             if(pts.iterator().hasNext()){
                 this.reward = pts.iterator().next().getHitBox();
             }
@@ -107,7 +131,9 @@ public class CollisionManager implements Mediator{
         this.blocks = level.getBlock();
         this.pts = level.getPts();
         this.spikes = level.getSpikes();
-        
+        if(pts.iterator().hasNext()){
+           reward = pts.iterator().next().getHitBox();
+        }
     }
     
     /**
@@ -117,12 +143,17 @@ public class CollisionManager implements Mediator{
      * @param spikes
      * @param player
      * @param reward
+     * @param t
      */
-    public void setParameters(ArrayList<Entity> blocks, Points pts, ArrayList<StaticDamage> spikes, Shape player, Shape reward){
+    public void setParameters(ArrayList<Entity> blocks, Points pts, ArrayList<StaticDamage> spikes, Shape player, Shape reward, ArrayList<Thrower> t ){
         this.blocks = blocks;
         this.pts = pts;
         this.spikes = spikes;
         this.playerHitbox = player;        
         this.reward = reward;
+        this.throwers = new ArrayList<>();
+        this.throwers.add(t.get(0));
+        this.lasers = new ArrayList<>();
+        this.lasers.add(t.get(1));   
     }
 }

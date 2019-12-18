@@ -5,7 +5,6 @@
  */
 package IsaacMain;
 
-import static java.lang.Math.signum;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,7 +13,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.GameContainer;
 
 
 /**
