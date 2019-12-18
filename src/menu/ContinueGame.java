@@ -11,7 +11,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class ContinueGame implements Command{
 
     @Override
-    public void execute(GameContainer gc, int delta,StateBasedGame sbg) {
+    public void execute(GameContainer gc, int delta, StateBasedGame sbg) {
         gc.resume();                            //game is not paused anymore
         try {   
             gc.reinit();                        //restart the gameisaac,for now that we havent saved game

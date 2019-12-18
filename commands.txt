@@ -1,0 +1,1 @@
+moveLeftKey;2;moveRightKey;3;changeGravityKey;4;dashKey;5;resetStatskey;6

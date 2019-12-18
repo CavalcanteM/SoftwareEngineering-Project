@@ -1,6 +1,12 @@
 package IsaacMain;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import static java.lang.Math.signum;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Scanner;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -45,6 +51,11 @@ public class Player {
     private int numVoidHearts = 6; // Measured in mid hearts
     private CollisionManager collision;
     private long lastHitTime = System.currentTimeMillis() - 3000;
+    private int moveRightKey;
+    private int moveLeftKey;
+    private int changeGravityKey;
+    private int dashKey;
+    private int resetStatsKey;
     
     private Player() {
     }
@@ -212,6 +223,9 @@ public class Player {
             frames[i] = frames[i].getFlippedCopy(true, false);
             this.deathAnimationLeft.addFrame(frames[i], 60);
         }
+        
+        // Loads the current set of commands from a file
+        this.loadCommands();
     }
     
     /**
@@ -223,7 +237,7 @@ public class Player {
     public void update(GameContainer gc, int delta) throws SlickException {
        
          // Gravity check and change
-        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
+        if (gc.getInput().isKeyPressed(changeGravityKey)) {
             gravity = changeGravity(signum(gravity));
         }        
 
@@ -254,7 +268,7 @@ public class Player {
         if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
             this.getDamaged(2);
         }*/
-        if (gc.getInput().isKeyPressed(Input.KEY_R)) {
+        if (gc.getInput().isKeyPressed(resetStatsKey)) {
             this.resetStats();
         }
         
@@ -402,17 +416,17 @@ public class Player {
     private void set_speedx(Input in) {
         
         // If we hold down A, the character will move to the left
-        if (in.isKeyDown(Input.KEY_A)) {
+        if (in.isKeyDown(moveLeftKey)) {
             vX = -speed;
             this.isMovingRight = false;
-            if (in.isKeyPressed(Input.KEY_LSHIFT)) {
+            if (in.isKeyPressed(dashKey)) {
                 dash(LEFT);
             }
         // If we hold down D, the character will move to the right
-        } else if (in.isKeyDown(Input.KEY_D)) {
+        } else if (in.isKeyDown(moveRightKey)) {
             vX = speed;
             this.isMovingRight = true;
-            if (in.isKeyPressed(Input.KEY_LSHIFT)) {
+            if (in.isKeyPressed(dashKey)) {
                 dash(RIGHT);
             }
         // The character doesn't move 
@@ -519,5 +533,35 @@ public class Player {
         this.rotate(30);
         this.vY=0;
         this.vX=0;
+    }
+    
+    public void loadCommands(){
+        String filePath = "commands.txt";
+        HashMap<String, Integer> map = new HashMap<>();
+	Scanner s = null;
+
+	try{
+            s = new Scanner(new BufferedReader(new FileReader(filePath))).useDelimiter(";").useLocale(Locale.US);
+            while (s.hasNext()){
+                map.put(s.next(), s.nextInt());
+            }
+            map.keySet().forEach((key) -> {
+		System.out.println(key + ":" + map.get(key));
+            });
+
+	}
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+	finally{
+            if(s != null) s.close();
+	}
+		
+	this.moveLeftKey=map.get("moveLeftKey");
+	this.moveRightKey=map.get("moveRightKey");
+	this.changeGravityKey=map.get("changeGravityKey");
+	this.dashKey=map.get("dashKey");
+	this.resetStatsKey=map.get("moveLeftKey");
+	System.out.println(map.toString());
     }
 }

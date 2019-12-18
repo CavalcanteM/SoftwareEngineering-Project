@@ -117,7 +117,7 @@ public class Menu{
 		for (Button b : this.buttons){
 			if (gc.getInput().isMouseButtonDown(0) && posX>this.x && posX<(this.x+b.getL()) &&
 					gc.getHeight()-posY>temp && gc.getHeight()-posY<(temp+b.getH())){
-				b.update(gc, delta);
+				b.update(gc, delta, sbg);
 				return;
 			}
 			temp+=70;

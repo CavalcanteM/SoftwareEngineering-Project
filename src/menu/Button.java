@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * This class will create the template for all the buttons in the game.
@@ -62,7 +63,7 @@ public class Button{
         g.drawString(this.text, x+(this.l/2)-(g.getFont().getWidth(text)/2) , y+(this.h/2)-(g.getFont().getHeight(text)/2)); 
     }
 
-	public void update(GameContainer gc, int delta) throws SlickException{
-		command.execute(gc, delta);
+	public void update(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException{
+		command.execute(gc, delta, sbg);
 	}
 }
