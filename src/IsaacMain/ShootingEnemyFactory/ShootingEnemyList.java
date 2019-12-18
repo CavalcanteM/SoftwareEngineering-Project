@@ -52,7 +52,7 @@ public class ShootingEnemyList {
         int hitboxID = map.getTileId(x, y, turretsHitboxLayer);
         Shape[] hitboxarea = {null};
         int k = 0;
-
+        int j = 0;
         for (y = 0; y < map.getHeight(); y++) {
             for (x = 0; x < map.getWidth(); x++) {
                 if (map.getTileId(x, y, turretsHitboxLayer) == hitboxID) {
