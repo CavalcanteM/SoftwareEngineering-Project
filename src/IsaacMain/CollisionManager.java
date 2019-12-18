@@ -3,6 +3,8 @@ package IsaacMain;
 import Entities.Entity.*;
 import Entities.StaticDamage.StaticDamage;
 import Entities.Throwers.*;
+import Entities.Turret.Bullets.Bullet;
+import Entities.Turret.ShootingEnemy;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Shape;
 
@@ -14,19 +16,22 @@ import org.newdawn.slick.geom.Shape;
  * Manages collisions within the map. In this class the character's life and points 
  * are updated, with relative generation of subsequent rewards.
  */
-public class CollisionManager implements Mediator{
+public class CollisionManager implements Mediator {
     //It keeps a reference for all objects that can cause collisions
     private Player playerInstance;
     private Level level;
     private ArrayList<Entity> blocks;
     private Points pts;
     private Shape reward;
+    private ArrayList<ShootingEnemy> turrets;
+    private ArrayList<Bullet> bulletsList;
     private ArrayList<StaticDamage> spikes;
     private Shape playerHitbox;
     private ArrayList<Thrower> throwers;
     private ArrayList<Thrower> lasers;
+    private long lastHitTime = System.currentTimeMillis() - 3000;
     
-    /*This two parameter are used only in the test of the class*/
+    /*This parameters are used only in the test of the class*/
     protected boolean test1=false;
     protected boolean test2=false;
     protected boolean test3=false;
@@ -40,8 +45,7 @@ public class CollisionManager implements Mediator{
         this.level = level;
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
-        this.throwers = level.getThrowers();
-        this.lasers = level.getLaserThrowers();
+        bulletsList = new ArrayList<>();
     }
 
     public CollisionManager() {
@@ -104,6 +108,45 @@ public class CollisionManager implements Mediator{
                 }
             }
         }
+        
+        //check if the playerHitbox enters the HitboxArea of the turret
+        if (turrets.size() != 0 && turrets != null) {
+            for (i = 0; i < turrets.size(); i++) {
+                if (playerHitbox.intersects(turrets.get(i).getHitboxArea()) || turrets.get(i).getHitboxArea().contains(playerHitbox)) {
+ 
+                    if ((System.currentTimeMillis() - this.lastHitTime) > 1000 ) {
+                        this.lastHitTime = System.currentTimeMillis();
+
+                        ShootingEnemy turret = turrets.get(i);
+                        ArrayList<Bullet> temp = turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
+                        if( null != temp )
+                        bulletsList.addAll(temp);
+                        
+
+                    }
+                }
+            }
+        }
+        
+        if (bulletsList != null) {
+            Shape bulletshape;
+            for (i = 0; i < bulletsList.size(); i++) {
+                Bullet bullet = bulletsList.get(i);
+                bulletshape = bullet.getShape();
+                
+               
+                if (bulletshape != null) {
+                    if (playerHitbox.intersects(bulletshape)) {
+                        playerInstance.getDamaged(bulletsList.get(i).getDamage());
+                        bulletsList.remove(bullet);
+                        bullet.remove();
+                    }
+                } else {
+                    bulletsList.remove(i);
+                    turrets.get(i).removeBullet(bullet);
+                }
+            }
+        }
         return false;
     }
     
@@ -134,6 +177,9 @@ public class CollisionManager implements Mediator{
         if(pts.iterator().hasNext()){
            reward = pts.iterator().next().getHitBox();
         }
+        this.throwers = level.getThrowers();
+        this.lasers = level.getLaserThrowers();
+        this.turrets = level.getShootingEnemy();
     }
     
     /**

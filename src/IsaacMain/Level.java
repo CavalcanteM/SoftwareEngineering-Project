@@ -4,9 +4,10 @@ import IsaacMain.ThrowersFactory.*;
 import Entities.Throwers.*;
 import Entities.Entity.*;
 import Entities.StaticDamage.*;
-import Entities.Turret.Turret;
 import IsaacMain.StaticEnemyFactory.StaticEnemyList;
 import Entities.Entity.EntityClient;
+import Entities.Turret.ShootingEnemy;
+import IsaacMain.ShootingEnemyFactory.ShootingEnemyList;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -25,19 +26,24 @@ public class Level implements GalaxyComponent{
     private ClientThrowersFactory ctf;
     private ArrayList<Entity> blocks, rewards;
     private ArrayList<StaticDamage> spikes;
-    private ArrayList<Turret> turret;
+    private ArrayList<ShootingEnemy> turrets;
     private ArrayList<Thrower> flameThrowers;
     private ArrayList<Thrower> laserThrowers;
     private int score;
     private String name;
     private Points pts;
     private int index;
+    private Graphics g;
     private static final long serialversionUId = 1;
-    
+   
     public Level(String name, int score, int index){
         this.name = name;
         this.score = score;
         this.index = index;
+    }
+    
+    public Graphics getG() {
+        return g;
     }
     
     public int getScore() {
@@ -55,9 +61,9 @@ public class Level implements GalaxyComponent{
     public TiledMap getMap() {
         return map;
     }
-
-    public ArrayList<Turret> getTurret() {
-        return turret;
+    
+    public ArrayList<ShootingEnemy> getShootingEnemy() {
+        return turrets;
     }
 
     public ArrayList<Entity> getRewards() {
@@ -93,6 +99,8 @@ public class Level implements GalaxyComponent{
         this.ctf = new ClientThrowersFactory(this.map);
         this.flameThrowers = ctf.getEntities("Fire");
         this.laserThrowers = ctf.getEntities("Laser");
+        //Create an array list of turrets calling the List creator
+        this.turrets = new ShootingEnemyList(this.map).getList();
         this.pts = new Points(rewards, score);
         this.pts.init();
     }
@@ -125,6 +133,8 @@ public class Level implements GalaxyComponent{
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
         map.render(0, 0, map.getLayerIndex("Fire"));
         map.render(0, 0, map.getLayerIndex("Laser"));
+        map.render(0,0, map.getLayerIndex("Turrets"));
+        map.render(0,0, map.getLayerIndex("TurretsHitbox"));
         
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
@@ -134,6 +144,11 @@ public class Level implements GalaxyComponent{
         }
         for(Thrower t: laserThrowers){
             t.render();
+        }
+        if(turrets != null){
+            for(int i=0; i<turrets.size(); i++){
+                turrets.get(i).render(g);
+            }
         }
         g.setColor(Color.white);
         g.drawString(this.name, 850, 5);

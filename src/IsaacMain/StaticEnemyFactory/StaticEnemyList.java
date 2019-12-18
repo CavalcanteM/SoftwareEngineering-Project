@@ -37,6 +37,7 @@ public class StaticEnemyList {
                 this method creates an array list of different objects that 
                 match the ID. 
                  */
+                
                 if (map.getTileId(x, y, objlayer) == 11 || map.getTileId(x, y, objlayer) == 12) {
                     StaticDamage.add(oneFactory.create(x * 30, y * 30));
                 } else if (map.getTileId(x, y, objlayer) == 13 || map.getTileId(x, y, objlayer) == 14) {
