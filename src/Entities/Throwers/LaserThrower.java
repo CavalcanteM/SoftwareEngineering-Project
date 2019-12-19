@@ -8,7 +8,8 @@ import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.particles.ConfigurableEmitter;
 import org.newdawn.slick.particles.ParticleSystem;
 
-public class LaserThrower implements Thrower{
+public class LaserThrower implements Thrower {
+
     private ConcreteThrower ct;
     private Shape damageBox;
     private boolean active;
@@ -19,11 +20,19 @@ public class LaserThrower implements Thrower{
     private ParticleSystem ft;
     private ConfigurableEmitter laser;
     private Image imm;
-    
-    public LaserThrower(float x, float y, int size, int type) throws SlickException{
-        this.laser = new ConfigurableEmitter("laser"); 
+    private long lastTime;
+    private long onTime;
+    private long offTime;
+    private long actualTime;
+
+    public LaserThrower(float x, float y, int size, int type) throws SlickException {
+        this.lastTime = System.currentTimeMillis();
+        this.onTime = 2000;
+        this.offTime = 500;
+        this.actualTime = offTime;
+        this.laser = new ConfigurableEmitter("laser");
         this.laser.spread.setValue(0.5f);
-        this.laser.yOffset.setMax(30f*(size-1));
+        this.laser.yOffset.setMax(30f * (size - 1));
         this.laser.initialSize.setEnabled(true);
         this.laser.initialSize.setMin(5f);
         this.laser.initialSize.setMax(10f);
@@ -32,93 +41,106 @@ public class LaserThrower implements Thrower{
         this.i = 0;
         this.active = true;
         this.type = type;
-        this.ct = new ConcreteThrower(x,y,type);
-        
+        this.ct = new ConcreteThrower(x, y, type);
+
         /*  
             This switch represent the management of the ParticleSystem and the
             ConfigurableEmitter according to the type of Thrower, defined by the
             int type
-        */
+         */
         switch (this.type) {
             case 1:
                 this.laser.initialSize.setMin(10f);
                 this.laser.initialSize.setMax(15f);
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser.png");
-                this.laser.yOffset.setMax(30f*(size-1.5f));
+                this.laser.yOffset.setMax(30f * (size - 1.5f));
                 this.laser.angularOffset.setValue(0f);
-                this.damageBox = new Rectangle(x + 10f,y -30*size,10,+30*size);
+                this.damageBox = new Rectangle(x + 10f, y - 30 * size, 10, +30 * size);
                 this.ft = new ParticleSystem("./src/graphics/png/thrower/laser.png");
                 this.x = x + 13.5f;
-                this.y = y - size*30 + 38;
+                this.y = y - size * 30 + 38;
                 break;
             case 2:
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser90.png");
                 this.laser.yOffset.setMax(10f);
-                this.laser.xOffset.setMax(30f*(size-1.5f));
+                this.laser.xOffset.setMax(30f * (size - 1.5f));
                 this.laser.angularOffset.setValue(90f);
-                this.damageBox = new Rectangle(x+27, y+10f ,30*size,10);
+                this.damageBox = new Rectangle(x + 27, y + 10f, 30 * size, 10);
                 this.ft = new ParticleSystem("./src/graphics/png/thrower/laser_90.png");
                 this.x = x + 30;
                 this.y = y + 10;
                 break;
             case 3:
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser180.png");
-                this.laser.yOffset.setMax(30f*(size-1.5f));
+                this.laser.yOffset.setMax(30f * (size - 1.5f));
                 this.laser.xOffset.setMax(10f);
                 this.laser.angularOffset.setValue(180f);
-                this.damageBox = new Rectangle(x+10,y+27,10,30*size);
-                this.ft = new ParticleSystem("./src/graphics/png/thrower/laser_180.png");   
+                this.damageBox = new Rectangle(x + 10, y + 27, 10, 30 * size);
+                this.ft = new ParticleSystem("./src/graphics/png/thrower/laser_180.png");
                 this.y = y + 27;
                 this.x = x + 10;
                 break;
             default:
                 this.imm = new Image("./src/graphics/png/thrower/renderLaser270.png");
                 this.laser.yOffset.setMax(10f);
-                this.laser.xOffset.setMax(30f*(size-1.5f));
+                this.laser.xOffset.setMax(30f * (size - 1.5f));
                 this.laser.angularOffset.setValue(270f);
-                this.damageBox = new Rectangle(x-30*size,y+10f,30*size,+10);
-                this.ft = new ParticleSystem("./src/graphics/png/thrower/laser_270.png");   
+                this.damageBox = new Rectangle(x - 30 * size, y + 10f, 30 * size, +10);
+                this.ft = new ParticleSystem("./src/graphics/png/thrower/laser_270.png");
                 this.y = y + 10;
-                this.x = x - size*30 + 45;
+                this.x = x - size * 30 + 45;
                 break;
         }
         this.ft.addEmitter(laser);
     }
-    
+
     @Override
     public Shape getHitBox() {
         return this.ct.getHitBox();
     }
-    
+
     @Override
     public boolean isActive() {
-        this.setReset();
         return active;
     }
-    
-    @Override
-    public void setReset() {
-        i++;
-        if(i == 120){
-            this.active = !this.active;
-            this.i = 0;
-        }
-    }
-    
+
     @Override
     public Shape getDamageBox() {
         return damageBox;
     }
-    
-    
-    @Override
-    public void render(){
-        this.ft.render(this.x, this.y);
-        ShapeRenderer.textureFit(this.damageBox, imm);
+
+    private void updateActive() {
+        if ((System.currentTimeMillis() - this.lastTime) > this.actualTime) {
+            this.active = !this.active;
+            if (active) {
+                this.actualTime = this.onTime;
+            } else {
+                this.actualTime = this.offTime;
+            }
+            this.lastTime = System.currentTimeMillis();
+        }
     }
-    
+
     @Override
-    public void update(int delta){
+    public void render() {
+        if (this.active) {
+            this.ft.render(this.x, this.y);
+            ShapeRenderer.textureFit(this.damageBox, imm);
+        }
+    }
+
+    @Override
+    public void update(int delta) {
         this.ft.update(delta);
+        updateActive();
+    }
+
+    @Override
+    public int doDamage() {
+        if (this.active) {
+            return 2;
+        } else {
+            return 0;
+        }
     }
 }

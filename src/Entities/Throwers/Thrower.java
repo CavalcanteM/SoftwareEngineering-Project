@@ -11,9 +11,6 @@ public interface Thrower {
     /**Returns true when the thrower is o
      * @return n*/
     public boolean isActive();
-    
-    /**This method has like scope the activation and disabling the thrower*/
-    public void setReset();
 
     /**Returns the Shape with which if the player collides takes damag
      * @return e*/
@@ -25,4 +22,7 @@ public interface Thrower {
     /**This method has the scope of update each frame the ParticleSyste
      * @param deltam*/
     public void update(int delta);
+    /** This method has the scope damage the player if its shape collides with
+        the DamageBox Shape*/
+    public int doDamage();
 }
