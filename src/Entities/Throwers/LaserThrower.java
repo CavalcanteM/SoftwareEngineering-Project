@@ -28,7 +28,7 @@ public class LaserThrower implements Thrower {
     public LaserThrower(float x, float y, int size, int type) throws SlickException {
         this.lastTime = System.currentTimeMillis();
         this.onTime = 2000;
-        this.offTime = 500;
+        this.offTime = 1500;
         this.actualTime = offTime;
         this.laser = new ConfigurableEmitter("laser");
         this.laser.spread.setValue(0.5f);

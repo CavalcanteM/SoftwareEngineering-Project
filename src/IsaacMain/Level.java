@@ -90,7 +90,7 @@ public class Level implements GalaxyComponent{
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
-
+        System.out.println("E' stata chiamata la init " + this.index);
         this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
         this.entityClient = new EntityClient(this.map);

@@ -30,7 +30,7 @@ public class FlameThrower implements Thrower {
     public FlameThrower(float x, float y, int size, int type) {
         this.lastTime = System.currentTimeMillis();
         this.onTime = 2000;
-        this.offTime = 500;
+        this.offTime = 1500;
         this.actualTime = offTime;
         this.fire = new ConfigurableEmitter("fire");
         this.fire.spread.setValue(0f);

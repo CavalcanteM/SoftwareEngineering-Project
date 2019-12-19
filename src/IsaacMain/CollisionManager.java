@@ -75,7 +75,7 @@ public class CollisionManager implements Mediator {
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox())) {
                 //this.test3 = true;
-                playerInstance.getDamaged(1);
+                playerInstance.getDamaged(t.doDamage());
             }
             if (playerHitbox.intersects(t.getHitBox())) {
                 return true;
@@ -85,7 +85,7 @@ public class CollisionManager implements Mediator {
         for (Thrower t : lasers) {
             if (playerHitbox.intersects(t.getDamageBox())) {
                 //this.test4 = true;
-                playerInstance.getDamaged(2);
+                playerInstance.getDamaged(t.doDamage());
             }
             if (playerHitbox.intersects(t.getHitBox())) {
                 return true;
