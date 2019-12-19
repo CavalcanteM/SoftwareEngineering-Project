@@ -1,12 +1,10 @@
 package IsaacMain;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import static java.lang.Math.signum;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Scanner;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -21,25 +19,20 @@ import org.newdawn.slick.geom.Shape;
 public class Player {
     
     private static Player playerInstance = null;
-    
     private final int LEFT = -1, RIGHT = 1;
     private float gravity = 0.5f;
     private float speed = 5;
     private float iterations = 20;
     private int dashValue = 10;
-    
     private Shape hitbox;
-
     private float vX = 0;
-    private float vY = 0;
-    
+    private float vY = 0;   
     private Animation rightAnimation;
     private Animation leftAnimation;
     private Animation idleAnimationRight;
     private Animation idleAnimationLeft;
     private Animation deathAnimationRight;
-    private Animation deathAnimationLeft;
-    
+    private Animation deathAnimationLeft;    
     private boolean isChangingGravity;
     private boolean rotated = false;
     private static final int WIDTH = 58;
@@ -51,11 +44,7 @@ public class Player {
     private int numVoidHearts = 6; // Measured in mid hearts
     private CollisionManager collision;
     private long lastHitTime = System.currentTimeMillis() - 3000;
-    private int moveRightKey;
-    private int moveLeftKey;
-    private int changeGravityKey;
-    private int dashKey;
-    private int resetStatsKey;
+    private HashMap<String, Integer> commands;
     
     private Player() {
     }
@@ -116,6 +105,10 @@ public class Player {
 
     public int getNumVoidHearts() {
         return numVoidHearts;
+    }
+
+    public HashMap<String, Integer> getCommands() {
+        return commands;
     }
     
     /*--------------------
@@ -225,7 +218,7 @@ public class Player {
         }
         
         // Loads the current set of commands from a file
-        this.loadCommands();
+        this.initCommandList();
     }
     
     /**
@@ -237,7 +230,7 @@ public class Player {
     public void update(GameContainer gc, int delta) throws SlickException {
        
          // Gravity check and change
-        if (gc.getInput().isKeyPressed(changeGravityKey)) {
+        if (gc.getInput().isKeyPressed(commands.get("gravity"))) {
             gravity = changeGravity(signum(gravity));
         }        
 
@@ -258,17 +251,8 @@ public class Player {
         
         
         /* Temporary code: used only for graphically testing the damage
-        if(isDead) {
-            System.out.println("You are dead!");
-            this.isDead = false;
-        }
-        if (gc.getInput().isKeyPressed(Input.KEY_T)) {
-            this.getDamaged(1);
-        }
-        if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
-            this.getDamaged(2);
-        }*/
-        if (gc.getInput().isKeyPressed(resetStatsKey)) {
+        */
+        if (gc.getInput().isKeyPressed(Input.KEY_R)) {
             this.resetStats();
         }
         
@@ -416,17 +400,17 @@ public class Player {
     private void set_speedx(Input in) {
         
         // If we hold down A, the character will move to the left
-        if (in.isKeyDown(moveLeftKey)) {
+        if (in.isKeyDown(commands.get("left"))) {
             vX = -speed;
             this.isMovingRight = false;
-            if (in.isKeyPressed(dashKey)) {
+            if (in.isKeyPressed(commands.get("dash"))) {
                 dash(LEFT);
             }
         // If we hold down D, the character will move to the right
-        } else if (in.isKeyDown(moveRightKey)) {
+        } else if (in.isKeyDown(commands.get("right"))) {
             vX = speed;
             this.isMovingRight = true;
-            if (in.isKeyPressed(dashKey)) {
+            if (in.isKeyPressed(commands.get("dash"))) {
                 dash(RIGHT);
             }
         // The character doesn't move 
@@ -533,35 +517,41 @@ public class Player {
         this.rotate(30);
         this.vY=0;
         this.vX=0;
+        this.isDead=false;
     }
     
-    public void loadCommands(){
-        String filePath = "commands.txt";
-        HashMap<String, Integer> map = new HashMap<>();
-	Scanner s = null;
-
-	try{
-            s = new Scanner(new BufferedReader(new FileReader(filePath))).useDelimiter(";").useLocale(Locale.US);
-            while (s.hasNext()){
-                map.put(s.next(), s.nextInt());
-            }
-            map.keySet().forEach((key) -> {
-		System.out.println(key + ":" + map.get(key));
-            });
-
-	}
-        catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+    
+    public void initCommandList(){
+        this.commands = this.loadCommands();
+        if(this.commands == null){
+            commands.put("right", Input.KEY_D);
+            commands.put("left", Input.KEY_A);
+            commands.put("dash", Input.KEY_LSHIFT);
+            commands.put("gravity", Input.KEY_SPACE);
         }
-	finally{
-            if(s != null) s.close();
-	}
-		
-	this.moveLeftKey=map.get("moveLeftKey");
-	this.moveRightKey=map.get("moveRightKey");
-	this.changeGravityKey=map.get("changeGravityKey");
-	this.dashKey=map.get("dashKey");
-	this.resetStatsKey=map.get("moveLeftKey");
-	System.out.println(map.toString());
+    }
+    
+    
+    /**
+     * Load the tree level from the file
+     * @return galaxy if the load operation works successfully,
+     * else it returns null
+     */
+    public HashMap<String, Integer> loadCommands(){
+        FileInputStream fis = null;
+        ObjectInputStream in = null;
+        try{
+            fis = new FileInputStream("options");
+            in = new ObjectInputStream(fis);
+            HashMap<String, Integer> map = (HashMap<String,Integer>) in.readObject();
+            in.close();
+            return map;
+        }catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }catch(ClassNotFoundException ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 }

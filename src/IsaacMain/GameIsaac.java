@@ -8,6 +8,7 @@ package IsaacMain;
 import java.io.*;
 import menu.BackToMainMenu;
 import menu.Button;
+import menu.ChangeControls;
 import menu.Exit;
 import menu.Menu;
 import menu.NextLevel;
@@ -79,12 +80,14 @@ public class GameIsaac extends BasicGameState {
 	Button restart = new Button(50,150,new RestartLevel(),"Restart");       //The constructor will decide, the function executed by the button
 	Button exit = new Button(50,150,new Exit(),"Quit");			//Check the pakage menu to see all the commands
 	Button next = new Button(50,150,new NextLevel(this),"Next Level");
+        Button options = new Button(50,150,new ChangeControls(this.getID()),"Settings");
 	Button main = new Button(50,150,new BackToMainMenu(),"Main Menu");
 	//Adding the buttons to the menus
 	pause.addButton(resume);
 	pause.addButton(restart);
-	pause.addButton(exit);	
+        pause.addButton(options);
 	pause.addButton(main);
+	pause.addButton(exit);	
 	end.addButton(next);
 	end.addButton(restart);
 	end.addButton(main);

@@ -8,7 +8,6 @@ public class Resume implements Command{
 
 	@Override
 	public void execute(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException {
-		System.out.println("Resume");
 		gc.resume();
 	}
 	

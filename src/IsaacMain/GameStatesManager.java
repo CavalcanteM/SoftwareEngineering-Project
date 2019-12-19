@@ -23,5 +23,6 @@ public class GameStatesManager extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         this.addState(new MainMenu());
         this.addState(new GameIsaac());
+        this.addState(new OptionMenu());
     }
 }
