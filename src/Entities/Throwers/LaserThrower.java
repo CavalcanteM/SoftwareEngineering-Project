@@ -1,5 +1,6 @@
 package Entities.Throwers;
 
+import java.util.Random;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -27,8 +28,8 @@ public class LaserThrower implements Thrower {
 
     public LaserThrower(float x, float y, int size, int type) throws SlickException {
         this.lastTime = System.currentTimeMillis();
-        this.onTime = 2000;
-        this.offTime = 1500;
+        this.onTime = 2000 + new Random().nextInt(1000);
+        this.offTime = 1500 + new Random().nextInt(1000);
         this.actualTime = offTime;
         this.laser = new ConfigurableEmitter("laser");
         this.laser.spread.setValue(0.5f);

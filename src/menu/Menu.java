@@ -21,6 +21,7 @@ public class Menu{
 	private ArrayList<Shape> buttonsShape;
 	private int x;
 	private int y;
+        private Boolean overlay=false;
 
 	/**
 	 * Creates a new menu with the buttons taken from an ArrayList
@@ -29,6 +30,16 @@ public class Menu{
 	public Menu(ArrayList<Button> buttons) {
 		this.h=0;
 		this.l=0;
+		this.buttons = new ArrayList<>();
+		this.buttonsShape = new ArrayList<>();
+		buttons.forEach((b) -> {
+			this.addButton(b);
+		});
+	}
+        	public Menu(ArrayList<Button> buttons, Boolean overlay) {
+		this.h=0;
+		this.l=0;
+                this.overlay=overlay;
 		this.buttons = new ArrayList<>();
 		this.buttonsShape = new ArrayList<>();
 		buttons.forEach((b) -> {
@@ -92,9 +103,10 @@ public class Menu{
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+            if(!overlay){
 		g.setColor(new Color(0,0,0, 0.65f));
 		g.fill(background);
-		
+            }
 		g.setColor(new Color(60, 60, 60));
 		g.fill(menu);
 		

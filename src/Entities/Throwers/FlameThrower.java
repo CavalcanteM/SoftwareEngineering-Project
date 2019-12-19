@@ -1,5 +1,6 @@
 package Entities.Throwers;
 
+import java.util.Random;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -29,8 +30,8 @@ public class FlameThrower implements Thrower {
 
     public FlameThrower(float x, float y, int size, int type) {
         this.lastTime = System.currentTimeMillis();
-        this.onTime = 2000;
-        this.offTime = 1500;
+        this.onTime = 2000 + new Random().nextInt(1000);
+        this.offTime = 1500+ new Random().nextInt(1000);
         this.actualTime = offTime;
         this.fire = new ConfigurableEmitter("fire");
         this.fire.spread.setValue(0f);
@@ -108,8 +109,8 @@ public class FlameThrower implements Thrower {
             this.ft.render(this.x, this.y);
         }
     }
-    
-    private void updateActive(){
+
+    private void updateActive() {
         if ((System.currentTimeMillis() - this.lastTime) > this.actualTime) {
             this.active = !this.active;
             if (active) {
@@ -120,7 +121,7 @@ public class FlameThrower implements Thrower {
             this.lastTime = System.currentTimeMillis();
         }
     }
-    
+
     @Override
     public void update(int delta) {
         this.ft.update(delta);
