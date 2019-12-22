@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package IsaacMain;
 
 import java.io.Serializable;
@@ -11,10 +6,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-/**
- *
- * @author danya
- */
 public interface GalaxyComponent extends Serializable {
     
     public void init(GameContainer gc) throws SlickException;

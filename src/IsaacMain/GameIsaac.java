@@ -163,7 +163,7 @@ public class GameIsaac extends BasicGameState {
     
     /**
      * This method create the treeLevel.
-     * It load the tree from the fille "treeLevel".
+     * It load the tree from the file "treeLevel".
      * If there isn't the tree in the file, the load operation returns null 
      * and the treeLevel is created and saved.
      */
@@ -176,10 +176,18 @@ public class GameIsaac extends BasicGameState {
             GalaxyComponent world1 = new LevelContainer("World 1");
             GalaxyComponent level1 = new Level("Level 1-1", 5, 1);
             GalaxyComponent level2 = new Level("Level 1-2", 5, 2);
-            //GalaxyComponent level3 = new Level("Level 1-3", 5);
-            //GalaxyComponent level4 = new Level("Level 1-4", 5);
+            GalaxyComponent level3 = new Level("Level 1-3", 5, 3);
+            GalaxyComponent level4 = new Level("Level 1-4", 5, 4);
+            GalaxyComponent level5 = new Level("Level 1-4", 5, 5);
+            GalaxyComponent level6 = new Level("Level 1-4", 5, 6);
+            GalaxyComponent level7 = new Level("Level 1-4", 5, 7);
             world1.add(level1);
             world1.add(level2);
+            world1.add(level3);
+            world1.add(level4);
+            world1.add(level5);
+            world1.add(level6);
+            world1.add(level7);
             galaxy.add(world1);
             // Setting second world
             //GalaxyComponent world2 = new LevelContainer("World 2");

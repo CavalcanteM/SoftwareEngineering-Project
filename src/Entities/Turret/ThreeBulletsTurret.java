@@ -2,6 +2,8 @@ package Entities.Turret;
 
 import Entities.Turret.Bullets.Bullet;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -38,7 +40,11 @@ public class ThreeBulletsTurret implements ShootingEnemy {
 
         if ((System.currentTimeMillis() - this.lastHitTime) > currentTime) {
 
-            bulletList.add(new Bullet(x, y, x2, y2, hitboxArea, this));
+            try {
+                bulletList.add(new Bullet(x, y, x2, y2, hitboxArea, this));
+            } catch (SlickException ex) {
+                Logger.getLogger(ThreeBulletsTurret.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (++k % 3 == 0) {
                 currentTime = waitingTime;
             } else {
@@ -55,8 +61,8 @@ public class ThreeBulletsTurret implements ShootingEnemy {
 
     @Override
     public void render(Graphics g) throws SlickException {
-        g.setColor(Color.red);
-        g.draw(hitboxArea);
+        //g.setColor(Color.red);
+        //g.draw(hitboxArea);
 
         if (bulletList != null) {
             for (int i = 0; i < bulletList.size(); i++) {

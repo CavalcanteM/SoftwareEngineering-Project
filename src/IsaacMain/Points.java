@@ -46,7 +46,7 @@ public class Points implements Iterable<Entity> {
         size of the reward pic.
     */
     public void init() throws SlickException{
-        this.imm = new Image("./graphics/png/burger_s.png");
+        this.imm = new Image("./graphics/png/Nut.png");
         for (Entity reward: rwd) {
             reward.setHeightAndWidth(imm.getHeight(), imm.getWidth());
         }
