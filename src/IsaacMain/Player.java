@@ -1,5 +1,6 @@
 package IsaacMain;
 
+import IsaacMain.Upgrades.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,7 +17,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class Player {
+public class Player implements UpgradeComponent{
     
     private static Player playerInstance = null;
     private final int LEFT = -1, RIGHT = 1;
@@ -26,7 +27,9 @@ public class Player {
     private int dashValue = 10;
     private Shape hitbox;
     private float vX = 0;
-    private float vY = 0;   
+    private float vY = 0;
+    private float speedUp = 2;
+    private boolean shield = false;
     private Animation rightAnimation;
     private Animation leftAnimation;
     private Animation idleAnimationRight;
@@ -99,6 +102,7 @@ public class Player {
         return isPaused;
     }
 
+    @Override
     public int getNumHearts() {
         return numHearts;
     }
@@ -141,15 +145,27 @@ public class Player {
     public void setvY(float vY) {    
         this.vY = vY;
     }
+
+    @Override
+    public void setSpeedUp(float speedUp) {
+        this.speedUp = speedUp;
+    }
+    
+    @Override
+    public void setShield(boolean shield){
+        this.shield = shield;
+    }
     
     public void setIsPaused(boolean isPaused) {
         this.isPaused = isPaused;
     }
     
+    @Override
     public void setNumHearts(int numHearts) {
         this.numHearts = numHearts;
     }
     
+    @Override
     public void setNumVoidHearts(int numVoidHearts) {
         this.numVoidHearts = numVoidHearts;
     }
@@ -166,6 +182,7 @@ public class Player {
      * @param gc
      * @throws SlickException 
      */
+    @Override
     public void init(GameContainer gc) throws SlickException {
         /*
         I used a shrinkage of 1 pixel in both dimentions to avoid that the
@@ -227,6 +244,7 @@ public class Player {
      * @param delta
      * @throws SlickException 
      */
+    @Override
     public void update(GameContainer gc, int delta) throws SlickException {
        
          // Gravity check and change
@@ -264,6 +282,7 @@ public class Player {
      * @param g
      * @throws SlickException 
      */
+    @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         
         //used to hyde the hitbox
@@ -366,7 +385,7 @@ public class Player {
     private void moveWithCollisionsX() {
         // X movement collisions
 
-        float vXtemp = vX / iterations;
+        float vXtemp = this.speedUp * (vX / iterations);
 
         for (int t = 0; t < iterations; t++) {
             hitbox.setX(hitbox.getX() + vXtemp);
@@ -382,7 +401,7 @@ public class Player {
      * Called only when the gravity gets changed.
      */
     private void moveAlongY() {
-        float vYtemp = vY / iterations;
+        float vYtemp = speedUp * (vY / iterations);
         
         for (int t = 0; t < iterations; t++) {
             hitbox.setY(hitbox.getY() + vYtemp);
