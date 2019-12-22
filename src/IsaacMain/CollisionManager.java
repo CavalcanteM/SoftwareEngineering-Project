@@ -73,7 +73,7 @@ public class CollisionManager implements Mediator {
 
         //Check if the playerHitbox collides with the fire or the Thrower
         for (Thrower t : throwers) {
-            if (playerHitbox.intersects(t.getDamageBox())) {
+            if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 //this.test3 = true;
                 playerInstance.getDamaged(t.doDamage());
             }
@@ -83,7 +83,7 @@ public class CollisionManager implements Mediator {
         }
 
         for (Thrower t : lasers) {
-            if (playerHitbox.intersects(t.getDamageBox())) {
+            if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 //this.test4 = true;
                 playerInstance.getDamaged(t.doDamage());
             }
