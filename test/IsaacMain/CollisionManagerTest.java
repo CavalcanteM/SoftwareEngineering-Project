@@ -1,11 +1,12 @@
 package IsaacMain;
 
-import Entities.Entity.Block;
-import Entities.Entity.Entity;
-import Entities.Entity.Reward;
-import Entities.StaticDamage.HalfHeartSpike;
-import Entities.StaticDamage.StaticDamage;
-import Entities.Throwers.*;
+import Throwers.Thrower;
+import Throwers.LaserThrower;
+import Throwers.FlameThrower;
+import Entity.Block;
+import Entity.Entity;
+import Entity.Reward;
+import StaticEnemy.GreenSpike;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,12 +17,13 @@ import static org.junit.Assert.*;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import StaticEnemy.StaticEnemy;
 
 public class CollisionManagerTest {
     private ArrayList<Entity> blocks;
     private Points pts;
     private Shape reward;
-    private ArrayList<StaticDamage> spikes;
+    private ArrayList<StaticEnemy> spikes;
     private ArrayList<Shape> players;
     
     private ArrayList<Thrower> t;
@@ -54,8 +56,8 @@ public class CollisionManagerTest {
         points.add(new Reward(200,249));
         pts = new Points(points,3);
         reward = points.get(0).getHitBox();
-        spikes = new ArrayList<StaticDamage>();
-        spikes.add(new HalfHeartSpike(329,300));
+        spikes = new ArrayList<StaticEnemy>();
+        spikes.add(new GreenSpike(329,300));
         blocks = new ArrayList<Entity>();
         blocks.add(new Block(449,400));
         t = new ArrayList<Thrower>();

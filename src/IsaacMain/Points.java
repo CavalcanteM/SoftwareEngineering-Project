@@ -1,7 +1,7 @@
 package IsaacMain;
 
 
-import Entities.Entity.Entity;
+import Entity.Entity;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
