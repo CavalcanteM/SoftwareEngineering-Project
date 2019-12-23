@@ -27,12 +27,12 @@ public class Player {
     private Shape hitbox;
     private float vX = 0;
     private float vY = 0;   
-    private Animation rightAnimation;
-    private Animation leftAnimation;
-    private Animation idleAnimationRight;
-    private Animation idleAnimationLeft;
-    private Animation deathAnimationRight;
-    private Animation deathAnimationLeft;    
+//    private Animation rightAnimation;
+//    private Animation leftAnimation;
+//    private Animation animations.getIdleAnimationRight();
+//    private Animation idleAnimationLeft;
+//    private Animation deathAnimationRight;
+//    private Animation deathAnimationLeft;    
     private boolean isChangingGravity;
     private boolean rotated = false;
     private static final int WIDTH = 58;
@@ -45,6 +45,7 @@ public class Player {
     private CollisionManager collision;
     private long lastHitTime = System.currentTimeMillis() - 3000;
     private HashMap<String, Integer> commands;
+    private Animations animations; // Strategy pattern
     
     private Player() {
     }
@@ -177,45 +178,47 @@ public class Player {
         hitbox = new Rectangle(31, gc.getHeight()-90, 29, 59);
         
         // Create the animations for character moving on both the right and the left
-        Image[] frames = new Image[8];
-        this.rightAnimation = new Animation(); 
-        this.leftAnimation =  new Animation();
-        for(int i=0; i<frames.length; i++)
-        {
-            // Adding current image to animation for moving to the right
-            frames[i] = new Image("./graphics/png/Run (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);  
-            this.rightAnimation.addFrame(frames[i], 60);
-            // Flip and add current image to animation for moving to the left
-            frames[i] = frames[i].getFlippedCopy(true, false);
-            this.leftAnimation.addFrame(frames[i], 60);
-        }
-        
-        // Create the animations for character not moving (idle animation)
-        frames = new Image[10];
-        this.idleAnimationRight = new Animation();
-        this.idleAnimationLeft =  new Animation();
-        for(int i=0; i<frames.length; i++) 
-        {
-            // Adding current image to animation idle looking to the right
-            frames[i] = new Image("./graphics/png/Idle (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
-            this.idleAnimationRight.addFrame(frames[i], 60);
-            // Flip and add current image to the animation idle looking to the left
-            frames[i] = frames[i].getFlippedCopy(true, false);
-            this.idleAnimationLeft.addFrame(frames[i], 60);
-        }
-        
-        // Create the animation for the character dying
-        this.deathAnimationRight = new Animation();
-        this.deathAnimationLeft =  new Animation();
-        for(int i = 0; i < frames.length; i++)
-        {
-            // Adding current image to animation death falling to the right
-            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
-            this.deathAnimationRight.addFrame(frames[i], 60);
-            // Flip and add current image to the animation death falling to the left
-            frames[i] = frames[i].getFlippedCopy(true, false);
-            this.deathAnimationLeft.addFrame(frames[i], 60);
-        }
+        this.animations = new SantaAnimations();
+        this.animations.createAnimations();
+//        Image[] frames = new Image[8];
+//        this.rightAnimation = new Animation(); 
+//        this.leftAnimation =  new Animation();
+//        for(int i=0; i<frames.length; i++)
+//        {
+//            // Adding current image to animation for moving to the right
+//            frames[i] = new Image("./graphics/png/Run (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);  
+//            this.rightAnimation.addFrame(frames[i], 60);
+//            // Flip and add current image to animation for moving to the left
+//            frames[i] = frames[i].getFlippedCopy(true, false);
+//            this.leftAnimation.addFrame(frames[i], 60);
+//        }
+//        
+//        // Create the animations for character not moving (idle animation)
+//        frames = new Image[10];
+//        this.idleAnimationRight = new Animation();
+//        this.idleAnimationLeft =  new Animation();
+//        for(int i=0; i<frames.length; i++) 
+//        {
+//            // Adding current image to animation idle looking to the right
+//            frames[i] = new Image("./graphics/png/Idle (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
+//            this.idleAnimationRight.addFrame(frames[i], 60);
+//            // Flip and add current image to the animation idle looking to the left
+//            frames[i] = frames[i].getFlippedCopy(true, false);
+//            this.idleAnimationLeft.addFrame(frames[i], 60);
+//        }
+//        
+//        // Create the animation for the character dying
+//        this.deathAnimationRight = new Animation();
+//        this.deathAnimationLeft =  new Animation();
+//        for(int i = 0; i < frames.length; i++)
+//        {
+//            // Adding current image to animation death falling to the right
+//            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
+//            this.deathAnimationRight.addFrame(frames[i], 60);
+//            // Flip and add current image to the animation death falling to the left
+//            frames[i] = frames[i].getFlippedCopy(true, false);
+//            this.deathAnimationLeft.addFrame(frames[i], 60);
+//        }
         
         // Loads the current set of commands from a file
         this.initCommandList();
@@ -275,65 +278,127 @@ public class Player {
         float X = this.hitbox.getMinX()-14;
         float Y = this.hitbox.getMinY()-5;
         
+//        if(this.vX ==0){//The character doesn't move
+//            if((isMovingRight && !rotated) || (!isMovingRight && rotated)){
+//                if(isPaused){
+//                    this.idleAnimationRight.draw(X,Y);
+//                    this.idleAnimationRight.stop();
+//                }else{
+//                    if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
+//                        this.deathAnimationRight.draw(X, Y);
+//                        this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
+//                        this.deathAnimationRight.start();
+//                    } else {
+//                        /* The +2 and -2 are used to make the idle in left and 
+//                           right position match the position of the center axis
+//                           if the character. That's caused by a misallignement of
+//                           the character in the sprite.*/
+//                        if(isMovingRight){
+//                            this.idleAnimationRight.draw(X+2,Y);
+//                        }else{
+//                            this.idleAnimationRight.draw(X-2,Y);
+//                        }
+//                        this.idleAnimationRight.start();
+//                    }    
+//                }
+//            }else{
+//                if(isPaused){
+//                    this.idleAnimationLeft.draw(X,Y);
+//                    this.idleAnimationLeft.stop();
+//                }else{
+//                    if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
+//                        this.deathAnimationLeft.draw(X, Y);
+//                        this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
+//                        this.deathAnimationLeft.start();
+//                    } else {
+//                        if(isMovingRight){
+//                            this.idleAnimationLeft.draw(X+2,Y);
+//                        }else{
+//                            this.idleAnimationLeft.draw(X-2,Y);
+//                        }
+//                        this.idleAnimationLeft.start();
+//                    }   
+//                }
+//            }
+//        }
+//        
+//        if((this.vX > 0 && !rotated) || (this.vX < 0 && rotated)) {
+//            this.rightAnimation.draw(X, Y);
+//            if(!isPaused){ 
+//                this.rightAnimation.start(); 
+//            } else {
+//                this.rightAnimation.stop();
+//            }
+//        }
+//            
+//        if((this.vX > 0 && rotated) || (this.vX < 0 && !rotated)) {
+//            this.leftAnimation.draw(X, Y);
+//            if(!isPaused){
+//                this.leftAnimation.start();
+//            } else {
+//                this.leftAnimation.stop();
+//            }
+//        }
+
         if(this.vX ==0){//The character doesn't move
             if((isMovingRight && !rotated) || (!isMovingRight && rotated)){
                 if(isPaused){
-                    this.idleAnimationRight.draw(X,Y);
-                    this.idleAnimationRight.stop();
+                    this.animations.getIdleAnimationRight().draw(X,Y);
+                    this.animations.getIdleAnimationRight().stop();
                 }else{
-                    if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
-                        this.deathAnimationRight.draw(X, Y);
-                        this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
-                        this.deathAnimationRight.start();
+                    if(isDead && !this.animations.getDeathAnimationRight().isStopped()){ // You can't die when the game is in pause
+                        this.animations.getDeathAnimationRight().draw(X, Y);
+                        this.animations.getDeathAnimationRight().stopAt(this.animations.getDeathAnimationRight().getFrameCount()-1);
+                        this.animations.getDeathAnimationRight().start();
                     } else {
                         /* The +2 and -2 are used to make the idle in left and 
                            right position match the position of the center axis
                            if the character. That's caused by a misallignement of
                            the character in the sprite.*/
                         if(isMovingRight){
-                            this.idleAnimationRight.draw(X+2,Y);
+                            this.animations.getIdleAnimationRight().draw(X+2,Y);
                         }else{
-                            this.idleAnimationRight.draw(X-2,Y);
+                            this.animations.getIdleAnimationRight().draw(X-2,Y);
                         }
-                        this.idleAnimationRight.start();
+                        this.animations.getIdleAnimationRight().start();
                     }    
                 }
             }else{
                 if(isPaused){
-                    this.idleAnimationLeft.draw(X,Y);
-                    this.idleAnimationLeft.stop();
+                    this.animations.getIdleAnimationLeft().draw(X,Y);
+                    this.animations.getIdleAnimationLeft().stop();
                 }else{
-                    if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
-                        this.deathAnimationLeft.draw(X, Y);
-                        this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
-                        this.deathAnimationLeft.start();
+                    if(isDead && !this.animations.getIdleAnimationLeft().isStopped()){ // You can't die when the game is in pause
+                        this.animations.getDeathAnimationLeft().draw(X, Y);
+                        this.animations.getDeathAnimationLeft().stopAt(this.animations.getIdleAnimationLeft().getFrameCount()-1);
+                        this.animations.getDeathAnimationLeft().start();
                     } else {
                         if(isMovingRight){
-                            this.idleAnimationLeft.draw(X+2,Y);
+                            this.animations.getIdleAnimationLeft().draw(X+2,Y);
                         }else{
-                            this.idleAnimationLeft.draw(X-2,Y);
+                            this.animations.getIdleAnimationLeft().draw(X-2,Y);
                         }
-                        this.idleAnimationLeft.start();
+                        this.animations.getIdleAnimationLeft().start();
                     }   
                 }
             }
         }
         
         if((this.vX > 0 && !rotated) || (this.vX < 0 && rotated)) {
-            this.rightAnimation.draw(X, Y);
+            this.animations.getRightAnimation().draw(X, Y);
             if(!isPaused){ 
-                this.rightAnimation.start(); 
+                this.animations.getRightAnimation().start(); 
             } else {
-                this.rightAnimation.stop();
+                this.animations.getRightAnimation().stop();
             }
         }
             
         if((this.vX > 0 && rotated) || (this.vX < 0 && !rotated)) {
-            this.leftAnimation.draw(X, Y);
+            this.animations.getLeftAnimation().draw(X, Y);
             if(!isPaused){
-                this.leftAnimation.start();
+                this.animations.getLeftAnimation().start();
             } else {
-                this.leftAnimation.stop();
+                this.animations.getLeftAnimation().stop();
             }
         }
         
@@ -437,23 +502,47 @@ public class Player {
         
        // idleAnimationRight.getCurrentFrame().setRotation(180);
         
-        for(int i=0; i<10; i++){
-            Image currentImage = this.idleAnimationRight.getImage(i);
-            /* The character rotates if the gravity is changed but it's 180 rotation
-             * is not yet completed
-            */
+//        for(int i=0; i<10; i++){
+//            Image currentImage = this.animations.getIdleAnimationRight().getImage(i);
+//            /* The character rotates if the gravity is changed but it's 180 rotation
+//             * is not yet completed
+//            */
+//            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
+//                if()
+//                this.animations.getIdleAnimationRight().getImage(i).rotate(angle);
+//                this.animations.getIdleAnimationLeft().getImage(i).rotate(angle);
+//                this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
+//                this.animations.getDeathAnimationLeft().getImage(i).rotate(angle);
+//                if(i<8){
+//                    this.animations.getRightAnimation().getImage(i).rotate(angle);
+//                    this.animations.getLeftAnimation().getImage(i).rotate(angle);
+//                }
+//            }
+//        }
+
+        for(int i=0; i<animations.getRunAnimationLength(); i++){
+            Image currentImage = this.animations.getRightAnimation().getImage(i);
             if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
-                this.idleAnimationRight.getImage(i).rotate(angle);
-                this.idleAnimationLeft.getImage(i).rotate(angle);
-                this.deathAnimationRight.getImage(i).rotate(angle);
-                this.deathAnimationLeft.getImage(i).rotate(angle);
-                if(i<8){
-                    this.rightAnimation.getImage(i).rotate(angle);
-                    this.leftAnimation.getImage(i).rotate(angle);
-                }
+                this.animations.getRightAnimation().getImage(i).rotate(angle);
+                this.animations.getLeftAnimation().getImage(i).rotate(angle);
+            }
+        }
+            
+        for(int i=0; i<animations.getIdleAnimationLength(); i++){
+            Image currentImage = this.animations.getIdleAnimationRight().getImage(i);
+            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
+                this.animations.getIdleAnimationRight().getImage(i).rotate(angle);
+                this.animations.getIdleAnimationLeft().getImage(i).rotate(angle);
             }
         }
         
+        for(int i=0; i<animations.getDeathAnimationLength(); i++){
+            Image currentImage = this.animations.getDeathAnimationRight().getImage(i);
+            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
+                this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
+                this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
+            }
+        }
     }
     
     /**
@@ -553,5 +642,14 @@ public class Player {
             ex.printStackTrace();
             return null;
         }
+    }
+    
+    public void setAnimations(Animations animations){
+        try{
+            animations.createAnimations();
+        } catch (SlickException ex) {
+            ex.printStackTrace();
+        }
+        
     }
 }
