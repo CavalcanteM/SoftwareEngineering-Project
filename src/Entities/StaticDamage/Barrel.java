@@ -3,24 +3,30 @@ package Entities.StaticDamage;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class AcidLake implements StaticDamage {
+public class Barrel implements StaticDamage {
 
     private Shape hitbox;
 
-    public AcidLake(int x, int y) {
-        hitbox = new Rectangle(x, y+10, 30, 20);
+    public Barrel(int x, int y) {
+        hitbox = new Rectangle(x, y-10, 30, 40);
         /**
-         * The hitbox is shorter than the actal tile, better represent the 
-         * hitobx area of the lake. It's the same for the full and half-full 
-         * lake.
+         * The hitbox of the barrel has a 10px offset upwards, since the actual
+         * picture of the barrel takes 1 tile and 2/3 of the upper tile. 
          * 
          * +-------------+
          * |             |
+         * |             |
+         * |             |
+         * |XXXXXXXXXXXXX|
+         * |XXXXXXXXXXXXX|
+         * +-------------+
+         * |XXXXXXXXXXXXX|
          * |XXXXXXXXXXXXX|
          * |XXXXXXXXXXXXX|
          * |XXXXXXXXXXXXX|
          * |XXXXXXXXXXXXX|
          * +-------------+
+         * 
          */
     }
 

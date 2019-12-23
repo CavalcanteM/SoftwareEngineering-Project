@@ -93,6 +93,8 @@ public class Window {
     public void showWindow() throws SlickException{
         gameContainer.setDisplayMode(this.width , this.height, this.fullscreen);
         gameContainer.setTargetFrameRate(frameRate);
+        gameContainer.setShowFPS(false);
+        gameContainer.setVSync(true);
         gameContainer.start();
     }    
 }

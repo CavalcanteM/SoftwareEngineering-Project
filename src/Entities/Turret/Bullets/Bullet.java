@@ -1,14 +1,13 @@
 package Entities.Turret.Bullets;
 
+import Entities.Entity.Entity;
 import Entities.Turret.ShootingEnemy;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.tiled.TiledMap;
@@ -23,21 +22,23 @@ public class Bullet {
     ArrayList<Double> increments;
     TiledMap map;
     int velocity;
+    Image sprite;
 
     public void setVelocity(int velocity) {
         this.velocity = velocity;
     }
 
-    public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea, ShootingEnemy turret) {
+    public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea, ShootingEnemy turret) throws SlickException {
+        this.sprite = new Image("./graphics/png/Bullet.png");
         this.x1 = x1 * 30;
         this.x2 = x2;
         this.y1 = y1 * 30;
         this.y2 = y2;
         this.hitboxArea = hitboxArea;
         velocity = 5;
-        this.turret=turret;
+        this.turret = turret;
 
-        this.bullet = new Circle(this.x1 + 15, this.y1 + 15, 5);
+        this.bullet = new Circle(this.x1 + 15, this.y1 + 15, 6);
         ComputeVelocity(this.x1, this.y1, x2, y2);
     }
 
@@ -70,18 +71,19 @@ public class Bullet {
     private void UpdateImage() {
         bullet.setX((float) (bullet.getX() + vX));
         bullet.setY((float) (bullet.getY() + vY));
+        ShapeRenderer.textureFit(this.bullet, sprite);
     }
 
     public void render(Graphics g) throws SlickException {
 
         if (hitboxArea.contains(bullet)) {
             UpdateImage();
-            g.setColor(Color.red);
-            g.fill(bullet);
+            ShapeRenderer.textureFit(this.bullet, sprite);
+
         }
     }
-    
-    public void remove(){
+
+    public void remove() {
         turret.removeBullet(this);
     }
 }

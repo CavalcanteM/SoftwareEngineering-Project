@@ -14,6 +14,18 @@ public abstract class Spike implements StaticDamage {
 
     public Spike(int x, int y) {
         hitbox = new Rectangle(x + 5, y + 5, 20, 20);
+        /**
+         * The hitbox is smaller than the actal tile, to avoid that the player
+         * is damaged even if he is close to the spike without touching it.
+         * 
+         * +-------------+
+         * |             |
+         * |    XXXXX    |
+         * |    XXXXX    |
+         * |    XXXXX    |
+         * |             |
+         * +-------------+
+         */
     }
 
     @Override
