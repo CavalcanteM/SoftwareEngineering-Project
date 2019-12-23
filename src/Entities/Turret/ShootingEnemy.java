@@ -10,7 +10,7 @@ public interface ShootingEnemy {
 
     public Shape getHitboxArea();
 
-    public ArrayList<Bullet> Shoot(float x2, float y2);
+    public Bullet Shoot(float x2, float y2);
 
     public void render(Graphics g) throws SlickException;
 

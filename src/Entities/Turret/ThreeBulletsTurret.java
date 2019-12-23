@@ -36,12 +36,13 @@ public class ThreeBulletsTurret implements ShootingEnemy {
     }
 
     @Override
-    public ArrayList<Bullet> Shoot(float x2, float y2) {
-
+    public Bullet Shoot(float x2, float y2) {
+            Bullet bullet = null;
         if ((System.currentTimeMillis() - this.lastHitTime) > currentTime) {
 
             try {
-                bulletList.add(new Bullet(x, y, x2, y2, hitboxArea, this));
+                bullet = new Bullet(x, y, x2, y2, hitboxArea, this);
+                bulletList.add(bullet);
             } catch (SlickException ex) {
                 Logger.getLogger(ThreeBulletsTurret.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -53,9 +54,9 @@ public class ThreeBulletsTurret implements ShootingEnemy {
 
             this.lastHitTime = System.currentTimeMillis();
 
-            return bulletList;
+            return bullet;
         } else {
-            return null;
+            return bullet;
         }
     }
 

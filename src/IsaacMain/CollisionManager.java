@@ -25,7 +25,6 @@ public class CollisionManager implements Mediator {
     private Points pts;
     private Shape reward;
     private ArrayList<ShootingEnemy> turrets;
-    private ArrayList<Bullet> bulletsList;
     private ArrayList<StaticDamage> spikes;
     private Shape playerHitbox;
     private ArrayList<Thrower> throwers;
@@ -47,7 +46,7 @@ public class CollisionManager implements Mediator {
         this.level = level;
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
-        bulletsList = new ArrayList<>();
+        
     }
 
     public CollisionManager() {
@@ -116,46 +115,31 @@ public class CollisionManager implements Mediator {
             for (i = 0; i < turrets.size(); i++) {
                 if (playerHitbox.intersects(turrets.get(i).getHitboxArea()) || turrets.get(i).getHitboxArea().contains(playerHitbox)) {
 
-                    this.lastHitTime = System.currentTimeMillis();
                     ShootingEnemy turret = turrets.get(i);
-                    ArrayList<Bullet> temp = turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
-                    if (null != temp) {
-                        bulletsList.addAll(temp);
-                    }
+                    Bullet temp = turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
 
                 }
             }
         }
 
-        if (bulletsList != null) {
-            Shape bulletshape;
-            for (int j = 0; j < turrets.size(); j++) {
-                ArrayList<Bullet> bul = turrets.get(j).getBullet();
-                for (i = 0; i < bul.size(); i++) {
-                    try {
-                        Bullet bullet = bulletsList.get(i);
-                        bulletshape = bullet.getShape();
+        for (int j = 0; j < turrets.size(); j++) {
+            ArrayList<Bullet> bul = turrets.get(j).getBullet();
+            for (i = 0; i < bul.size(); i++) {
+                try {
+                    Bullet bullet = bul.get(i);
+                    Shape bulletshape = bullet.getShape();
 
-                        if (bulletshape != null) {
-                            if (playerHitbox.intersects(bulletshape)) {
-                                playerInstance.getDamaged(bulletsList.get(i).getDamage());
-                                bulletsList.remove(bullet);
-                                bullet.remove();
-                            }
-                        } else {
-                            bulletsList.remove(i);
-
-                            if (!turrets.get(i).getBullet().isEmpty()) {
-                                turrets.get(i).removeBullet(bullet);
-                            }
+                    if (bulletshape != null) {
+                        if (playerHitbox.intersects(bulletshape)) {
+                            playerInstance.getDamaged(bullet.getDamage());
+                            bullet.remove();
                         }
-                    } catch (Exception e) {
+                    } 
+                } catch (Exception e) {}
 
-                    }
-
-                }
             }
         }
+
         return false;
     }
 

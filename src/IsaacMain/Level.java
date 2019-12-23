@@ -153,9 +153,7 @@ public class Level implements GalaxyComponent{
         g.drawString(this.name, 850, 5);
     }
 
-    private int readFromFile() {
-        return 1;
-    }
+   
 
     @Override
     public void add(GalaxyComponent galaxyComponent) {
