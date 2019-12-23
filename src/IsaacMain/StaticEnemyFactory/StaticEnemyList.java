@@ -15,17 +15,19 @@ public class StaticEnemyList {
     private int y;
     private final int objlayer;
     private final TiledMap map;
-
-    public StaticEnemyList(TiledMap map) {
+    private int difficulty;
+    
+    public StaticEnemyList(TiledMap map, int difficulty) {
         this.map = map;
         this.objlayer = this.map.getLayerIndex("StaticEnemies");
+        this.difficulty = difficulty;
     }
 
     public ArrayList<StaticDamage> getStaticEnemyList() {
-        StaticEnemyFactory oneFactory = new OneHeartSpikeFactory();
-        StaticEnemyFactory halfFactory = new HalfHeartSpikeFactory();
-        StaticEnemyFactory acidFactory = new AcidLakeFactory();
-        StaticEnemyFactory barrelFactory = new BarrelFactory();
+        StaticEnemyFactory oneFactory = new OneHeartSpikeFactory(difficulty);
+        StaticEnemyFactory halfFactory = new HalfHeartSpikeFactory(difficulty);
+        StaticEnemyFactory acidFactory = new AcidLakeFactory(difficulty);
+        StaticEnemyFactory barrelFactory = new BarrelFactory(difficulty);
 
         ArrayList<StaticDamage> staticDamageArray = new ArrayList<>();
 

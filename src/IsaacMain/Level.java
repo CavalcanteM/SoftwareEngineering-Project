@@ -34,12 +34,14 @@ public class Level implements GalaxyComponent{
     private Points pts;
     private int index;
     private Graphics g;
+    private int difficulty;
     private static final long serialversionUId = 1;
    
-    public Level(String name, int score, int index){
+    public Level(String name, int score, int index, int difficulty){
         this.name = name;
         this.score = score;
         this.index = index;
+        this.difficulty = difficulty;
     }
     
     public Graphics getG() {
@@ -91,11 +93,11 @@ public class Level implements GalaxyComponent{
     @Override
     public void init(GameContainer gc) throws SlickException {
         this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
-        this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
+        this.spikes = new StaticEnemyList(this.map, this.difficulty).getStaticEnemyList();
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
-        this.ctf = new ClientThrowersFactory(this.map);
+        this.ctf = new ClientThrowersFactory(this.map, this.difficulty);
         this.flameThrowers = ctf.getEntities("Fire");
         this.laserThrowers = ctf.getEntities("Laser");
         //Create an array list of turrets calling the List creator

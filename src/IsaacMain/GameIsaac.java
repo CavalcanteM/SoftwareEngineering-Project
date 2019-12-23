@@ -53,7 +53,7 @@ public class GameIsaac extends BasicGameState {
     
     /**
      * 
-     * @return 
+     * @return the ID of this state
      */
     @Override
     public int getID() {
@@ -61,7 +61,11 @@ public class GameIsaac extends BasicGameState {
     }
     
     /**
-     * 
+     * Method init inherited from BasicGameState, in which are initialized:
+     * - The player
+     * - The starting level
+     * - The pause, end and death menus
+     * - The collision manager
      * @param gc
      * @param sbg
      * @throws SlickException 
@@ -168,21 +172,21 @@ public class GameIsaac extends BasicGameState {
      * and the treeLevel is created and saved.
      */
     public void initLevelList(){
-        this.galaxy = this.loadTreeLevel();
+        //this.galaxy = this.loadTreeLevel();
         if(this.galaxy == null){
             this.galaxy = new LevelContainer("Centaurus");
             System.out.println("Il load non ha funzionato");
             
             // Setting first world
             GalaxyComponent world1 = new LevelContainer("World 1");
-            GalaxyComponent level1 = new Level("Level 1-1", 11, 1);
-            GalaxyComponent level2 = new Level("Level 1-2", 5, 2);
-            GalaxyComponent level3 = new Level("Level 1-3", 5, 3);
-            GalaxyComponent level4 = new Level("Level 1-4", 5, 4);            
+            GalaxyComponent level1 = new Level("Level 1-1", 11, 10, 2);
+//            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
+//            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
+//            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);
             world1.add(level1);
-            world1.add(level2);
-            world1.add(level3);
-            world1.add(level4);
+//            world1.add(level2);
+//            world1.add(level3);
+//            world1.add(level4);
             galaxy.add(world1);
             
             // Setting second world

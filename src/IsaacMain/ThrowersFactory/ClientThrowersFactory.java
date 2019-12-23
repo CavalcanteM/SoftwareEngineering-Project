@@ -12,9 +12,11 @@ import org.newdawn.slick.tiled.TiledMap;
 */
 public class ClientThrowersFactory {
     private final TiledMap map;
-
-    public ClientThrowersFactory(TiledMap map) {
+    private int difficulty;
+    
+    public ClientThrowersFactory(TiledMap map, int difficulty) {
         this.map = map;
+        this.difficulty = difficulty;
     }
     
     public ArrayList<Thrower> getEntities(String layerName){
@@ -27,13 +29,13 @@ public class ClientThrowersFactory {
         ArrayList<Integer> cases = new ArrayList<>();
         
         if("Fire".equals(layerName)){
-            et = new ConcreteFlameThrowerFactory();
+            et = new ConcreteFlameThrowerFactory(this.difficulty);
             cases.add(31);
             cases.add(32);
             cases.add(33);
             cases.add(34);
         }else{
-            et = new ConcreteLaserThrowerFactory();
+            et = new ConcreteLaserThrowerFactory(this.difficulty);
             cases.add(26);
             cases.add(27);
             cases.add(28);

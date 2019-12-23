@@ -6,8 +6,9 @@ import org.newdawn.slick.geom.Shape;
 public class AcidLake implements StaticDamage {
 
     private Shape hitbox;
-
-    public AcidLake(int x, int y) {
+    private int difficulty;
+    
+    public AcidLake(int x, int y, int difficulty) {
         hitbox = new Rectangle(x, y+10, 30, 20);
         /**
          * The hitbox is shorter than the actal tile, better represent the 
@@ -22,13 +23,14 @@ public class AcidLake implements StaticDamage {
          * |XXXXXXXXXXXXX|
          * +-------------+
          */
+        this.difficulty = difficulty;
     }
 
     @Override
     public Shape getHitbox() {
         return hitbox;
     }
-
+    
     @Override
     public int doDamage() {
         return 1;

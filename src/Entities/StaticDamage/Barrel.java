@@ -6,8 +6,9 @@ import org.newdawn.slick.geom.Shape;
 public class Barrel implements StaticDamage {
 
     private Shape hitbox;
-
-    public Barrel(int x, int y) {
+    private int difficulty;
+    
+    public Barrel(int x, int y, int difficulty) {
         hitbox = new Rectangle(x, y-10, 30, 40);
         /**
          * The hitbox of the barrel has a 10px offset upwards, since the actual
@@ -28,6 +29,7 @@ public class Barrel implements StaticDamage {
          * +-------------+
          * 
          */
+        this.difficulty = difficulty;
     }
 
     @Override
