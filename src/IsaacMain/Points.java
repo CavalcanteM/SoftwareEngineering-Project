@@ -9,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.ShapeRenderer;
 
 /*
@@ -24,18 +25,24 @@ public class Points implements Iterable<Entity> {
     private final Random ran;
     private int nObj;
     private Entity current;
-        
+    private Sound sound;
     private Image imm;
 
-    public Points(ArrayList<Entity> rwd, int nObj){
+    public Points(ArrayList<Entity> rwd, int nObj) throws SlickException{
         this.rwd = rwd;
         this.nObj = nObj+1;
         this.ran = new Random();
+        this.sound = new Sound("./src/sound/item.wav");
     }
 
     public ArrayList<Entity> getRwd() {
         return rwd;
     }
+
+    public Sound getSound() {
+        return sound;
+    }
+    
 
     public int getnObj() {
         return nObj;

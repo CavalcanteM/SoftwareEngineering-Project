@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -23,12 +24,15 @@ public class Bullet {
     ArrayList<Double> increments;
     TiledMap map;
     int velocity;
-
+    boolean flag;
+    Sound sound;
+    
     public void setVelocity(int velocity) {
         this.velocity = velocity;
     }
 
-    public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea, ShootingEnemy turret) {
+    public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea, ShootingEnemy turret) throws SlickException {
+        this.sound = new Sound("./src/sound/pew.wav");
         this.x1 = x1 * 30;
         this.x2 = x2;
         this.y1 = y1 * 30;
@@ -36,7 +40,7 @@ public class Bullet {
         this.hitboxArea = hitboxArea;
         velocity = 5;
         this.turret=turret;
-
+        this.flag = false;
         this.bullet = new Circle(this.x1 + 15, this.y1 + 15, 5);
         ComputeVelocity(this.x1, this.y1, x2, y2);
     }
@@ -70,6 +74,10 @@ public class Bullet {
     private void UpdateImage() {
         bullet.setX((float) (bullet.getX() + vX));
         bullet.setY((float) (bullet.getY() + vY));
+        if(!this.sound.playing() && this.flag==false){
+            this.sound.play(1, 0.05f);
+            this.flag = true;
+        }
     }
 
     public void render(Graphics g) throws SlickException {

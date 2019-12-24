@@ -57,7 +57,6 @@ public class ThreeBulletsTurret implements ShootingEnemy {
     public void render(Graphics g) throws SlickException {
         g.setColor(Color.red);
         g.draw(hitboxArea);
-
         if (bulletList != null) {
             for (int i = 0; i < bulletList.size(); i++) {
                 bulletList.get(i).render(g);
