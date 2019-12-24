@@ -5,6 +5,7 @@ import Entities.StaticDamage.StaticDamage;
 import Entities.Throwers.*;
 import Entities.Turret.Bullets.Bullet;
 import Entities.Turret.ShootingEnemy;
+import IsaacMain.Upgrades.*;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Shape;
 
@@ -31,7 +32,8 @@ public class CollisionManager implements Mediator {
     private ArrayList<Thrower> throwers;
     private ArrayList<Thrower> lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
-
+    private UpgradeDecorator speedUp;
+    
     /*This parameters are used only in the test of the class*/
     protected boolean test1 = false;
     protected boolean test2 = false;
@@ -71,6 +73,12 @@ public class CollisionManager implements Mediator {
             getReward();
         }
 
+        if(speedUp!= null && speedUp.getHitbox() != null){
+            if(playerHitbox.intersects(speedUp.getHitbox())){
+                speedUp.activation();
+            }
+        }
+        
         //Check if the playerHitbox collides with the fire or the Thrower
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
@@ -189,6 +197,7 @@ public class CollisionManager implements Mediator {
         this.throwers = level.getThrowers();
         this.lasers = level.getLaserThrowers();
         this.turrets = level.getShootingEnemy();
+        this.speedUp = level.getSpeedUp();
     }
 
     /**

@@ -28,7 +28,7 @@ public class Player implements UpgradeComponent{
     private Shape hitbox;
     private float vX = 0;
     private float vY = 0;
-    private float speedUp = 2;
+    private float speedUp = 1;
     private boolean shield = false;
     private Animation rightAnimation;
     private Animation leftAnimation;

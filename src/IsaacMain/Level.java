@@ -8,6 +8,7 @@ import IsaacMain.StaticEnemyFactory.StaticEnemyList;
 import Entities.Entity.EntityClient;
 import Entities.Turret.ShootingEnemy;
 import IsaacMain.ShootingEnemyFactory.ShootingEnemyList;
+import IsaacMain.Upgrades.*;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -35,6 +36,7 @@ public class Level implements GalaxyComponent{
     private int index;
     private Graphics g;
     private static final long serialversionUId = 1;
+    private UpgradeDecorator speedUp;
    
     public Level(String name, int score, int index){
         this.name = name;
@@ -66,6 +68,10 @@ public class Level implements GalaxyComponent{
         return turrets;
     }
 
+    public UpgradeDecorator getSpeedUp() {
+        return speedUp;
+    }
+    
     public ArrayList<Entity> getRewards() {
         return rewards;
     }
@@ -91,6 +97,8 @@ public class Level implements GalaxyComponent{
     @Override
     public void init(GameContainer gc) throws SlickException {
         this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
+        this.speedUp = new SpeedUpDecorator(200,100);
+        this.speedUp.init(gc);
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
@@ -115,6 +123,11 @@ public class Level implements GalaxyComponent{
         for(Thrower t: laserThrowers){
             t.update(delta);
         }
+        
+        if(this.speedUp.isUpgradeActive()){
+            this.speedUp.updateActive();
+        }
+            
     }
 
     /**
@@ -149,6 +162,7 @@ public class Level implements GalaxyComponent{
                 turrets.get(i).render(g);
             }
         }
+        this.speedUp.render(gc, g);
         g.setColor(Color.white);
         g.drawString(this.name, 850, 5);
     }
