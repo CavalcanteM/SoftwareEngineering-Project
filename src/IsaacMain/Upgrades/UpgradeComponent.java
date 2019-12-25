@@ -1,4 +1,3 @@
-
 package IsaacMain.Upgrades;
 
 import org.newdawn.slick.*;

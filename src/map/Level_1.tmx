@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="1">
  <tileset firstgid="1" source="Tileset_map.tsx"/>
  <layer id="2" name="Background" width="32" height="24" locked="1">
   <data encoding="base64" compression="gzip">
@@ -44,6 +44,11 @@
  <layer id="8" name="LaserMax" width="32" height="24">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECu3QAQ0AAAzCMGTcv9LbgKRTsDQRAQIECDQKXOOUJwIECBCYF3gLUxlrAAwAAA==
+  </data>
+ </layer>
+ <layer id="11" name="Upgrades" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGBpAnExnkquPTOtGtY2GwKAMgdF8MCijZdRRoyGANwRG8y3e4BmVHA2BIRkCgyVfAwDf11kpAAwAAA==
   </data>
  </layer>
  <layer id="6" name="FireMax" width="32" height="24">

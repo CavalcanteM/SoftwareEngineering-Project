@@ -25,7 +25,7 @@ public class Level implements GalaxyComponent{
     private Thrower tr;
     private EntityClient entityClient;
     private ClientThrowersFactory ctf;
-    private ArrayList<Entity> blocks, rewards;
+    private ArrayList<Entity> blocks, rewards, upgrades;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<ShootingEnemy> turrets;
     private ArrayList<Thrower> flameThrowers;
@@ -33,10 +33,10 @@ public class Level implements GalaxyComponent{
     private int score;
     private String name;
     private Points pts;
+    private Powerup up;
     private int index;
     private Graphics g;
     private static final long serialversionUId = 1;
-    private UpgradeDecorator speedUp;
    
     public Level(String name, int score, int index){
         this.name = name;
@@ -68,10 +68,6 @@ public class Level implements GalaxyComponent{
         return turrets;
     }
 
-    public UpgradeDecorator getSpeedUp() {
-        return speedUp;
-    }
-    
     public ArrayList<Entity> getRewards() {
         return rewards;
     }
@@ -97,12 +93,11 @@ public class Level implements GalaxyComponent{
     @Override
     public void init(GameContainer gc) throws SlickException {
         this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
-        this.speedUp = new SpeedUpDecorator(200,100);
-        this.speedUp.init(gc);
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
+        this.upgrades = entityClient.getEntities("Upgrades");
         this.ctf = new ClientThrowersFactory(this.map);
         this.flameThrowers = ctf.getEntities("Fire");
         this.laserThrowers = ctf.getEntities("Laser");
@@ -110,6 +105,8 @@ public class Level implements GalaxyComponent{
         this.turrets = new ShootingEnemyList(this.map).getList();
         this.pts = new Points(rewards, score);
         this.pts.init();
+        this.up = new Powerup(upgrades);
+        this.up.init();
     }
     
     @Override
@@ -122,12 +119,7 @@ public class Level implements GalaxyComponent{
         }
         for(Thrower t: laserThrowers){
             t.update(delta);
-        }
-        
-        if(this.speedUp.isUpgradeActive()){
-            this.speedUp.updateActive();
-        }
-            
+        }            
     }
 
     /**
@@ -151,6 +143,11 @@ public class Level implements GalaxyComponent{
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }
+        
+        if(upgrades.iterator().hasNext()){
+            up.render(gc, g);
+        }
+        
         for(Thrower t: flameThrowers){
             t.render();
         }
@@ -162,7 +159,6 @@ public class Level implements GalaxyComponent{
                 turrets.get(i).render(g);
             }
         }
-        this.speedUp.render(gc, g);
         g.setColor(Color.white);
         g.drawString(this.name, 850, 5);
     }
@@ -187,5 +183,4 @@ public class Level implements GalaxyComponent{
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

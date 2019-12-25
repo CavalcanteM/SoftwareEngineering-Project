@@ -24,6 +24,8 @@ public class CollisionManager implements Mediator {
     private Level level;
     private ArrayList<Entity> blocks;
     private Points pts;
+    private Powerup power;
+    private Shape upgrade;
     private Shape reward;
     private ArrayList<ShootingEnemy> turrets;
     private ArrayList<Bullet> bulletsList;
@@ -71,6 +73,10 @@ public class CollisionManager implements Mediator {
 
         if (pts != null) {
             getReward();
+        }
+        
+        if (power != null) {
+            getUpgrade();
         }
 
         if(speedUp!= null && speedUp.getHitbox() != null){
@@ -181,6 +187,18 @@ public class CollisionManager implements Mediator {
         }
     }
 
+    
+    private void getUpgrade() {
+        if (playerHitbox.intersects(this.upgrade)) {
+            /*This assignment is used for the test of this class*/
+            //test1=true;
+            if (power.iterator().hasNext()) {
+                this.upgrade = power.iterator().next().getHitBox();
+            }
+        }
+    }
+
+    
     /**
      * Takes the blocks and the enemies/weapons from the level Invoked when a
      * level is finished and another one has to start
@@ -197,7 +215,6 @@ public class CollisionManager implements Mediator {
         this.throwers = level.getThrowers();
         this.lasers = level.getLaserThrowers();
         this.turrets = level.getShootingEnemy();
-        this.speedUp = level.getSpeedUp();
     }
 
     /**
