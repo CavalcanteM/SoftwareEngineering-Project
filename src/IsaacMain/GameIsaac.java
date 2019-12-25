@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package IsaacMain;
 
 import java.io.*;
@@ -34,6 +29,7 @@ public class GameIsaac extends BasicGameState {
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
+	private Saves saves;
     
     public void setLevel(Level level) {
         this.level = level;
@@ -67,42 +63,44 @@ public class GameIsaac extends BasicGameState {
      * @throws SlickException 
      */
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        player = Player.getPlayerInstance();   // Using Singleton class Player
-	//Inizialize the Level list and set the first level as current level 
-        this.initLevelList();
-        level = (Level)galaxy.getChild(0).getChild(0);
-	pause = new Menu();	
-	end = new Menu();
-	deathMenu = new Menu();
-	//Initialize the menu
-	Button resume = new Button(50,150,new Resume(),"Resume");               //Creating the single button
-	Button restart = new Button(50,150,new RestartLevel(),"Restart");       //The constructor will decide, the function executed by the button
-	Button exit = new Button(50,150,new Exit(),"Quit");			//Check the pakage menu to see all the commands
-	Button next = new Button(50,150,new NextLevel(this),"Next Level");
-        Button options = new Button(50,150,new ChangeControls(this.getID()),"Settings");
-	Button main = new Button(50,150,new BackToMainMenu(),"Main Menu");
-	//Adding the buttons to the menus
-	pause.addButton(resume);
-	pause.addButton(restart);
-        pause.addButton(options);
-	pause.addButton(main);
-	pause.addButton(exit);	
-	end.addButton(next);
-	end.addButton(restart);
-	end.addButton(main);
-	end.addButton(exit);
-	deathMenu.addButton(restart);
-	deathMenu.addButton(main);
-	deathMenu.addButton(exit);
-	deathMenu.init(gc);
-	pause.init(gc);
-	end.init(gc);
-	level.init(gc);
-	this.collisionManager = new CollisionManager(level);
-	this.player.setCollisionManager(this.collisionManager);
-	player.init(gc);
-    }
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		saves=loadProgress();
+		player = Player.getPlayerInstance();   // Using Singleton class Player
+		//Inizialize the Level list and set the first level as current level 
+		this.initLevelList();
+		level = (Level) galaxy.getChild(saves.getLastLevel()).getChild(saves.getLastWorld());
+		System.out.println("Livello caricato: "+saves.getLastLevel()+" - MondoCaricato: "+saves.getLastWorld());
+		pause = new Menu();
+		end = new Menu();
+		deathMenu = new Menu();
+		//Initialize the menu
+		Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
+		Button restart = new Button(50, 150, new RestartLevel(), "Restart");       //The constructor will decide, the function executed by the button
+		Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
+		Button next = new Button(50, 150, new NextLevel(this,saves.getLastWorld(),saves.getLastLevel()), "Next Level");
+		Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
+		Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
+		//Adding the buttons to the menus
+		pause.addButton(resume);
+		pause.addButton(restart);
+		pause.addButton(options);
+		pause.addButton(main);
+		pause.addButton(exit);
+		end.addButton(next);
+		end.addButton(restart);
+		end.addButton(main);
+		end.addButton(exit);
+		deathMenu.addButton(restart);
+		deathMenu.addButton(main);
+		deathMenu.addButton(exit);
+		deathMenu.init(gc);
+		pause.init(gc);
+		end.init(gc);
+		level.init(gc);
+		this.collisionManager = new CollisionManager(level);
+		this.player.setCollisionManager(this.collisionManager);
+		player.init(gc);
+	}
     
     /**
      * 
@@ -113,22 +111,20 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        level.render(gc, g);
-        player.render(gc, g);
+		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		level.render(gc, g);
+		player.render(gc, g);
 
-        if (gc.isPaused()){
-            if (!level.getPts().iterator().hasNext()){
-		end.render(gc, g);
-            }
-            else if (player.getNumHearts()<=0){
-		deathMenu.render(gc, g);
-            }
-            else {
-                pause.render(gc, g);
-            }
+		if (gc.isPaused()) {
+			if (!level.getPts().iterator().hasNext()) {
+				end.render(gc, g);
+			} else if (player.getNumHearts() <= 0) {
+				deathMenu.render(gc, g);
+			} else {
+				pause.render(gc, g);
+			}
+		}
 	}
-    }
     
     /**
      * 
@@ -223,6 +219,7 @@ public class GameIsaac extends BasicGameState {
             fos = new FileOutputStream("treeLevel.txt");
             out = new ObjectOutputStream(fos);
             out.writeObject(galaxy);
+			out.flush();
             out.close();
         }catch(IOException e){
             e.printStackTrace();
@@ -243,12 +240,26 @@ public class GameIsaac extends BasicGameState {
             GalaxyComponent galaxy = (GalaxyComponent) in.readObject();
             in.close();
             return galaxy;
-        }catch(IOException e){
+        }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
             return null;
-        }catch(ClassNotFoundException ex){
-            ex.printStackTrace();
-            return null;
         }
+    }
+	
+	public Saves loadProgress(){
+        FileInputStream fis = null;
+        ObjectInputStream in = null;
+		Saves saves;
+        try{
+            fis = new FileInputStream("save.txt");
+            in = new ObjectInputStream(fis);
+            saves = (Saves) in.readObject();
+            in.close();
+        }catch(IOException | ClassNotFoundException e){
+            saves = new Saves();
+			saves.setLastLevel(0);
+			saves.setLastWorld(0);
+        }
+		return saves;
     }
 }

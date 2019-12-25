@@ -47,7 +47,7 @@ public class GameIsaacTest {
         System.out.println("init");
         GameContainer gc = null;
         GameIsaac instance = new GameIsaac();
-        instance.init(gc);
+//        instance.init(gc);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -61,7 +61,7 @@ public class GameIsaacTest {
         GameContainer gc = null;
         int i = 0;
         GameIsaac instance = new GameIsaac();
-        instance.update(gc, i);
+//        instance.update(gc, i);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -75,7 +75,7 @@ public class GameIsaacTest {
         GameContainer gc = null;
         Graphics grphcs = null;
         GameIsaac instance = new GameIsaac();
-        instance.render(gc, grphcs);
+//        instance.render(gc, grphcs);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
