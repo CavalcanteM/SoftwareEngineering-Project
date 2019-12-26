@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2019.12.11" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="13" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="15" nextobjectid="1">
  <tileset firstgid="1" source="TileSet_map.tsx"/>
  <layer id="2" name="Background" width="32" height="24">
   <data encoding="base64" compression="gzip">
@@ -29,6 +29,16 @@
  <layer id="4" name="Rewards" width="32" height="24">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGAUjIQT4h6gnh6q7h2hwk+VsSuOIUv1kOXqYaCI27IhVN0yChareoFbYUcscqnpuCBo2HMJxOPhhCCYdujl5qMQvAPDEZHoADAAA
+  </data>
+ </layer>
+ <layer id="13" name="RandomTurrets" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGNpAaGg7f9T1oyEwGgKjIUCVEBgtC6kSjKOGjIbAaAiMhsCICAEAmctvAQAMAAA=
+  </data>
+ </layer>
+ <layer id="14" name="RandomTurretsHitbox" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGHpADOhkXJgevsFlN0icHmDU/tH4x5YG6JH2QHZgs5teaZ9efhxK9kgAHYuO6el+dLtBfHqCUftHdvzTM62N2jUaAsMpBAA1XNYbAAwAAA==
   </data>
  </layer>
  <layer id="5" name="Fire" width="32" height="24">

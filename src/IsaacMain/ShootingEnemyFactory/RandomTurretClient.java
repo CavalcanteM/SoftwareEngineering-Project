@@ -6,27 +6,27 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class ShootingEnemyList {
+public class RandomTurretClient {
 
     /*
         The "StaticDamageList" class uses the concrete factories multiple
         times to create an ArrayList of StaticDamage objects, that will be used
         by the CollisionManager for checking the collisions. 
      */
-    private int x;
-    private int y;
+    private int x, y, difficulty;
     private final int turretsLayer, turretsHitboxLayer;
     private final TiledMap map;
 
-    public ShootingEnemyList(TiledMap map) {
+    public RandomTurretClient(TiledMap map, int difficulty) {
         this.map = map;
-        this.turretsLayer = this.map.getLayerIndex("Turrets");
-        this.turretsHitboxLayer = this.map.getLayerIndex("TurretsHitbox");
+        this.turretsLayer = this.map.getLayerIndex("RandomTurrets");
+        this.turretsHitboxLayer = this.map.getLayerIndex("RandomTurretsHitbox");
+        this.difficulty = difficulty;
     }
 
     public ArrayList<ShootingEnemy> getList() {
 
-        ShootingEnemyFactory threeFactory = new ThreeShootsTurretFactory();
+        ShootingEnemyFactory randomFactory = new RandomTurretFactory();
 
         ArrayList<ShootingEnemy> array = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class ShootingEnemyList {
                 match the ID. 
                  */
                 if (map.getTileId(x, y, turretsLayer) > 14 && map.getTileId(x, y, turretsLayer) < 20) {
-                    array.add(threeFactory.create(x, y, calculateHitboxArea(x, y)));
+                    array.add(randomFactory.create(x, y, calculateHitboxArea(x, y),difficulty));
                 }
             }
         }

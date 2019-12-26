@@ -10,16 +10,16 @@ import org.newdawn.slick.tiled.TiledMap;
     class is the creation of an ArrayList<Thrower> whose content change according
     to the LayerName of the TileMap.
 */
-public class ClientThrowersFactory {
+public class ThrowersClient {
     private final TiledMap map;
     private int difficulty;
     
-    public ClientThrowersFactory(TiledMap map, int difficulty) {
+    public ThrowersClient(TiledMap map, int difficulty) {
         this.map = map;
         this.difficulty = difficulty;
     }
     
-    public ArrayList<Thrower> getEntities(String layerName){
+    public ArrayList<Thrower> getThrowers(String layerName){
         int x, y, z;
         int layerIndex = this.map.getLayerIndex(layerName);
         int sizeLayer = this.map.getLayerIndex(layerName+"Max");

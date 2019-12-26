@@ -25,7 +25,7 @@ public class Points implements Iterable<Entity> {
     private int nObj;
     private Entity current;
         
-    private Image imm;
+    private Image image;
 
     public Points(ArrayList<Entity> rwd, int nObj){
         this.rwd = rwd;
@@ -46,15 +46,15 @@ public class Points implements Iterable<Entity> {
         size of the reward pic.
     */
     public void init() throws SlickException{
-        this.imm = new Image("./graphics/png/Nut.png");
+        this.image = new Image("./graphics/png/Nut.png");
         for (Entity reward: rwd) {
-            reward.setHeightAndWidth(imm.getHeight(), imm.getWidth());
+            reward.setHeightAndWidth(image.getHeight(), image.getWidth());
         }
     }
     
     public void render(GameContainer gc, Graphics g) throws SlickException{
         if(nObj != 0){
-            ShapeRenderer.textureFit(this.current.getHitBox(), imm);
+            ShapeRenderer.textureFit(this.current.getHitBox(), image);
         }
     }
 
