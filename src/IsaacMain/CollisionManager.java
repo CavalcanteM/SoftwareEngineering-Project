@@ -107,7 +107,7 @@ public class CollisionManager implements Mediator {
         }
 
         for (ShootingEnemy turret : randomturrets) {
-            if (playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) {
+            if ((playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) && !playerHitbox.intersects(turret.getHitbox())) {
                 turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
             }
             if(playerHitbox.intersects(turret.getHitbox()) && turret.isVisible())
