@@ -19,4 +19,6 @@ public interface ShootingEnemy {
     public void removeBullet(Bullet bul);
 
     public ArrayList<Bullet> getBullet();
+    
+    public boolean isVisible();
 }

@@ -1,6 +1,6 @@
 package StaticEnemyFactory;
 
-import StaticEnemies.StaticDamage;
+import StaticEnemy.StaticDamage;
 
 /* 
     The "InterfaceStaticDamageFactory" is an interface used to define the method

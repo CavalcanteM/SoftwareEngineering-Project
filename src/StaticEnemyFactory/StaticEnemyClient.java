@@ -1,6 +1,6 @@
 package StaticEnemyFactory;
 
-import StaticEnemies.StaticDamage;
+import StaticEnemy.StaticDamage;
 import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
 

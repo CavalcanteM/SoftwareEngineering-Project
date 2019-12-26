@@ -23,7 +23,7 @@ import org.newdawn.slick.geom.ShapeRenderer;
  *
  * @author Adria
  */
-public class RandomThreeShotTurret extends Thread implements ShootingEnemy {
+public class RandomThreeShotTurret implements ShootingEnemy {
 
     private Shape hitboxArea, hitboxturret;
     int x, y, i;
@@ -97,6 +97,10 @@ public class RandomThreeShotTurret extends Thread implements ShootingEnemy {
             b.render(g);
         }
 
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
     public void removeBullet(Bullet bul) {

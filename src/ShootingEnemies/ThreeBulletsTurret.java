@@ -84,4 +84,9 @@ public class ThreeBulletsTurret implements ShootingEnemy {
        return hitboxturret;
     }
 
+    @Override
+    public boolean isVisible() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

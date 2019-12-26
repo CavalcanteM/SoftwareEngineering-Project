@@ -1,7 +1,7 @@
 package StaticEnemyFactory;
 
-import StaticEnemies.AcidLake;
-import StaticEnemies.StaticDamage;
+import StaticEnemy.AcidLake;
+import StaticEnemy.StaticDamage;
 
 public class AcidLakeFactory extends StaticEnemyFactory{
     

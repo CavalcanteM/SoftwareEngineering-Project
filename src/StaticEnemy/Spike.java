@@ -1,4 +1,4 @@
-package StaticEnemies;
+package StaticEnemy;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;

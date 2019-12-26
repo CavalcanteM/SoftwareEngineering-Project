@@ -1,7 +1,7 @@
 package StaticEnemyFactory;
 
-import StaticEnemies.Barrel;
-import StaticEnemies.StaticDamage;
+import StaticEnemy.Barrel;
+import StaticEnemy.StaticDamage;
 
 public class BarrelFactory extends StaticEnemyFactory{
     

@@ -2,7 +2,7 @@ package IsaacMain;
 
 import Throwers.Thrower;
 import Entity.Entity;
-import StaticEnemies.StaticDamage;
+import StaticEnemy.StaticDamage;
 import ShootingEnemy.bullet.Bullet;
 import ShootingEnemies.ShootingEnemy;
 import java.util.ArrayList;
