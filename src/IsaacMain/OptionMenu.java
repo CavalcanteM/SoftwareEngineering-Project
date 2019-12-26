@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package IsaacMain;
 
 import java.io.*;
@@ -11,9 +6,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import menu.Back;
-import menu.BackToMainMenu;
 import menu.Button;
-import menu.ContinueGame;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -26,10 +19,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.KeyListener;
 
-/**
- *
- * @author pando
- */
 public class OptionMenu extends BasicGameState implements Serializable{
     
     final private int hButton=50;

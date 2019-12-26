@@ -8,8 +8,8 @@ import StaticEnemyFactory.StaticEnemyClient;
 import Entity.EntityClient;
 import ShootingEnemies.ShootingEnemy;
 import ShootingEnemyFactory.ShootingEnemyClient;
+import static java.lang.Math.floor;
 import java.util.ArrayList;
-import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,7 +25,7 @@ public class Level implements GalaxyComponent {
     private Thrower tr;
     private ArrayList<Entity> blocks, rewards;
     private ArrayList<StaticDamage> spikes;
-    private List<ShootingEnemy> turrets;
+    private ArrayList<ShootingEnemy> turrets;
 
     private ArrayList<Thrower> flameThrowers, laserThrowers;
     private int score, index, difficulty;
@@ -49,8 +49,6 @@ public class Level implements GalaxyComponent {
         return score;
     }
 
-   
-
     public ArrayList<Thrower> getLaserThrowers() {
         return laserThrowers;
     }
@@ -63,7 +61,7 @@ public class Level implements GalaxyComponent {
         return map;
     }
 
-    public List<ShootingEnemy> getShootingEnemy() {
+    public ArrayList<ShootingEnemy> getShootingEnemy() {
         return turrets;
     }
 
@@ -137,8 +135,25 @@ public class Level implements GalaxyComponent {
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
         map.render(0, 0, map.getLayerIndex("Fire"));
-        map.render(0, 0, map.getLayerIndex("Turrets"));
 
+        for (ShootingEnemy turret : this.turrets) {
+            int x = (int) floor(turret.getHitbox().getX() - 10);
+            int y = (int) floor(turret.getHitbox().getY() - 10);
+            map.render(x, y, x / 30, y / 30, 1, 1, map.getLayerIndex("Turrets"), false);
+        }
+        /**
+         * I only have to render the picked x turrets that are present in the
+         * "turrets" ArrayList and not all the one present in the actual map. I
+         * will only render x of them! NOTE: I have to offset the obtained
+         * hitbox location because of its shape:
+         * +-------------+
+         * |             |
+         * |    XXXXX    |
+         * |    XXXXX    |
+         * |    XXXXX    |
+         * |             |
+         * +-------------+
+         */
         if (pts.iterator().hasNext()) {
             pts.render(gc, g);
         }

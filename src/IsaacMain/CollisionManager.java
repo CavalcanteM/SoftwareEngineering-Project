@@ -24,7 +24,7 @@ public class CollisionManager implements Mediator {
     private ArrayList<Entity> blocks;
     private Points pts;
     private Shape reward,playerHitbox;
-    private List<ShootingEnemy> turrets;
+    private ArrayList<ShootingEnemy> turrets;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Thrower> throwers,lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
