@@ -1,11 +1,13 @@
 package IsaacMain;
 
-import Entities.Entity.Block;
-import Entities.Entity.Entity;
-import Entities.Entity.Reward;
+import Throwers.LaserThrower;
+import Throwers.Thrower;
+import Throwers.FlameThrower;
+import Entity.Block;
+import Entity.Entity;
+import Entity.Reward;
 import Entities.StaticDamage.HalfHeartSpike;
 import Entities.StaticDamage.StaticDamage;
-import Entities.Throwers.*;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;

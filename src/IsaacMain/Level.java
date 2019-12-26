@@ -1,14 +1,14 @@
 package IsaacMain;
 
-import IsaacMain.ThrowersFactory.*;
-import Entities.Throwers.*;
-import Entities.Entity.*;
+import ThrowersFactory.ThrowersClient;
+import Throwers.Thrower;
+import Entity.Entity;
 import Entities.StaticDamage.*;
-import IsaacMain.StaticEnemyFactory.StaticEnemyList;
-import Entities.Entity.EntityClient;
-import Entities.Turret.ShootingEnemy;
-import IsaacMain.ShootingEnemyFactory.RandomTurretClient;
-import IsaacMain.ShootingEnemyFactory.ShootingEnemyClient;
+import StaticEnemyFactory.StaticEnemyClient;
+import Entity.EntityClient;
+import ShootingEnemies.ShootingEnemy;
+import ShootingEnemyFactory.RandomTurretClient;
+import ShootingEnemyFactory.ShootingEnemyClient;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -93,8 +93,12 @@ public class Level implements GalaxyComponent {
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
+        /**
+         * difficulty parameter passed to every concrete factory to generate
+         * objects that vary based on the difficulty level.
+         */
         this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
-        this.spikes = new StaticEnemyList(this.map, this.difficulty).getStaticEnemyList();
+        this.spikes = new StaticEnemyClient(this.map, this.difficulty).getStaticEnemyList();
         EntityClient entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");

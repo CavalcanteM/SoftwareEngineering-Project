@@ -1,10 +1,10 @@
 package IsaacMain;
 
-import Entities.Entity.*;
+import Throwers.Thrower;
+import Entity.Entity;
 import Entities.StaticDamage.StaticDamage;
-import Entities.Throwers.*;
-import Entities.Turret.Bullets.Bullet;
-import Entities.Turret.ShootingEnemy;
+import ShootingEnemy.bullet.Bullet;
+import ShootingEnemies.ShootingEnemy;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Shape;
 

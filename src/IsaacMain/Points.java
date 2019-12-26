@@ -1,7 +1,7 @@
 package IsaacMain;
 
 
-import Entities.Entity.Entity;
+import Entity.Entity;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
@@ -20,7 +20,7 @@ import org.newdawn.slick.geom.ShapeRenderer;
 */
 public class Points implements Iterable<Entity> {
     
-    private final ArrayList<Entity> rwd;
+    private final ArrayList<Entity> reward;
     private final Random ran;
     private int nObj;
     private Entity current;
@@ -28,13 +28,13 @@ public class Points implements Iterable<Entity> {
     private Image image;
 
     public Points(ArrayList<Entity> rwd, int nObj){
-        this.rwd = rwd;
+        this.reward = rwd;
         this.nObj = nObj+1;
         this.ran = new Random();
     }
 
-    public ArrayList<Entity> getRwd() {
-        return rwd;
+    public ArrayList<Entity> getReward() {
+        return reward;
     }
 
     public int getnObj() {
@@ -47,7 +47,7 @@ public class Points implements Iterable<Entity> {
     */
     public void init() throws SlickException{
         this.image = new Image("./graphics/png/Nut.png");
-        for (Entity reward: rwd) {
+        for (Entity reward: reward) {
             reward.setHeightAndWidth(image.getHeight(), image.getWidth());
         }
     }
@@ -71,15 +71,15 @@ public class Points implements Iterable<Entity> {
                 nObj--;
                 if(this.hasNext()){
                     if(current == null){
-                        current = rwd.remove(ran.nextInt(rwd.size()));
+                        current = reward.remove(ran.nextInt(reward.size()));
                     }else{
                         int i;
-                        if(rwd.size() == 1){
+                        if(reward.size() == 1){
                             i = 0;
                         }else{
-                            i = ran.nextInt(rwd.size());
+                            i = ran.nextInt(reward.size());
                         }
-                        current = rwd.remove(i);
+                        current = reward.remove(i);
                     }
                 }
                 return current;
