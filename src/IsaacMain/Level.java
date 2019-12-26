@@ -37,6 +37,7 @@ public class Level implements GalaxyComponent{
     private int index;
     private Graphics g;
     private static final long serialversionUId = 1;
+    private UpgradeDecorator speedUp;
    
     public Level(String name, int score, int index){
         this.name = name;
@@ -80,6 +81,10 @@ public class Level implements GalaxyComponent{
         return spikes;
     }
 
+    public Powerup getPowerup(){
+        return up;
+    }
+    
     public Points getPts() {
         return pts;
     }
@@ -120,6 +125,7 @@ public class Level implements GalaxyComponent{
         for(Thrower t: laserThrowers){
             t.update(delta);
         }            
+        
     }
 
     /**

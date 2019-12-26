@@ -28,7 +28,6 @@ public class Powerup implements Iterable<Entity> {
     private Entity current;
     private Image imm;
     private String string;
-    private UpgradeDecorator player;
 
     public Powerup(ArrayList<Entity> upgrade){
         this.upgrade = upgrade;
@@ -56,13 +55,17 @@ public class Powerup implements Iterable<Entity> {
     }
     
     public void render(GameContainer gc, Graphics g) throws SlickException{
-        if(nObj != 0){
+        if(nObj != 0 && this.current != null){
             ShapeRenderer.textureFit(this.current.getHitBox(), imm);
         }
     }
+    
+    public void remove(){
+        this.current = null;
+    }
 
-    public UpgradeComponent Powerup(){
-        UpgradeComponent uc;
+    public UpgradeDecorator Powerup(){
+        UpgradeDecorator uc;
         switch(this.string){
             case "ExtraLife":
                 uc = new ExtraLifeDecorator(Player.getPlayerInstance());

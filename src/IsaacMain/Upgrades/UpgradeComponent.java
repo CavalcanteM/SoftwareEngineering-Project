@@ -1,6 +1,7 @@
 package IsaacMain.Upgrades;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * This interface is used by the UpgradeDecorator and by the Player.
@@ -22,12 +23,22 @@ public interface UpgradeComponent {
      */
     public int getNumHearts();
     
+    public int getNumVoidHearts();
+    
     public void setNumHearts(int numHearts);
     
     public void setNumVoidHearts(int NumVoidHearts);
     
+    public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator);
+    
     public void setSpeedUp(float speedUp);
     
     public void setShield(boolean shield);
+    
+    public void getDamaged(int damage);
+    
+    public Shape getPlayer();
+    
+    public void setShieldDecorator(UpgradeDecorator shieldDecorator);
     
 }

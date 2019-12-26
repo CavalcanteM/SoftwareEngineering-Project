@@ -13,7 +13,7 @@ public class SpeedUpDecorator extends UpgradeDecorator{
     
     public SpeedUpDecorator(Player player) {
         super();
-        
+        this.durate = 5000;
     }
 
     @Override
@@ -48,6 +48,8 @@ public class SpeedUpDecorator extends UpgradeDecorator{
         this.upgradeActive = true;
         this.activationTime = System.currentTimeMillis();
         super.setSpeedUp(2);
+        super.setSpeedUpDecorator(this);
+        System.out.println("attivo");
     }
     
 }

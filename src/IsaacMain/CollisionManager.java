@@ -7,6 +7,7 @@ import Entities.Turret.Bullets.Bullet;
 import Entities.Turret.ShootingEnemy;
 import IsaacMain.Upgrades.*;
 import java.util.ArrayList;
+import java.util.Random;
 import org.newdawn.slick.geom.Shape;
 
 //Questa classe viene inizializzata nel costruttore di playerHitbox (riga 55) e 
@@ -34,8 +35,9 @@ public class CollisionManager implements Mediator {
     private ArrayList<Thrower> throwers;
     private ArrayList<Thrower> lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
-    private UpgradeDecorator speedUp;
-    
+    private UpgradeDecorator shieldDecorator;
+    private long lastUpgrade = 0;
+    private long timeBetweenUpgrade;
     /*This parameters are used only in the test of the class*/
     protected boolean test1 = false;
     protected boolean test2 = false;
@@ -70,7 +72,9 @@ public class CollisionManager implements Mediator {
     public boolean collidesWith() {
         int i;
         playerHitbox = playerInstance.getPlayer();
-
+        if(this.shieldDecorator != null && this.shieldDecorator.isUpgradeActive()){
+            this.shieldDecorator.updateActive();
+        }
         if (pts != null) {
             getReward();
         }
@@ -78,18 +82,16 @@ public class CollisionManager implements Mediator {
         if (power != null) {
             getUpgrade();
         }
-
-        if(speedUp!= null && speedUp.getHitbox() != null){
-            if(playerHitbox.intersects(speedUp.getHitbox())){
-                speedUp.activation();
-            }
-        }
         
         //Check if the playerHitbox collides with the fire or the Thrower
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 //this.test3 = true;
-                playerInstance.getDamaged(t.doDamage());
+                if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
+                    shieldDecorator.getDamaged(t.doDamage());
+                }else{
+                    playerInstance.getDamaged(t.doDamage());
+                }
             }
             if (playerHitbox.intersects(t.getHitBox())) {
                 return true;
@@ -99,7 +101,11 @@ public class CollisionManager implements Mediator {
         for (Thrower t : lasers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 //this.test4 = true;
-                playerInstance.getDamaged(t.doDamage());
+                if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
+                    shieldDecorator.getDamaged(t.doDamage());
+                }else{
+                    playerInstance.getDamaged(t.doDamage());
+                }
             }
             if (playerHitbox.intersects(t.getHitBox())) {
                 return true;
@@ -112,7 +118,11 @@ public class CollisionManager implements Mediator {
                 if (playerHitbox.intersects(spikes.get(i).getHitbox())) {
                     /*this assignment is used in the test of this class and the next linee must be commented*/
                     //test2=true;
-                    playerInstance.getDamaged(spikes.get(i).doDamage());
+                    if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
+                        shieldDecorator.getDamaged(spikes.get(i).doDamage());
+                    }else{
+                        playerInstance.getDamaged(spikes.get(i).doDamage());
+                    }
                 }
             }
         }
@@ -152,7 +162,11 @@ public class CollisionManager implements Mediator {
 
                         if (bulletshape != null) {
                             if (playerHitbox.intersects(bulletshape)) {
-                                playerInstance.getDamaged(bulletsList.get(i).getDamage());
+                                if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
+                                    shieldDecorator.getDamaged(bulletsList.get(i).getDamage());
+                                }else{
+                                    playerInstance.getDamaged(bulletsList.get(i).getDamage());
+                                }
                                 bulletsList.remove(bullet);
                                 bullet.remove();
                             }
@@ -189,12 +203,33 @@ public class CollisionManager implements Mediator {
 
     
     private void getUpgrade() {
-        if (playerHitbox.intersects(this.upgrade)) {
+        if(this.upgrade != null){
+            if (playerHitbox.intersects(this.upgrade)) {
             /*This assignment is used for the test of this class*/
             //test1=true;
-            if (power.iterator().hasNext()) {
-                this.upgrade = power.iterator().next().getHitBox();
+                lastUpgrade = System.currentTimeMillis();
+                if(power.Powerup() instanceof ShieldDecorator){
+                    this.shieldDecorator = power.Powerup();
+                    this.shieldDecorator.activation();
+                }else{
+                    power.Powerup().activation();
+                }
+                this.upgrade = null;
+                Random ran = new Random();
+                this.timeBetweenUpgrade = ran.nextInt(10000);
+                power.remove();
             }
+        }else{
+            if(this.lastUpgrade == 0){
+                if (power.iterator().hasNext()) {
+                    this.upgrade = power.iterator().next().getHitBox();
+                }
+            }else{
+                if(System.currentTimeMillis() - this.lastUpgrade > this.timeBetweenUpgrade){
+                    this.upgrade = power.iterator().next().getHitBox();
+                }
+            }
+            
         }
     }
 
@@ -215,7 +250,15 @@ public class CollisionManager implements Mediator {
         this.throwers = level.getThrowers();
         this.lasers = level.getLaserThrowers();
         this.turrets = level.getShootingEnemy();
+        this.power = level.getPowerup();
+        this.getUpgrade();
     }
+
+    public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
+        this.shieldDecorator = shieldDecorator;
+    }
+    
+    
 
     /**
      * This method is used only in the test of this class

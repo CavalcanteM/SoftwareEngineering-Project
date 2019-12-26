@@ -72,5 +72,30 @@ public class UpgradeDecorator implements UpgradeComponent{
     public void setShield(boolean shield) {
         player.setShield(shield);
     }
+
+    @Override
+    public int getNumVoidHearts() {
+        return player.getNumVoidHearts();
+    }
+
+    @Override
+    public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator) {
+        player.setSpeedUpDecorator(speedUpDecorator);
+    }
+    
+    @Override
+    public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
+        player.setShieldDecorator(shieldDecorator);
+    }
+
+    @Override
+    public void getDamaged(int damage) {
+        player.getDamaged(damage);
+    }
+
+    @Override
+    public Shape getPlayer() {
+        return player.getPlayer();
+    }
     
 }

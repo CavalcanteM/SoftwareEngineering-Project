@@ -29,6 +29,8 @@ public class Player implements UpgradeComponent{
     private float vX = 0;
     private float vY = 0;
     private float speedUp = 1;
+    private UpgradeDecorator speedUpDecorator;
+    private UpgradeDecorator shieldDecorator;
     private boolean shield = false;
     private Animation rightAnimation;
     private Animation leftAnimation;
@@ -82,6 +84,7 @@ public class Player implements UpgradeComponent{
         return iterations;
     }
 
+    @Override
     public Shape getPlayer() {
         return hitbox;
     }
@@ -114,7 +117,7 @@ public class Player implements UpgradeComponent{
     public HashMap<String, Integer> getCommands() {
         return commands;
     }
-    
+   
     /*--------------------
      * Setter Methods 
      *--------------------*/
@@ -125,6 +128,12 @@ public class Player implements UpgradeComponent{
     public void setGravity(float gravity) {
         this.gravity = gravity;
     }
+
+    @Override
+    public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator) {
+        this.speedUpDecorator = speedUpDecorator;
+    }
+    
     
     public void setIterations(float iterations) {
         this.iterations = iterations;
@@ -172,6 +181,11 @@ public class Player implements UpgradeComponent{
     
     public void setCollisionManager(CollisionManager collision){
         this.collision=collision;
+    }
+    
+    @Override
+    public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
+        this.shieldDecorator = shieldDecorator;
     }
     /*--------------------
      * Other methods 
@@ -264,9 +278,9 @@ public class Player implements UpgradeComponent{
         //X collisions
         moveWithCollisionsX();
         
-        
-        
-        
+        if(this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()){
+            this.speedUpDecorator.updateActive();
+        }
         
         /* Temporary code: used only for graphically testing the damage
         */
@@ -359,6 +373,10 @@ public class Player implements UpgradeComponent{
         
         if(this.isChangingGravity) {
             this.rotate(30);
+        }
+        
+        if(this.shield){
+            this.shieldDecorator.render(gc, g);
         }
         
         this.drawHearts(35, 30);
@@ -505,6 +523,7 @@ public class Player implements UpgradeComponent{
      * Manages the damage on the character
      * @param damage The number of mid hearts to subtract
      */
+    @Override
     synchronized public void getDamaged(int damage){
         if((System.currentTimeMillis()-this.lastHitTime)> 3000 ){
             this.lastHitTime=System.currentTimeMillis();
@@ -530,6 +549,7 @@ public class Player implements UpgradeComponent{
      * Resets the number of hearts and the speed of the character
      */
     public void resetStats(){
+        this.numVoidHearts = 6;
         this.numHearts = this.numVoidHearts;
         this.gravity = 0.5f;
         this.rotated=false;
