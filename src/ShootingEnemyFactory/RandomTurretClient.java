@@ -26,7 +26,7 @@ public class RandomTurretClient {
 
     public ArrayList<ShootingEnemy> getList() {
 
-        ShootingEnemyFactory randomFactory = new RandomTurretFactory();
+        RandomShootingEnemyFactory randomthreeshotFactory = new RandomThreeShotTurretFactory();
 
         ArrayList<ShootingEnemy> array = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class RandomTurretClient {
                 match the ID. 
                  */
                 if (map.getTileId(x, y, turretsLayer) > 14 && map.getTileId(x, y, turretsLayer) < 20) {
-                    array.add(randomFactory.create(x, y, calculateHitboxArea(x, y),difficulty));
+                    array.add(randomthreeshotFactory.create(x, y, calculateHitboxArea(x, y),difficulty,"./src/graphics/png/thrower/fire_90.png"));
                 }
             }
         }

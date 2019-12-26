@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.tiled.TiledMap;
@@ -37,7 +38,7 @@ public class Bullet {
         this.hitboxArea = hitboxArea;
         velocity = 5;
         this.turret = turret;
-
+        
         this.bullet = new Circle(this.x1 + 15, this.y1 + 15, 6);
         ComputeVelocity(this.x1, this.y1, x2, y2);
     }
@@ -52,7 +53,7 @@ public class Bullet {
         vX = x / Math.abs(distance) * velocity;
         vY = y / Math.abs(distance) * velocity;
 
-        System.out.println("Start: " + x1 + "," + y1 + " to: " + x2 + "," + y2 + ". Directions: " + vX + "," + vY + ". Components: " + x + " " + y + " Distance: " + distance);
+        //System.out.println("Start: " + x1 + "," + y1 + " to: " + x2 + "," + y2 + ". Directions: " + vX + "," + vY + ". Components: " + x + " " + y + " Distance: " + distance);
     }
 
     public Shape getShape() {
@@ -60,6 +61,7 @@ public class Bullet {
         if (hitboxArea.contains(bullet)) {
             return bullet;
         } else {
+            remove();
             return null;
         }
     }
@@ -71,7 +73,7 @@ public class Bullet {
     private void UpdateImage() {
         bullet.setX((float) (bullet.getX() + vX));
         bullet.setY((float) (bullet.getY() + vY));
-        ShapeRenderer.textureFit(this.bullet, sprite);
+
     }
 
     public void render(Graphics g) throws SlickException {
@@ -79,7 +81,6 @@ public class Bullet {
         if (hitboxArea.contains(bullet)) {
             UpdateImage();
             ShapeRenderer.textureFit(this.bullet, sprite);
-
         }
     }
 

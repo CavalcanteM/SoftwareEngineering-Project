@@ -7,11 +7,12 @@ import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 public class ThreeBulletsTurret implements ShootingEnemy {
 
-    private Shape hitboxArea;
+    private Shape hitboxArea,hitboxturret;
     int x, y, i;
     ArrayList<Bullet> bulletList = new ArrayList<>();
     private long lastHitTime = System.currentTimeMillis() - 3000;
@@ -25,6 +26,7 @@ public class ThreeBulletsTurret implements ShootingEnemy {
         this.y = y;
         this.hitboxArea = hitboxArea;
         this.difficulty = difficulty;
+        this.hitboxturret = new Rectangle(x * 30, y * 30, 30, 30);
     }
 
     public ArrayList<Bullet> getBullet() {
@@ -76,10 +78,10 @@ public class ThreeBulletsTurret implements ShootingEnemy {
     public void removeBullet(Bullet bul) {
         bulletList.remove(bul);
     }
-
-    @Override
-    public void setVisible(boolean t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+     @Override
+    public Shape getHitbox() {
+       return hitboxturret;
     }
 
 }

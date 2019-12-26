@@ -1,7 +1,7 @@
 package StaticEnemyFactory;
 
-import Entities.StaticDamage.OneHeartSpike;
-import Entities.StaticDamage.StaticDamage;
+import StaticEnemies.OneHeartSpike;
+import StaticEnemies.StaticDamage;
 
 public class OneHeartSpikeFactory extends StaticEnemyFactory {
     

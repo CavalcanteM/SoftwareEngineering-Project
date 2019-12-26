@@ -1,9 +1,9 @@
 package IsaacMain;
 
+import StaticEnemies.StaticDamage;
 import ThrowersFactory.ThrowersClient;
 import Throwers.Thrower;
 import Entity.Entity;
-import Entities.StaticDamage.*;
 import StaticEnemyFactory.StaticEnemyClient;
 import Entity.EntityClient;
 import ShootingEnemies.ShootingEnemy;

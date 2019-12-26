@@ -2,7 +2,7 @@ package IsaacMain;
 
 import Throwers.Thrower;
 import Entity.Entity;
-import Entities.StaticDamage.StaticDamage;
+import StaticEnemies.StaticDamage;
 import ShootingEnemy.bullet.Bullet;
 import ShootingEnemies.ShootingEnemy;
 import java.util.ArrayList;
@@ -23,12 +23,10 @@ public class CollisionManager implements Mediator {
     private Level level;
     private ArrayList<Entity> blocks;
     private Points pts;
-    private Shape reward;
-    private ArrayList<ShootingEnemy> turrets,randomturrets;
+    private Shape reward,playerHitbox;
+    private ArrayList<ShootingEnemy> turrets, randomturrets;
     private ArrayList<StaticDamage> spikes;
-    private Shape playerHitbox;
-    private ArrayList<Thrower> throwers;
-    private ArrayList<Thrower> lasers;
+    private ArrayList<Thrower> throwers,lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
 
     /*This parameters are used only in the test of the class*/
@@ -102,34 +100,38 @@ public class CollisionManager implements Mediator {
             }
         }
         //check if the playerHitbox collides with a obstacle
-        if (blocks != null) {
-            for (i = 0; i < blocks.size(); i++) {
-                if (playerHitbox.intersects(blocks.get(i).getHitBox())) {
-                    return true;
-                }
+        for (Entity block : blocks) {
+            if (playerHitbox.intersects(block.getHitBox())) {
+                return true;
             }
         }
 
-        
         for (ShootingEnemy turret : randomturrets) {
-
             if (playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) {
                 turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
-                turret.setVisible(true);
+            }
+            if(playerHitbox.intersects(turret.getHitbox()))
+                return true;
+        }
+
+        for (ShootingEnemy turret : turrets) {
+            if (playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) {
                 turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
             }
+              if(playerHitbox.intersects(turret.getHitbox()))
+                return true;
         }
 
         //check if the playerHitbox enters the HitboxArea of the turret
-        if (turrets.size() != 0 && turrets != null) {
-            for (i = 0; i < turrets.size(); i++) {
-                if (playerHitbox.intersects(turrets.get(i).getActivationArea()) || turrets.get(i).getActivationArea().contains(playerHitbox)) {
-                    ShootingEnemy turret = turrets.get(i);
-                    turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
-                }
-            }
-        }
-
+//        if (turrets.size() != 0 && turrets != null) {
+//            for (i = 0; i < turrets.size(); i++) {
+//                if (playerHitbox.intersects(turrets.get(i).getActivationArea()) || turrets.get(i).getActivationArea().contains(playerHitbox)) {
+//                    ShootingEnemy turret = turrets.get(i);
+//                    turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
+//                }
+//            }
+//        }
+       
         for (int j = 0; j < turrets.size(); j++) {
             ArrayList<Bullet> bul = turrets.get(j).getBullet();
             for (i = 0; i < bul.size(); i++) {
@@ -145,11 +147,10 @@ public class CollisionManager implements Mediator {
                     }
                 } catch (Exception e) {
                 }
-
             }
         }
-        
-         for (int j = 0; j < randomturrets.size(); j++) {
+
+        for (int j = 0; j < randomturrets.size(); j++) {
             ArrayList<Bullet> bul = randomturrets.get(j).getBullet();
             for (i = 0; i < bul.size(); i++) {
                 try {
@@ -164,10 +165,8 @@ public class CollisionManager implements Mediator {
                     }
                 } catch (Exception e) {
                 }
-
             }
         }
-        
 
         return false;
     }
@@ -225,6 +224,6 @@ public class CollisionManager implements Mediator {
         this.throwers.add(t.get(0));
         this.lasers = new ArrayList<>();
         this.lasers.add(t.get(1));
-        
+
     }
 }

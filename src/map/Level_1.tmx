@@ -8,12 +8,12 @@
  </layer>
  <layer id="9" name="Turrets" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+   H4sIAAAAAAAECu3QAQEAAAiDsFewf1mDMBqwTXWBqwP4J0CAAAECBAiEBB7bXJHJAAwAAA==
   </data>
  </layer>
  <layer id="10" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+   H4sIAAAAAAAECmNgGHggDnQCMqa3i5DtBrHpDUbtH41/5DQw0tIfvf07at9oCIyGwGgIjIbAaAiM9BAAAFjpghAADAAA
   </data>
  </layer>
  <layer id="1" name="Walls" width="32" height="24">

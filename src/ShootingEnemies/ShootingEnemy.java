@@ -9,6 +9,8 @@ import org.newdawn.slick.geom.Shape;
 public interface ShootingEnemy {
 
     public Shape getActivationArea();
+    
+    public Shape getHitbox();
 
     public Bullet Shoot(float x2, float y2);
 
@@ -16,7 +18,5 @@ public interface ShootingEnemy {
 
     public void removeBullet(Bullet bul);
 
-    public void setVisible(boolean t);
-    
     public ArrayList<Bullet> getBullet();
 }
