@@ -1,6 +1,6 @@
-package ShootingEnemyFactory;
+package ShootingEnemy.Factory;
 
-import ShootingEnemies.ShootingEnemy;
+import ShootingEnemy.ShootingEnemy;
 import static java.lang.Math.ceil;
 import java.util.ArrayList;
 import java.util.Collections;

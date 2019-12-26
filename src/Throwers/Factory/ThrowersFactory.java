@@ -1,4 +1,4 @@
-package ThrowersFactory;
+package Throwers.Factory;
 
 import Throwers.Thrower;
 

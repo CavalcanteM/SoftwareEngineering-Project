@@ -1,4 +1,4 @@
-package EntitiesFactory;
+package Entity.Factory;
 
 import Entity.Entity;
 import Entity.Block;

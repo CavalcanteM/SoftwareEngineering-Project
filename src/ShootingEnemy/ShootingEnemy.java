@@ -1,6 +1,6 @@
-package ShootingEnemies;
+package ShootingEnemy;
 
-import ShootingEnemy.bullet.Bullet;
+import ShootingEnemy.Bullet.Bullet;
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

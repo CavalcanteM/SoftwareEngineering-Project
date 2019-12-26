@@ -1,7 +1,7 @@
-package ShootingEnemyFactory;
+package ShootingEnemy.Factory;
 
-import ShootingEnemies.ShootingEnemy;
-import ShootingEnemies.ThreeBulletsTurret;
+import ShootingEnemy.ShootingEnemy;
+import ShootingEnemy.ThreeBulletsTurret;
 import org.newdawn.slick.geom.Shape;
 
 public class ThreeShootsTurretFactory extends ShootingEnemyFactory{

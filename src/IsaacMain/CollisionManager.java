@@ -3,8 +3,8 @@ package IsaacMain;
 import Throwers.Thrower;
 import Entity.Entity;
 import StaticEnemy.StaticDamage;
-import ShootingEnemy.bullet.Bullet;
-import ShootingEnemies.ShootingEnemy;
+import ShootingEnemy.Bullet.Bullet;
+import ShootingEnemy.ShootingEnemy;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Shape;
 

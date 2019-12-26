@@ -1,9 +1,9 @@
 package Entity;
 
 
-import EntitiesFactory.ConcreteFactoryBlock;
-import EntitiesFactory.ConcreteFactoryReward;
-import EntitiesFactory.EntityFactory;
+import Entity.Factory.ConcreteFactoryBlock;
+import Entity.Factory.ConcreteFactoryReward;
+import Entity.Factory.EntityFactory;
 import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
 

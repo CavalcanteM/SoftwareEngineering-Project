@@ -1,4 +1,4 @@
-package StaticEnemyFactory;
+package StaticEnemy.Factory;
 
 import StaticEnemy.OneHeartSpike;
 import StaticEnemy.StaticDamage;

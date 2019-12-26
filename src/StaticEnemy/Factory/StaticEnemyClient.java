@@ -1,4 +1,4 @@
-package StaticEnemyFactory;
+package StaticEnemy.Factory;
 
 import StaticEnemy.StaticDamage;
 import java.util.ArrayList;

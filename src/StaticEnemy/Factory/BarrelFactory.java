@@ -1,4 +1,4 @@
-package StaticEnemyFactory;
+package StaticEnemy.Factory;
 
 import StaticEnemy.Barrel;
 import StaticEnemy.StaticDamage;

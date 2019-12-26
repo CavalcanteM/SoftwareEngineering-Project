@@ -1,6 +1,6 @@
-package ShootingEnemyFactory;
+package ShootingEnemy.Factory;
 
-import ShootingEnemies.ShootingEnemy;
+import ShootingEnemy.ShootingEnemy;
 import org.newdawn.slick.geom.Shape;
 
 public abstract class ShootingEnemyFactory {

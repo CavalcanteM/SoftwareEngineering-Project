@@ -1,13 +1,13 @@
 package IsaacMain;
 
 import StaticEnemy.StaticDamage;
-import ThrowersFactory.ThrowersClient;
+import Throwers.Factory.ThrowersClient;
 import Throwers.Thrower;
 import Entity.Entity;
-import StaticEnemyFactory.StaticEnemyClient;
+import StaticEnemy.Factory.StaticEnemyClient;
 import Entity.EntityClient;
-import ShootingEnemies.ShootingEnemy;
-import ShootingEnemyFactory.ShootingEnemyClient;
+import ShootingEnemy.ShootingEnemy;
+import ShootingEnemy.Factory.ShootingEnemyClient;
 import static java.lang.Math.floor;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
