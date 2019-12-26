@@ -84,6 +84,10 @@ public class Level implements GalaxyComponent{
         return pts;
     }
 
+    public Powerup getUp() {
+        return up;
+    }
+    
     /**
      * Is a sort of constructor for this class
      *

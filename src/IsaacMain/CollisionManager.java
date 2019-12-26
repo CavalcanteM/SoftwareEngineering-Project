@@ -34,7 +34,7 @@ public class CollisionManager implements Mediator {
     private ArrayList<Thrower> throwers;
     private ArrayList<Thrower> lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
-    private UpgradeDecorator speedUp;
+    private UpgradeDecorator player;
     
     /*This parameters are used only in the test of the class*/
     protected boolean test1 = false;
@@ -77,12 +77,6 @@ public class CollisionManager implements Mediator {
         
         if (power != null) {
             getUpgrade();
-        }
-
-        if(speedUp!= null && speedUp.getHitbox() != null){
-            if(playerHitbox.intersects(speedUp.getHitbox())){
-                speedUp.activation();
-            }
         }
         
         //Check if the playerHitbox collides with the fire or the Thrower
@@ -211,6 +205,10 @@ public class CollisionManager implements Mediator {
         this.spikes = level.getSpikes();
         if (pts.iterator().hasNext()) {
             reward = pts.iterator().next().getHitBox();
+        }
+        this.power = level.getUp();
+        if (power.iterator().hasNext()) {
+            upgrade = power.iterator().next().getHitBox();
         }
         this.throwers = level.getThrowers();
         this.lasers = level.getLaserThrowers();

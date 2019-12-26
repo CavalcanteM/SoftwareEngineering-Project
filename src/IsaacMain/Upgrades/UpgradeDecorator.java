@@ -47,7 +47,6 @@ public class UpgradeDecorator implements UpgradeComponent{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     @Override
     public int getNumHearts() {
         return player.getNumHearts();
@@ -71,6 +70,5 @@ public class UpgradeDecorator implements UpgradeComponent{
     @Override
     public void setShield(boolean shield) {
         player.setShield(shield);
-    }
-    
+    }    
 }

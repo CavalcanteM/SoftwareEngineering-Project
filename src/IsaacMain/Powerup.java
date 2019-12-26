@@ -5,8 +5,6 @@ import IsaacMain.Upgrades.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -79,6 +77,7 @@ public class Powerup implements Iterable<Entity> {
     
     private void chooseUpgrade() throws SlickException{
         int i = ran.nextInt(3);
+        System.out.println("Scelto: " + i);
         switch(i){
             case 1:
                 this.imm = new Image("./graphics/png/extraLife.png");
@@ -106,7 +105,7 @@ public class Powerup implements Iterable<Entity> {
             public Entity next() {
                 try {
                     chooseUpgrade();
-                } catch (SlickException ex){}
+                } catch (SlickException ex) {}
                 nObj--;
                 if(this.hasNext()){
                     if(current == null){
