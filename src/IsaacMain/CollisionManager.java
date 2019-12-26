@@ -24,7 +24,7 @@ public class CollisionManager implements Mediator {
     private ArrayList<Entity> blocks;
     private Points pts;
     private Shape reward,playerHitbox;
-    private ArrayList<ShootingEnemy> turrets, randomturrets;
+    private List<ShootingEnemy> turrets;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Thrower> throwers,lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
@@ -106,7 +106,7 @@ public class CollisionManager implements Mediator {
             }
         }
 
-        for (ShootingEnemy turret : randomturrets) {
+        for (ShootingEnemy turret : turrets) {
             if ((playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) && !playerHitbox.intersects(turret.getHitbox())) {
                 turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
             }
@@ -114,13 +114,7 @@ public class CollisionManager implements Mediator {
                 return true;
         }
 
-        for (ShootingEnemy turret : turrets) {
-            if (playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) {
-                turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
-            }
-              if(playerHitbox.intersects(turret.getHitbox()))
-                return true;
-        }
+        
 
         //check if the playerHitbox enters the HitboxArea of the turret
 //        if (turrets.size() != 0 && turrets != null) {
@@ -150,23 +144,7 @@ public class CollisionManager implements Mediator {
             }
         }
 
-        for (int j = 0; j < randomturrets.size(); j++) {
-            ArrayList<Bullet> bul = randomturrets.get(j).getBullet();
-            for (i = 0; i < bul.size(); i++) {
-                try {
-                    Bullet bullet = bul.get(i);
-                    Shape bulletshape = bullet.getShape();
-
-                    if (bulletshape != null) {
-                        if (playerHitbox.intersects(bulletshape)) {
-                            playerInstance.getDamaged(bullet.getDamage());
-                            bullet.remove();
-                        }
-                    }
-                } catch (Exception e) {
-                }
-            }
-        }
+        
 
         return false;
     }
@@ -201,7 +179,7 @@ public class CollisionManager implements Mediator {
         this.throwers = level.getThrowers();
         this.lasers = level.getLaserThrowers();
         this.turrets = level.getShootingEnemy();
-        this.randomturrets = level.getRandomturrets();
+        
     }
 
     /**

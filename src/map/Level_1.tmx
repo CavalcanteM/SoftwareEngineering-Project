@@ -8,12 +8,12 @@
  </layer>
  <layer id="9" name="Turrets" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QAQEAAAiDsFewf1mDMBqwTXWBqwP4J0CAAAECBAiEBB7bXJHJAAwAAA==
+   H4sIAAAAAAAECmNgGAUjJQSEcHhUEIf4qPBoCIyGwGgIjIbAaAiMhsBoCIyGwPALAQDGXTRhAAwAAA==
   </data>
  </layer>
  <layer id="10" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGHggDnQCMqa3i5DtBrHpDUbtH41/5DQw0tIfvf07at9oCIyGwGgIjIbAaAiM9BAAAFjpghAADAAA
+   H4sIAAAAAAAECmNgGHggDnQCMibkIgmgAlyYkF5s8sh2g9iEAC67QeLkAFraLwl0EC4Mc+uo/aSlP1i4EUPjCnuQOAyQGv4wfcTQQ8F+YvwxqgZ3CIgBpdAxbtXUl0G3G8SnJxi1f2THPz3T2qhdoyEwnEIAAIRIMa8ADAAA
   </data>
  </layer>
  <layer id="1" name="Walls" width="32" height="24">
@@ -31,14 +31,9 @@
    H4sIAAAAAAAECmNgGAUjIQT4h6gnh6q7h2hwk+VsSuOIUv1kOXqYaCI27IhVN0yChareoFbYUcscqnpuCBo2HMJxOPhhCCYdujl5qMQvAPDEZHoADAAA
   </data>
  </layer>
- <layer id="13" name="RandomTurrets" width="32" height="24">
+ <layer id="13" name="HiddenTurrets" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGNpAaGg7f9T1oyEwGgKjIUCVEBgtC6kSjKOGjIbAaAiMhsCICAEAmctvAQAMAAA=
-  </data>
- </layer>
- <layer id="14" name="RandomTurretsHitbox" width="32" height="24">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGHpADOhkXJgevsFlN0icHmDU/tH4x5YG6JH2QHZgs5teaZ9efhxK9kgAHYuO6el+dLtBfHqCUftHdvzTM62N2jUaAsMpBAA1XNYbAAwAAA==
+   H4sIAAAAAAAECmNgGNpAaGg7f9T1oyEwGgKjIUBxCIyWgxQH4agBoyEwGgKjITCiQgAAT/vP9wAMAAA=
   </data>
  </layer>
  <layer id="5" name="Fire" width="32" height="24">

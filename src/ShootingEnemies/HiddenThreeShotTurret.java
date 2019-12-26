@@ -18,12 +18,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
+import org.newdawn.slick.tiled.TiledMap;
 
 /**
  *
  * @author Adria
  */
-public class RandomThreeShotTurret implements ShootingEnemy {
+public class HiddenThreeShotTurret implements ShootingEnemy {
 
     private Shape hitboxArea, hitboxturret;
     int x, y, i;
@@ -34,12 +35,12 @@ public class RandomThreeShotTurret implements ShootingEnemy {
     private long waitingTime = 3000, shootTime = 200;
     private int k = 0,j=0, difficulty;
     private long currentTime = waitingTime;
-    private Image image;
+    
 
-    public RandomThreeShotTurret(int x, int y, Shape hitboxArea, int difficulty) {
+    public HiddenThreeShotTurret(int x, int y, Shape hitboxArea, int difficulty) {
         this.x = x;
         this.y = y;
-        this.hitboxturret = new Rectangle(x * 30, y * 30, 30, 30);
+        this.hitboxturret = new Rectangle((x * 30) + 10, (y * 30) + 10, 10, 10);
         this.hitboxArea = hitboxArea;
         this.difficulty = difficulty;
     }
@@ -85,12 +86,10 @@ public class RandomThreeShotTurret implements ShootingEnemy {
     }
 
     @Override
-    public void render(Graphics g) throws SlickException {
-        //g.setColor(Color.red);
-        //g.draw(hitboxArea);
-        
+    public void render(Graphics g,TiledMap map) throws SlickException {
+                
         if (visible == true) {
-            ShapeRenderer.textureFit(hitboxturret, image);
+            map.render(x*30,y*30,x,y,1,1,map.getLayerIndex("HiddenTurrets"),true);
         }
 
         for (Bullet b : bulletList) {
@@ -111,9 +110,6 @@ public class RandomThreeShotTurret implements ShootingEnemy {
         }
     }
     
-    public void setImage(String path) throws SlickException{
-        this.image = new Image(path);
-    }
 
     @Override
     public Shape getHitbox() {

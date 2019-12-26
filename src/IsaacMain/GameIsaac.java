@@ -172,7 +172,7 @@ public class GameIsaac extends BasicGameState {
 
             // Setting first world
             GalaxyComponent world1 = new LevelContainer("World 1");
-            GalaxyComponent level1 = new Level("Level 1-1", 11, 1, 2);
+            GalaxyComponent level1 = new Level("Level 1-1", 11, 1, 1);
 //            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
 //            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
 //            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);

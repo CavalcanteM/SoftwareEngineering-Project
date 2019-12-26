@@ -2,6 +2,7 @@ package ShootingEnemyFactory;
 
 import ShootingEnemies.ShootingEnemy;
 import java.util.ArrayList;
+import java.util.Collections;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -13,20 +14,23 @@ public class ShootingEnemyClient {
         times to create an ArrayList of StaticDamage objects, that will be used
         by the CollisionManager for checking the collisions. 
      */
-    private int x, y, difficulty;
-    private final int turretsLayer, turretsHitboxLayer;
+    private int x, y, difficulty, turret_number;
+    private final int turretsLayer, turretsHitboxLayer, hiddenTurretsLayer;
     private final TiledMap map;
 
     public ShootingEnemyClient(TiledMap map, int difficulty) {
         this.map = map;
         this.turretsLayer = this.map.getLayerIndex("Turrets");
         this.turretsHitboxLayer = this.map.getLayerIndex("TurretsHitbox");
+        this.hiddenTurretsLayer = this.map.getLayerIndex("HiddenTurrets");
         this.difficulty = difficulty;
+
     }
 
     public ArrayList<ShootingEnemy> getList() {
 
         ShootingEnemyFactory threeFactory = new ThreeShootsTurretFactory();
+        ShootingEnemyFactory randomthreeshotFactory = new HiddenThreeShotTurretFactory();
 
         ArrayList<ShootingEnemy> array = new ArrayList<>();
 
@@ -38,11 +42,22 @@ public class ShootingEnemyClient {
                 match the ID. 
                  */
                 if (map.getTileId(x, y, turretsLayer) > 14 && map.getTileId(x, y, turretsLayer) < 20) {
-                    array.add(threeFactory.create(x, y, calculateHitboxArea(x, y),difficulty));
+                    array.add(threeFactory.create(x, y, calculateHitboxArea(x, y), difficulty));
                 }
+                try {
+                    if (map.getTileId(x, y, hiddenTurretsLayer) > 14 && map.getTileId(x, y, hiddenTurretsLayer) < 20) {
+                        array.add(randomthreeshotFactory.create(x, y, calculateHitboxArea(x, y), difficulty));
+                    }
+                } catch (Exception e) {
+                }
+
             }
         }
-        return array;
+        ArrayList test = new ArrayList<>();
+        this.turret_number = difficulty / 10 * array.size();
+        Collections.shuffle(array);  
+        test.addAll(array.subList(0, this.turret_number));
+        return test;
     }
 
     private Shape calculateHitboxArea(int x, int y) {

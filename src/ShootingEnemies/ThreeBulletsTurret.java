@@ -9,10 +9,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.tiled.TiledMap;
 
 public class ThreeBulletsTurret implements ShootingEnemy {
 
-    private Shape hitboxArea,hitboxturret;
+    private Shape hitboxArea, hitboxturret;
     int x, y, i;
     ArrayList<Bullet> bulletList = new ArrayList<>();
     private long lastHitTime = System.currentTimeMillis() - 3000;
@@ -26,7 +27,7 @@ public class ThreeBulletsTurret implements ShootingEnemy {
         this.y = y;
         this.hitboxArea = hitboxArea;
         this.difficulty = difficulty;
-        this.hitboxturret = new Rectangle(x * 30, y * 30, 30, 30);
+        this.hitboxturret = new Rectangle((x * 30) + 10, (y * 30) + 10, 10, 10);
     }
 
     public ArrayList<Bullet> getBullet() {
@@ -64,9 +65,7 @@ public class ThreeBulletsTurret implements ShootingEnemy {
     }
 
     @Override
-    public void render(Graphics g) throws SlickException {
-        //g.setColor(Color.red);
-        //g.draw(hitboxArea);
+    public void render(Graphics g, TiledMap map) throws SlickException {
 
         if (bulletList != null) {
             for (int i = 0; i < bulletList.size(); i++) {
@@ -78,15 +77,15 @@ public class ThreeBulletsTurret implements ShootingEnemy {
     public void removeBullet(Bullet bul) {
         bulletList.remove(bul);
     }
-    
-     @Override
+
+    @Override
     public Shape getHitbox() {
-       return hitboxturret;
+        return hitboxturret;
     }
 
     @Override
     public boolean isVisible() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
 }

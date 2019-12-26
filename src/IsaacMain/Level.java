@@ -7,9 +7,9 @@ import Entity.Entity;
 import StaticEnemyFactory.StaticEnemyClient;
 import Entity.EntityClient;
 import ShootingEnemies.ShootingEnemy;
-import ShootingEnemyFactory.RandomTurretClient;
 import ShootingEnemyFactory.ShootingEnemyClient;
 import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,7 +25,7 @@ public class Level implements GalaxyComponent {
     private Thrower tr;
     private ArrayList<Entity> blocks, rewards;
     private ArrayList<StaticDamage> spikes;
-    private ArrayList<ShootingEnemy> turrets, randomturrets;
+    private List<ShootingEnemy> turrets;
 
     private ArrayList<Thrower> flameThrowers, laserThrowers;
     private int score, index, difficulty;
@@ -49,9 +49,7 @@ public class Level implements GalaxyComponent {
         return score;
     }
 
-    public ArrayList<ShootingEnemy> getRandomturrets() {
-        return randomturrets;
-    }
+   
 
     public ArrayList<Thrower> getLaserThrowers() {
         return laserThrowers;
@@ -65,7 +63,7 @@ public class Level implements GalaxyComponent {
         return map;
     }
 
-    public ArrayList<ShootingEnemy> getShootingEnemy() {
+    public List<ShootingEnemy> getShootingEnemy() {
         return turrets;
     }
 
@@ -107,7 +105,6 @@ public class Level implements GalaxyComponent {
         this.laserThrowers = throwers_client.getThrowers("Laser");
         //Create an array list of turrets calling the List creator
         this.turrets = new ShootingEnemyClient(this.map, this.difficulty).getList();
-        this.randomturrets = new RandomTurretClient(this.map, this.difficulty).getList();
         this.pts = new Points(rewards, score);
         this.pts.init();
     }
@@ -153,11 +150,9 @@ public class Level implements GalaxyComponent {
         }
 
         for (ShootingEnemy turret : turrets) {
-            turret.render(g);
+            turret.render(g, map);
         }
-        for (ShootingEnemy turret : randomturrets) {
-            turret.render(g);
-        }
+
         g.setColor(Color.white);
         g.drawString(this.name, 850, 5);
     }

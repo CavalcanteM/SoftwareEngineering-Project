@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2019.12.11" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="1">
  <tileset firstgid="1" source="Tileset_map.tsx"/>
  <layer id="2" name="Background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECsWWQQqAIBQF9Uy1qPtfLF0MiIj2M5iFDKH53vyVOaV0lpUlXiX3Lsui5U2u5U0uPSzSw6LlTa7lTS49LNLDouVNruVNLj0s0sOi5U2u5U0uPSz+8fbYeT/s/NvOsM6PGUacIme5f8TahT4Rp8hZ7u/Zuo+6zRxne5G7+k5vv7/6H2XetfuKKwfb/wG1ir4nAAwAAA==
+   H4sIAAAAAAAECsWWOwqAMBAFY+t1tND7X8xNMSAhGNcPU4SHGPfNbOVUSlnjTFJu0bvHsdLyptfyphcOK+Gw0vKm1/KmFw4r4bDS8qbX8qYXDivhsNLyptfyphcOK7/493jz//Dm2/MO6/7YYcYpc5f5vaws8GScMneZ3+bZvcd25Xj1LjOrZbr7/NR/iX1X9lGOHOaY8ddp3Xo9BzGLOHAADAAA
   </data>
  </layer>
  <layer id="9" name="Turrets" width="32" height="24">
@@ -18,12 +18,12 @@
  </layer>
  <layer id="1" name="Walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2U0Q6DMAhFyaZu80d8m/r/P+e9D30RWxo6Mh9KQppUyq0cyiYiQ5DvyDsb/sH3KBuR+J/6C/TfBWd9Iv8f6YvG+nR9XaIJW48Lf+nQpp1c/fker/rm2aSmD+f0dWTMjlc/xycxq+Xk1c/xScxqOXn1f0UjUt9iRFZfeNT8sRiR1R3m74p7pL71rLW9Dhll5L/BU996Vva65xzPRPYf0pvW9ePen1l8BPT6i7S+/9LMODM4x3L+HsHQRzUADAAA
+   H4sIAAAAAAAECu1U0Q6CMAxcVBT9EH1TeOX/P8y7mCaEbnTpaOSBJmVJ1/bGXbchpXQJ8hF9H4bfsR9lHRr/E/8F/H7FyU/k/6P9qpGfA19TdEXolPGbTm2KlPjnfczNzbkJTReX8HVmTMSLX9JHNKvVyYtf0kc0q9XJi7+VGpH4lkbU6g2Pen8sjajVHt7fD84hc+tZa2cdMMqo/wCXufWsnHVPHWsi5w/tTTvw4+6fST4S9sj/E+fy3MNczZKDZQ7fP9o8LrHfTtt3Qvncc92+dX4CSAAMAAA=
   </data>
  </layer>
  <layer id="3" name="StaticEnemies" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWjITAaAqMhgAgBHiATF0aoGmWNhsBoCIyGAOUhgF7WIJvIB+QgY2S5UfZoCJAbAm7kaqSSPm8qmYPPGFugJDLGphYApfdGigAMAAA=
+   H4sIAAAAAAAECmNgGAWjITAaAqMhgAgBHiATF0aoGmWNhsBoCIyGAOUhgF7WIJvIB+QgY2S5UfbQDQG3AXa6Nx3stwXagYzpYCWKFXZAHjJGkYRyADHDyikADAAA
   </data>
  </layer>
  <layer id="4" name="Rewards" width="32" height="24">
