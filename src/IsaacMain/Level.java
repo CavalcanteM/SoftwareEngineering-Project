@@ -93,7 +93,7 @@ public class Level implements GalaxyComponent {
          * difficulty parameter passed to every concrete factory to generate
          * objects that vary based on the difficulty level.
          */
-        this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
+        this.map = new TiledMap("\\src\\map_level\\Level_" + this.index + ".tmx");
         this.spikes = new StaticEnemyClient(this.map, this.difficulty).getStaticEnemyList();
         EntityClient entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
@@ -154,6 +154,7 @@ public class Level implements GalaxyComponent {
          * |             |
          * +-------------+
          */
+        
         if (pts.iterator().hasNext()) {
             pts.render(gc, g);
         }
