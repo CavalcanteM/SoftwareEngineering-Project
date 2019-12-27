@@ -1,16 +1,10 @@
 package menu;
 
 import IsaacMain.OptionMenu;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
+//import org.newdawn.slick.state.transition.FadeInTransition;
+//import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class ChangeControls implements Command{
         

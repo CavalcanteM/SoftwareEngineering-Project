@@ -24,13 +24,10 @@ public class CollisionManager implements Mediator {
     private Points pts;
     private Powerup power;
     private Shape upgrade;
-    private Shape reward;
+    private Shape reward, playerHitbox;
     private ArrayList<ShootingEnemy> turrets;
-    private ArrayList<Bullet> bulletsList;
     private ArrayList<StaticDamage> spikes;
-    private Shape playerHitbox;
-    private ArrayList<Thrower> throwers;
-    private ArrayList<Thrower> lasers;
+    private ArrayList<Thrower> throwers,lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
     private UpgradeDecorator shieldDecorator;
     private long lastUpgrade = 0;
@@ -50,7 +47,7 @@ public class CollisionManager implements Mediator {
         this.level = level;
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
-        bulletsList = new ArrayList<>();
+
     }
 
     public CollisionManager() {
@@ -75,11 +72,11 @@ public class CollisionManager implements Mediator {
         if (pts != null) {
             getReward();
         }
-        
+
         if (power != null) {
             getUpgrade();
         }
-        
+
         //Check if the playerHitbox collides with the fire or the Thrower
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
@@ -124,28 +121,18 @@ public class CollisionManager implements Mediator {
             }
         }
         //check if the playerHitbox collides with a obstacle
-        if (blocks != null) {
-            for (i = 0; i < blocks.size(); i++) {
-                if (playerHitbox.intersects(blocks.get(i).getHitBox())) {
-                    return true;
-                }
+        for (Entity block : blocks) {
+            if (playerHitbox.intersects(block.getHitBox())) {
+                return true;
             }
         }
 
-        //check if the playerHitbox enters the HitboxArea of the turret
-        if (turrets.size() != 0 && turrets != null) {
-            for (i = 0; i < turrets.size(); i++) {
-                if (playerHitbox.intersects(turrets.get(i).getHitboxArea()) || turrets.get(i).getHitboxArea().contains(playerHitbox)) {
-
-                    this.lastHitTime = System.currentTimeMillis();
-                    ShootingEnemy turret = turrets.get(i);
-                    ArrayList<Bullet> temp = turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
-                    if (null != temp) {
-                        bulletsList.addAll(temp);
-                    }
-
-                }
+        for (ShootingEnemy turret : turrets) {
+            if ((playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) && !playerHitbox.intersects(turret.getHitbox())) {
+                turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
             }
+            if(playerHitbox.intersects(turret.getHitbox()) && turret.isVisible())
+                return true;
         }
 
         if (bulletsList != null) {
@@ -176,11 +163,36 @@ public class CollisionManager implements Mediator {
                         }
                     } catch (Exception e) {
 
-                    }
+        //check if the playerHitbox enters the HitboxArea of the turret
+//        if (turrets.size() != 0 && turrets != null) {
+//            for (i = 0; i < turrets.size(); i++) {
+//                if (playerHitbox.intersects(turrets.get(i).getActivationArea()) || turrets.get(i).getActivationArea().contains(playerHitbox)) {
+//                    ShootingEnemy turret = turrets.get(i);
+//                    turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
+//                }
+//            }
+//        }
 
+        for (int j = 0; j < turrets.size(); j++) {
+            ArrayList<Bullet> bul = turrets.get(j).getBullet();
+            for (i = 0; i < bul.size(); i++) {
+                try {
+                    Bullet bullet = bul.get(i);
+                    Shape bulletshape = bullet.getShape();
+
+                    if (bulletshape != null) {
+                        if (playerHitbox.intersects(bulletshape)) {
+                            playerInstance.getDamaged(bullet.getDamage());
+                            bullet.remove();
+                        }
+                    }
+                } catch (Exception e) {
                 }
             }
         }
+
+
+
         return false;
     }
 
@@ -207,7 +219,7 @@ public class CollisionManager implements Mediator {
     private void getUpgrade() {
         if(this.upgrade != null){
             if (playerHitbox.intersects(this.upgrade)) {
-                
+
                 //Activation of powerups and decision on the time that must pass before generating the next powerup
                 lastUpgrade = System.currentTimeMillis();
                 if(power.Powerup() instanceof ShieldDecorator){
@@ -233,11 +245,11 @@ public class CollisionManager implements Mediator {
                     this.upgrade = power.iterator().next().getHitBox();
                 }
             }
-            
+
         }
     }
 
-    
+
     /**
      * Takes the blocks and the enemies/weapons from the level Invoked when a
      * level is finished and another one has to start
@@ -261,8 +273,8 @@ public class CollisionManager implements Mediator {
     public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
         this.shieldDecorator = shieldDecorator;
     }
-    
-    
+
+
 
     /**
      * This method is used only in the test of this class
@@ -284,5 +296,6 @@ public class CollisionManager implements Mediator {
         this.throwers.add(t.get(0));
         this.lasers = new ArrayList<>();
         this.lasers.add(t.get(1));
+
     }
 }

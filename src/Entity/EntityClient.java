@@ -20,18 +20,18 @@ public class EntityClient {
     public EntityClient(TiledMap map) {
         this.map = map;
     }
-    
+
     /*
         Returns an ArrayList<Block> if layerName == "Obj
         Returns an ArrayList<Block> if layerName == "Rwd"
     */
     public ArrayList<Entity> getEntities(String layerName){
         int x, y;
-        
+
         int layerIndex = this.map.getLayerIndex(layerName);
-        
+
         ArrayList<Entity> rtl = new ArrayList<>();
-        
+
         if("Obj".equals(layerName)){
             et = new ConcreteFactoryBlock();
         }else if("Rewards".equals(layerName)){
@@ -39,10 +39,10 @@ public class EntityClient {
         }else{
             et = new ConcreteFactoryUpgrade();
         }
-                
+
         for(y = 0; y < map.getHeight(); y++){
             for(x = 0; x < map.getWidth(); x++){
-                /*  In this "if" we check if in the tiles with coordinates(x,y) there is an object. 
+                /*  In this "if" we check if in the tiles with coordinates(x,y) there is an object.
                     If it is present, we create a shape 30x30 pixels in the position of the object. */
                 if(map.getTileId(x, y, layerIndex) != 0){
                     rtl.add(et.create(x*30, y*30));

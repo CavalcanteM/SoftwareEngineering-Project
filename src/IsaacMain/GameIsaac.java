@@ -21,7 +21,7 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author danya
  */
 public class GameIsaac extends BasicGameState {
-    
+
     private Level level;
     private Player player;
     private Menu pause;
@@ -29,8 +29,8 @@ public class GameIsaac extends BasicGameState {
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
-	private Saves saves;
-    
+	  private Saves saves;
+
     public void setLevel(Level level) {
         this.level = level;
     }
@@ -46,27 +46,30 @@ public class GameIsaac extends BasicGameState {
     public GalaxyComponent getGalaxy() {
         return galaxy;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return the ID of this state
      */
     @Override
     public int getID() {
         return 1;
     }
-    
+
     /**
-     * 
+     * Method init inherited from BasicGameState, in which are initialized: -
+     * The player - The starting level - The pause, end and death menus - The
+     * collision manager
+     *
      * @param gc
      * @param sbg
-     * @throws SlickException 
+     * @throws SlickException
      */
     @Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		saves=loadProgress();
 		player = Player.getPlayerInstance();   // Using Singleton class Player
-		//Inizialize the Level list and set the first level as current level 
+		//Inizialize the Level list and set the first level as current level
 		this.initLevelList();
 		level = (Level) galaxy.getChild(saves.getLastLevel()).getChild(saves.getLastWorld());
 		System.out.println("Livello caricato: "+saves.getLastLevel()+" - MondoCaricato: "+saves.getLastWorld());
@@ -101,13 +104,13 @@ public class GameIsaac extends BasicGameState {
 		this.player.setCollisionManager(this.collisionManager);
 		player.init(gc);
 	}
-    
+
     /**
-     * 
+     *
      * @param gc
      * @param sbg
      * @param g
-     * @throws SlickException 
+     * @throws SlickException
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -125,62 +128,58 @@ public class GameIsaac extends BasicGameState {
 			}
 		}
 	}
-    
+
     /**
-     * 
+     *
      * @param gc
      * @param sbg
      * @param delta
-     * @throws SlickException 
+     * @throws SlickException
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if(!gc.isPaused()){
+        if (!gc.isPaused()) {
             level.update(gc, delta);
             player.update(gc, delta);
-			
-            if (player.getNumHearts()<=0 | !level.getPts().iterator().hasNext() | gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){
+
+            if (player.getNumHearts() <= 0 | !level.getPts().iterator().hasNext() | gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
                 gc.pause();
             }
+        } else {
+            if (player.getNumHearts() <= 0) {
+                deathMenu.update(gc, delta, sbg);
+            } else if (!level.getPts().iterator().hasNext()) {
+                end.update(gc, delta, sbg);
+            } else {
+                pause.update(gc, delta, sbg);
+            }
         }
-	else{
-            if (player.getNumHearts()<=0){
-		deathMenu.update(gc, delta, sbg);
-            }
-            else if (!level.getPts().iterator().hasNext()){
-		end.update(gc, delta, sbg);
-            }
-            else{
-		pause.update(gc, delta, sbg);
-            }
-	}
     }
-    
+
     /**
-     * This method create the treeLevel.
-     * It load the tree from the file "treeLevel".
-     * If there isn't the tree in the file, the load operation returns null 
-     * and the treeLevel is created and saved.
+     * This method create the treeLevel. It load the tree from the file
+     * "treeLevel". If there isn't the tree in the file, the load operation
+     * returns null and the treeLevel is created and saved.
      */
-    public void initLevelList(){
-        this.galaxy = this.loadTreeLevel();
-        if(this.galaxy == null){
+    public void initLevelList() {
+        //this.galaxy = this.loadTreeLevel();
+        if (this.galaxy == null) {
             this.galaxy = new LevelContainer("Centaurus");
             System.out.println("Il load non ha funzionato");
-            
+
             // Setting first world
             GalaxyComponent world1 = new LevelContainer("World 1");
-            GalaxyComponent level1 = new Level("Level 1-1", 4, 1);
-            //GalaxyComponent level2 = new Level("Level 1-2", 5, 2);
-            //GalaxyComponent level3 = new Level("Level 1-3", 5, 3);
-            //GalaxyComponent level4 = new Level("Level 1-4", 5, 4);            
+            GalaxyComponent level1 = new Level("Level 1-1", 4, 1, 1);
+//            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
+//            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
+//            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);
             world1.add(level1);
-            //world1.add(level2);
-            //world1.add(level3);
-            //world1.add(level4);
+//            world1.add(level2);
+//            world1.add(level3);
+//            world1.add(level4);
             galaxy.add(world1);
-            
+
             // Setting second world
 //            GalaxyComponent world2 = new LevelContainer("World 2");
 //            GalaxyComponent level5 = new Level("Level 1-4", 5, 5);
@@ -197,44 +196,43 @@ public class GameIsaac extends BasicGameState {
             //GalaxyComponent level10 = new Level("Level 3-2", 5);
             //GalaxyComponent level11 = new Level("Level 3-3", 5);
             //GalaxyComponent level12 = new Level("Level 3-4", 5);
-            
             // Setting fourth world
             //GalaxyComponent world4 = new LevelContainer("World 4");
             //GalaxyComponent level13 = new Level("Level 4-1", 5);
             //GalaxyComponent level2 = new Level("Level 4-2", 5);
             //GalaxyComponent level2 = new Level("Level 4-3", 5);
             //GalaxyComponent level2 = new Level("Level 4-4", 5);
-            
             this.saveTreeLevel();
         }
     }
-    
+
     /**
      * Save the tree level in the file
      */
-    public void saveTreeLevel(){
+    public void saveTreeLevel() {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
-        try{
+        try {
             fos = new FileOutputStream("treeLevel.txt");
             out = new ObjectOutputStream(fos);
             out.writeObject(galaxy);
 			out.flush();
             out.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Load the tree level from the file
-     * @return galaxy if the load operation works successfully,
-     * else it returns null
+     *
+     * @return galaxy if the load operation works successfully, else it returns
+     * null
      */
-    public GalaxyComponent loadTreeLevel(){
+    public GalaxyComponent loadTreeLevel() {
         FileInputStream fis = null;
         ObjectInputStream in = null;
-        try{
+        try {
             fis = new FileInputStream("treeLevel.txt");
             in = new ObjectInputStream(fis);
             GalaxyComponent galaxy = (GalaxyComponent) in.readObject();
@@ -245,7 +243,7 @@ public class GameIsaac extends BasicGameState {
             return null;
         }
     }
-	
+
 	public Saves loadProgress(){
         FileInputStream fis = null;
         ObjectInputStream in = null;

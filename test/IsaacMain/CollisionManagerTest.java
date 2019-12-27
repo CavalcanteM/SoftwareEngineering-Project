@@ -25,21 +25,21 @@ public class CollisionManagerTest {
     private Shape reward;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Shape> players;
-    
+
     private ArrayList<Thrower> t;
-    
+
     public CollisionManagerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
         System.out.println("----- Test CollisionManager class -----");
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     /**
      * Here I create the fake objects in the map
      */
@@ -64,7 +64,7 @@ public class CollisionManagerTest {
         t.add(new LaserThrower(700,779,2,1));
         t.add(new FlameThrower(900,979,2,1));
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -94,7 +94,7 @@ public class CollisionManagerTest {
         boolean result = collision.collidesWith();
         assertTrue(!result && !collision.test1 && collision.test2 && !collision.test3 && !collision.test4);
     }
-    
+
     /**
      * Test of collidesWith method, of class CollisionManager.
      * This method test if collidesWith correctly collides with a block
@@ -107,7 +107,7 @@ public class CollisionManagerTest {
         boolean result = collision.collidesWith();
         assertTrue(result && !collision.test1 && !collision.test2 && !collision.test3 && !collision.test4);
     }
-    
+
     /**
      * Test of collidesWith method, of class CollisionManager.
      * This method test if collidesWith correctly works when the player doesn't collides
@@ -120,8 +120,8 @@ public class CollisionManagerTest {
         boolean result = collision.collidesWith();
         assertTrue(!result && !collision.test1 && !collision.test2 && !collision.test3 && !collision.test4);
     }
-    
-    
+
+
     @Test
     public void testCollidesWith5(){
         CollisionManager collision = new CollisionManager();
@@ -130,12 +130,12 @@ public class CollisionManagerTest {
         boolean result = collision.collidesWith();
         assertTrue(!result && !collision.test1 && !collision.test2 && collision.test3 && !collision.test4);
     }
-    
+
     /*
         To do this test is necessary to comment the part of the code of LaserThrower
         in witch is initialized the image
     */
-    
+
     @Test
     public void testCollidesWith6(){
         CollisionManager collision = new CollisionManager();

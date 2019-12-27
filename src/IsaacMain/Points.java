@@ -20,8 +20,8 @@ import org.newdawn.slick.geom.ShapeRenderer;
     reward and renders on Graphics g the image of the reward.
 */
 public class Points implements Iterable<Entity> {
-    
-    private final ArrayList<Entity> rwd;
+
+    private final ArrayList<Entity> reward;
     private final Random ran;
     private int nObj;
     private Entity current;
@@ -35,33 +35,33 @@ public class Points implements Iterable<Entity> {
         this.sound = new Sound("./src/sound/item.wav");
     }
 
-    public ArrayList<Entity> getRwd() {
-        return rwd;
+    public ArrayList<Entity> getReward() {
+        return reward;
     }
 
     public Sound getSound() {
         return sound;
     }
-    
+
 
     public int getnObj() {
         return nObj;
     }
-    
+
     /*
         Set the Height and the Width of the reward's shapes according to the
         size of the reward pic.
     */
     public void init() throws SlickException{
         this.imm = new Image("./graphics/png/Nut.png");
-        for (Entity reward: rwd) {
-            reward.setHeightAndWidth(imm.getHeight(), imm.getWidth());
+        for (Entity reward: reward) {
+            reward.setHeightAndWidth(image.getHeight(), image.getWidth());
         }
     }
-    
+
     public void render(GameContainer gc, Graphics g) throws SlickException{
         if(nObj != 0){
-            ShapeRenderer.textureFit(this.current.getHitBox(), imm);
+            ShapeRenderer.textureFit(this.current.getHitBox(), image);
         }
     }
 
@@ -78,15 +78,15 @@ public class Points implements Iterable<Entity> {
                 nObj--;
                 if(this.hasNext()){
                     if(current == null){
-                        current = rwd.remove(ran.nextInt(rwd.size()));
+                        current = reward.remove(ran.nextInt(reward.size()));
                     }else{
                         int i;
-                        if(rwd.size() == 1){
+                        if(reward.size() == 1){
                             i = 0;
                         }else{
-                            i = ran.nextInt(rwd.size());
+                            i = ran.nextInt(reward.size());
                         }
-                        current = rwd.remove(i);
+                        current = reward.remove(i);
                     }
                 }
                 return current;

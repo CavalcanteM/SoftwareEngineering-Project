@@ -1,13 +1,14 @@
 package IsaacMain;
 
-import Throwers.Factory.ClientThrowersFactory;
-import Throwers.Thrower;
 import StaticEnemy.StaticDamage;
+import Throwers.Factory.ThrowersClient;
+import Throwers.Thrower;
 import Entity.Entity;
-import StaticEnemy.Factory.StaticEnemyList;
+import StaticEnemy.Factory.StaticEnemyClient;
 import Entity.EntityClient;
 import ShootingEnemy.ShootingEnemy;
-import ShootingEnemy.Factory.ShootingEnemyList;
+import ShootingEnemy.Factory.ShootingEnemyClient;
+import static java.lang.Math.floor;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -18,7 +19,7 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * This class has the scope of the definition of a level's enviroment.
  */
-public class Level implements GalaxyComponent{
+public class Level implements GalaxyComponent {
 
     private TiledMap map;
     private Thrower tr;
@@ -27,42 +28,43 @@ public class Level implements GalaxyComponent{
     private ArrayList<Entity> blocks, rewards, upgrades;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<ShootingEnemy> turrets;
-    private ArrayList<Thrower> flameThrowers;
-    private ArrayList<Thrower> laserThrowers;
-    private int score;
+
+    private ArrayList<Thrower> flameThrowers, laserThrowers;
+    private int score, index, difficulty;
     private String name;
     private Points pts;
     private Powerup up;
     private int index;
     private Graphics g;
     private static final long serialversionUId = 1;
-   
-    public Level(String name, int score, int index){
+
+    public Level(String name, int score, int index, int difficulty) {
         this.name = name;
         this.score = score;
         this.index = index;
+        this.difficulty = difficulty;
     }
-    
+
     public Graphics getG() {
         return g;
     }
-    
+
     public int getScore() {
         return score;
     }
-    
+
     public ArrayList<Thrower> getLaserThrowers() {
         return laserThrowers;
     }
-    
+
     public ArrayList<Thrower> getThrowers() {
         return flameThrowers;
     }
-    
+
     public TiledMap getMap() {
         return map;
     }
-    
+
     public ArrayList<ShootingEnemy> getShootingEnemy() {
         return turrets;
     }
@@ -82,7 +84,7 @@ public class Level implements GalaxyComponent{
     public Powerup getPowerup(){
         return up;
     }
-    
+
     public Points getPts() {
         return pts;
     }
@@ -95,35 +97,39 @@ public class Level implements GalaxyComponent{
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
+        /**
+         * difficulty parameter passed to every concrete factory to generate
+         * objects that vary based on the difficulty level.
+         */
         this.map = new TiledMap("\\src\\map_level\\Level_" + this.index + ".tmx");
-        this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
-        this.entityClient = new EntityClient(this.map);
+        this.spikes = new StaticEnemyClient(this.map, this.difficulty).getStaticEnemyList();
+        EntityClient entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
-        this.upgrades = entityClient.getEntities("Upgrades");       
-        this.ctf = new ClientThrowersFactory(this.map);
-        this.flameThrowers = ctf.getEntities("Fire");
-        this.laserThrowers = ctf.getEntities("Laser");
+        ThrowersClient throwers_client = new ThrowersClient(this.map, this.difficulty);
+        this.upgrades = entityClient.getEntities("Upgrades");
+        this.flameThrowers = throwers_client.getThrowers("Fire");
+        this.laserThrowers = throwers_client.getThrowers("Laser");
         //Create an array list of turrets calling the List creator
-        this.turrets = new ShootingEnemyList(this.map).getList();
+        this.turrets = new ShootingEnemyClient(this.map, this.difficulty).getList();
         this.pts = new Points(rewards, score);
         this.pts.init();
         this.up = new Powerup(upgrades);
         this.up.init();
     }
-    
+
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         if (!this.pts.iterator().hasNext()) {
             gc.pause();
         }
-        for(Thrower t: flameThrowers){
+        for (Thrower t : flameThrowers) {
             t.update(delta);
         }
-        for(Thrower t: laserThrowers){
+        for (Thrower t : laserThrowers) {
             t.update(delta);
-        }            
-        
+        }
+
     }
 
     /**
@@ -141,34 +147,43 @@ public class Level implements GalaxyComponent{
         map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
         map.render(0, 0, map.getLayerIndex("Fire"));
-        map.render(0, 0, map.getLayerIndex("Turrets"));
-        //map.render(0, 0, map.getLayerIndex("TurretsHitbox"));
-        
-        if(pts.iterator().hasNext()){
+
+
+        /**
+         * I only have to render the picked x turrets that are present in the
+         * "turrets" ArrayList and not all the one present in the actual map. I
+         * will only render x of them! NOTE: I have to offset the obtained
+         * hitbox location because of its shape:
+         * +-------------+
+         * |             |
+         * |    XXXXX    |
+         * |    XXXXX    |
+         * |    XXXXX    |
+         * |             |
+         * +-------------+
+         */
+
+        if (pts.iterator().hasNext()) {
             pts.render(gc, g);
         }
-        
+
         if(upgrades.iterator().hasNext()){
             up.render(gc, g);
         }
-        
+
         for(Thrower t: flameThrowers){
             t.render();
         }
-        for(Thrower t: laserThrowers){
+        for (Thrower t : laserThrowers) {
             t.render();
         }
-        if(turrets != null){
-            for(int i=0; i<turrets.size(); i++){
-                turrets.get(i).render(g);
-            }
+
+        for (ShootingEnemy turret : turrets) {
+            turret.render(g, map);
         }
+
         g.setColor(Color.white);
         g.drawString(this.name, 850, 5);
-    }
-
-    private int readFromFile() {
-        return 1;
     }
 
     @Override
