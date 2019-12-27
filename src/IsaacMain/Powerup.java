@@ -29,12 +29,20 @@ public class Powerup implements Iterable<Entity> {
     private Image imm;
     private String string;
 
+    /**
+     * The object's constructor
+     * @param upgrade 
+     */
     public Powerup(ArrayList<Entity> upgrade){
         this.upgrade = upgrade;
         this.nObj = upgrade.size()+1;
         this.ran = new Random();        
     }
 
+    /**
+     * Getter methods
+     * @return 
+     */
     public ArrayList<Entity> getUpgrade() {
         return upgrade;
     }
@@ -43,27 +51,40 @@ public class Powerup implements Iterable<Entity> {
         return nObj;
     }
     
-    /*
-        Set the Height and the Width of the reward's shapes according to the
-        size of the reward pic.
+    /**
+        Set the Height and the Width of the upgrade's shapes according to the
+        size of a tile.
+     * @throws org.newdawn.slick.SlickException
     */
     public void init() throws SlickException{
-        this.imm = new Image("./graphics/png/burger_s.png");
         for (Entity up: upgrade) {
-            up.setHeightAndWidth(imm.getHeight(), imm.getWidth());
+            up.setHeightAndWidth(30, 30);
         }
     }
     
+    /**
+     * Renderization of the upgrade
+     * @param gc
+     * @param g
+     * @throws SlickException 
+     */
     public void render(GameContainer gc, Graphics g) throws SlickException{
         if(nObj != 0 && this.current != null){
             ShapeRenderer.textureFit(this.current.getHitBox(), imm);
         }
     }
     
+    /**
+     * Remove the current upgrade present in the game Window
+     */
     public void remove(){
         this.current = null;
     }
 
+    /**
+     * 
+     * @return the upgradeDecorator associated with the upgrade Entity
+     */
     public UpgradeDecorator Powerup(){
         UpgradeDecorator uc;
         switch(this.string){
@@ -80,6 +101,10 @@ public class Powerup implements Iterable<Entity> {
         return uc; 
     }
     
+    /**
+     * randomly chooses the next ugrade to display
+     * @throws SlickException 
+     */
     private void chooseUpgrade() throws SlickException{
         int i = ran.nextInt(3);
         switch(i){
@@ -97,6 +122,10 @@ public class Powerup implements Iterable<Entity> {
         }         
     }
     
+    /**
+     * The upgrade Iterator
+     * @return 
+     */
     @Override
     public Iterator<Entity> iterator() {
         Iterator<Entity> ie = new Iterator<Entity>(){

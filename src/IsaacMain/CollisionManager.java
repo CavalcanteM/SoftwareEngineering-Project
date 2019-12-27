@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.geom.Shape;
 
-//Questa classe viene inizializzata nel costruttore di playerHitbox (riga 55) e 
-//ne tiene un riferimento come parametro di classe (riga 50).
-//è stato commentato il metodo collidesWith in playerHitbox in riga 527
-//e sono stati modificati gli if in riga 463 e 479
 /**
  * Manages collisions within the map. In this class the character's life and
  * points are updated, with relative generation of subsequent rewards.
@@ -201,12 +197,15 @@ public class CollisionManager implements Mediator {
         }
     }
 
-    
+    /**
+     * This method manage the collision with the upgrades and manage also the
+     * spawn time of this upgrades and his actiovation
+     */
     private void getUpgrade() {
         if(this.upgrade != null){
             if (playerHitbox.intersects(this.upgrade)) {
-            /*This assignment is used for the test of this class*/
-            //test1=true;
+                
+                //Activation of powerups and decision on the time that must pass before generating the next powerup
                 lastUpgrade = System.currentTimeMillis();
                 if(power.Powerup() instanceof ShieldDecorator){
                     this.shieldDecorator = power.Powerup();
@@ -221,10 +220,12 @@ public class CollisionManager implements Mediator {
             }
         }else{
             if(this.lastUpgrade == 0){
+                //Generation of the first powerup
                 if (power.iterator().hasNext()) {
                     this.upgrade = power.iterator().next().getHitBox();
                 }
             }else{
+                //Generation of the next powerup
                 if(System.currentTimeMillis() - this.lastUpgrade > this.timeBetweenUpgrade){
                     this.upgrade = power.iterator().next().getHitBox();
                 }

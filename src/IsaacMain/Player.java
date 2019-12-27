@@ -110,6 +110,7 @@ public class Player implements UpgradeComponent{
         return numHearts;
     }
 
+    @Override
     public int getNumVoidHearts() {
         return numVoidHearts;
     }
@@ -278,6 +279,7 @@ public class Player implements UpgradeComponent{
         //X collisions
         moveWithCollisionsX();
         
+        //if the speedUpDecorator is active, control if the the activation time is ended.
         if(this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()){
             this.speedUpDecorator.updateActive();
         }
@@ -368,13 +370,13 @@ public class Player implements UpgradeComponent{
             } else {
                 this.leftAnimation.stop();
             }
-        }
-        
+        }        
         
         if(this.isChangingGravity) {
             this.rotate(30);
         }
         
+        //Rendering of the shield when it's active
         if(this.shield){
             this.shieldDecorator.render(gc, g);
         }

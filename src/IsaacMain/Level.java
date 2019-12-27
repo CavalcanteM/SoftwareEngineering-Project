@@ -37,7 +37,6 @@ public class Level implements GalaxyComponent{
     private int index;
     private Graphics g;
     private static final long serialversionUId = 1;
-    private UpgradeDecorator speedUp;
    
     public Level(String name, int score, int index){
         this.name = name;
