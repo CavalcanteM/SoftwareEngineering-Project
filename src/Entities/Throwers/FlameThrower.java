@@ -1,6 +1,8 @@
 package Entities.Throwers;
 
 import java.util.Random;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -27,8 +29,10 @@ public class FlameThrower implements Thrower {
     private long onTime;
     private long offTime;
     private long actualTime;
+    private Sound sound;
 
-    public FlameThrower(float x, float y, int size, int type) {
+    public FlameThrower(float x, float y, int size, int type) throws SlickException {
+        this.sound = new Sound("./src/sound/flamethrower.wav");
         this.lastTime = System.currentTimeMillis();
         this.onTime = 2000 + new Random().nextInt(1000);
         this.offTime = 1500+ new Random().nextInt(1000);
@@ -126,6 +130,13 @@ public class FlameThrower implements Thrower {
     public void update(int delta) {
         this.ft.update(delta);
         updateActive();
+        if(this.active && !this.sound.playing()){
+            this.sound.play(0.1f, 0.05f);
+        }
+        if(!this.active && this.sound.playing()){
+            this.sound.stop();
+        }
+            
     }
 
     @Override

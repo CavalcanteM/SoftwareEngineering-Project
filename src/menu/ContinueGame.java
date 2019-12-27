@@ -19,6 +19,7 @@ public class ContinueGame implements Command{
 //        }
         gc.resume(); 
         sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());   //enter in state 1 -> game isaac
+        gc.setMusicOn(false);
         System.out.println("state 1");
     }
     

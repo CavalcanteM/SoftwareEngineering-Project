@@ -3,6 +3,7 @@ package Entities.Throwers;
 import java.util.Random;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
@@ -25,9 +26,11 @@ public class LaserThrower implements Thrower {
     private long onTime;
     private long offTime;
     private long actualTime;
+    private Sound sound;
 
     public LaserThrower(float x, float y, int size, int type) throws SlickException {
         this.lastTime = System.currentTimeMillis();
+        this.sound = new Sound("./src/sound/lightsaber.wav");
         this.onTime = 2000 + new Random().nextInt(1000);
         this.offTime = 1500 + new Random().nextInt(1000);
         this.actualTime = offTime;
@@ -134,6 +137,15 @@ public class LaserThrower implements Thrower {
     public void update(int delta) {
         this.ft.update(delta);
         updateActive();
+        if (this.active) {
+            this.ft.render(this.x, this.y);
+            ShapeRenderer.textureFit(this.damageBox, imm);
+            if(this.active && !this.sound.playing())
+                this.sound.play(1, 0.05f);
+        }
+        if(!this.active && this.sound.playing()){
+            this.sound.stop();
+        }
     }
 
     @Override

@@ -12,6 +12,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -45,6 +46,9 @@ public class Player {
     private CollisionManager collision;
     private long lastHitTime = System.currentTimeMillis() - 3000;
     private HashMap<String, Integer> commands;
+    private Sound gravityfx;
+    private Sound deathfx;
+    private Sound hurtfx;
     
     private Player() {
     }
@@ -180,6 +184,9 @@ public class Player {
         Image[] frames = new Image[8];
         this.rightAnimation = new Animation(); 
         this.leftAnimation =  new Animation();
+        this.gravityfx = new Sound("./src/sound/change_gravity.wav");
+        this.deathfx = new Sound("./src/sound/death.wav");
+        this.hurtfx = new Sound("./src/sound/hurt.wav");
         for(int i=0; i<frames.length; i++)
         {
             // Adding current image to animation for moving to the right
@@ -352,7 +359,7 @@ public class Player {
      * @return 
      */
     public float changeGravity(float sign) {
-
+        this.gravityfx.play(1f, 0.05f);
         hitbox.setY(hitbox.getY() + sign * 0.5f);
         this.isChangingGravity = true;
         this.rotated = !this.rotated;
@@ -488,6 +495,7 @@ public class Player {
      */
     synchronized public void getDamaged(int damage){
         if((System.currentTimeMillis()-this.lastHitTime)> 3000 ){
+            this.hurtfx.play(1, 0.1f);
             this.lastHitTime=System.currentTimeMillis();
             
             System.out.println(System.currentTimeMillis());
@@ -496,7 +504,9 @@ public class Player {
             if(this.numHearts <= 0) {
                 this.isDead = true;
                 this.vX = 0;
-                
+                if(!this.deathfx.playing()){
+                    this.deathfx.play(1f,0.1f);
+                }
             }    
         }
     }

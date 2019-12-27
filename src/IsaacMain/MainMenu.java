@@ -5,12 +5,14 @@
  */
 package IsaacMain;
 
+
 import java.util.ArrayList;
 import menu.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -22,6 +24,7 @@ public class MainMenu extends BasicGameState {
 
     private Menu menu;
     private ArrayList<Button> buttons;
+    private Sound music;
     
     @Override
     public int getID() {
@@ -36,6 +39,8 @@ public class MainMenu extends BasicGameState {
         buttons.add(new Button(50, 150, new ChangeControls(this.getID()), "Settings"));
         buttons.add(new Button(50, 150, new Exit(), "Quit"));
         menu = new Menu(buttons, true);
+        music = new Sound("./src/sound/mainmenu.wav");
+        music.play();
         menu.init(gc);
     }
 
@@ -50,5 +55,6 @@ public class MainMenu extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         menu.update(gc, i, sbg);
+        
     }
 }
