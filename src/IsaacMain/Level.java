@@ -136,11 +136,7 @@ public class Level implements GalaxyComponent {
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
         map.render(0, 0, map.getLayerIndex("Fire"));
 
-        for (ShootingEnemy turret : this.turrets) {
-            int x = (int) floor(turret.getHitbox().getX() - 10);
-            int y = (int) floor(turret.getHitbox().getY() - 10);
-            map.render(x, y, x / 30, y / 30, 1, 1, map.getLayerIndex("Turrets"), false);
-        }
+
         /**
          * I only have to render the picked x turrets that are present in the
          * "turrets" ArrayList and not all the one present in the actual map. I

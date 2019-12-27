@@ -65,7 +65,9 @@ public class ThreeBulletsTurret implements ShootingEnemy {
 
     @Override
     public void render(Graphics g, TiledMap map) throws SlickException {
-
+        
+        map.render(x*30,y*30,x,y,1,1,map.getLayerIndex("Turrets"),true);
+        
         if (bulletList != null) {
             for (int i = 0; i < bulletList.size(); i++) {
                 bulletList.get(i).render(g);
