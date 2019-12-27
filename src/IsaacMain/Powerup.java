@@ -1,7 +1,10 @@
 package IsaacMain;
 
-import Entities.Entity.Entity;
-import IsaacMain.Upgrades.*;
+import Upgrades.ShieldDecorator;
+import Upgrades.ExtraLifeDecorator;
+import Upgrades.SpeedUpDecorator;
+import Upgrades.UpgradeDecorator;
+import Entity.Entity;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;

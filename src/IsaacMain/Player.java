@@ -1,6 +1,7 @@
 package IsaacMain;
 
-import IsaacMain.Upgrades.*;
+import Upgrades.UpgradeDecorator;
+import Upgrades.UpgradeComponent;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;

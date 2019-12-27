@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="2019.12.11" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="Tileset_map.tsx"/>
+ <layer id="2" name="Background" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECsVV7QqDMAysf32cMWV7/xdbDjwoRzDaxkUIMa29D1Pt0lp7WyxF+WO8X4uqXOWbvFW+yUsdVZk6qnK278328n6E3qNWvkzfL8OPQvlUz0wdcWNe8VXPTH2FX/FVz2wdaVB81fPverWeZMed82SEO/O8GOG/40/7rbXHn+kv2k8ef6Y/216nVwZX9L48jxzDWnyz+Df3OcLs59FTBvyoJ3J5Gc96/wzFiGr0mb3utWHM4+UY/asGxTiriTWSM/yP8HLNFf989okc9RXzT/AS8wf6VGbZAAwAAA==
+  </data>
+ </layer>
+ <layer id="9" name="Turrets" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+  </data>
+ </layer>
+ <layer id="10" name="TurretsHitbox" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+  </data>
+ </layer>
+ <layer id="3" name="StaticEnemies" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGHjAA3QCIQxyJT41hOSx6QXpGQWjITAaAgMbAm54rHfCI0ctKW88BrnjkRuVGrkhMNzrk+HuP+SUO5L8iuzvwc6mR9mPLwxGQtkPAFlWLroADAAA
+  </data>
+ </layer>
+ <layer id="4" name="Rewards" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGAWDMQT4CTiKkDwB7XSTHqzuHAh3DYSddItoGltE67Cj1Hxi9BOjhsbBCDd+MLkF7qhhwBju4Trc/TcMkiDNvDAa9zQL2gEzGACwDlTaAAwAAA==
+  </data>
+ </layer>
+ <layer id="7" name="Laser" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGBpAhoAzCckT0D4qPRoCFIfAaBrEH4Sy+KUHlawUAdcQkiegfVR6NAQGNASGUl4c0ICiwPLhHsbD3X8URP2Q0QoAl9O6SAAMAAA=
+  </data>
+ </layer>
+ <layer id="5" name="Fire" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+  </data>
+ </layer>
+ <layer id="1" name="Walls" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu2VQQ7CQAhFidFEew51qd7Chfe/j/wFKUkdPs7QdFMS0maY4fUzhE4iciz0s+bK+qR7L+pb2UnBO3+r6otU1/+uUg7Er05uNR/5mPl+q+YzNuI7f66S1f8zLy3e3ouV9kLP/T81HevZbPyhuTBTX+qtmX7TmFnme23vP0/fY9G5Xj70Rf8Yr3ENflZfxEaspb9KXy+/Sh/40UxGv/7Smr0/pg/xVo3tbKVWy+mfa/Oj+mJuoMaRjepn+iI2Yow/qm+Ej9k/qo/x2fxn98fys/gXR1LZtQAMAAA=
+  </data>
+ </layer>
+ <layer id="8" name="LaserMax" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGAWjIUB5CIhRbgSKCeIoPEwOIXlMHUNbhNrhS+vQkKC1BVjMH2phhMULo0KjIUDVEBiIfEhVDwxyw4Z7+A53/w3y5EVz5wEAdPCzkwAMAAA=
+  </data>
+ </layer>
+ <layer id="6" name="FireMax" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+  </data>
+ </layer>
+</map>

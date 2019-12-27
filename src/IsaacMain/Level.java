@@ -1,14 +1,13 @@
 package IsaacMain;
 
-import IsaacMain.ThrowersFactory.*;
-import Entities.Throwers.*;
-import Entities.Entity.*;
-import Entities.StaticDamage.*;
-import IsaacMain.StaticEnemyFactory.StaticEnemyList;
-import Entities.Entity.EntityClient;
-import Entities.Turret.ShootingEnemy;
-import IsaacMain.ShootingEnemyFactory.ShootingEnemyList;
-import IsaacMain.Upgrades.*;
+import Throwers.Factory.ClientThrowersFactory;
+import Throwers.Thrower;
+import StaticEnemy.StaticDamage;
+import Entity.Entity;
+import StaticEnemy.Factory.StaticEnemyList;
+import Entity.EntityClient;
+import ShootingEnemy.ShootingEnemy;
+import ShootingEnemy.Factory.ShootingEnemyList;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -96,7 +95,7 @@ public class Level implements GalaxyComponent{
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
-        this.map = new TiledMap("\\src\\map\\Level_" + this.index + ".tmx");
+        this.map = new TiledMap("\\src\\map_level\\Level_" + this.index + ".tmx");
         this.spikes = new StaticEnemyList(this.map).getStaticEnemyList();
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
