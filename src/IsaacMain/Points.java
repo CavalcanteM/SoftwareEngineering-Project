@@ -26,10 +26,10 @@ public class Points implements Iterable<Entity> {
     private int nObj;
     private Entity current;
     private Sound sound;
-    private Image imm;
+    private Image image;
 
     public Points(ArrayList<Entity> rwd, int nObj) throws SlickException{
-        this.rwd = rwd;
+        this.reward = rwd;
         this.nObj = nObj+1;
         this.ran = new Random();
         this.sound = new Sound("./src/sound/item.wav");
@@ -53,7 +53,7 @@ public class Points implements Iterable<Entity> {
         size of the reward pic.
     */
     public void init() throws SlickException{
-        this.imm = new Image("./graphics/png/Nut.png");
+        this.image = new Image("./graphics/png/Nut.png");
         for (Entity reward: reward) {
             reward.setHeightAndWidth(image.getHeight(), image.getWidth());
         }

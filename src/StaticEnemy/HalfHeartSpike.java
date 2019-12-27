@@ -7,8 +7,8 @@ public class HalfHeartSpike extends Spike {
     A particular implementation of the Spike abstract class. 
     */
 
-    public HalfHeartSpike(int x, int y) {
-        super(x, y);
+    public HalfHeartSpike(int x, int y, int difficulty) {
+        super(x, y, difficulty);
     }
 
     @Override

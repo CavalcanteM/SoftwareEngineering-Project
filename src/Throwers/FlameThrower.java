@@ -30,8 +30,10 @@ public class FlameThrower implements Thrower {
     private long offTime;
     private long actualTime;
     private Sound sound;
+    private int difficulty;
 
-    public FlameThrower(float x, float y, int size, int type) throws SlickException {
+    public FlameThrower(float x, float y, int size, int type, int difficulty) throws SlickException {
+        this.difficulty = difficulty;
         this.sound = new Sound("./src/sound/flamethrower.wav");
         this.lastTime = System.currentTimeMillis();
         this.onTime = 2000 + new Random().nextInt(1000);

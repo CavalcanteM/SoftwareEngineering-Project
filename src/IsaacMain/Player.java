@@ -19,7 +19,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class Player implements UpgradeComponent{
+public class Player implements UpgradeComponent {
 
     private static Player playerInstance = null;
     private final int LEFT = -1, RIGHT = 1;
@@ -61,7 +61,7 @@ public class Player implements UpgradeComponent{
     }
 
     public static Player getPlayerInstance() {
-        if(playerInstance == null) {
+        if (playerInstance == null) {
             Player.playerInstance = new Player();
         }
         return Player.playerInstance;
@@ -141,7 +141,6 @@ public class Player implements UpgradeComponent{
         this.speedUpDecorator = speedUpDecorator;
     }
 
-
     public void setIterations(float iterations) {
         this.iterations = iterations;
     }
@@ -168,7 +167,7 @@ public class Player implements UpgradeComponent{
     }
 
     @Override
-    public void setShield(boolean shield){
+    public void setShield(boolean shield) {
         this.shield = shield;
     }
 
@@ -186,14 +185,15 @@ public class Player implements UpgradeComponent{
         this.numVoidHearts = numVoidHearts;
     }
 
-    public void setCollisionManager(CollisionManager collision){
-        this.collision=collision;
+    public void setCollisionManager(CollisionManager collision) {
+        this.collision = collision;
     }
 
     @Override
     public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
         this.shieldDecorator = shieldDecorator;
     }
+
     /*--------------------
      * Other methods
      *--------------------*/
@@ -210,10 +210,12 @@ public class Player implements UpgradeComponent{
         Hitbox is unable to pass through slight parts of the map.
         i.e. passing through a 5x2 tile space could have caused problems.
         The 2 values 30, 720-90, are the spawn point of the character.
-        */
+         */
 
-        hitbox = new Rectangle(31, gc.getHeight()-90, 29, 59);
-
+        hitbox = new Rectangle(31, gc.getHeight() - 90, 29, 59);
+        this.animations = new SantaAnimations();
+        this.animations.createAnimations();
+        /*
         // Create the animations for character moving on both the right and the left
         Image[] frames = new Image[8];
         this.rightAnimation = new Animation();
@@ -257,9 +259,10 @@ public class Player implements UpgradeComponent{
             frames[i] = frames[i].getFlippedCopy(true, false);
             this.deathAnimationLeft.addFrame(frames[i], 60);
         }
-
+         */ 
         // Loads the current set of commands from a file
         this.initCommandList();
+
     }
 
     /**
@@ -271,7 +274,7 @@ public class Player implements UpgradeComponent{
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
 
-         // Gravity check and change
+        // Gravity check and change
         if (gc.getInput().isKeyPressed(commands.get("gravity"))) {
             gravity = changeGravity(signum(gravity));
         }
@@ -289,12 +292,12 @@ public class Player implements UpgradeComponent{
         moveWithCollisionsX();
 
         //if the speedUpDecorator is active, control if the the activation time is ended.
-        if(this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()){
+        if (this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()) {
             this.speedUpDecorator.updateActive();
         }
 
         /* Temporary code: used only for graphically testing the damage
-        */
+         */
         if (gc.getInput().isKeyPressed(Input.KEY_R)) {
             this.resetStats();
         }
@@ -303,6 +306,7 @@ public class Player implements UpgradeComponent{
 
     /**
      * Renders the animation and the rotation of the character
+     *
      * @param gc
      * @param g
      * @throws SlickException
@@ -315,9 +319,9 @@ public class Player implements UpgradeComponent{
         /*
         Take coordinates have an offset value to make the sprite perfectly
         match the Shape rectangle, that aclually is the hitbox of the Hitbox.
-        */
-        float X = this.hitbox.getMinX()-14;
-        float Y = this.hitbox.getMinY()-5;
+         */
+        float X = this.hitbox.getMinX() - 14;
+        float Y = this.hitbox.getMinY() - 5;
 
 //        if(this.vX ==0){//The character doesn't move
 //            if((isMovingRight && !rotated) || (!isMovingRight && rotated)){
@@ -380,44 +384,43 @@ public class Player implements UpgradeComponent{
 //                this.leftAnimation.stop();
 //            }
 //        }
-
-        if(this.vX ==0){//The character doesn't move
-            if((isMovingRight && !rotated) || (!isMovingRight && rotated)){
-                if(isPaused){
-                    this.animations.getIdleAnimationRight().draw(X,Y);
+        if (this.vX == 0) {//The character doesn't move
+            if ((isMovingRight && !rotated) || (!isMovingRight && rotated)) {
+                if (isPaused) {
+                    this.animations.getIdleAnimationRight().draw(X, Y);
                     this.animations.getIdleAnimationRight().stop();
-                }else{
-                    if(isDead && !this.animations.getDeathAnimationRight().isStopped()){ // You can't die when the game is in pause
+                } else {
+                    if (isDead && !this.animations.getDeathAnimationRight().isStopped()) { // You can't die when the game is in pause
                         this.animations.getDeathAnimationRight().draw(X, Y);
-                        this.animations.getDeathAnimationRight().stopAt(this.animations.getDeathAnimationRight().getFrameCount()-1);
+                        this.animations.getDeathAnimationRight().stopAt(this.animations.getDeathAnimationRight().getFrameCount() - 1);
                         this.animations.getDeathAnimationRight().start();
                     } else {
                         /* The +2 and -2 are used to make the idle in left and
                            right position match the position of the center axis
                            if the character. That's caused by a misallignement of
                            the character in the sprite.*/
-                        if(isMovingRight){
-                            this.animations.getIdleAnimationRight().draw(X+2,Y);
-                        }else{
-                            this.animations.getIdleAnimationRight().draw(X-2,Y);
+                        if (isMovingRight) {
+                            this.animations.getIdleAnimationRight().draw(X + 2, Y);
+                        } else {
+                            this.animations.getIdleAnimationRight().draw(X - 2, Y);
                         }
                         this.animations.getIdleAnimationRight().start();
                     }
                 }
-            }else{
-                if(isPaused){
-                    this.animations.getIdleAnimationLeft().draw(X,Y);
+            } else {
+                if (isPaused) {
+                    this.animations.getIdleAnimationLeft().draw(X, Y);
                     this.animations.getIdleAnimationLeft().stop();
-                }else{
-                    if(isDead && !this.animations.getIdleAnimationLeft().isStopped()){ // You can't die when the game is in pause
+                } else {
+                    if (isDead && !this.animations.getIdleAnimationLeft().isStopped()) { // You can't die when the game is in pause
                         this.animations.getDeathAnimationLeft().draw(X, Y);
-                        this.animations.getDeathAnimationLeft().stopAt(this.animations.getIdleAnimationLeft().getFrameCount()-1);
+                        this.animations.getDeathAnimationLeft().stopAt(this.animations.getIdleAnimationLeft().getFrameCount() - 1);
                         this.animations.getDeathAnimationLeft().start();
                     } else {
-                        if(isMovingRight){
-                            this.animations.getIdleAnimationLeft().draw(X+2,Y);
-                        }else{
-                            this.animations.getIdleAnimationLeft().draw(X-2,Y);
+                        if (isMovingRight) {
+                            this.animations.getIdleAnimationLeft().draw(X + 2, Y);
+                        } else {
+                            this.animations.getIdleAnimationLeft().draw(X - 2, Y);
                         }
                         this.animations.getIdleAnimationLeft().start();
                     }
@@ -425,30 +428,30 @@ public class Player implements UpgradeComponent{
             }
         }
 
-        if((this.vX > 0 && !rotated) || (this.vX < 0 && rotated)) {
+        if ((this.vX > 0 && !rotated) || (this.vX < 0 && rotated)) {
             this.animations.getRightAnimation().draw(X, Y);
-            if(!isPaused){
+            if (!isPaused) {
                 this.animations.getRightAnimation().start();
             } else {
                 this.animations.getRightAnimation().stop();
             }
         }
 
-        if((this.vX > 0 && rotated) || (this.vX < 0 && !rotated)) {
+        if ((this.vX > 0 && rotated) || (this.vX < 0 && !rotated)) {
             this.animations.getLeftAnimation().draw(X, Y);
-            if(!isPaused){
+            if (!isPaused) {
                 this.animations.getLeftAnimation().start();
             } else {
                 this.animations.getLeftAnimation().stop();
             }
         }
 
-        if(this.isChangingGravity) {
+        if (this.isChangingGravity) {
             this.rotate(30);
         }
 
         //Rendering of the shield when it's active
-        if(this.shield){
+        if (this.shield) {
             this.shieldDecorator.render(gc, g);
         }
 
@@ -456,8 +459,9 @@ public class Player implements UpgradeComponent{
     }
 
     /**
-     * Changes the gravity and checks if there is an obstacle during the transition
-     * If there is an obstacle the transition stops
+     * Changes the gravity and checks if there is an obstacle during the
+     * transition If there is an obstacle the transition stops
+     *
      * @param sign
      * @return
      */
@@ -480,7 +484,7 @@ public class Player implements UpgradeComponent{
 
         for (int t = 0; t < iterations; t++) {
             hitbox.setX(hitbox.getX() + vXtemp);
-            if(collision.collidesWith()){
+            if (collision.collidesWith()) {
                 hitbox.setX(hitbox.getX() - vXtemp);
                 vX = 0;
             }
@@ -488,15 +492,15 @@ public class Player implements UpgradeComponent{
     }
 
     /**
-     * Manages the movement on the Y axis.
-     * Called only when the gravity gets changed.
+     * Manages the movement on the Y axis. Called only when the gravity gets
+     * changed.
      */
     private void moveAlongY() {
         float vYtemp = speedUp * (vY / iterations);
 
         for (int t = 0; t < iterations; t++) {
             hitbox.setY(hitbox.getY() + vYtemp);
-            if(collision.collidesWith()){
+            if (collision.collidesWith()) {
                 hitbox.setY(hitbox.getY() - vYtemp);
                 vY = 0;
             }
@@ -505,6 +509,7 @@ public class Player implements UpgradeComponent{
 
     /**
      * Manages the movement on the X axis.
+     *
      * @param in the key button we have pressed
      */
     private void set_speedx(Input in) {
@@ -516,37 +521,37 @@ public class Player implements UpgradeComponent{
             if (in.isKeyPressed(commands.get("dash"))) {
                 dash(LEFT);
             }
-        // If we hold down D, the character will move to the right
+            // If we hold down D, the character will move to the right
         } else if (in.isKeyDown(commands.get("right"))) {
             vX = speed;
             this.isMovingRight = true;
             if (in.isKeyPressed(commands.get("dash"))) {
                 dash(RIGHT);
             }
-        // The character doesn't move
+            // The character doesn't move
         } else {
             vX = 0;
         }
     }
 
     /**
-     * The character executes a dash in the specified direction
-     * with a certain speed
+     * The character executes a dash in the specified direction with a certain
+     * speed
+     *
      * @param dir the direction of the dash (1 for right, -1 for left)
      */
     public void dash(int dir) {
         vX = dir * dashValue * speed;
     }
 
-
     /**
      * Manages the rotation of the character. (Has to be refactored)
+     *
      * @param angle the rotation angle
      */
-    public void rotate(int angle){
+    public void rotate(int angle) {
 
-       // idleAnimationRight.getCurrentFrame().setRotation(180);
-
+        // idleAnimationRight.getCurrentFrame().setRotation(180);
 //        for(int i=0; i<10; i++){
 //            Image currentImage = this.animations.getIdleAnimationRight().getImage(i);
 //            /* The character rotates if the gravity is changed but it's 180 rotation
@@ -564,26 +569,25 @@ public class Player implements UpgradeComponent{
 //                }
 //            }
 //        }
-
-        for(int i=0; i<animations.getRunAnimationLength(); i++){
+        for (int i = 0; i < animations.getRunAnimationLength(); i++) {
             Image currentImage = this.animations.getRightAnimation().getImage(i);
-            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
+            if ((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)) {
                 this.animations.getRightAnimation().getImage(i).rotate(angle);
                 this.animations.getLeftAnimation().getImage(i).rotate(angle);
             }
         }
 
-        for(int i=0; i<animations.getIdleAnimationLength(); i++){
+        for (int i = 0; i < animations.getIdleAnimationLength(); i++) {
             Image currentImage = this.animations.getIdleAnimationRight().getImage(i);
-            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
+            if ((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)) {
                 this.animations.getIdleAnimationRight().getImage(i).rotate(angle);
                 this.animations.getIdleAnimationLeft().getImage(i).rotate(angle);
             }
         }
 
-        for(int i=0; i<animations.getDeathAnimationLength(); i++){
+        for (int i = 0; i < animations.getDeathAnimationLength(); i++) {
             Image currentImage = this.animations.getDeathAnimationRight().getImage(i);
-            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
+            if ((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)) {
                 this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
                 this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
             }
@@ -592,77 +596,77 @@ public class Player implements UpgradeComponent{
 
     /**
      * Draw the hearts that represent the current life of the character
+     *
      * @param dim1 the width of the hearts in pixels
      * @param dim2 the height of the hearts in pixels
      * @throws SlickException
      */
-    public void drawHearts(int dim1, int dim2) throws SlickException{
+    public void drawHearts(int dim1, int dim2) throws SlickException {
         SpriteSheet hearts = new SpriteSheet("./graphics/png/hearts.png", 265, 231); // Must be modified after the image is changed
         hearts.startUse();
         int i;
 
         // Draws the void hearts
-        for(i = 0; i<this.numVoidHearts/2; i++){
-            hearts.getSprite(2, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
+        for (i = 0; i < this.numVoidHearts / 2; i++) {
+            hearts.getSprite(2, 0).getScaledCopy(dim1, dim2).draw((dim1 + 2) * i, 0);
         }
         // Draws the full hearts
-        for(i = 0; i<this.numHearts/2 ; i++){
-            hearts.getSprite(0, 0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
+        for (i = 0; i < this.numHearts / 2; i++) {
+            hearts.getSprite(0, 0).getScaledCopy(dim1, dim2).draw((dim1 + 2) * i, 0);
         }
         // Draws the mid hearts
-        if(this.numHearts - 2*i > 0){
-            hearts.getSprite(1,0).getScaledCopy(dim1, dim2).draw((dim1+2)*i, 0);
+        if (this.numHearts - 2 * i > 0) {
+            hearts.getSprite(1, 0).getScaledCopy(dim1, dim2).draw((dim1 + 2) * i, 0);
         }
         hearts.endUse();
     }
 
     /**
      * Manages the damage on the character
+     *
      * @param damage The number of mid hearts to subtract
      */
     @Override
-    synchronized public void getDamaged(int damage){
-        if((System.currentTimeMillis()-this.lastHitTime)> 3000 ){
+    synchronized public void getDamaged(int damage) {
+        if ((System.currentTimeMillis() - this.lastHitTime) > 3000) {
             this.hurtfx.play(1, 0.1f);
-            this.lastHitTime=System.currentTimeMillis();
+            this.lastHitTime = System.currentTimeMillis();
 
             System.out.println(System.currentTimeMillis());
 
             this.numHearts -= damage;
-            if(this.numHearts <= 0) {
+            if (this.numHearts <= 0) {
                 this.isDead = true;
                 this.vX = 0;
-                if(!this.deathfx.playing()){
-                    this.deathfx.play(1f,0.1f);
+                if (!this.deathfx.playing()) {
+                    this.deathfx.play(1f, 0.1f);
                 }
             }
         }
     }
 
-   void hideHitbox(Graphics g)
-   {
-        g.setColor(new Color(0,0,0,0));
+    void hideHitbox(Graphics g) {
+        g.setColor(new Color(0, 0, 0, 0));
         g.fill(this.hitbox);
-   }
+    }
 
     /**
      * Resets the number of hearts and the speed of the character
      */
-    public void resetStats(){
+    public void resetStats() {
         this.numVoidHearts = 6;
         this.numHearts = this.numVoidHearts;
         this.gravity = 0.5f;
-        this.rotated=false;
+        this.rotated = false;
         this.rotate(30);
-        this.vY=0;
-        this.vX=0;
-        this.isDead=false;
+        this.vY = 0;
+        this.vX = 0;
+        this.isDead = false;
     }
 
-
-    public void initCommandList(){
+    public void initCommandList() {
         this.commands = this.loadCommands();
-        if(this.commands == null){
+        if (this.commands == null) {
             commands.put("right", Input.KEY_D);
             commands.put("left", Input.KEY_A);
             commands.put("dash", Input.KEY_LSHIFT);
@@ -670,32 +674,32 @@ public class Player implements UpgradeComponent{
         }
     }
 
-
     /**
      * Load the tree level from the file
-     * @return galaxy if the load operation works successfully,
-     * else it returns null
+     *
+     * @return galaxy if the load operation works successfully, else it returns
+     * null
      */
-    public HashMap<String, Integer> loadCommands(){
+    public HashMap<String, Integer> loadCommands() {
         FileInputStream fis = null;
         ObjectInputStream in = null;
-        try{
+        try {
             fis = new FileInputStream("options");
             in = new ObjectInputStream(fis);
-            HashMap<String, Integer> map = (HashMap<String,Integer>) in.readObject();
+            HashMap<String, Integer> map = (HashMap<String, Integer>) in.readObject();
             in.close();
             return map;
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }catch(ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             return null;
         }
     }
 
-    public void setAnimations(Animations animations){
-        try{
+    public void setAnimations(Animations animations) {
+        try {
             animations.createAnimations();
         } catch (SlickException ex) {
             ex.printStackTrace();

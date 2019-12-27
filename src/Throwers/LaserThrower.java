@@ -27,8 +27,10 @@ public class LaserThrower implements Thrower {
     private long offTime;
     private long actualTime;
     private Sound sound;
+    private int difficulty;
 
-    public LaserThrower(float x, float y, int size, int type) throws SlickException {
+    public LaserThrower(float x, float y, int size, int type, int difficulty) throws SlickException {
+        this.difficulty = difficulty;
         this.lastTime = System.currentTimeMillis();
         this.sound = new Sound("./src/sound/lightsaber.wav");
         this.onTime = 2000 + new Random().nextInt(1000);

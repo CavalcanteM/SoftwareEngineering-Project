@@ -1,6 +1,6 @@
 package ShootingEnemy.bullet;
 
-import Entity.Entity;
+
 import ShootingEnemy.ShootingEnemy;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;

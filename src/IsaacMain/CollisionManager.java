@@ -27,7 +27,7 @@ public class CollisionManager implements Mediator {
     private Shape reward, playerHitbox;
     private ArrayList<ShootingEnemy> turrets;
     private ArrayList<StaticDamage> spikes;
-    private ArrayList<Thrower> throwers,lasers;
+    private ArrayList<Thrower> throwers, lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
     private UpgradeDecorator shieldDecorator;
     private long lastUpgrade = 0;
@@ -66,7 +66,7 @@ public class CollisionManager implements Mediator {
     public boolean collidesWith() {
         int i;
         playerHitbox = playerInstance.getPlayer();
-        if(this.shieldDecorator != null && this.shieldDecorator.isUpgradeActive()){
+        if (this.shieldDecorator != null && this.shieldDecorator.isUpgradeActive()) {
             this.shieldDecorator.updateActive();
         }
         if (pts != null) {
@@ -81,9 +81,9 @@ public class CollisionManager implements Mediator {
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 //this.test3 = true;
-                if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
+                if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
                     shieldDecorator.getDamaged(t.doDamage());
-                }else{
+                } else {
                     playerInstance.getDamaged(t.doDamage());
                 }
             }
@@ -95,9 +95,9 @@ public class CollisionManager implements Mediator {
         for (Thrower t : lasers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 //this.test4 = true;
-                if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
+                if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
                     shieldDecorator.getDamaged(t.doDamage());
-                }else{
+                } else {
                     playerInstance.getDamaged(t.doDamage());
                 }
             }
@@ -112,9 +112,9 @@ public class CollisionManager implements Mediator {
                 if (playerHitbox.intersects(spikes.get(i).getHitbox())) {
                     /*this assignment is used in the test of this class and the next linee must be commented*/
                     //test2=true;
-                    if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
+                    if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
                         shieldDecorator.getDamaged(spikes.get(i).doDamage());
-                    }else{
+                    } else {
                         playerInstance.getDamaged(spikes.get(i).doDamage());
                     }
                 }
@@ -131,47 +131,10 @@ public class CollisionManager implements Mediator {
             if ((playerHitbox.intersects(turret.getActivationArea()) || turret.getActivationArea().contains(playerHitbox)) && !playerHitbox.intersects(turret.getHitbox())) {
                 turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
             }
-            if(playerHitbox.intersects(turret.getHitbox()) && turret.isVisible())
+            if (playerHitbox.intersects(turret.getHitbox()) && turret.isVisible()) {
                 return true;
+            }
         }
-
-        if (bulletsList != null) {
-            Shape bulletshape;
-            for (int j = 0; j < turrets.size(); j++) {
-                ArrayList<Bullet> bul = turrets.get(j).getBullet();
-                for (i = 0; i < bul.size(); i++) {
-                    try {
-                        Bullet bullet = bulletsList.get(i);
-                        bulletshape = bullet.getShape();
-
-                        if (bulletshape != null) {
-                            if (playerHitbox.intersects(bulletshape)) {
-                                if(shieldDecorator != null && shieldDecorator.isUpgradeActive()){
-                                    shieldDecorator.getDamaged(bulletsList.get(i).getDamage());
-                                }else{
-                                    playerInstance.getDamaged(bulletsList.get(i).getDamage());
-                                }
-                                bulletsList.remove(bullet);
-                                bullet.remove();
-                            }
-                        } else {
-                            bulletsList.remove(i);
-
-                            if (!turrets.get(i).getBullet().isEmpty()) {
-                                turrets.get(i).removeBullet(bullet);
-                            }
-                        }
-                    } catch (Exception e) {
-
-        //check if the playerHitbox enters the HitboxArea of the turret
-//        if (turrets.size() != 0 && turrets != null) {
-//            for (i = 0; i < turrets.size(); i++) {
-//                if (playerHitbox.intersects(turrets.get(i).getActivationArea()) || turrets.get(i).getActivationArea().contains(playerHitbox)) {
-//                    ShootingEnemy turret = turrets.get(i);
-//                    turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
-//                }
-//            }
-//        }
 
         for (int j = 0; j < turrets.size(); j++) {
             ArrayList<Bullet> bul = turrets.get(j).getBullet();
@@ -190,8 +153,6 @@ public class CollisionManager implements Mediator {
                 }
             }
         }
-
-
 
         return false;
     }
@@ -217,15 +178,15 @@ public class CollisionManager implements Mediator {
      * spawn time of this upgrades and his actiovation
      */
     private void getUpgrade() {
-        if(this.upgrade != null){
+        if (this.upgrade != null) {
             if (playerHitbox.intersects(this.upgrade)) {
 
                 //Activation of powerups and decision on the time that must pass before generating the next powerup
                 lastUpgrade = System.currentTimeMillis();
-                if(power.Powerup() instanceof ShieldDecorator){
+                if (power.Powerup() instanceof ShieldDecorator) {
                     this.shieldDecorator = power.Powerup();
                     this.shieldDecorator.activation();
-                }else{
+                } else {
                     power.Powerup().activation();
                 }
                 this.upgrade = null;
@@ -233,22 +194,21 @@ public class CollisionManager implements Mediator {
                 this.timeBetweenUpgrade = ran.nextInt(10000);
                 power.remove();
             }
-        }else{
-            if(this.lastUpgrade == 0){
+        } else {
+            if (this.lastUpgrade == 0) {
                 //Generation of the first powerup
                 if (power.iterator().hasNext()) {
                     this.upgrade = power.iterator().next().getHitBox();
                 }
-            }else{
+            } else {
                 //Generation of the next powerup
-                if(System.currentTimeMillis() - this.lastUpgrade > this.timeBetweenUpgrade){
+                if (System.currentTimeMillis() - this.lastUpgrade > this.timeBetweenUpgrade) {
                     this.upgrade = power.iterator().next().getHitBox();
                 }
             }
 
         }
     }
-
 
     /**
      * Takes the blocks and the enemies/weapons from the level Invoked when a
@@ -273,8 +233,6 @@ public class CollisionManager implements Mediator {
     public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
         this.shieldDecorator = shieldDecorator;
     }
-
-
 
     /**
      * This method is used only in the test of this class
