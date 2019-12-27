@@ -29,8 +29,10 @@ public class EntityClient {
         
         if("Obj".equals(layerName)){
             et = new ConcreteFactoryBlock();
-        }else{
+        }else if("Rewards".equals(layerName)){
             et = new ConcreteFactoryReward();
+        }else{
+            et = new ConcreteFactoryUpgrade();
         }
                 
         for(y = 0; y < map.getHeight(); y++){

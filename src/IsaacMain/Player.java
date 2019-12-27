@@ -1,5 +1,6 @@
 package IsaacMain;
 
+import IsaacMain.Upgrades.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,7 +18,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class Player {
+public class Player implements UpgradeComponent{
     
     private static Player playerInstance = null;
     private final int LEFT = -1, RIGHT = 1;
@@ -27,7 +28,11 @@ public class Player {
     private int dashValue = 10;
     private Shape hitbox;
     private float vX = 0;
-    private float vY = 0;   
+    private float vY = 0;
+    private float speedUp = 1;
+    private UpgradeDecorator speedUpDecorator;
+    private UpgradeDecorator shieldDecorator;
+    private boolean shield = false;
     private Animation rightAnimation;
     private Animation leftAnimation;
     private Animation idleAnimationRight;
@@ -83,6 +88,7 @@ public class Player {
         return iterations;
     }
 
+    @Override
     public Shape getPlayer() {
         return hitbox;
     }
@@ -103,10 +109,12 @@ public class Player {
         return isPaused;
     }
 
+    @Override
     public int getNumHearts() {
         return numHearts;
     }
 
+    @Override
     public int getNumVoidHearts() {
         return numVoidHearts;
     }
@@ -114,7 +122,7 @@ public class Player {
     public HashMap<String, Integer> getCommands() {
         return commands;
     }
-    
+   
     /*--------------------
      * Setter Methods 
      *--------------------*/
@@ -125,6 +133,12 @@ public class Player {
     public void setGravity(float gravity) {
         this.gravity = gravity;
     }
+
+    @Override
+    public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator) {
+        this.speedUpDecorator = speedUpDecorator;
+    }
+    
     
     public void setIterations(float iterations) {
         this.iterations = iterations;
@@ -145,21 +159,38 @@ public class Player {
     public void setvY(float vY) {    
         this.vY = vY;
     }
+
+    @Override
+    public void setSpeedUp(float speedUp) {
+        this.speedUp = speedUp;
+    }
+    
+    @Override
+    public void setShield(boolean shield){
+        this.shield = shield;
+    }
     
     public void setIsPaused(boolean isPaused) {
         this.isPaused = isPaused;
     }
     
+    @Override
     public void setNumHearts(int numHearts) {
         this.numHearts = numHearts;
     }
     
+    @Override
     public void setNumVoidHearts(int numVoidHearts) {
         this.numVoidHearts = numVoidHearts;
     }
     
     public void setCollisionManager(CollisionManager collision){
         this.collision=collision;
+    }
+    
+    @Override
+    public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
+        this.shieldDecorator = shieldDecorator;
     }
     /*--------------------
      * Other methods 
@@ -170,6 +201,7 @@ public class Player {
      * @param gc
      * @throws SlickException 
      */
+    @Override
     public void init(GameContainer gc) throws SlickException {
         /*
         I used a shrinkage of 1 pixel in both dimentions to avoid that the
@@ -234,6 +266,7 @@ public class Player {
      * @param delta
      * @throws SlickException 
      */
+    @Override
     public void update(GameContainer gc, int delta) throws SlickException {
        
          // Gravity check and change
@@ -253,9 +286,10 @@ public class Player {
         //X collisions
         moveWithCollisionsX();
         
-        
-        
-        
+        //if the speedUpDecorator is active, control if the the activation time is ended.
+        if(this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()){
+            this.speedUpDecorator.updateActive();
+        }
         
         /* Temporary code: used only for graphically testing the damage
         */
@@ -271,6 +305,7 @@ public class Player {
      * @param g
      * @throws SlickException 
      */
+    @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         
         //used to hyde the hitbox
@@ -342,11 +377,15 @@ public class Player {
             } else {
                 this.leftAnimation.stop();
             }
-        }
-        
+        }        
         
         if(this.isChangingGravity) {
             this.rotate(30);
+        }
+        
+        //Rendering of the shield when it's active
+        if(this.shield){
+            this.shieldDecorator.render(gc, g);
         }
         
         this.drawHearts(35, 30);
@@ -373,7 +412,7 @@ public class Player {
     private void moveWithCollisionsX() {
         // X movement collisions
 
-        float vXtemp = vX / iterations;
+        float vXtemp = this.speedUp * (vX / iterations);
 
         for (int t = 0; t < iterations; t++) {
             hitbox.setX(hitbox.getX() + vXtemp);
@@ -389,7 +428,7 @@ public class Player {
      * Called only when the gravity gets changed.
      */
     private void moveAlongY() {
-        float vYtemp = vY / iterations;
+        float vYtemp = speedUp * (vY / iterations);
         
         for (int t = 0; t < iterations; t++) {
             hitbox.setY(hitbox.getY() + vYtemp);
@@ -493,6 +532,7 @@ public class Player {
      * Manages the damage on the character
      * @param damage The number of mid hearts to subtract
      */
+    @Override
     synchronized public void getDamaged(int damage){
         if((System.currentTimeMillis()-this.lastHitTime)> 3000 ){
             this.hurtfx.play(1, 0.1f);
@@ -521,6 +561,7 @@ public class Player {
      * Resets the number of hearts and the speed of the character
      */
     public void resetStats(){
+        this.numVoidHearts = 6;
         this.numHearts = this.numVoidHearts;
         this.gravity = 0.5f;
         this.rotated=false;

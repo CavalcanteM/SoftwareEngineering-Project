@@ -8,6 +8,7 @@ import IsaacMain.StaticEnemyFactory.StaticEnemyList;
 import Entities.Entity.EntityClient;
 import Entities.Turret.ShootingEnemy;
 import IsaacMain.ShootingEnemyFactory.ShootingEnemyList;
+import IsaacMain.Upgrades.*;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -24,7 +25,7 @@ public class Level implements GalaxyComponent{
     private Thrower tr;
     private EntityClient entityClient;
     private ClientThrowersFactory ctf;
-    private ArrayList<Entity> blocks, rewards;
+    private ArrayList<Entity> blocks, rewards, upgrades;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<ShootingEnemy> turrets;
     private ArrayList<Thrower> flameThrowers;
@@ -32,6 +33,7 @@ public class Level implements GalaxyComponent{
     private int score;
     private String name;
     private Points pts;
+    private Powerup up;
     private int index;
     private Graphics g;
     private static final long serialversionUId = 1;
@@ -78,6 +80,10 @@ public class Level implements GalaxyComponent{
         return spikes;
     }
 
+    public Powerup getPowerup(){
+        return up;
+    }
+    
     public Points getPts() {
         return pts;
     }
@@ -95,6 +101,7 @@ public class Level implements GalaxyComponent{
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
+        this.upgrades = entityClient.getEntities("Upgrades");
         this.ctf = new ClientThrowersFactory(this.map);
         this.flameThrowers = ctf.getEntities("Fire");
         this.laserThrowers = ctf.getEntities("Laser");
@@ -102,6 +109,8 @@ public class Level implements GalaxyComponent{
         this.turrets = new ShootingEnemyList(this.map).getList();
         this.pts = new Points(rewards, score);
         this.pts.init();
+        this.up = new Powerup(upgrades);
+        this.up.init();
     }
     
     @Override
@@ -114,7 +123,8 @@ public class Level implements GalaxyComponent{
         }
         for(Thrower t: laserThrowers){
             t.update(delta);
-        }
+        }            
+        
     }
 
     /**
@@ -138,6 +148,11 @@ public class Level implements GalaxyComponent{
         if(pts.iterator().hasNext()){
             pts.render(gc, g);
         }
+        
+        if(upgrades.iterator().hasNext()){
+            up.render(gc, g);
+        }
+        
         for(Thrower t: flameThrowers){
             t.render();
         }
@@ -173,5 +188,4 @@ public class Level implements GalaxyComponent{
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
