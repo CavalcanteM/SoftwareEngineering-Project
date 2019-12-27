@@ -101,7 +101,7 @@ public class Level implements GalaxyComponent{
         this.entityClient = new EntityClient(this.map);
         this.blocks = entityClient.getEntities("Walls");
         this.rewards = entityClient.getEntities("Rewards");
-        this.upgrades = entityClient.getEntities("Upgrades");
+        this.upgrades = entityClient.getEntities("Upgrades");       
         this.ctf = new ClientThrowersFactory(this.map);
         this.flameThrowers = ctf.getEntities("Fire");
         this.laserThrowers = ctf.getEntities("Laser");

@@ -24,7 +24,9 @@ public class EntityClient {
     */
     public ArrayList<Entity> getEntities(String layerName){
         int x, y;
+        
         int layerIndex = this.map.getLayerIndex(layerName);
+        
         ArrayList<Entity> rtl = new ArrayList<>();
         
         if("Obj".equals(layerName)){
