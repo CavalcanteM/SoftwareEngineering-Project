@@ -1,29 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ShootingEnemy;
 
-import ShootingEnemy.ShootingEnemy;
-import ShootingEnemy.ThreeBulletsTurret;
 import ShootingEnemy.Bullet.Bullet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.tiled.TiledMap;
 
-/**
- *
- * @author Adria
- */
 public class HiddenThreeShotTurret implements ShootingEnemy {
 
     private Shape hitboxArea, hitboxturret;
@@ -44,7 +30,6 @@ public class HiddenThreeShotTurret implements ShootingEnemy {
         this.hitboxArea = hitboxArea;
         this.difficulty = difficulty;
     }
-    
     
 
     @Override
