@@ -39,10 +39,9 @@ public class MainMenu extends BasicGameState {
         buttons.add(new Button(50, 150, new ChangeControls(this.getID()), "Settings"));
         buttons.add(new Button(50, 150, new Exit(), "Quit"));
         menu = new Menu(buttons, true);
-//        music = new Sound("./src/sound/mainmenu.wav");
-//        music.play();
+        music = new Sound("./src/sound/mainmenu.wav");
+        music.play();
         menu.init(gc);
-        
     }
 
     @Override
@@ -56,5 +55,6 @@ public class MainMenu extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         menu.update(gc, i, sbg);
+        
     }
 }
