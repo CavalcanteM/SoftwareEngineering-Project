@@ -167,9 +167,7 @@ public class Level implements GalaxyComponent {
             pts.render(gc, g);
         }
 
-        if(up.iterator().hasNext()){
-            up.render(gc, g);
-        }
+        up.render(gc, g);
 
         for(Thrower t: flameThrowers){
             t.render();

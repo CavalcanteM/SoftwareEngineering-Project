@@ -32,6 +32,7 @@ public class CollisionManager implements Mediator {
     private UpgradeDecorator shieldDecorator;
     private long lastUpgrade = 0;
     private long timeBetweenUpgrade;
+    private int i= 0;
     /*This parameters are used only in the test of the class*/
     protected boolean test1 = false;
     protected boolean test2 = false;
@@ -145,7 +146,11 @@ public class CollisionManager implements Mediator {
 
                     if (bulletshape != null) {
                         if (playerHitbox.intersects(bulletshape)) {
-                            playerInstance.getDamaged(bullet.getDamage());
+                            if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
+                                shieldDecorator.getDamaged(bullet.getDamage());
+                            } else {
+                                playerInstance.getDamaged(bullet.getDamage());
+                            }
                             bullet.remove();
                         }
                     }
@@ -202,7 +207,7 @@ public class CollisionManager implements Mediator {
                 }
             } else {
                 //Generation of the next powerup
-                if (System.currentTimeMillis() - this.lastUpgrade > this.timeBetweenUpgrade) {
+                if (power.iterator().hasNext() && System.currentTimeMillis() - this.lastUpgrade > this.timeBetweenUpgrade) {
                     this.upgrade = power.iterator().next().getHitBox();
                 }
             }

@@ -25,7 +25,6 @@ public class Powerup implements Iterable<Entity> {
     
     private final ArrayList<Entity> upgrade;
     private final Random ran;
-    private int nObj;
     private Entity current;
     private Image imm;
     private String string;
@@ -36,7 +35,6 @@ public class Powerup implements Iterable<Entity> {
      */
     public Powerup(ArrayList<Entity> upgrade){
         this.upgrade = upgrade;
-        this.nObj = upgrade.size()+1;
         this.ran = new Random();        
     }
 
@@ -49,7 +47,7 @@ public class Powerup implements Iterable<Entity> {
     }
 
     public int getnObj() {
-        return nObj;
+        return upgrade.size();
     }
     
     /**
@@ -70,7 +68,7 @@ public class Powerup implements Iterable<Entity> {
      * @throws SlickException 
      */
     public void render(GameContainer gc, Graphics g) throws SlickException{
-        if(nObj != 0 && this.current != null){
+        if(this.current != null){
             ShapeRenderer.textureFit(this.current.getHitBox(), imm);
         }
     }
@@ -132,7 +130,7 @@ public class Powerup implements Iterable<Entity> {
         Iterator<Entity> ie = new Iterator<Entity>(){
             @Override
             public boolean hasNext() {
-                return nObj > 0; 
+                return upgrade.size() > 0; 
             }
 
             @Override
@@ -140,19 +138,14 @@ public class Powerup implements Iterable<Entity> {
                 try {
                     chooseUpgrade();
                 } catch (SlickException ex){}
-                nObj--;
                 if(this.hasNext()){
-                    if(current == null){
-                        current = upgrade.remove(ran.nextInt(upgrade.size()));
+                    int i;
+                    if(upgrade.size() == 1){
+                        i = 0;
                     }else{
-                        int i;
-                        if(upgrade.size() == 1){
-                            i = 0;
-                        }else{
-                            i = ran.nextInt(upgrade.size());
-                        }
-                        current = upgrade.remove(i);
+                        i = ran.nextInt(upgrade.size());
                     }
+                    current = upgrade.remove(i);
                 }
                 return current;
             }
