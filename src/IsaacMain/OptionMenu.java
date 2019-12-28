@@ -89,16 +89,17 @@ public class OptionMenu extends BasicGameState implements Serializable{
     public void init(GameContainer gc, StateBasedGame sbg){
         try {
              ObjectInputStream s = new ObjectInputStream(new FileInputStream("options"));   //check se il file esiste
-             options = (HashMap) s.readObject();
+             options = (HashMap<String, Integer>) s.readObject();
         } catch (IOException | ClassNotFoundException ex) {
         }
         if (options == null){
             // se il file non esiste imposto i tasti di default
-            options = new HashMap();
+            options = new HashMap<>();
             options.put("right", Input.KEY_D);
             options.put("left", Input.KEY_A);
             options.put("gravity",Input.KEY_SPACE);
             options.put("dash",Input.KEY_LSHIFT);
+            options.put("skinIndex", 0);
         }
         
         int tempSave = this.ySave;
@@ -122,7 +123,7 @@ public class OptionMenu extends BasicGameState implements Serializable{
             this.skins[2] = new Image("./graphics/jack/Idle (1).png");
             this.skins[3] = new Image("./graphics/ninja/Idle__000.png");
             this.skins[4] = new Image("./graphics/santa/Idle (1).png");
-            this.currentSkinIndex = 0;
+            this.currentSkinIndex = options.get("skinIndex");
             
             // Initializing the Button to change skin on the left
             this.previousSkin = new Button(30, 30, new Command(){
@@ -193,7 +194,7 @@ public class OptionMenu extends BasicGameState implements Serializable{
         g.drawImage(this.skins[OptionMenu.currentSkinIndex].getScaledCopy(300, 300), 451, 201);
         if(this.isChangingSkin){     
             try {
-                Thread.sleep(100);  // Change if the cahnge is too slow
+                Thread.sleep(200);  // Change if the cahnge is too slow
             } catch (InterruptedException ex) {
                 Logger.getLogger(OptionMenu.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -213,6 +214,10 @@ public class OptionMenu extends BasicGameState implements Serializable{
             if (gc.getInput().isMouseButtonDown(0) && posX>this.xSave && posX<(this.xSave+b.getL()) &&
 		gc.getHeight()-posY>saveTemp && gc.getHeight()-posY<(saveTemp+b.getH())){
 		try {
+                    options.replace("skinIndex", currentSkinIndex);
+                    Player.getPlayerInstance().getCommands().replace("skinIndex", currentSkinIndex);
+                    Player.getPlayerInstance().selectAnimations();
+                    Player.getPlayerInstance().getAnimations().createAnimations();
                     FileOutputStream out = new FileOutputStream("options");
                     ObjectOutputStream s = new ObjectOutputStream(out);
                     s.writeObject(options);

@@ -1,2 +1,18 @@
-#001
-The hitbox does not match perfectly with the sprite 
+#001 - Keys management
+Quando il gioco viene messo in pausa, i tasti non vengono disabilitati quindi ad esempio premendo Space, quando ritorniamo 
+al gioco è come se il comando fosse stato comunque preso dal player e quindi viene cambiata la gravità 
+
+#002 - Level reset
+Quando il livello viene resettato non viene resettato il numero di reward e di upgrade che sono presenti nella mappa,
+ciò comporta che se ad esempio ci rimane da prendere un reward e facciamo il restart level, ci basterà prendere un solo reward
+e il livello risulterà completato
+
+#003 - Main menu buttons
+Nel main menu il tasto new Game è falso, in realtà si tratta del tasto Continue Game, infatti quando clicchiamo su questo tasto
+partiamo dall'ultimo livello a cui ci eravamo fermati. Occorre inserire un bottone new game che gestisca effettivamente l'inizio
+di una nuova partita
+
+#004 - Barili
+Attualmente i barili fanno danno, ma non c'è un'animazione di esplosione o cicchessia. Quindi bisogna decidere se eliminare 
+del tutto i barili oppure lasciarli
+ 

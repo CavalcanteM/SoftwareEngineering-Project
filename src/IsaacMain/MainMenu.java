@@ -41,7 +41,7 @@ public class MainMenu extends BasicGameState {
         buttons.add(new Button(50, 150, new Exit(), "Quit"));
         menu = new Menu(buttons, true);
         music = new Sound("./src/sound/mainmenu.wav");
-       // music.play();
+        music.play();
         menu.init(gc);
     }
 

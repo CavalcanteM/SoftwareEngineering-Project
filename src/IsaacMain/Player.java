@@ -118,7 +118,11 @@ public class Player implements UpgradeComponent {
     public HashMap<String, Integer> getCommands() {
         return commands;
     }
-
+    
+    public Animations getAnimations(){
+        return animations;
+    }
+    
     /*--------------------
      * Setter Methods
      *--------------------*/
@@ -213,12 +217,14 @@ public class Player implements UpgradeComponent {
         this.deathfx = new Sound("./src/sound/death.wav");
         this.hurtfx = new Sound("./src/sound/hurt.wav");
         
-        // Initialization of the animations (has to be changed)
-        this.animations = new SantaAnimations(11, 16, 17);
-        this.animations.createAnimations();
-        
         // Loads the current set of commands from a file
         this.initCommandList();
+        
+        // Initialization of the animations (has to be changed)
+        this.selectAnimations();
+        //this.animations = new SantaAnimations(11, 16, 17);
+        this.animations.createAnimations();
+        
         resetStats();
 
     }
@@ -549,10 +555,12 @@ public class Player implements UpgradeComponent {
     public void initCommandList() {
         this.commands = this.loadCommands();
         if (this.commands == null) {
+            commands = new HashMap<>();
             commands.put("right", Input.KEY_D);
             commands.put("left", Input.KEY_A);
             commands.put("dash", Input.KEY_LSHIFT);
             commands.put("gravity", Input.KEY_SPACE);
+            commands.put("skinIndex", 0);
         }
     }
 
@@ -587,5 +595,30 @@ public class Player implements UpgradeComponent {
             ex.printStackTrace();
         }
 
+    }
+    
+    public void selectAnimations(){
+        switch(this.commands.get("skinIndex")){
+            case 0: {
+               this.animations =  new IsaacAnimations(8, 10, 10);
+               break;
+            }
+            case 1: {
+                this.animations = new AdventurerAnimations(10, 10, 10);
+                break;
+            }
+            case 2: {
+                this.animations = new JackLanternAnimations(8, 10, 10);
+                break;
+            }
+            case 3: {
+                this.animations = new NinjaAnimations(10, 10, 10);
+                break;
+            }
+            case 4: {
+                this.animations = new SantaAnimations(11, 16, 17);
+                break;
+            }
+        }
     }
 }
