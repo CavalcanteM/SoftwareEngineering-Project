@@ -138,7 +138,6 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (!gc.isPaused()) {
             level.update(gc, delta);
             player.update(gc, delta);

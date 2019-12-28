@@ -6,7 +6,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class ContinueGame implements Command{
+public class NewGame implements Command{
     
     @Override
     public void execute(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException {
@@ -18,13 +18,15 @@ public class ContinueGame implements Command{
 //        } catch (SlickException ex) {
 //            Logger.getLogger(NewGame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-            sbg.getState(1).init(gc, sbg); 
-            sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());   //enter in state 1 -> game isaac
+//        gc.resume(); 
+//        sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());   //enter in state 1 -> game isaac
           gc.setMusicOn(false);
-
+//        System.out.println("state 1");
             
             
-         
+            sbg.getState(3).init(gc, sbg);
+            sbg.enterState(3,new FadeOutTransition(), new FadeInTransition());
+            System.out.println("state 3");
     }
     
 }

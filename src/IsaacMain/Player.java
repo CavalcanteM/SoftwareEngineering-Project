@@ -21,10 +21,9 @@ import org.newdawn.slick.geom.Shape;
 import skins.*;
 
 public class Player implements UpgradeComponent {
-
     private static Player playerInstance = null;
     private final int LEFT = -1, RIGHT = 1;
-    private float gravity = 0.5f;
+    private float gravity = 0.3f;
     private float speed = 5;
     private float iterations = 20;
     private int dashValue = 10;
@@ -220,6 +219,7 @@ public class Player implements UpgradeComponent {
         
         // Loads the current set of commands from a file
         this.initCommandList();
+        resetStats();
 
     }
 

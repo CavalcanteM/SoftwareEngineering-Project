@@ -34,13 +34,14 @@ public class MainMenu extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         buttons = new ArrayList<Button>();
-        buttons.add(new Button(50, 150, new ContinueGame(), "New Game"));
+        buttons.add(new Button(50, 150, new NewGame(), "New Game"));
+        buttons.add(new Button(50, 150, new ContinueGame(), "Continue Game"));
         //buttons.add(new Button(50, 150, new SelectLevel(), "Select Level"));
         buttons.add(new Button(50, 150, new ChangeControls(this.getID()), "Settings"));
         buttons.add(new Button(50, 150, new Exit(), "Quit"));
         menu = new Menu(buttons, true);
         music = new Sound("./src/sound/mainmenu.wav");
-        music.play();
+       // music.play();
         menu.init(gc);
     }
 
