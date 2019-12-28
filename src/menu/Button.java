@@ -18,7 +18,7 @@ public class Button{
 	private int l;
 	private Command command;
 	private String text;
-
+        
 	/**
 	 * Will initiate a button giving the basic parameters, in this state it is not ready yet
 	 * @param h	Height of the button
@@ -66,4 +66,9 @@ public class Button{
 	public void update(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException{
 		command.execute(gc, delta, sbg);
 	}
+        
+//    public boolean isClicked(int posX, int posY){
+//        if(gc.getInput().isMouseButtonDown(0) && posX>this.xSave && posX<(this.xSave+b.getL()) &&
+//		gc.getHeight()-posY>saveTemp && gc.getHeight()-posY<(saveTemp+b.getH())
+//    }
 }

@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import menu.Back;
 import menu.Button;
+import menu.Command;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -42,8 +43,13 @@ public class OptionMenu extends BasicGameState implements Serializable{
     private ArrayList<Shape> saveShapes;
     private ArrayList<Shape> keyShapes;
     public static int previousState = -1;
+    // Attributes for managing the skin change
     private Image[] skins;
     private static final int NUM_SKINS = 5;
+    private static int currentSkinIndex;
+    private Button nextSkin;
+    private Button previousSkin;
+    private boolean isChangingSkin;
     
     public OptionMenu() {
         ml= new Mylistener();
@@ -110,7 +116,34 @@ public class OptionMenu extends BasicGameState implements Serializable{
         
         // Init del cambio skin
         this.skins = new Image[NUM_SKINS];
-        //this.skins[0] = new Image("./graphics/");
+        try{
+            this.skins[0] = new Image("./graphics/png/Idle (1).png");
+            this.skins[1] = new Image("./graphics/adventurer/Idle__000.png");
+            this.skins[2] = new Image("./graphics/jack/Idle (1).png");
+            this.skins[3] = new Image("./graphics/ninja/Idle__000.png");
+            this.skins[4] = new Image("./graphics/santa/Idle (1).png");
+            this.currentSkinIndex = 0;
+            
+            // Initializing the Button to change skin on the left
+            this.previousSkin = new Button(30, 30, new Command(){
+                
+                public void execute(GameContainer gc, int delta, StateBasedGame sbg){
+                    OptionMenu.currentSkinIndex = ((OptionMenu.currentSkinIndex - 1) + OptionMenu.NUM_SKINS)%OptionMenu.NUM_SKINS;
+                }
+            }, "<");
+            
+            // Initializing the Button to change the skin on the right
+            this.nextSkin = new Button(30, 30, new Command(){
+                
+                public void execute(GameContainer gc, int delta, StateBasedGame sbg){
+                    OptionMenu.currentSkinIndex = ((OptionMenu.currentSkinIndex + 1) + OptionMenu.NUM_SKINS )%OptionMenu.NUM_SKINS;
+                }
+            }, ">");
+            
+        } catch (SlickException ex){
+            ex.printStackTrace();
+        }
+        
     }
     
     
@@ -154,7 +187,18 @@ public class OptionMenu extends BasicGameState implements Serializable{
             saveTemp+=70;
         }
         
-        
+        // Render of the buttons to change skins and the actual skin
+        this.previousSkin.render(gc, g, 400, 400, new Rectangle(400, 400, 30, 30));
+        this.nextSkin.render(gc, g, 800, 400, new Rectangle(800, 400, 30, 30));
+        g.drawImage(this.skins[OptionMenu.currentSkinIndex].getScaledCopy(300, 300), 451, 201);
+        if(this.isChangingSkin){     
+            try {
+                Thread.sleep(100);  // Change if the cahnge is too slow
+            } catch (InterruptedException ex) {
+                Logger.getLogger(OptionMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.isChangingSkin = false;
+        }
     }
 
     @Override
@@ -191,6 +235,23 @@ public class OptionMenu extends BasicGameState implements Serializable{
             }
             keyTemp += 60;
         }
+        
+        if(!isChangingSkin){
+           // Manage the backward change skin 
+            if (gc.getInput().isMouseButtonDown(0) && posX>400 && posX<(400+this.previousSkin.getL()) &&
+                gc.getHeight()-posY>400 && gc.getHeight()-posY<(400+this.previousSkin.getH())){ 
+                this.isChangingSkin = true;
+                this.previousSkin.update(gc, delta, sbg);
+            }
+        
+            // Manage the forward change skin
+            if (gc.getInput().isMouseButtonDown(0) && posX>800 && posX<(800+this.nextSkin.getL()) &&
+                gc.getHeight()-posY>400 && gc.getHeight()-posY<(400+this.nextSkin.getH())){ 
+                this.isChangingSkin = true;
+                this.nextSkin.update(gc, delta, sbg);    
+            } 
+        }
+        
     }
 
     private String getCommandToChange() {

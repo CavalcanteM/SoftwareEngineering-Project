@@ -35,12 +35,6 @@ public class Player implements UpgradeComponent {
     private UpgradeDecorator speedUpDecorator;
     private UpgradeDecorator shieldDecorator;
     private boolean shield = false;
-    private Animation rightAnimation;
-    private Animation leftAnimation;
-    private Animation idleAnimationRight;
-    private Animation idleAnimationLeft;
-    private Animation deathAnimationRight;
-    private Animation deathAnimationLeft;
     private boolean isChangingGravity;
     private boolean rotated = false;
     private static final int WIDTH = 58;
@@ -206,17 +200,21 @@ public class Player implements UpgradeComponent {
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
+        
         /*
-        I used a shrinkage of 1 pixel in both dimentions to avoid that the
-        Hitbox is unable to pass through slight parts of the map.
-        i.e. passing through a 5x2 tile space could have caused problems.
-        The 2 values 30, 720-90, are the spawn point of the character.
+         * I used a shrinkage of 1 pixel in both dimentions to avoid that the
+         * Hitbox is unable to pass through slight parts of the map.
+         * i.e. passing through a 5x2 tile space could have caused problems.
+         * The 2 values 30, 720-90, are the spawn point of the character.
          */
-
         hitbox = new Rectangle(31, gc.getHeight() - 90, 29, 59);
+        
+        // Initialization of the sounds for change gravity, death and hurt
         this.gravityfx = new Sound("./src/sound/change_gravity.wav");
         this.deathfx = new Sound("./src/sound/death.wav");
         this.hurtfx = new Sound("./src/sound/hurt.wav");
+        
+        // Initialization of the animations (has to be changed)
         this.animations = new SantaAnimations(11, 16, 17);
         this.animations.createAnimations();
         
@@ -444,30 +442,13 @@ public class Player implements UpgradeComponent {
     }
 
     /**
-     * Manages the rotation of the character. (Has to be refactored)
+     * Manages the rotation of the character.
      *
      * @param angle the rotation angle
      */
     public void rotate(int angle) {
-
-        // idleAnimationRight.getCurrentFrame().setRotation(180);
-//        for(int i=0; i<10; i++){
-//            Image currentImage = this.animations.getIdleAnimationRight().getImage(i);
-//            /* The character rotates if the gravity is changed but it's 180 rotation
-//             * is not yet completed
-//            */
-//            if((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)){
-//                if()
-//                this.animations.getIdleAnimationRight().getImage(i).rotate(angle);
-//                this.animations.getIdleAnimationLeft().getImage(i).rotate(angle);
-//                this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
-//                this.animations.getDeathAnimationLeft().getImage(i).rotate(angle);
-//                if(i<8){
-//                    this.animations.getRightAnimation().getImage(i).rotate(angle);
-//                    this.animations.getLeftAnimation().getImage(i).rotate(angle);
-//                }
-//            }
-//        }
+        
+        // Rotate the run animations
         for (int i = 0; i < animations.getRunAnimationLength(); i++) {
             Image currentImage = this.animations.getRightAnimation().getImage(i);
             if ((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)) {
@@ -475,7 +456,8 @@ public class Player implements UpgradeComponent {
                 this.animations.getLeftAnimation().getImage(i).rotate(angle);
             }
         }
-
+        
+        // Rotate the idle animations
         for (int i = 0; i < animations.getIdleAnimationLength(); i++) {
             Image currentImage = this.animations.getIdleAnimationRight().getImage(i);
             if ((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)) {
@@ -483,7 +465,8 @@ public class Player implements UpgradeComponent {
                 this.animations.getIdleAnimationLeft().getImage(i).rotate(angle);
             }
         }
-
+        
+        // Rotate the death animations
         for (int i = 0; i < animations.getDeathAnimationLength(); i++) {
             Image currentImage = this.animations.getDeathAnimationRight().getImage(i);
             if ((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)) {

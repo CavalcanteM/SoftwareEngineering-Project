@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="1">
- <tileset firstgid="1" source="TileSet_map.tsx"/>
+<map version="1.2" tiledversion="2019.12.11" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="1">
+ <tileset firstgid="1" source="Tileset_map.tsx"/>
  <layer id="2" name="Background" width="32" height="24">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECsWWwQqEMAxE69XPkVV2///HNgMGgofwig4eQoSOk3ntoV3GGJ+oxdTX8O3qG+u/KFfvZmvNxU19XdzUl+Z06WhOl87FRX1dXNSX5nTpaE6XzsVFfV1c1JfmdOloTpdulkt3le7La5/1Sb2Li/pmjre69nKPOs6q3zTTnfeD/t2aIt7KmSWemfeUtN186qXzzjMnmau2m0+8Kjs9s9Q9yU+yJnftb/PnXtzplWdmH/5mr36BAAwAAA==
