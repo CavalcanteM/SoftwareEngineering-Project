@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package IsaacMain;
+package skins;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
@@ -13,46 +13,10 @@ import org.newdawn.slick.SlickException;
  *
  * @author danya
  */
-public class SantaAnimations implements Animations{
+public class SantaAnimations extends BasicAnimations{
     
-    private Animation rightAnimation;
-    private Animation leftAnimation;
-    private Animation idleAnimationRight;
-    private Animation idleAnimationLeft;
-    private Animation deathAnimationRight;
-    private Animation deathAnimationLeft;
-    public static final int RUN_ANIMATION_LENGTH = 11;
-    public static final int IDLE_ANIMATION_LENGTH = 16;
-    public static final int DEATH_ANIMATION_LENGTH = 17;
-    
-    @Override
-    public Animation getRightAnimation() {
-        return rightAnimation;
-    }
-    
-    @Override
-    public Animation getLeftAnimation() {
-        return leftAnimation;
-    }
-    
-    @Override
-    public Animation getIdleAnimationRight() {
-        return idleAnimationRight;
-    }
-    
-    @Override
-    public Animation getIdleAnimationLeft() {
-        return idleAnimationLeft;
-    }
-    
-    @Override
-    public Animation getDeathAnimationRight() {
-        return deathAnimationRight;
-    }
-    
-    @Override
-    public Animation getDeathAnimationLeft() {
-        return deathAnimationLeft;
+    public SantaAnimations(int runAnimationLength, int idleAnimationLength, int deathAnimationLength){
+        super(runAnimationLength, idleAnimationLength, deathAnimationLength);
     }
     
     @Override
@@ -99,23 +63,4 @@ public class SantaAnimations implements Animations{
             this.deathAnimationLeft.addFrame(frames[i], 60);
         }
     }
-
-    @Override
-    public int getRunAnimationLength() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return this.RUN_ANIMATION_LENGTH;
-    }
-
-    @Override
-    public int getIdleAnimationLength() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return this.IDLE_ANIMATION_LENGTH;
-    }
-
-    @Override
-    public int getDeathAnimationLength() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return this.DEATH_ANIMATION_LENGTH;
-    }
-    
 }

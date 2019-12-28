@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2019.12.11" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="1">
+<map version="1.2" tiledversion="2019.12.11" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="1">
  <tileset firstgid="1" source="Tileset_map.tsx"/>
  <layer id="2" name="Background" width="32" height="24">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECuVW2wqAMAjdfikq6v9/LM+DMCRRaVrQg5jNzsUFW2+trRT9pXwQ70kxO2+EuQ9xV4M3y/dC2FZg7rN9M57FjfU/+ee5yJy1/15cqae69urM6qv2K/myfHlxpZ7q2qszq6/ar+TL8uXFlXqqa6/OrL4Zd48n9wd8O94NxmfvXmA2HPAT8YRe7ayOzBxaWW9kHujV+BnPyqP3iGaelcYfwbI0autf8B/xqf1bmj/r/QXFpZvFAAwAAA==
+  </data>
+ </layer>
+ <layer id="11" name="Upgrades" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGAWjITAaAqMhMLxDQHyIeW+ouXeIBe+oc0dDYDQERkOAriEwGMt0AIxpsJ8ADAAA
   </data>
  </layer>
  <layer id="9" name="Turrets" width="32" height="24">

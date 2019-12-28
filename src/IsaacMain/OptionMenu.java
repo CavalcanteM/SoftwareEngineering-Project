@@ -11,6 +11,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -41,6 +42,8 @@ public class OptionMenu extends BasicGameState implements Serializable{
     private ArrayList<Shape> saveShapes;
     private ArrayList<Shape> keyShapes;
     public static int previousState = -1;
+    private Image[] skins;
+    private static final int NUM_SKINS = 5;
     
     public OptionMenu() {
         ml= new Mylistener();
@@ -104,7 +107,11 @@ public class OptionMenu extends BasicGameState implements Serializable{
 	}
         
         this.aggiornavalori();
-        }
+        
+        // Init del cambio skin
+        this.skins = new Image[NUM_SKINS];
+        //this.skins[0] = new Image("./graphics/");
+    }
     
     
     
@@ -114,16 +121,18 @@ public class OptionMenu extends BasicGameState implements Serializable{
         //dovrebbe essere richiamato quando premo sul tasto associato ad un movimento passando come parametro l'attuale key e che lo modifica con un Input.getKey pressed tipo
         
     }
+    
     protected void aggiornavalori(){
         move = "";
         keys = "";
-    for(String s : options.keySet()){
+        for(String s : options.keySet()){
         
-        move +=  s + "\n\n\n";      // stringa dei movimenti "left,right...."
+            move +=  s + "\n\n\n";      // stringa dei movimenti "left,right...."
             
             keys += (Input.getKeyName(options.get(s))) + "\n\n\n"; //questo keys contiene il tasto attuale assegnato al movimento
                 //keys è solo per una stampa attuale a schermo
-            }}
+        }
+    }
     
     
     @Override
@@ -144,6 +153,8 @@ public class OptionMenu extends BasicGameState implements Serializable{
             saveButtons.get(i).render(gc, g,xSave, saveTemp, saveShapes.get(i));
             saveTemp+=70;
         }
+        
+        
     }
 
     @Override

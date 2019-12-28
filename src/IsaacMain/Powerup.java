@@ -8,8 +8,6 @@ import Entity.Entity;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -134,7 +132,7 @@ public class Powerup implements Iterable<Entity> {
         Iterator<Entity> ie = new Iterator<Entity>(){
             @Override
             public boolean hasNext() {
-                return nObj > 0;
+                return nObj > 0; 
             }
 
             @Override

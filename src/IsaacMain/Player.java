@@ -18,6 +18,7 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import skins.*;
 
 public class Player implements UpgradeComponent {
 
@@ -213,53 +214,12 @@ public class Player implements UpgradeComponent {
          */
 
         hitbox = new Rectangle(31, gc.getHeight() - 90, 29, 59);
-        this.animations = new SantaAnimations();
-        this.animations.createAnimations();
-        /*
-        // Create the animations for character moving on both the right and the left
-        Image[] frames = new Image[8];
-        this.rightAnimation = new Animation();
-        this.leftAnimation =  new Animation();
         this.gravityfx = new Sound("./src/sound/change_gravity.wav");
         this.deathfx = new Sound("./src/sound/death.wav");
         this.hurtfx = new Sound("./src/sound/hurt.wav");
-        for(int i=0; i<frames.length; i++)
-        {
-            // Adding current image to animation for moving to the right
-            frames[i] = new Image("./graphics/png/Run (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
-            this.rightAnimation.addFrame(frames[i], 60);
-            // Flip and add current image to animation for moving to the left
-            frames[i] = frames[i].getFlippedCopy(true, false);
-            this.leftAnimation.addFrame(frames[i], 60);
-        }
-
-        // Create the animations for character not moving (idle animation)
-        frames = new Image[10];
-        this.idleAnimationRight = new Animation();
-        this.idleAnimationLeft =  new Animation();
-        for(int i=0; i<frames.length; i++)
-        {
-            // Adding current image to animation idle looking to the right
-            frames[i] = new Image("./graphics/png/Idle (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
-            this.idleAnimationRight.addFrame(frames[i], 60);
-            // Flip and add current image to the animation idle looking to the left
-            frames[i] = frames[i].getFlippedCopy(true, false);
-            this.idleAnimationLeft.addFrame(frames[i], 60);
-        }
-
-        // Create the animation for the character dying
-        this.deathAnimationRight = new Animation();
-        this.deathAnimationLeft =  new Animation();
-        for(int i = 0; i < frames.length; i++)
-        {
-            // Adding current image to animation death falling to the right
-            frames[i] = new Image("./graphics/png/Dead (" + (i+1) + ").png").getScaledCopy(WIDTH, HEIGHT);
-            this.deathAnimationRight.addFrame(frames[i], 60);
-            // Flip and add current image to the animation death falling to the left
-            frames[i] = frames[i].getFlippedCopy(true, false);
-            this.deathAnimationLeft.addFrame(frames[i], 60);
-        }
-         */ 
+        this.animations = new SantaAnimations(11, 16, 17);
+        this.animations.createAnimations();
+        
         // Loads the current set of commands from a file
         this.initCommandList();
 
@@ -323,67 +283,6 @@ public class Player implements UpgradeComponent {
         float X = this.hitbox.getMinX() - 14;
         float Y = this.hitbox.getMinY() - 5;
 
-//        if(this.vX ==0){//The character doesn't move
-//            if((isMovingRight && !rotated) || (!isMovingRight && rotated)){
-//                if(isPaused){
-//                    this.idleAnimationRight.draw(X,Y);
-//                    this.idleAnimationRight.stop();
-//                }else{
-//                    if(isDead && !this.deathAnimationRight.isStopped()){ // You can't die when the game is in pause
-//                        this.deathAnimationRight.draw(X, Y);
-//                        this.deathAnimationRight.stopAt(this.deathAnimationRight.getFrameCount()-1);
-//                        this.deathAnimationRight.start();
-//                    } else {
-//                        /* The +2 and -2 are used to make the idle in left and
-//                           right position match the position of the center axis
-//                           if the character. That's caused by a misallignement of
-//                           the character in the sprite.*/
-//                        if(isMovingRight){
-//                            this.idleAnimationRight.draw(X+2,Y);
-//                        }else{
-//                            this.idleAnimationRight.draw(X-2,Y);
-//                        }
-//                        this.idleAnimationRight.start();
-//                    }
-//                }
-//            }else{
-//                if(isPaused){
-//                    this.idleAnimationLeft.draw(X,Y);
-//                    this.idleAnimationLeft.stop();
-//                }else{
-//                    if(isDead && !this.deathAnimationLeft.isStopped()){ // You can't die when the game is in pause
-//                        this.deathAnimationLeft.draw(X, Y);
-//                        this.deathAnimationLeft.stopAt(this.deathAnimationLeft.getFrameCount()-1);
-//                        this.deathAnimationLeft.start();
-//                    } else {
-//                        if(isMovingRight){
-//                            this.idleAnimationLeft.draw(X+2,Y);
-//                        }else{
-//                            this.idleAnimationLeft.draw(X-2,Y);
-//                        }
-//                        this.idleAnimationLeft.start();
-//                    }
-//                }
-//            }
-//        }
-//
-//        if((this.vX > 0 && !rotated) || (this.vX < 0 && rotated)) {
-//            this.rightAnimation.draw(X, Y);
-//            if(!isPaused){
-//                this.rightAnimation.start();
-//            } else {
-//                this.rightAnimation.stop();
-//            }
-//        }
-//
-//        if((this.vX > 0 && rotated) || (this.vX < 0 && !rotated)) {
-//            this.leftAnimation.draw(X, Y);
-//            if(!isPaused){
-//                this.leftAnimation.start();
-//            } else {
-//                this.leftAnimation.stop();
-//            }
-//        }
         if (this.vX == 0) {//The character doesn't move
             if ((isMovingRight && !rotated) || (!isMovingRight && rotated)) {
                 if (isPaused) {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package IsaacMain;
+package skins;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
@@ -13,8 +13,6 @@ import org.newdawn.slick.SlickException;
  * @author danya
  */
 public interface Animations {
-    
-    public static final int WIDTH = 58, HEIGHT = 70;
     
     public Animation getRightAnimation();
 

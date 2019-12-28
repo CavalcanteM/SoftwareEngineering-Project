@@ -167,7 +167,7 @@ public class Level implements GalaxyComponent {
             pts.render(gc, g);
         }
 
-        if(upgrades.iterator().hasNext()){
+        if(up.iterator().hasNext()){
             up.render(gc, g);
         }
 
