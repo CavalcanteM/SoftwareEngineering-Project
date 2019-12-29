@@ -66,7 +66,7 @@ public class NextLevel implements Command{
 		gs.getLevel().init(gc);
 		Player.getPlayerInstance().resetStats();
 		Player.getPlayerInstance().init(gc);
-
+                gc.setMusicOn(false);
 		gs.getCollisionManager().setParameters(gs.getLevel());
 		gc.resume();
 	}
