@@ -31,7 +31,7 @@ public class OptionMenu extends BasicGameState implements Serializable{
     final private int lKey = 70;
     
     private HashMap <String,Integer> options;
-    private Integer volume=9;
+    private Integer volume;
     private String move;
     private String keys;
     private String commandToChange;

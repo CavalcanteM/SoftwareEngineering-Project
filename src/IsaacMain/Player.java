@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import static java.lang.Math.signum;
 import java.util.HashMap;
-import org.newdawn.slick.Animation;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -41,6 +44,7 @@ public class Player implements UpgradeComponent {
     private boolean isPaused;
     private boolean isMovingRight = true;
     private boolean isDead;
+    private boolean appear=true;
     private int numHearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
     private CollisionManager collision;
@@ -105,6 +109,15 @@ public class Player implements UpgradeComponent {
         return isPaused;
     }
 
+    public boolean isAppear() {
+        return appear;
+    }
+
+    public long getLastHitTime() {
+        return lastHitTime;
+    }
+    
+    
     @Override
     public int getNumHearts() {
         return numHearts;
@@ -280,7 +293,6 @@ public class Player implements UpgradeComponent {
          */
         float X = this.hitbox.getMinX() - 14;
         float Y = this.hitbox.getMinY() - 5;
-
         if (this.vX == 0) {//The character doesn't move
             if ((isMovingRight && !rotated) || (!isMovingRight && rotated)) {
                 if (isPaused) {
@@ -511,18 +523,20 @@ public class Player implements UpgradeComponent {
     @Override
     synchronized public void getDamaged(int damage) {
         if ((System.currentTimeMillis() - this.lastHitTime) > 3000) {
-            this.hurtfx.play(1, 0.1f);
+            
             this.lastHitTime = System.currentTimeMillis();
-
             System.out.println(System.currentTimeMillis());
-
             this.numHearts -= damage;
             if (this.numHearts <= 0) {
                 this.isDead = true;
                 this.vX = 0;
                 if (!this.deathfx.playing()) {
-                    this.deathfx.play(1f, 0.1f);
+                    this.deathfx.play(1f, 0.2f);
                 }
+            }
+            else{
+                this.hurtfx.play(1, 0.1f);
+                this.blink();
             }
         }
     }
@@ -588,4 +602,11 @@ public class Player implements UpgradeComponent {
         }
 
     }
-}
+    
+    public void blink(){
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        final ScheduledFuture<?> blinkHandle;
+        blinkHandle = scheduler.scheduleAtFixedRate(() -> {this.appear=!this.appear;}, 0, 200, TimeUnit.MILLISECONDS);
+        scheduler.schedule(() -> {blinkHandle.cancel(true); this.appear=true;}, 2900, TimeUnit.MILLISECONDS);
+    }
+ }
