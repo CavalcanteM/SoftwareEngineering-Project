@@ -15,6 +15,8 @@ import org.newdawn.slick.SlickException;
  */
 public class IsaacAnimations extends BasicAnimations{
     
+    private final int WIDTH = 58, HEIGHT = 70;
+    
     public IsaacAnimations(int runAnimationLength, int idleAnimationLength, int deathAnimationLength){
         super(runAnimationLength, idleAnimationLength, deathAnimationLength);
     }

@@ -15,6 +15,8 @@ import org.newdawn.slick.SlickException;
  */
 public class NinjaAnimations extends BasicAnimations{
     
+    private final int WIDTH = 58, HEIGHT = 70;
+    
     public NinjaAnimations(int runAnimationLength, int idleAnimationLength, int deathAnimationLength){
         super(runAnimationLength, idleAnimationLength, deathAnimationLength);
     }

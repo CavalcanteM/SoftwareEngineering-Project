@@ -14,7 +14,6 @@ import org.newdawn.slick.SlickException;
  */
 public abstract class BasicAnimations implements Animations{
     
-    public static final int WIDTH = 58, HEIGHT = 70;
     protected Animation rightAnimation;
     protected Animation leftAnimation;
     protected Animation idleAnimationRight;
