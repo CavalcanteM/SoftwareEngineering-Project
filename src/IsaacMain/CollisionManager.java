@@ -170,8 +170,7 @@ public class CollisionManager implements Mediator {
         if (playerHitbox.intersects(this.reward)) {
             /*This assignment is used for the test of this class*/
             //test1=true;
-            pts.getSound().play(1f, 0.5f);
-            System.out.println("\n ciao \n");
+            pts.getSound().play(1f, 0.1f);
             if (pts.iterator().hasNext()) {
                 this.reward = pts.iterator().next().getHitBox();
             }
