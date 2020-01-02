@@ -48,7 +48,7 @@ public class Tutorial extends BasicGameState {
                 img = new Image("./graphics/tutorial/Image_" + index + ".jpg");
 
             } else {
-                sbg.enterState(1);
+                sbg.enterState(4);
             }
         }
 

@@ -11,6 +11,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -18,6 +19,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.KeyListener;
+import org.newdawn.slick.MouseListener;
 
 public class OptionMenu extends BasicGameState implements Serializable{
     
@@ -29,22 +31,27 @@ public class OptionMenu extends BasicGameState implements Serializable{
     final private int yKey = 100;
     final private int hKey = 30;
     final private int lKey = 70;
+    final private int xVolume = 325;
+    final private int yVolume = 350;
+    final private int offsetVolumeX = 55;
     
     private HashMap <String,Integer> options;
-    private Integer volume=9;
+    private Integer volume;
     private String move;
     private String keys;
     private String commandToChange;
     private Button saveBack;
     private Button saveContinue;
     private Mylistener ml;
+    private Image frecciaDx;
+    private Image frecciaSx;
     
     private ArrayList<Button> saveButtons;
     private ArrayList<Shape> saveShapes;
     private ArrayList<Shape> keyShapes;
     public static int previousState = -1;
     
-    public OptionMenu() {
+    public OptionMenu() throws SlickException {
         ml= new Mylistener();
         saveButtons = new ArrayList<>();
         saveShapes = new ArrayList<>();
@@ -60,6 +67,8 @@ public class OptionMenu extends BasicGameState implements Serializable{
         //aggiungo i tasti save alla lista per la stampa
         saveButtons.add(saveBack);
         //saveButtons.add(saveContinue);
+        frecciaDx = new Image("./src/graphics/png/freccia.png");
+        frecciaSx = frecciaDx.getFlippedCopy(true,false);
         
         
         //PER QUANTO RIGUARDA I KEYS
@@ -111,8 +120,9 @@ public class OptionMenu extends BasicGameState implements Serializable{
         this.aggiornavalori();
         }
     
-    public void setMusic(int newVolume){
-        volume = newVolume;
+    public void setMusic(int i){
+        if (volume+i<=10 && volume+i>=0)
+        volume += i;
     }
     
     public void setValue(String s,Integer newKey){
@@ -153,6 +163,8 @@ public class OptionMenu extends BasicGameState implements Serializable{
         g.setColor(Color.white);
         g.drawString("Volume (0-9)", 100, 350);
         g.drawString(volume.toString(), 330, 345);
+        g.drawImage(frecciaDx, xVolume + offsetVolumeX, yVolume);
+        g.drawImage(frecciaSx, xVolume - offsetVolumeX, yVolume);
     }
 
     @Override
@@ -198,10 +210,24 @@ public class OptionMenu extends BasicGameState implements Serializable{
             keyTemp += 60;
         }
         //CHECK SE IL MOUSE è SUL VOLUME BUTTON
-        if (gc.getInput().isMouseButtonDown(0) && posX>this.xKey && posX<(this.xKey+lKey) &&
-		gc.getHeight()-posY>350 && gc.getHeight()-posY<(380)){
-            gc.getInput().addKeyListener(new VolumeListener());
+       // if (gc.getInput().isMouseButtonDown(0) && posX>this.xKey && posX<(this.xKey+lKey) &&
+	//	gc.getHeight()-posY>350 && gc.getHeight()-posY<(380)){
+       //     gc.getInput().addKeyListener(new VolumeListener());
+       // }
+       //
+        if (gc.getInput().isMouseButtonDown(0) && posX>this.xVolume+offsetVolumeX && posX<(this.xVolume+offsetVolumeX+frecciaDx.getWidth()) &&
+                gc.getHeight()-posY>yVolume && gc.getHeight()-posY<(yVolume + frecciaDx.getHeight())){
+                if(gc.getInput().isMousePressed(0))
+                    setMusic(+1);
         }
+        
+        if (gc.getInput().isMouseButtonDown(0) && posX>this.xVolume-offsetVolumeX && posX<(this.xVolume-offsetVolumeX+frecciaSx.getWidth()) &&
+                gc.getHeight()-posY>yVolume && gc.getHeight()-posY<(yVolume + frecciaSx.getHeight())){
+                //gc.getInput().addMouseListener(new VolumeListener());
+                if(gc.getInput().isMousePressed(0))
+                setMusic(-1);
+        }
+        
         
     }
 
@@ -246,16 +272,17 @@ public class OptionMenu extends BasicGameState implements Serializable{
         
         
     }
-    
-    private class VolumeListener implements KeyListener {
-        
+}
+    /*
+    private class VolumeListener implements MouseListener {
+        /*
         @Override
         public void keyPressed(int i, char c) {
                 if(i > 1 && i< 12){
-                    if(i == 11)
-                        OptionMenu.this.setMusic(i-11);
-                    else
-                        OptionMenu.this.setMusic(i-1);
+                    //if(i == 11)
+                       // OptionMenu.this.setMusic(i-11);
+                    //else
+                        //OptionMenu.this.setMusic(i-1);
                 }
             
         }
@@ -285,9 +312,39 @@ public class OptionMenu extends BasicGameState implements Serializable{
         public void inputStarted() {
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
+
+        @Override
+        public void mouseWheelMoved(int i) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mouseClicked(int i, int i1, int i2, int i3) {
+           //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mousePressed(int i, int i1, int i2) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mouseReleased(int i, int i1, int i2) {
+             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mouseMoved(int i, int i1, int i2, int i3) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mouseDragged(int i, int i1, int i2, int i3) {
+           // hrow new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
         
         
     }
     
 }
-
+*/
