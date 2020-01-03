@@ -160,4 +160,14 @@ public abstract class BasicAnimations implements Animations{
      * @return 
      */
     public abstract Image setIdleAnimationFrame(int index) throws SlickException;
+    
+    /**
+     * Allows to change the dimensions set in the constructor
+     * @param newWidth
+     * @param newHeight 
+     */
+    public void setDimensions(int newWidth, int newHeight){
+        this.WIDTH = newWidth;
+        this.HEIGHT = newHeight;
+    }
 }

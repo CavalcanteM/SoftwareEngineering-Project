@@ -46,6 +46,7 @@ public class AdventurerAnimations extends BasicAnimations {
      */
     @Override
     public Image setDeathAnimationFrame(int index) throws SlickException{
+        super.setDimensions(68, 70);
         return new Image("./graphics/adventurer/Dead__00" + index + ".png");
     }
     

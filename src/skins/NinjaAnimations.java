@@ -38,7 +38,7 @@ public class NinjaAnimations extends BasicAnimations{
      */
     @Override
     public Image setIdleAnimationFrame(int index) throws SlickException {
-        this.setDimensions(37, 70);
+        super.setDimensions(37, 70);
         return new Image("./graphics/ninja/Idle__00" + index + ".png");
     }
     
@@ -52,14 +52,5 @@ public class NinjaAnimations extends BasicAnimations{
     public Image setDeathAnimationFrame(int index) throws SlickException {
         return new Image("./graphics/ninja/Dead__00" + index + ".png");
     }
-    
-    /**
-     * 
-     * @param newWidth
-     * @param newHeight 
-     */
-    private void setDimensions(int newWidth, int newHeight){
-        super.WIDTH = newWidth;
-        super.HEIGHT = newHeight;
-    }
+   
 }
