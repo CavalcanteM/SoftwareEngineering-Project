@@ -57,12 +57,12 @@ public class CollisionManagerTest {
         pts = new Points(points,3);
         reward = points.get(0).getHitBox();
         spikes = new ArrayList<StaticDamage>();
-        spikes.add(new HalfHeartSpike(329,300));
+//        spikes.add(new HalfHeartSpike(329,300));
         blocks = new ArrayList<Entity>();
         blocks.add(new Block(449,400));
         t = new ArrayList<Thrower>();
-        t.add(new LaserThrower(700,779,2,1));
-        t.add(new FlameThrower(900,979,2,1));
+//        t.add(new LaserThrower(700,779,2,1));
+//        t.add(new FlameThrower(900,9479,2,1));
     }
 
     @After

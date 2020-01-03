@@ -1,5 +1,10 @@
 package IsaacMain;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Saves implements Serializable{
@@ -14,7 +19,7 @@ public class Saves implements Serializable{
 	
 	public Saves(){
 		this.lastWorld = 0;
-		this.lastLevel = 1;
+		this.lastLevel = 0;
 	}
 
 	public int getLastWorld() {
@@ -32,4 +37,35 @@ public class Saves implements Serializable{
 	public void setLastLevel(int lastLevel) {
 		this.lastLevel = lastLevel;
 	}
+	
+	public void saveProgress(){
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        try{
+            fos = new FileOutputStream("save.txt");
+            out = new ObjectOutputStream(fos);
+            out.writeObject(this);
+			out.flush();
+            out.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+	
+	public Saves loadProgress(){
+        FileInputStream fis = null;
+        ObjectInputStream in = null;
+		Saves saves;
+        try{
+            fis = new FileInputStream("save.txt");
+            in = new ObjectInputStream(fis);
+            saves = (Saves) in.readObject();
+            in.close();
+        }catch(IOException | ClassNotFoundException e){
+            saves = new Saves();
+			saves.setLastLevel(0);
+			saves.setLastWorld(0);
+        }
+		return saves;
+    }
 }
