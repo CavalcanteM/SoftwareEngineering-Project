@@ -49,14 +49,16 @@ public class NextLevel implements Command{
 				//Game complete da modificare
 				gc.exit();
 			} else {
+                            
 				actualWorld++;
-				actualLevel = 1;
+				actualLevel = 0;
 				saves.setLastWorld(actualWorld);
 				saves.setLastLevel(actualLevel);
+                                
 			}
 		} else {
 			actualLevel++;
-			saves.setLastWorld(actualLevel);
+			saves.setLastLevel(actualLevel);
 		}
 		saveProgress();
 		System.out.println("Mondo: "+saves.getLastWorld()+" - Livello: "+saves.getLastLevel());
@@ -69,6 +71,7 @@ public class NextLevel implements Command{
                 gc.setMusicOn(false);
 		gs.getCollisionManager().setParameters(gs.getLevel());
 		gc.resume();
+                sbg.enterState(4);
 	}
 
 }
