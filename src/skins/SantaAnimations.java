@@ -38,7 +38,7 @@ public class SantaAnimations extends BasicAnimations{
      */
     @Override
     public Image setIdleAnimationFrame(int index) throws SlickException {
-        return new Image("./graphics/santa/Dead (" + (index+1) + ").png");
+        return new Image("./graphics/santa/Idle (" + (index+1) + ").png");
     }
     
     /**
@@ -49,6 +49,6 @@ public class SantaAnimations extends BasicAnimations{
      */
     @Override
     public Image setDeathAnimationFrame(int index) throws SlickException {
-        return new Image("./graphics/santa/Idle (" + (index+1) + ").png");
+        return new Image("./graphics/santa/Dead (" + (index+1) + ").png");
     }
 }

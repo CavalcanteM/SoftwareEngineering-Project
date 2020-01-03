@@ -613,7 +613,7 @@ public class Player implements UpgradeComponent {
                 break;
             }
             case 4: {
-                this.animations = new SantaAnimations(120, 70, 11, 16, 17);
+                this.animations = new SantaAnimations(105, 70, 11, 16, 17);
                 break;
             }
         }
