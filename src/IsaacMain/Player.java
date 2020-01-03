@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import static java.lang.Math.signum;
 import java.util.HashMap;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -36,8 +35,6 @@ public class Player implements UpgradeComponent {
     private boolean shield = false;
     private boolean isChangingGravity;
     private boolean rotated = false;
-    private static final int WIDTH = 58;
-    private static final int HEIGHT = 70;
     private boolean isPaused;
     private boolean isMovingRight = true;
     private boolean isDead;
@@ -49,7 +46,7 @@ public class Player implements UpgradeComponent {
     private Sound gravityfx;
     private Sound deathfx;
     private Sound hurtfx;
-    private Animations animations; // Strategy pattern
+    private Animations animations;
 
     private Player() {
     }
@@ -600,23 +597,23 @@ public class Player implements UpgradeComponent {
     public void selectAnimations(){
         switch(this.commands.get("skinIndex")){
             case 0: {
-               this.animations =  new IsaacAnimations(8, 10, 10);
+               this.animations =  new IsaacAnimations(58, 70, 8, 10, 10);
                break;
             }
             case 1: {
-                this.animations = new AdventurerAnimations(10, 10, 10);
+                this.animations = new AdventurerAnimations(46, 70, 10, 10, 10);
                 break;
             }
             case 2: {
-                this.animations = new JackLanternAnimations(8, 10, 10);
+                this.animations = new JackLanternAnimations(53, 70, 8, 10, 10);
                 break;
             }
             case 3: {
-                this.animations = new NinjaAnimations(10, 10, 10);
+                this.animations = new NinjaAnimations(55, 70, 10, 10, 10);
                 break;
             }
             case 4: {
-                this.animations = new SantaAnimations(11, 16, 17);
+                this.animations = new SantaAnimations(120, 70, 11, 16, 17);
                 break;
             }
         }

@@ -6,6 +6,7 @@
 package skins;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -23,11 +24,23 @@ public abstract class BasicAnimations implements Animations{
     public final int RUN_ANIMATION_LENGTH;
     public final int IDLE_ANIMATION_LENGTH;
     public final int DEATH_ANIMATION_LENGTH;
+    public int WIDTH;
+    public int HEIGHT;
     
-    public BasicAnimations(int runAnimationLength, int idleAnimationLength, int deathAnimationLength){
+    /**
+     * Constructor of class Basic Animations
+     * @param width the width of the hitbox in pixels
+     * @param height the height of the hitbox in pixels
+     * @param runAnimationLength number of frames of run animation
+     * @param idleAnimationLength number of frames of idle animation
+     * @param deathAnimationLength number of frames of death animation
+     */
+    public BasicAnimations(int width, int height, int runAnimationLength, int idleAnimationLength, int deathAnimationLength){
         this.RUN_ANIMATION_LENGTH = runAnimationLength;
         this.IDLE_ANIMATION_LENGTH = idleAnimationLength;
         this.DEATH_ANIMATION_LENGTH = deathAnimationLength;
+        this.WIDTH = width;
+        this.HEIGHT = height;
     }
     
     @Override
@@ -80,5 +93,71 @@ public abstract class BasicAnimations implements Animations{
      * @throws SlickException
      */
     @Override
-    public abstract void createAnimations() throws SlickException;
+    public void createAnimations() throws SlickException {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Image[] frames = new Image[RUN_ANIMATION_LENGTH];
+        rightAnimation = new Animation(); 
+        leftAnimation =  new Animation();
+        for(int i=0; i<frames.length; i++)
+        {
+            // Adding current image to animation for moving to the right
+            frames[i] = this.setRunAnimationFrame(i).getScaledCopy(WIDTH, HEIGHT);;
+            rightAnimation.addFrame(frames[i], 60);
+            // Flip and add current image to animation for moving to the left
+            frames[i] = frames[i].getFlippedCopy(true, false);
+            leftAnimation.addFrame(frames[i], 60);
+        }
+        
+        // Create the animations for character not moving (idle animation)
+        frames = new Image[IDLE_ANIMATION_LENGTH];
+        idleAnimationRight = new Animation();
+        idleAnimationLeft =  new Animation();
+        for(int i=0; i<frames.length; i++) 
+        {
+            // Adding current image to animation idle looking to the right
+            frames[i] = this.setIdleAnimationFrame(i).getScaledCopy(WIDTH, HEIGHT);
+            idleAnimationRight.addFrame(frames[i], 60);
+            // Flip and add current image to the animation idle looking to the left
+            frames[i] = frames[i].getFlippedCopy(true, false);
+            idleAnimationLeft.addFrame(frames[i], 60);
+        }
+        
+        // Create the animation for the character dying
+        frames = new Image[DEATH_ANIMATION_LENGTH];
+        deathAnimationRight = new Animation();
+        deathAnimationLeft =  new Animation();
+        for(int i = 0; i < frames.length; i++)
+        {
+            // Adding current image to animation death falling to the right
+            frames[i] = this.setDeathAnimationFrame(i).getScaledCopy(WIDTH, HEIGHT);
+            deathAnimationRight.addFrame(frames[i], 60);
+            // Flip and add current image to the animation death falling to the left
+            frames[i] = frames[i].getFlippedCopy(true, false);
+            deathAnimationLeft.addFrame(frames[i], 60);
+        }
+    }
+    
+    /**
+     * 
+     * @param index
+     * @return 
+     * @throws org.newdawn.slick.SlickException 
+     */
+    public abstract Image setRunAnimationFrame(int index) throws SlickException;
+    
+    /**
+     * 
+     * @param index
+     * @return 
+     * @throws org.newdawn.slick.SlickException 
+     */
+    public abstract Image setDeathAnimationFrame(int index) throws SlickException;
+    
+    /**
+     * 
+     * @param index
+     * @throws org.newdawn.slick.SlickException
+     * @return 
+     */
+    public abstract Image setIdleAnimationFrame(int index) throws SlickException;
 }
