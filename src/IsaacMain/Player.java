@@ -474,7 +474,7 @@ public class Player implements UpgradeComponent {
             Image currentImage = this.animations.getDeathAnimationRight().getImage(i);
             if ((rotated && currentImage.getRotation() != 180) || (!rotated && currentImage.getRotation() != 0)) {
                 this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
-                this.animations.getDeathAnimationRight().getImage(i).rotate(angle);
+                this.animations.getDeathAnimationLeft().getImage(i).rotate(angle);
             }
         }
     }
