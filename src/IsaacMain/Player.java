@@ -214,7 +214,7 @@ public class Player implements UpgradeComponent {
         this.hurtfx = new Sound("./src/sound/hurt.wav");
         
         // Initialization of the animations (has to be changed)
-        this.animations = new SantaAnimations(11, 16, 17);
+        this.animations = new IsaacAnimations(8, 10, 10);
         this.animations.createAnimations();
         
         // Loads the current set of commands from a file

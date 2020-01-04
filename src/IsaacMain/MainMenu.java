@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package IsaacMain;
 
 
@@ -17,16 +12,12 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-/**
- *
- * @author danya
- */
 public class MainMenu extends BasicGameState {
 
     private Menu menu;
     private ArrayList<Button> buttons;
     private Music music;
-    
+
     @Override
     public int getID() {
         return 0;
@@ -57,6 +48,6 @@ public class MainMenu extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         menu.update(gc, i, sbg);
-        
+
     }
 }

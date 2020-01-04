@@ -42,9 +42,9 @@ public class Tutorial extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 
-        if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
+        if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
             index++;
-            if (index < 2) {
+            if (index < 4) {
                 img = new Image("./graphics/tutorial/Image_" + index + ".jpg");
 
             } else {
