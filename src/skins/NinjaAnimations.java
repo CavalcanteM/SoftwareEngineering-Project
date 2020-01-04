@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package skins;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-/**
- *
- * @author danya
- */
 public class NinjaAnimations extends BasicAnimations{
     
     public NinjaAnimations(int width, int height, int runAnimationLength, int idleAnimationLength, int deathAnimationLength){
@@ -38,7 +29,6 @@ public class NinjaAnimations extends BasicAnimations{
      */
     @Override
     public Image setIdleAnimationFrame(int index) throws SlickException {
-        super.setDimensions(37, 70);
         return new Image("./graphics/ninja/Idle__00" + index + ".png");
     }
     

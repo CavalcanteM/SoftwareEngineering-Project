@@ -601,19 +601,19 @@ public class Player implements UpgradeComponent {
                break;
             }
             case 1: {
-                this.animations = new AdventurerAnimations(46, 70, 10, 10, 10);
+                this.animations = new AdventurerAnimations(58, 70, 10, 10, 10);
                 break;
             }
             case 2: {
-                this.animations = new JackLanternAnimations(53, 70, 8, 10, 10);
+                this.animations = new JackLanternAnimations(58, 70, 8, 10, 10);
                 break;
             }
             case 3: {
-                this.animations = new NinjaAnimations(55, 70, 10, 10, 10);
+                this.animations = new NinjaAnimations(58, 70, 10, 10, 10);
                 break;
             }
             case 4: {
-                this.animations = new SantaAnimations(105, 70, 11, 16, 17);
+                this.animations = new SantaAnimations(58, 70, 11, 16, 17);
                 break;
             }
         }
