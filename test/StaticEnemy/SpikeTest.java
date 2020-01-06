@@ -50,8 +50,7 @@ public class SpikeTest {
         this.hitbox = spike.getHitbox();
 
         Assert.assertNotNull("Hitbox returned null", hitbox);
-        Assert.assertEquals(spike.getClass(), Spike.class);
-        Assert.assertEquals(this.hitbox.getClass(), Rectangle.class);
+        Assert.assertEquals(Rectangle.class, this.hitbox.getClass());
     }
 
     @Test
@@ -59,7 +58,6 @@ public class SpikeTest {
         this.hitbox = spike.getHitbox();
 
         Assert.assertNotNull("Hitbox returned null", hitbox);
-        Assert.assertEquals(spike.getClass(), Spike.class);
         Assert.assertEquals(this.hitbox.getClass(), Rectangle.class);
         Assert.assertTrue(hitbox.getHeight() == 20);
     }
@@ -69,7 +67,6 @@ public class SpikeTest {
         this.hitbox = spike.getHitbox();
 
         Assert.assertNotNull("Hitbox returned null", hitbox);
-        Assert.assertEquals(spike.getClass(), Spike.class);
         Assert.assertEquals(this.hitbox.getClass(), Rectangle.class);
         Assert.assertTrue(hitbox.getWidth() == 20);
     }

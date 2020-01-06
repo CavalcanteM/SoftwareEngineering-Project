@@ -61,7 +61,7 @@ public class OneHeartSpikeTest {
         this.hitbox = spike.getHitbox();
 
         Assert.assertNotNull("Hitbox returned null", hitbox);
-        Assert.assertEquals(spike.getClass(), HalfHeartSpike.class);
+        Assert.assertEquals(spike.getClass(), OneHeartSpike.class);
         Assert.assertEquals(this.hitbox.getClass(), Rectangle.class);
         Assert.assertTrue(hitbox.getWidth() == 20);
     }
@@ -72,6 +72,6 @@ public class OneHeartSpikeTest {
 
         Assert.assertNotNull(damage);
         Assert.assertTrue("Is positive", damage > 0);
-        Assert.assertTrue("Is actually equal to 1", damage == 1);
+        Assert.assertTrue("Is actually equal to 2", damage == 2);
     }
 }
