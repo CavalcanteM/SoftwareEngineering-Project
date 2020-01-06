@@ -9,14 +9,14 @@ import org.newdawn.slick.geom.Shape;
     This class is one of the Concrete Product Of the EntityFactory.
 */
 public class Block implements Entity{
-    
-    /*
-        This parameter is final because the hitbox of the blocks doesn't change.
-    */
-    private final Shape hitbox;
+
+    private Shape hitbox;
+    private int x, y;
     
     public Block(int x, int y){
         this.hitbox = new Rectangle(x,y,30,30);
+        this.x = x;
+        this.y = y;
     }
     
     @Override
@@ -27,5 +27,6 @@ public class Block implements Entity{
     //These methods are not implemented because Hitbox is final
     @Override
     public void setHeightAndWidth(int i, int y){
+        this.hitbox = new Rectangle(this.x, this.y, y, i);
     }
 }

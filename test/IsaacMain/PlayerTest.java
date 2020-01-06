@@ -40,7 +40,7 @@ public class PlayerTest {
     
     @Before
     public void setUp() {
-        level = new Level("test", 1, 1);
+        //level = new Level("test", 1, 1);
         player = Player.getPlayerInstance();
     }
     

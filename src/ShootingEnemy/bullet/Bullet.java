@@ -31,6 +31,9 @@ public class Bullet {
     public void setVelocity(int velocity) {
         this.velocity = velocity;
     }
+    public int getVelocity(){
+        return this.velocity;
+    }
 
     public Bullet(int x1, int y1, float x2, float y2, Shape hitboxArea, ShootingEnemy turret) throws SlickException {
         this.sprite = new Image("./graphics/png/Bullet.png");
@@ -47,7 +50,7 @@ public class Bullet {
         ComputeVelocity(this.x1, this.y1, x2, y2);
     }
 
-    private void ComputeVelocity(int x1, int y1, float x2, float y2) {
+    void ComputeVelocity(int x1, int y1, float x2, float y2) {
 
         double x = x2 - x1;
         double y = y2 - y1;

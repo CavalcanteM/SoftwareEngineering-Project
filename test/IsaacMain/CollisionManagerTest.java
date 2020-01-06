@@ -43,6 +43,7 @@ public class CollisionManagerTest {
     /**
      * Here I create the fake objects in the map
      */
+    
     @Before
     public void setUp() throws SlickException {
         players = new ArrayList<Shape>();
@@ -56,13 +57,13 @@ public class CollisionManagerTest {
         points.add(new Reward(200,249));
         pts = new Points(points,3);
         reward = points.get(0).getHitBox();
-        spikes = new ArrayList<StaticDamage>();
-        spikes.add(new HalfHeartSpike(329,300));
+        //spikes = new ArrayList<StaticDamage>();
+        //spikes.add(new HalfHeartSpike(329,300));
         blocks = new ArrayList<Entity>();
         blocks.add(new Block(449,400));
         t = new ArrayList<Thrower>();
-        t.add(new LaserThrower(700,779,2,1));
-        t.add(new FlameThrower(900,979,2,1));
+        //t.add(new LaserThrower(700,779,2,1));
+        //t.add(new FlameThrower(900,979,2,1));
     }
 
     @After
@@ -144,4 +145,5 @@ public class CollisionManagerTest {
         boolean result = collision.collidesWith();
         assertTrue(!result && !collision.test1 && !collision.test2 && !collision.test3 && collision.test4);
     }
+    
 }
