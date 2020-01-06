@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="1">
  <tileset firstgid="1" source="Tileset_map.tsx"/>
- <layer id="2" name="Background" width="32" height="24" locked="1">
+ <layer id="2" name="Background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3SQREAAAyDMOrf9IQsDwxwWTV5wAADDDDAAAMMMMDACwMHOmyYkwAMAAA=
+   H4sIAAAAAAAECsWWOwqAMBAFY+t1tND7X8xNMSAhGNcPU4SHGPfNbOVUSlnjTFJu0bvHsdLyptfyphcOK+Gw0vKm1/KmFw4r4bDS8qbX8qYXDivhsNLyptfyphcOK7/493jz//Dm2/MO6/7YYcYpc5f5vaws8GScMneZ3+bZvcd25Xj1LjOrZbr7/NR/iX1X9lGOHOaY8ddp3Xo9BzGLOHAADAAA
   </data>
  </layer>
  <layer id="9" name="Turrets" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWjITAaAsM9BISGuweHof8EKfCTMAV6R7WOhsBoCIyGwGgIDP8QAABlLqq9AAwAAA==
+   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
   </data>
  </layer>
  <layer id="10" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2U0QnAMAhEM0Xa/SeNN8CrQkqalBP8UeHpKbZmswJWYEcFejRFfkUu8ztqyCvzElvxjK08sRWv2CxfDOrB/FyB0/Wn3a+6vy/5T+wV87/Bzy+UK8zn31fdP6vrzF8UGOHJOpsADAAA
+   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
   </data>
  </layer>
  <layer id="1" name="Walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2W3QrAIAiFZT8X6/0feHrhRdPOaMgkUJCoqWd+rVgjoiPJG+te7Fl2snDp9/R3nnreR9mZlyNryFbj/6VH6f+Zp0xW61/fO2pE/UecS6mPrPTH9182f7RvUc/Q/kdpoDqlb7+/jYF5jjjOxmut4m/5KxtvnOX8Fl/8ieQf2OP0x5po3/lo4HEADAAA
+   H4sIAAAAAAAECu1U0Q6CMAxcVBT9EH1TeOX/P8y7mCaEbnTpaOSBJmVJ1/bGXbchpXQJ8hF9H4bfsR9lHRr/E/8F/H7FyU/k/6P9qpGfA19TdEXolPGbTm2KlPjnfczNzbkJTReX8HVmTMSLX9JHNKvVyYtf0kc0q9XJi7+VGpH4lkbU6g2Pen8sjajVHt7fD84hc+tZa2cdMMqo/wCXufWsnHVPHWsi5w/tTTvw4+6fST4S9sj/E+fy3MNczZKDZQ7fP9o8LrHfTtt3Qvncc92+dX4CSAAMAAA=
   </data>
  </layer>
  <layer id="3" name="StaticEnemies" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWDKQS4gY7Bhgm5EZsekNgoGD4hwAf0CgyDfIXMxudLkDoQIFY9RPUoORoCoyEw0kKAnHoEm56RFm6j/qV9CMDqL2Qan63I6mBsfOpHohwAeZ0xpAAMAAA=
+   H4sIAAAAAAAECmNgGAWjITAaAqMhgAgBHiATF0aoGmWNhsBoCIyGAOUhgF7WIJvIB+QgY2S5UfbQDQG3AXa6Nx3stwXagYzpYCWKFXZAHjJGkYRyADHDyikADAAA
   </data>
  </layer>
  <layer id="4" name="Rewards" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWjITD4QoCfgJMIyRPQPio9GgIjIgRG88mIiOZRT1IxBAZzniHHbeTooWJwjho1iEMAALlTNMgADAAA
+   H4sIAAAAAAAECmNgGAUjIQT4h6gnh6q7h2hwk+VsSuOIUv1kOXqYaCI27IhVN0yChareoFbYUcscqnpu1LDREBgNgREbAgCNa7G0AAwAAA==
   </data>
  </layer>
  <layer id="5" name="Fire" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QAQ0AAAzCMKzcv8nbgKRTsDTZ6rZ23RIgQIAAAQIECBCoEniEfZSWAAwAAA==
+   H4sIAAAAAAAECu3QAQkAAAzDsFm5f5OXMQapgpJEBAgQIECAAIFdgdtdd06gIvA8WLxuAAwAAA==
   </data>
  </layer>
  <layer id="7" name="Laser" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWjITAaAkMtBGSGmoNH3TsaAqMhMBoCoyFAlRCQooopo4aM9BAAANNTvTwADAAA
+   H4sIAAAAAAAECu3QAQ0AAAzCMITcv87bgKRTsDQRAQIECBAgQGBH4HZWnRKoFHiCZ17UAAwAAA==
   </data>
  </layer>
  <layer id="8" name="LaserMax" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWjITAaAqMhMBoCQykExIaSY0fdSvUQEKe6iaMGjobAaAiMtBAAAHHR0TUADAAA
+   H4sIAAAAAAAECu3QIQEAAAzDsKm4f6m3MDiQ4qIkIkCAAAECBAgQIECgEbhmGn8e1O5qJQAMAAA=
   </data>
  </layer>
  <layer id="6" name="FireMax" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QIQEAAAzDsKm4f6m3MDiQ4qIkItALXL86CRAgQIAAAQIEBgUe/pc7BAAMAAA=
+   H4sIAAAAAAAECu3QIQEAAAzDsKm4f6n3MDKS8pIkIkCAAAECBAgQIECgEbhmGj8Pf4CtSwAMAAA=
   </data>
  </layer>
 </map>

@@ -1,7 +1,7 @@
 package Entity.Factory;
 
-import Entity.Reward;
 import Entity.Entity;
+import Entity.Upgrade;
 
 /*
     This class is one of the Concrete Creators that overrides the base factory
@@ -12,6 +12,6 @@ public class ConcreteFactoryUpgrade extends EntityFactory{
     
     @Override
     public Entity create(int x, int y){
-        return new Reward(x, y);
+        return new Upgrade(x, y);
     }
 }
