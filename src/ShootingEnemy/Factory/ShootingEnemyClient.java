@@ -1,5 +1,6 @@
 package ShootingEnemy.Factory;
 
+import IsaacMain.TileID;
 import ShootingEnemy.ShootingEnemy;
 import static java.lang.Math.ceil;
 import java.util.ArrayList;
@@ -42,11 +43,11 @@ public class ShootingEnemyClient {
                  * map this method creates an array list of different objects
                  * that match the ID.
                  */
-                if (map.getTileId(x, y, turretsLayer) > 14 && map.getTileId(x, y, turretsLayer) < 20) {
+                if (map.getTileId(x, y, turretsLayer) >= TileID.TurretUp && map.getTileId(x, y, turretsLayer) <= TileID.TurretLeft) {
                     array.add(threeFactory.create(x, y, calculateHitboxArea(x, y), difficulty));
                 }
                 try {
-                    if (map.getTileId(x, y, hiddenTurretsLayer) > 14 && map.getTileId(x, y, hiddenTurretsLayer) < 20) {
+                    if (map.getTileId(x, y, hiddenTurretsLayer) >= TileID.TurretUp && map.getTileId(x, y, hiddenTurretsLayer) <= TileID.TurretLeft) {
                         array.add(randomthreeshotFactory.create(x, y, calculateHitboxArea(x, y), difficulty));
                     }
                 } catch (Exception e) {
