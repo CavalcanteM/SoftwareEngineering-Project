@@ -531,7 +531,7 @@ public class Player implements UpgradeComponent {
      */
     @Override
     synchronized public void getDamaged(int damage) {
-        if ((System.currentTimeMillis() - this.lastHitTime) > 3000) {
+        if ((System.currentTimeMillis() - this.lastHitTime) > 1000) {
 
             this.lastHitTime = System.currentTimeMillis();
             System.out.println(System.currentTimeMillis());
@@ -642,8 +642,8 @@ public class Player implements UpgradeComponent {
     public void blink(){
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         final ScheduledFuture<?> blinkHandle;
-        blinkHandle = scheduler.scheduleAtFixedRate(() -> {this.appear=!this.appear;}, 0, 200, TimeUnit.MILLISECONDS);
-        scheduler.schedule(() -> {blinkHandle.cancel(true); this.appear=true;}, 2900, TimeUnit.MILLISECONDS);
+        blinkHandle = scheduler.scheduleAtFixedRate(() -> {this.appear=!this.appear;}, 0, 100, TimeUnit.MILLISECONDS);
+        scheduler.schedule(() -> {blinkHandle.cancel(true); this.appear=true;}, 1000, TimeUnit.MILLISECONDS);
     }
 
 }
