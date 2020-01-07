@@ -78,8 +78,7 @@ public class ShieldDecorator extends UpgradeDecorator{
      */
     @Override
     public void updateActive() {
-        if (this.upgradeActive && ((System.currentTimeMillis() - this.activationTime) > this.durate)) {
-            System.out.println("Disattivazione");
+        if ((this.upgradeActive && ((System.currentTimeMillis() - this.activationTime) > this.durate)) || !super.hasShield()) {
             this.upgradeActive = false;
             super.setShield(upgradeActive);
         }

@@ -25,6 +25,8 @@ public interface UpgradeComponent {
     
     public int getNumVoidHearts();
     
+    public boolean hasShield();
+    
     public void setNumHearts(int numHearts);
     
     public void setNumVoidHearts(int NumVoidHearts);

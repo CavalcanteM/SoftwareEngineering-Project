@@ -143,6 +143,10 @@ public class Player implements UpgradeComponent {
         return animations;
     }
 
+    public boolean hasShield() {
+        return shield;
+    }
+    
     /*--------------------
      * Setter Methods
      *--------------------*/
@@ -567,6 +571,8 @@ public class Player implements UpgradeComponent {
         this.vY = 0;
         this.vX = 0;
         this.isDead = false;
+        this.shield = false;
+        this.speedUp = 1;
     }
 
     public void initCommandList() {
