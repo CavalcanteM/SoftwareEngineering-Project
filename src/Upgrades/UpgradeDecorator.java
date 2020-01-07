@@ -54,6 +54,11 @@ public class UpgradeDecorator implements UpgradeComponent{
     }
 
     @Override
+    public boolean hasShield(){
+        return player.hasShield();
+    }
+    
+    @Override
     public void setNumHearts(int numHearts) {
         player.setNumHearts(numHearts);
     }
