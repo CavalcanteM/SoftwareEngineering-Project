@@ -125,7 +125,7 @@ public class ComicMenu extends BasicGameState {
             saves = new Saves();
             saves.setLastLevel(0);
             saves.setLastWorld(0);
-            imgent = new Image ("./graphics/comic/comic_enter"+index+".jpg");
+            imgent = new Image ("./graphics/comic/comic_world"+index+"enter"+index+".jpg");
             imgent = imgent.getScaledCopy(960, 720);
         }
 	
