@@ -10,7 +10,7 @@ public class AcidLakeFactory extends StaticEnemyFactory{
     }
 
     @Override
-    public StaticDamage create(int x, int y) {
-        return new AcidLake(x,y, super.difficulty);
+    public StaticDamage create(int x, int y, int damage) {
+        return new AcidLake(x,y, super.difficulty, damage);
     }
 }

@@ -29,9 +29,8 @@ public class SpikeTest {
     public void initialize() {
         /**
          * Initialize it with some values.
-         * Warning: I'm actually using an abstract class. 
          */
-        spike = new Spike(x, y, 1) {};
+        spike = new Spike(x, y, 1, 1);
     }
 
     @After
@@ -40,7 +39,7 @@ public class SpikeTest {
     
     @Test
     public void test_differentDamageAccordingToDifficulty(){
-        this.spike = new Spike(0,0,2) {};
+        this.spike = new Spike(0,0,2,1);
         Assert.assertTrue(spike.doDamage() == 10);
         
     }

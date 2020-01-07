@@ -10,7 +10,7 @@ public class BarrelFactory extends StaticEnemyFactory {
     }
 
     @Override
-    public StaticDamage create(int x, int y) {
-        return new Barrel(x, y, super.difficulty);
+    public StaticDamage create(int x, int y, int damage) {
+        return new Barrel(x, y, super.difficulty, damage);
     }
 }

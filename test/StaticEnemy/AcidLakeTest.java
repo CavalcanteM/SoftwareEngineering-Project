@@ -28,7 +28,7 @@ public class AcidLakeTest {
         /**
          * Initialize it with some values.
          */
-        acid = new AcidLake(x, y, 1);
+        acid = new AcidLake(x, y, 1, 1);
     }
 
     @After

@@ -14,7 +14,7 @@ public class BarrelFactoryTest {
         y = 5;
         difficulty = 1;
         BarrelFactory factory = new BarrelFactory(difficulty);
-        StaticDamage barrel = factory.create(x, y);
+        StaticDamage barrel = factory.create(x, y, 1);
         Assert.assertTrue(barrel instanceof Barrel);
     }
 }

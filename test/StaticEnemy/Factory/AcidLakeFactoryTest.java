@@ -14,7 +14,7 @@ public class AcidLakeFactoryTest {
         y = 5;
         difficulty = 1;
         AcidLakeFactory factory = new AcidLakeFactory(difficulty);
-        StaticDamage acidlake = factory.create(x, y);
+        StaticDamage acidlake = factory.create(x, y, 1);
         Assert.assertTrue(acidlake instanceof AcidLake);
     }
 }

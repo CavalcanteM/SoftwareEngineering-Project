@@ -35,7 +35,7 @@ public class BarrelTest {
         /**
          * Initialize it with some values.
          */
-        this.barrel = new Barrel(x, y, 1);
+        this.barrel = new Barrel(x, y, 1, 1);
     }
 
     @After

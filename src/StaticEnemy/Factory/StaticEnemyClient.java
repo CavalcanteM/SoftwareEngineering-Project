@@ -1,6 +1,5 @@
 package StaticEnemy.Factory;
 
-import IsaacMain.TileID;
 import StaticEnemy.StaticDamage;
 import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
@@ -17,18 +16,18 @@ public class StaticEnemyClient {
     private final int objlayer;
     private final TiledMap map;
     private int difficulty;
+    StaticEnemyFactory spikeFactory, acidFactory, barrelFactory;
 
     public StaticEnemyClient(TiledMap map, int difficulty) {
         this.map = map;
         this.objlayer = this.map.getLayerIndex("StaticEnemies");
         this.difficulty = difficulty;
+        spikeFactory = new SpikeFactory(difficulty);
+        acidFactory = new AcidLakeFactory(difficulty);
+        barrelFactory = new BarrelFactory(difficulty);
     }
 
     public ArrayList<StaticDamage> getStaticEnemyList() {
-        StaticEnemyFactory oneFactory = new OneHeartSpikeFactory(difficulty);
-        StaticEnemyFactory halfFactory = new HalfHeartSpikeFactory(difficulty);
-        StaticEnemyFactory acidFactory = new AcidLakeFactory(difficulty);
-        StaticEnemyFactory barrelFactory = new BarrelFactory(difficulty);
 
         ArrayList<StaticDamage> staticDamageArray = new ArrayList<>();
 
@@ -40,14 +39,14 @@ public class StaticEnemyClient {
                  * this method creates an array list of different objects that 
                  * match the ID. 
                  */
-                if (map.getTileId(x, y, objlayer) == TileID.NormalSpikeDown || map.getTileId(x, y, objlayer) == TileID.NormalSpikeUp) {
-                    staticDamageArray.add(oneFactory.create(x * 30, y * 30));
-                } else if (map.getTileId(x, y, objlayer) == TileID.VenSpikeUp || map.getTileId(x, y, objlayer) == TileID.VenSpikeDown) {
-                    staticDamageArray.add(halfFactory.create(x * 30, y * 30));
-                } else if (map.getTileId(x, y, objlayer) == TileID.AcidlakeTop || map.getTileId(x, y, objlayer) == TileID.BarrelBottom) {
-                    staticDamageArray.add(acidFactory.create(x * 30, y * 30));
-                } else if (map.getTileId(x, y, objlayer) == TileID.BarrelBottom ) {
-                    staticDamageArray.add(barrelFactory.create(x * 30, y * 30));
+                if (map.getTileId(x, y, objlayer) == 11 || map.getTileId(x, y, objlayer) == 12) {
+                    staticDamageArray.add(spikeFactory.create(x * 30, y * 30, 1));
+                } else if (map.getTileId(x, y, objlayer) == 13 || map.getTileId(x, y, objlayer) == 14) {
+                    staticDamageArray.add(spikeFactory.create(x * 30, y * 30, 2));
+                } else if (map.getTileId(x, y, objlayer) == 61 || map.getTileId(x, y, objlayer) == 62) {
+                    staticDamageArray.add(acidFactory.create(x * 30, y * 30, 1));
+                } else if (map.getTileId(x, y, objlayer) == 75) {
+                    staticDamageArray.add(barrelFactory.create(x * 30, y * 30, 1));
                 }
             }
         }

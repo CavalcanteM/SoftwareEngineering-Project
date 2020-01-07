@@ -3,18 +3,13 @@ package StaticEnemy;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-/**
- * The "Spike" abstract class is used as a "template" to build the specific
- * Spike classes. It has a Shape type variable to keep track of its position
- * and dimentions.
- * @author danya
- */
-public abstract class Spike implements StaticDamage {
+public class Spike implements StaticDamage {
 
     public Shape hitbox;
     protected int difficulty;
+    public int damage;
 
-    public Spike(int x, int y, int difficulty) {
+    public Spike(int x, int y, int difficulty, int damage) {
         hitbox = new Rectangle(x + 5, y + 5, 20, 20);
         /**
          * The hitbox is smaller than the actal tile, to avoid that the player
@@ -29,12 +24,9 @@ public abstract class Spike implements StaticDamage {
          * +-------------+
          */
         this.difficulty = difficulty;
+        this.damage = damage;
     }
 
-    /**
-     *
-     * @return the Shape associated with the spike
-     */
     @Override
     public Shape getHitbox() {
         return hitbox;
@@ -42,7 +34,10 @@ public abstract class Spike implements StaticDamage {
 
     @Override
     public int doDamage() {
-        return this.difficulty*5;
+        if (difficulty <5)
+            return damage;
+        else 
+            return damage*2;
     }
 
 }

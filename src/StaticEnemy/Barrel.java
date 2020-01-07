@@ -7,8 +7,9 @@ public class Barrel implements StaticDamage {
 
     private Shape hitbox;
     private int difficulty;
+    private int damage;
 
-    public Barrel(int x, int y, int difficulty) {
+    public Barrel(int x, int y, int difficulty, int damage) {
         hitbox = new Rectangle(x, y-10, 30, 40);
         /**
          * The hitbox of the barrel has a 10px offset upwards, since the actual
@@ -30,6 +31,7 @@ public class Barrel implements StaticDamage {
          *
          */
         this.difficulty = difficulty;
+        this.damage = damage;
     }
 
     @Override
@@ -39,7 +41,10 @@ public class Barrel implements StaticDamage {
 
     @Override
     public int doDamage() {
-        return 1;
+        if (difficulty <5)
+            return damage;
+        else 
+            return damage*2;
     }
 
 }
