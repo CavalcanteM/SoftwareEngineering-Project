@@ -78,7 +78,7 @@ public class GameIsaac extends BasicGameState {
             deathMenu = new Menu();
             //Initialize the menu
             Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
-            Button restart = new Button(50, 150, new RestartLevel(), "Restart");       //The constructor will decide, the function executed by the button
+            Button restart = new Button(50, 150, new RestartLevel(this), "Restart");       //The constructor will decide, the function executed by the button
             Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
             Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
             Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
@@ -171,25 +171,26 @@ public class GameIsaac extends BasicGameState {
             // Setting first world
             GalaxyComponent world1 = new LevelContainer("World 1");
             GalaxyComponent level1 = new Level("Level 1-1", 4, 1, 1);
-            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
-            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
-            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);
+//            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
+//            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
+//            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);
             world1.add(level1);
-            world1.add(level2);
-            world1.add(level3);
-            world1.add(level4);
+//            world1.add(level2);
+//            world1.add(level3);
+//            world1.add(level4);
             galaxy.add(world1);
 
             // Setting second world
-//            GalaxyComponent world2 = new LevelContainer("World 2");
-//            GalaxyComponent level5 = new Level("Level 1-4", 5, 5);
-//            GalaxyComponent level6 = new Level("Level 1-4", 5, 6);
+            GalaxyComponent world2 = new LevelContainer("World 2");
+            GalaxyComponent level5 = new Level("Level 2-1", 4, 1, 1);
+//           GalaxyComponent level6 = new Level("Level 1-4", 5, 2, 1);
 //            GalaxyComponent level7 = new Level("Level 1-4", 5, 7);
 //            GalaxyComponent level8 = new Level("Level 1-8", 7, 8);
-//            world1.add(level5);
+            world2.add(level5);
 //            world1.add(level6);
 //            world1.add(level7);
 //            world1.add(level8);
+            galaxy.add(world2);
             // Setting third world
             //GalaxyComponent world3 = new LevelContainer("World 3");
             //GalaxyComponent level9 = new Level("Level 3-1", 5);
