@@ -7,10 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import menu.Back;
 import menu.Button;
+import menu.Command;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -43,6 +45,12 @@ public class OptionMenu extends BasicGameState implements Serializable{
     private ArrayList<Shape> saveShapes;
     private ArrayList<Shape> keyShapes;
     public static int previousState = -1;
+    private Image[] skins;
+    private static final int NUM_SKINS = 5;
+    private static int currentSkinIndex;
+    private Button nextSkin;
+    private Button previousSkin;
+    private boolean isChangingSkin; 
     
     public OptionMenu() {
         ml= new Mylistener();
@@ -81,18 +89,19 @@ public class OptionMenu extends BasicGameState implements Serializable{
     @Override
     public void init(GameContainer gc, StateBasedGame sbg){
         try {
-             ObjectInputStream s = new ObjectInputStream(new FileInputStream("options"));   //check se il file esiste
-             options = (HashMap) s.readObject();
+            ObjectInputStream s = new ObjectInputStream(new FileInputStream("options"));   //check se il file esiste
+            options = (HashMap<String, Integer>) s.readObject();
         } catch (IOException | ClassNotFoundException ex) {
         }
         this.volume=(int)gc.getMusicVolume()*10;
         if (options == null){
             // se il file non esiste imposto i tasti di default
-            options = new HashMap();
+            options = new HashMap<>();
             options.put("right", Input.KEY_D);
             options.put("left", Input.KEY_A);
             options.put("gravity",Input.KEY_SPACE);
             options.put("dash",Input.KEY_LSHIFT);
+            options.put("skinIndex", 0);
         }
         
         int tempSave = this.ySave;
@@ -102,14 +111,46 @@ public class OptionMenu extends BasicGameState implements Serializable{
 	}
         int tempKeys = this.yKey;
         for (String b : options.keySet()){
-            keyShapes.add(new Rectangle(this.xKey,tempKeys,lKey,hKey));
-            tempKeys+=60;
+            if(b.equals("skinIndex")) {
+            } else {
+                keyShapes.add(new Rectangle(this.xKey,tempKeys,lKey,hKey));
+                tempKeys+=60;   
+            }  
 	}
         keyShapes.add(new Rectangle(this.xKey,tempKeys,lKey,hKey));
-
-        
+       
         this.aggiornavalori();
+        
+        // Init del cambio skin
+        this.skins = new Image[NUM_SKINS];
+        try{
+            this.skins[0] = new Image("./graphics/png/Idle (1).png");
+            this.skins[1] = new Image("./graphics/adventurer/Idle__000.png");
+            this.skins[2] = new Image("./graphics/jack/Idle (1).png");
+            this.skins[3] = new Image("./graphics/ninja/Idle__000.png");
+            this.skins[4] = new Image("./graphics/santa/Idle (1).png");
+            this.currentSkinIndex = options.get("skinIndex");
+            
+            // Initializing the Button to change skin on the left
+            this.previousSkin = new Button(30, 30, new Command(){
+                
+                public void execute(GameContainer gc, int delta, StateBasedGame sbg){
+                    OptionMenu.currentSkinIndex = ((OptionMenu.currentSkinIndex - 1) + OptionMenu.NUM_SKINS)%OptionMenu.NUM_SKINS;
+                }
+            }, "<");
+            
+            // Initializing the Button to change the skin on the right
+            this.nextSkin = new Button(30, 30, new Command(){
+                
+                public void execute(GameContainer gc, int delta, StateBasedGame sbg){
+                    OptionMenu.currentSkinIndex = ((OptionMenu.currentSkinIndex + 1) + OptionMenu.NUM_SKINS )%OptionMenu.NUM_SKINS;
+                }
+            }, ">");
+            
+        } catch (SlickException ex){
+            ex.printStackTrace();
         }
+    }
     
     public void setMusic(int newVolume){
         volume = newVolume;
@@ -125,10 +166,12 @@ public class OptionMenu extends BasicGameState implements Serializable{
         move = "";
         keys = "";
         for(String s : options.keySet()){
-            move +=  s + "\n\n\n";      // stringa dei movimenti "left,right...."
-            keys += (Input.getKeyName(options.get(s))) + "\n\n\n"; //questo keys contiene il tasto attuale assegnato al movimento
+            if(s.equals("skinIndex")){
+            } else {
+                move +=  s + "\n\n\n";      // stringa dei movimenti "left,right...."
+                keys += (Input.getKeyName(options.get(s))) + "\n\n\n"; //questo keys contiene il tasto attuale assegnato al movimento
             }
-        
+        }
     }
     
     
@@ -150,6 +193,19 @@ public class OptionMenu extends BasicGameState implements Serializable{
             saveButtons.get(i).render(gc, g,xSave, saveTemp, saveShapes.get(i));
             saveTemp+=70;
         }
+        
+        // Render of the buttons to change skins and the actual skin
+        this.previousSkin.render(gc, g, 400, 400, new Rectangle(400, 400, 30, 30));
+        this.nextSkin.render(gc, g, 800, 400, new Rectangle(800, 400, 30, 30));
+        g.drawImage(this.skins[OptionMenu.currentSkinIndex].getScaledCopy(300, 300), 451, 201);
+        if(this.isChangingSkin){     
+            try {
+                Thread.sleep(200);  // Change if the cahnge is too slow
+            } catch (InterruptedException ex) {
+                Logger.getLogger(OptionMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.isChangingSkin = false;
+        }
         g.setColor(Color.white);
         g.drawString("Volume (0-9)", 100, 350);
         g.drawString(volume.toString(), 330, 345);
@@ -167,11 +223,15 @@ public class OptionMenu extends BasicGameState implements Serializable{
         if((float)this.volume/10!=gc.getMusicVolume()){
             gc.setMusicVolume((float)this.volume/10);
         }
-        //CHECK SE IL MOUSE è SOPRA IL BUTTON BACK SI DEVE ELMINARE IL CICLO
+        //CHECK SE IL MOUSE è SOPRA IL BUTTON BACK SI DEVE ELIMINARE IL CICLO
         for (Button b : this.saveButtons){
             if (gc.getInput().isMouseButtonDown(0) && posX>this.xSave && posX<(this.xSave+b.getL()) &&
 		gc.getHeight()-posY>saveTemp && gc.getHeight()-posY<(saveTemp+b.getH())){
 		try {
+                    options.replace("skinIndex", currentSkinIndex);
+                    Player.getPlayerInstance().getCommands().replace("skinIndex", currentSkinIndex);
+                    Player.getPlayerInstance().selectAnimations();
+                    Player.getPlayerInstance().getAnimations().createAnimations();
                     FileOutputStream out = new FileOutputStream("options");
                     ObjectOutputStream s = new ObjectOutputStream(out);
                     s.writeObject(options);
@@ -190,12 +250,16 @@ public class OptionMenu extends BasicGameState implements Serializable{
         //CHECK SE IL MOUSE è SU UNO DEI MOVEMENT COMMAND
         int keyTemp = this.yKey;
         for (String s : options.keySet()){
-            if (gc.getInput().isMouseButtonDown(0) && posX>this.xKey && posX<(this.xKey+lKey) &&
-		gc.getHeight()-posY>keyTemp && gc.getHeight()-posY<(keyTemp+hKey))
-            {   commandToChange=s;
-                gc.getInput().addKeyListener(new Mylistener());
+            if(s.equals("skinIndex")){
+            } else {
+                if (gc.getInput().isMouseButtonDown(0) && posX>this.xKey && posX<(this.xKey+lKey) &&
+		gc.getHeight()-posY>keyTemp && gc.getHeight()-posY<(keyTemp+hKey)){   
+                    commandToChange=s;
+                    gc.getInput().addKeyListener(new Mylistener());
+                }
+                keyTemp += 60;
             }
-            keyTemp += 60;
+            
         }
         //CHECK SE IL MOUSE è SUL VOLUME BUTTON
         if (gc.getInput().isMouseButtonDown(0) && posX>this.xKey && posX<(this.xKey+lKey) &&
@@ -203,6 +267,21 @@ public class OptionMenu extends BasicGameState implements Serializable{
             gc.getInput().addKeyListener(new VolumeListener());
         }
         
+        if(!isChangingSkin){
+           // Manage the backward change skin 
+            if (gc.getInput().isMouseButtonDown(0) && posX>400 && posX<(400+this.previousSkin.getL()) &&
+                gc.getHeight()-posY>400 && gc.getHeight()-posY<(400+this.previousSkin.getH())){ 
+                this.isChangingSkin = true;
+                this.previousSkin.update(gc, delta, sbg);
+            }
+        
+            // Manage the forward change skin
+            if (gc.getInput().isMouseButtonDown(0) && posX>800 && posX<(800+this.nextSkin.getL()) &&
+                gc.getHeight()-posY>400 && gc.getHeight()-posY<(400+this.nextSkin.getH())){ 
+                this.isChangingSkin = true;
+                this.nextSkin.update(gc, delta, sbg);    
+            } 
+        }
     }
 
     private String getCommandToChange() {

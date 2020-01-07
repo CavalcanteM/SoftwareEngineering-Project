@@ -14,26 +14,26 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class NextLevel implements Command{
 
-	private GameIsaac gs;
-	private int actualWorld;
-	private int actualLevel;
-	private Saves saves;
+    private GameIsaac gs;
+    private int actualWorld;
+    private int actualLevel;
+    private Saves saves;
 
-	public NextLevel(GameIsaac gs, int actualLevel, int actualWorld) {
-		this.gs = gs;
-		this.saves=gs.loadProgress();
-		this.actualLevel=actualWorld;
-		this.actualLevel=actualLevel;
-	}
-	
-	public void saveProgress(){
+    public NextLevel(GameIsaac gs, int actualLevel, int actualWorld) {
+        this.gs = gs;
+        this.saves=gs.loadProgress();
+        this.actualLevel=actualWorld;
+        this.actualLevel=actualLevel;
+    }
+
+    public void saveProgress(){
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try{
             fos = new FileOutputStream("save.txt");
             out = new ObjectOutputStream(fos);
             out.writeObject(saves);
-			out.flush();
+            out.flush();
             out.close();
         }catch(IOException e){
             e.printStackTrace();
