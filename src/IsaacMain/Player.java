@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import static java.lang.Math.signum;
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -38,6 +42,7 @@ public class Player implements UpgradeComponent {
     private boolean isPaused;
     private boolean isMovingRight = true;
     private boolean isDead;
+    private boolean appear=true;
     private int numHearts = 6; // Measured in mid hearts
     private int numVoidHearts = 6; // Measured in mid hearts
     private CollisionManager collision;
@@ -102,6 +107,15 @@ public class Player implements UpgradeComponent {
         return isPaused;
     }
 
+    public boolean isAppear() {
+        return appear;
+    }
+
+    public long getLastHitTime() {
+        return lastHitTime;
+    }
+
+
     @Override
     public int getNumHearts() {
         return numHearts;
@@ -115,11 +129,11 @@ public class Player implements UpgradeComponent {
     public HashMap<String, Integer> getCommands() {
         return commands;
     }
-    
+
     public Animations getAnimations(){
         return animations;
     }
-    
+
     /*--------------------
      * Setter Methods
      *--------------------*/
@@ -200,7 +214,7 @@ public class Player implements UpgradeComponent {
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
-        
+
         /*
          * I used a shrinkage of 1 pixel in both dimentions to avoid that the
          * Hitbox is unable to pass through slight parts of the map.
@@ -208,20 +222,20 @@ public class Player implements UpgradeComponent {
          * The 2 values 30, 720-90, are the spawn point of the character.
          */
         hitbox = new Rectangle(31, gc.getHeight() - 90, 29, 59);
-        
+
         // Initialization of the sounds for change gravity, death and hurt
         this.gravityfx = new Sound("./src/sound/change_gravity.wav");
         this.deathfx = new Sound("./src/sound/death.wav");
         this.hurtfx = new Sound("./src/sound/hurt.wav");
-        
+
         // Loads the current set of commands from a file
         this.initCommandList();
-        
+
         // Initialization of the animations (has to be changed)
         this.selectAnimations();
         //this.animations = new SantaAnimations(11, 16, 17);
         this.animations.createAnimations();
-        
+
         resetStats();
 
     }
@@ -283,7 +297,6 @@ public class Player implements UpgradeComponent {
          */
         float X = this.hitbox.getMinX() - 14;
         float Y = this.hitbox.getMinY() - 5;
-
         if (this.vX == 0) {//The character doesn't move
             if ((isMovingRight && !rotated) || (!isMovingRight && rotated)) {
                 if (isPaused) {
@@ -450,7 +463,7 @@ public class Player implements UpgradeComponent {
      * @param angle the rotation angle
      */
     public void rotate(int angle) {
-        
+
         // Rotate the run animations
         for (int i = 0; i < animations.getRunAnimationLength(); i++) {
             Image currentImage = this.animations.getRightAnimation().getImage(i);
@@ -459,7 +472,7 @@ public class Player implements UpgradeComponent {
                 this.animations.getLeftAnimation().getImage(i).rotate(angle);
             }
         }
-        
+
         // Rotate the idle animations
         for (int i = 0; i < animations.getIdleAnimationLength(); i++) {
             Image currentImage = this.animations.getIdleAnimationRight().getImage(i);
@@ -468,7 +481,7 @@ public class Player implements UpgradeComponent {
                 this.animations.getIdleAnimationLeft().getImage(i).rotate(angle);
             }
         }
-        
+
         // Rotate the death animations
         for (int i = 0; i < animations.getDeathAnimationLength(); i++) {
             Image currentImage = this.animations.getDeathAnimationRight().getImage(i);
@@ -514,18 +527,20 @@ public class Player implements UpgradeComponent {
     @Override
     synchronized public void getDamaged(int damage) {
         if ((System.currentTimeMillis() - this.lastHitTime) > 3000) {
-            this.hurtfx.play(1, 0.1f);
+
             this.lastHitTime = System.currentTimeMillis();
-
             System.out.println(System.currentTimeMillis());
-
             this.numHearts -= damage;
             if (this.numHearts <= 0) {
                 this.isDead = true;
                 this.vX = 0;
                 if (!this.deathfx.playing()) {
-                    this.deathfx.play(1f, 0.1f);
+                    this.deathfx.play(1f, 0.2f);
                 }
+            }
+            else{
+                this.hurtfx.play(1, 0.1f);
+                this.blink();
             }
         }
     }
@@ -593,7 +608,7 @@ public class Player implements UpgradeComponent {
         }
 
     }
-    
+
     public void selectAnimations(){
         switch(this.commands.get("skinIndex")){
             case 0: {
@@ -618,4 +633,12 @@ public class Player implements UpgradeComponent {
             }
         }
     }
+
+    public void blink(){
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        final ScheduledFuture<?> blinkHandle;
+        blinkHandle = scheduler.scheduleAtFixedRate(() -> {this.appear=!this.appear;}, 0, 200, TimeUnit.MILLISECONDS);
+        scheduler.schedule(() -> {blinkHandle.cancel(true); this.appear=true;}, 2900, TimeUnit.MILLISECONDS);
+    }
+
 }

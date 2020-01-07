@@ -116,8 +116,9 @@ public class GameIsaac extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 		level.render(gc, g);
-		player.render(gc, g);
-
+    if(player.isAppear()){
+        player.render(gc, g);
+    }
 		if (gc.isPaused()) {
 			if (!level.getPts().iterator().hasNext()) {
 				end.render(gc, g);
