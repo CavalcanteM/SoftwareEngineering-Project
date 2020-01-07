@@ -43,7 +43,7 @@
  </layer>
  <layer id="8" name="LaserMax" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QIQEAAAzDsKm4f6m3MDiQ4qIkIkCAAAECBAgQIECgEbhmGn8e1O5qJQAMAAA=
+   H4sIAAAAAAAECu3QAQ0AAAzCMFTcv9TbgKRTsDQRAQIECBAgQIAAgQ2B29isvnwWo9kfAAwAAA==
   </data>
  </layer>
  <layer id="6" name="FireMax" width="32" height="24">
@@ -53,7 +53,7 @@
  </layer>
  <layer id="12" name="Upgrades" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+   H4sIAAAAAAAECmNgGAWjITAaAqMhMDRCwHdoOHPUlaMhMBoCoyEwGgI0DIHRuoDywAUAZtht0QAMAAA=
   </data>
  </layer>
 </map>
