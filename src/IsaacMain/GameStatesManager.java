@@ -21,6 +21,6 @@ public class GameStatesManager extends StateBasedGame {
         this.addState(new OptionMenu());
         this.addState(new Tutorial() );
         this.addState(new ComicMenu());
-		    this.addState(new LevelSelector());
+        this.addState(new LevelSelector());
     }
 }

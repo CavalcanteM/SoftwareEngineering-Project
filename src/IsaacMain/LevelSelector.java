@@ -37,7 +37,7 @@ public class LevelSelector extends BasicGameState{
 	
 	@Override
 	public int getID() {
-		return 4;
+		return 5;
 	}
 
 	@Override
