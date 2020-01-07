@@ -4,6 +4,7 @@ import ShootingEnemy.bullet.Bullet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -72,7 +73,8 @@ public class HiddenThreeShotTurret implements ShootingEnemy {
 
     @Override
     public void render(Graphics g,TiledMap map) throws SlickException {
-                
+        g.setColor(Color.yellow);
+        g.draw(this.hitboxArea); 
         if (visible == true) {
             map.render(x*30,y*30,x,y,1,1,map.getLayerIndex("HiddenTurrets"),true);
         }
