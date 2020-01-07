@@ -237,6 +237,8 @@ public class CollisionManager implements Mediator {
         this.throwers = level.getThrowers();
         this.lasers = level.getLaserThrowers();
         this.turrets = level.getShootingEnemy();
+        this.lastUpgrade = 0;
+        this.upgrade = null;
         this.power = level.getPowerup();
         this.getUpgrade();
     }
