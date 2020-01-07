@@ -7,6 +7,7 @@ import Entity.Entity;
 import StaticEnemy.StaticDamage;
 import ShootingEnemy.bullet.Bullet;
 import ShootingEnemy.ShootingEnemy;
+import ShootingEnemy.ThreeBulletsTurret;
 import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.geom.Shape;
@@ -34,10 +35,13 @@ public class CollisionManager implements Mediator {
     private long timeBetweenUpgrade;
     private int i= 0;
     /*This parameters are used only in the test of the class*/
+    protected boolean intesting = false;
     protected boolean test1 = false;
     protected boolean test2 = false;
     protected boolean test3 = false;
     protected boolean test4 = false;
+    protected boolean test5 = false;
+    protected boolean test6 = false;
 
     /**
      * Inizialize all the instance of the class
@@ -52,6 +56,7 @@ public class CollisionManager implements Mediator {
     }
 
     public CollisionManager() {
+        this.playerInstance = Player.getPlayerInstance();
     }
 
     /**
@@ -65,8 +70,9 @@ public class CollisionManager implements Mediator {
      */
     @Override
     public boolean collidesWith() {
-        int i;
-        playerHitbox = playerInstance.getPlayer();
+        if (!this.intesting){
+            playerHitbox = playerInstance.getPlayer();
+        }
         if (this.shieldDecorator != null && this.shieldDecorator.isUpgradeActive()) {
             this.shieldDecorator.updateActive();
         }
@@ -81,7 +87,7 @@ public class CollisionManager implements Mediator {
         //Check if the playerHitbox collides with the fire or the Thrower
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
-                //this.test3 = true;
+                this.test3 = true;
                 if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
                     shieldDecorator.getDamaged(t.doDamage());
                 } else {
@@ -95,7 +101,7 @@ public class CollisionManager implements Mediator {
 
         for (Thrower t : lasers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
-                //this.test4 = true;
+                this.test4 = true;
                 if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
                     shieldDecorator.getDamaged(t.doDamage());
                 } else {
@@ -112,7 +118,7 @@ public class CollisionManager implements Mediator {
             for (i = 0; i < spikes.size(); i++) {
                 if (playerHitbox.intersects(spikes.get(i).getHitbox())) {
                     /*this assignment is used in the test of this class and the next linee must be commented*/
-                    //test2=true;
+                    test2=true;
                     if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
                         shieldDecorator.getDamaged(spikes.get(i).doDamage());
                     } else {
@@ -133,6 +139,7 @@ public class CollisionManager implements Mediator {
                 turret.Shoot(playerHitbox.getCenterX(), playerHitbox.getCenterY());
             }
             if (playerHitbox.intersects(turret.getHitbox()) && turret.isVisible()) {
+                this.test5 = true;
                 return true;
             }
         }
@@ -169,8 +176,8 @@ public class CollisionManager implements Mediator {
     private void getReward() {
         if (playerHitbox.intersects(this.reward)) {
             /*This assignment is used for the test of this class*/
-            //test1=true;
-            pts.getSound().play(1f, 0.1f);
+            test1=true;
+            //pts.getSound().play(1f, 0.1f);
             if (pts.iterator().hasNext()) {
                 this.reward = pts.iterator().next().getHitBox();
             }
@@ -184,7 +191,7 @@ public class CollisionManager implements Mediator {
     private void getUpgrade() {
         if (this.upgrade != null) {
             if (playerHitbox.intersects(this.upgrade)) {
-
+                test6 = true;
                 //Activation of powerups and decision on the time that must pass before generating the next powerup
                 lastUpgrade = System.currentTimeMillis();
                 if (power.Powerup() instanceof ShieldDecorator) {
@@ -237,7 +244,7 @@ public class CollisionManager implements Mediator {
     public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
         this.shieldDecorator = shieldDecorator;
     }
-
+    
     /**
      * This method is used only in the test of this class
      *
@@ -248,7 +255,8 @@ public class CollisionManager implements Mediator {
      * @param reward
      * @param t
      */
-    public void setParameters(ArrayList<Entity> blocks, Points pts, ArrayList<StaticDamage> spikes, Shape player, Shape reward, ArrayList<Thrower> t) {
+    public void setParameters(ArrayList<Entity> blocks, Points pts, ArrayList<StaticDamage> spikes, Shape player, Shape reward, ArrayList<Thrower> t, ThreeBulletsTurret tbt, Entity upgrade) {
+        this.intesting = true;
         this.blocks = blocks;
         this.pts = pts;
         this.spikes = spikes;
@@ -258,6 +266,11 @@ public class CollisionManager implements Mediator {
         this.throwers.add(t.get(0));
         this.lasers = new ArrayList<>();
         this.lasers.add(t.get(1));
-
+        this.turrets = new ArrayList<ShootingEnemy>();
+        this.turrets.add(tbt);
+        ArrayList<Entity> upgrades = new ArrayList<Entity>();
+        upgrades.add(upgrade);
+        this.power = new Powerup(upgrades);
+        this.upgrade = power.iterator().next().getHitBox();
     }
 }

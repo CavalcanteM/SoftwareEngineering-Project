@@ -13,10 +13,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-/**
- *
- * @author SanMario
- */
 public class LevelSelector extends BasicGameState{
 	private ArrayList<Menu> menu;
 	private Saves progress;
@@ -86,5 +82,4 @@ public class LevelSelector extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 		menu.get(page).update(gc, i, sbg);
 	}
-	
 }

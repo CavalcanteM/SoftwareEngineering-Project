@@ -1,8 +1,8 @@
 package Throwers.Factory;
 
+import IsaacMain.TileID;
 import Throwers.Thrower;
 import java.util.ArrayList;
-import java.util.List;
 import org.newdawn.slick.tiled.TiledMap;
 
 /*
@@ -30,16 +30,16 @@ public class ThrowersClient {
         
         if("Fire".equals(layerName)){
             et = new ConcreteFlameThrowerFactory(this.difficulty);
-            cases.add(31);
-            cases.add(32);
-            cases.add(33);
-            cases.add(34);
+            cases.add(TileID.FireUp);
+            cases.add(TileID.FireRight);
+            cases.add(TileID.FireDown);
+            cases.add(TileID.FireLeft);
         }else{
             et = new ConcreteLaserThrowerFactory(this.difficulty);
-            cases.add(26);
-            cases.add(27);
-            cases.add(28);
-            cases.add(29);
+            cases.add(TileID.LaserUp);
+            cases.add(TileID.LaserRight);
+            cases.add(TileID.LaserDown);
+            cases.add(TileID.LaserLeft);
         }
         
         Thrower t;        
@@ -51,28 +51,28 @@ public class ThrowersClient {
                 */
                 if(map.getTileId(x, y, layerIndex) == cases.get(0)) {
                      z = y;
-                        while(map.getTileId(x, z, sizeLayer) != 23){
+                        while(map.getTileId(x, z, sizeLayer) != TileID.VioletBox){
                             z--;
                         }
                         t = et.create(x*30, y*30, y-z, 1);
                         trl.add(t);
                 }else if (map.getTileId(x, y, layerIndex) == cases.get(1)) {
                     z = x;
-                    while(map.getTileId(z, y, sizeLayer) != 21){
+                    while(map.getTileId(z, y, sizeLayer) != TileID.RedBox){
                         z++;
                     }
                     t = et.create(x*30, y*30, z-x, 2);
                     trl.add(t);
                 }else if (map.getTileId(x, y, layerIndex) == cases.get(2)){
                     z = y;
-                    while(map.getTileId(x, z, sizeLayer) != 22){
+                    while(map.getTileId(x, z, sizeLayer) != TileID.GreenBox){
                         z++;
                     }
                     t = et.create(x*30, y*30, z-y, 3);
                     trl.add(t);
                 }else if(map.getTileId(x, y, layerIndex) == cases.get(3)){
                     z = x;
-                    while(map.getTileId(z, y, sizeLayer) != 24){
+                    while(map.getTileId(z, y, sizeLayer) != TileID.YelloBox){
                         z--;
                     }
                     t = et.create(x*30, y*30, x-z, 4);

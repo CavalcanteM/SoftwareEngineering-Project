@@ -8,7 +8,6 @@ import StaticEnemy.Factory.StaticEnemyClient;
 import Entity.EntityClient;
 import ShootingEnemy.ShootingEnemy;
 import ShootingEnemy.Factory.ShootingEnemyClient;
-import Throwers.Factory.ThrowersFactory;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -22,9 +21,6 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Level implements GalaxyComponent {
 
     private TiledMap map;
-//    private Thrower tr;
-//    private EntityClient entityClient;
-//    private ThrowersFactory ctf;
     private ArrayList<Entity> blocks, rewards, upgrades;
     private ArrayList<StaticDamage> spikes;
     private ArrayList<ShootingEnemy> turrets;

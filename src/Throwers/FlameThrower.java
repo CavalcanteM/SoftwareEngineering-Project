@@ -37,7 +37,7 @@ public class FlameThrower implements Thrower {
         this.sound = new Sound("./src/sound/flamethrower.wav");
         this.lastTime = System.currentTimeMillis();
         this.onTime = 2000 + new Random().nextInt(1000);
-        this.offTime = 1500+ new Random().nextInt(1000);
+        this.offTime = 1500+ new Random().nextInt(1000)*(1/this.difficulty);
         this.actualTime = offTime;
         this.fire = new ConfigurableEmitter("fire");
         this.fire.spread.setValue(0f);

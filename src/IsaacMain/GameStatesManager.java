@@ -4,10 +4,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-/**
- *
- * @author danya
- */
 public class GameStatesManager extends StateBasedGame {
 
     public GameStatesManager(String name) {

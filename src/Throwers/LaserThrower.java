@@ -34,7 +34,7 @@ public class LaserThrower implements Thrower {
         this.lastTime = System.currentTimeMillis();
         this.sound = new Sound("./src/sound/lightsaber.wav");
         this.onTime = 2000 + new Random().nextInt(1000);
-        this.offTime = 1500 + new Random().nextInt(1000);
+        this.offTime = 1500 + new Random().nextInt(1000)*(1/this.difficulty);
         this.actualTime = offTime;
         this.laser = new ConfigurableEmitter("laser");
         this.laser.spread.setValue(0.5f);

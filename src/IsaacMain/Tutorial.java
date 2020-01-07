@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package IsaacMain;
 
 import java.io.File;
@@ -16,10 +11,6 @@ import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-/**
- *
- * @author Adria
- */
 public class Tutorial extends BasicGameState {
 
     Image img;
@@ -84,5 +75,4 @@ public class Tutorial extends BasicGameState {
         }
 
     }
-
 }

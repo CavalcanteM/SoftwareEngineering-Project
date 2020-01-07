@@ -16,10 +16,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-/**
- *
- * @author danya
- */
 public class GameIsaac extends BasicGameState {
 
     private Level level;

@@ -1,6 +1,5 @@
 package IsaacMain;
 
-
 import java.util.ArrayList;
 import menu.*;
 import org.newdawn.slick.GameContainer;

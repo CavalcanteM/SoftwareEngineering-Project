@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -54,6 +56,13 @@ public class Player implements UpgradeComponent {
     private Animations animations;
 
     private Player() {
+        try {
+            // Initialization of the sounds for change gravity, death and hurt
+            this.gravityfx = new Sound("./src/sound/change_gravity.wav");
+            this.deathfx = new Sound("./src/sound/death.wav");
+            this.hurtfx = new Sound("./src/sound/hurt.wav");
+        } catch (SlickException ex){}
+        
     }
 
     public static Player getPlayerInstance() {
@@ -223,10 +232,6 @@ public class Player implements UpgradeComponent {
          */
         hitbox = new Rectangle(31, gc.getHeight() - 90, 29, 59);
 
-        // Initialization of the sounds for change gravity, death and hurt
-        this.gravityfx = new Sound("./src/sound/change_gravity.wav");
-        this.deathfx = new Sound("./src/sound/death.wav");
-        this.hurtfx = new Sound("./src/sound/hurt.wav");
 
         // Loads the current set of commands from a file
         this.initCommandList();
