@@ -318,11 +318,12 @@ public class OptionMenu extends BasicGameState implements Serializable{
         @Override
         public void keyPressed(int i, char c) {
             String key = OptionMenu.this.commandToChange;
+            if(i!=Input.KEY_ESCAPE){
             OptionMenu.this.setValue(key, i);
-            if(!Player.getPlayerInstance().getCommands().containsValue(i)){
-                Player.getPlayerInstance().getCommands().replace(key, i);
-            }
-            OptionMenu.this.aggiornavalori();//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            if(!Player.getPlayerInstance().getCommands().containsValue(i))
+            Player.getPlayerInstance().getCommands().replace(key, i);
+            OptionMenu.this.aggiornavalori();//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
         }
 
         @Override

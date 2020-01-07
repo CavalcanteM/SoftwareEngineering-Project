@@ -259,9 +259,8 @@ public class Player implements UpgradeComponent {
     public void update(GameContainer gc, int delta) throws SlickException {
 
         // Gravity check and change
-        if(gc.isPaused()){
-            if (gc.getInput().isKeyPressed((commands.get("gravity"))) || (gc.getInput().isKeyPressed((commands.get("dash")))));
-        }
+        if (gc.getInput().isKeyPressed((commands.get("gravity"))))
+            gravity = changeGravity(signum(gravity));
 
         // y acceleration
         vY += gravity;
@@ -297,7 +296,9 @@ public class Player implements UpgradeComponent {
      */
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-
+        if(gc.isPaused()){
+            if (gc.getInput().isKeyPressed((commands.get("gravity"))) || (gc.getInput().isKeyPressed((commands.get("dash")))));
+        }
         //used to hyde the hitbox
         hideHitbox(g);
         /*
