@@ -29,9 +29,8 @@ public class GameIsaac extends BasicGameState {
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
-	private Saves saves;
-	public static int loadedLevel;
-	public static int loadedWorld;
+    public static int loadedLevel;
+    public static int loadedWorld;
 
     public void setLevel(Level level) {
         this.level = level;
@@ -69,45 +68,41 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-//		saves=saves.loadProgress();
-//		loadedLevel=saves.getLastLevel();
-//		loadedWorld=saves.getLastWorld();
-		player = Player.getPlayerInstance();   // Using Singleton class Player
-		//Inizialize the Level list and set the first level as current level
-		this.initLevelList();
-//		level = (Level) galaxy.getChild(saves.getLastLevel()).getChild(saves.getLastWorld());
-		level = (Level) galaxy.getChild(loadedWorld).getChild(loadedLevel);
-		System.out.println("Livello caricato: "+loadedLevel+" - MondoCaricato: "+loadedWorld);
-		pause = new Menu();
-		end = new Menu();
-		deathMenu = new Menu();
-		//Initialize the menu
-		Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
-		Button restart = new Button(50, 150, new RestartLevel(), "Restart");       //The constructor will decide, the function executed by the button
-		Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
-		Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
-		Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
-		Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
-		//Adding the buttons to the menus
-		pause.addButton(resume);
-		pause.addButton(restart);
-		pause.addButton(options);
-		pause.addButton(main);
-		pause.addButton(exit);
-		end.addButton(next);
-		end.addButton(restart);
-		end.addButton(main);
-		end.addButton(exit);
-		deathMenu.addButton(restart);
-		deathMenu.addButton(main);
-		deathMenu.addButton(exit);
-		deathMenu.init(gc);
-		pause.init(gc);
-		end.init(gc);
-		level.init(gc);
-		this.collisionManager = new CollisionManager(level);
-		this.player.setCollisionManager(this.collisionManager);
-		player.init(gc);
+            player = Player.getPlayerInstance();   // Using Singleton class Player
+            //Inizialize the Level list and set the first level as current level
+            this.initLevelList();
+            level = (Level) galaxy.getChild(loadedWorld).getChild(loadedLevel);
+            System.out.println("Livello caricato: "+loadedLevel+" - MondoCaricato: "+loadedWorld);
+            pause = new Menu();
+            end = new Menu();
+            deathMenu = new Menu();
+            //Initialize the menu
+            Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
+            Button restart = new Button(50, 150, new RestartLevel(), "Restart");       //The constructor will decide, the function executed by the button
+            Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
+            Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
+            Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
+            Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
+            //Adding the buttons to the menus
+            pause.addButton(resume);
+            pause.addButton(restart);
+            pause.addButton(options);
+            pause.addButton(main);
+            pause.addButton(exit);
+            end.addButton(next);
+            end.addButton(restart);
+            end.addButton(main);
+            end.addButton(exit);
+            deathMenu.addButton(restart);
+            deathMenu.addButton(main);
+            deathMenu.addButton(exit);
+            deathMenu.init(gc);
+            pause.init(gc);
+            end.init(gc);
+            level.init(gc);
+            this.collisionManager = new CollisionManager(level);
+            this.player.setCollisionManager(this.collisionManager);
+            player.init(gc);
 	}
 
     /**
