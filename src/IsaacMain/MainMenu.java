@@ -8,7 +8,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -28,7 +27,7 @@ public class MainMenu extends BasicGameState {
         buttons = new ArrayList<Button>();
         buttons.add(new Button(50, 150, new NewGame(), "New Game"));
         buttons.add(new Button(50, 150, new ContinueGame(), "Continue Game"));
-        //buttons.add(new Button(50, 150, new SelectLevel(), "Select Level"));
+        buttons.add(new Button(50, 150, new ChooseLevel(), "Select Level"));
         buttons.add(new Button(50, 150, new ChangeControls(this.getID()), "Settings"));
         buttons.add(new Button(50, 150, new Exit(), "Quit"));
         menu = new Menu(buttons, true);
@@ -48,6 +47,5 @@ public class MainMenu extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         menu.update(gc, i, sbg);
-
     }
 }

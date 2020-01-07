@@ -43,7 +43,7 @@ public class CollisionManagerTest {
     /**
      * Here I create the fake objects in the map
      */
-    
+
     @Before
     public void setUp() throws SlickException {
         players = new ArrayList<Shape>();
@@ -145,5 +145,5 @@ public class CollisionManagerTest {
         boolean result = collision.collidesWith();
         assertTrue(!result && !collision.test1 && !collision.test2 && !collision.test3 && collision.test4);
     }
-    
+
 }

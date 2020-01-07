@@ -21,7 +21,7 @@ public class Menu{
 	private ArrayList<Shape> buttonsShape;
 	private int x;
 	private int y;
-        private Boolean overlay=false;
+	private Boolean overlay=false;
 
 	/**
 	 * Creates a new menu with the buttons taken from an ArrayList
@@ -36,10 +36,11 @@ public class Menu{
 			this.addButton(b);
 		});
 	}
-        	public Menu(ArrayList<Button> buttons, Boolean overlay) {
+	
+	public Menu(ArrayList<Button> buttons, Boolean overlay) {
 		this.h=0;
 		this.l=0;
-                this.overlay=overlay;
+		this.overlay=overlay;
 		this.buttons = new ArrayList<>();
 		this.buttonsShape = new ArrayList<>();
 		buttons.forEach((b) -> {
@@ -127,7 +128,7 @@ public class Menu{
 		
 		int temp=this.y;
 		for (Button b : this.buttons){
-			if (gc.getInput().isMouseButtonDown(0) && posX>this.x && posX<(this.x+b.getL()) &&
+			if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && posX>this.x && posX<(this.x+b.getL()) &&
 					gc.getHeight()-posY>temp && gc.getHeight()-posY<(temp+b.getH())){
 				b.update(gc, delta, sbg);
 				return;

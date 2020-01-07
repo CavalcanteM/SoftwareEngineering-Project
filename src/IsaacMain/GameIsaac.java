@@ -29,7 +29,9 @@ public class GameIsaac extends BasicGameState {
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
-	  private Saves saves;
+	private Saves saves;
+	public static int loadedLevel;
+	public static int loadedWorld;
 
     public void setLevel(Level level) {
         this.level = level;
@@ -67,12 +69,15 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		saves=loadProgress();
+//		saves=saves.loadProgress();
+//		loadedLevel=saves.getLastLevel();
+//		loadedWorld=saves.getLastWorld();
 		player = Player.getPlayerInstance();   // Using Singleton class Player
 		//Inizialize the Level list and set the first level as current level
 		this.initLevelList();
-		level = (Level) galaxy.getChild(saves.getLastLevel()).getChild(saves.getLastWorld());
-		System.out.println("Livello caricato: "+saves.getLastLevel()+" - MondoCaricato: "+saves.getLastWorld());
+//		level = (Level) galaxy.getChild(saves.getLastLevel()).getChild(saves.getLastWorld());
+		level = (Level) galaxy.getChild(loadedWorld).getChild(loadedLevel);
+		System.out.println("Livello caricato: "+loadedLevel+" - MondoCaricato: "+loadedWorld);
 		pause = new Menu();
 		end = new Menu();
 		deathMenu = new Menu();
@@ -80,7 +85,7 @@ public class GameIsaac extends BasicGameState {
 		Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
 		Button restart = new Button(50, 150, new RestartLevel(), "Restart");       //The constructor will decide, the function executed by the button
 		Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
-		Button next = new Button(50, 150, new NextLevel(this,saves.getLastWorld(),saves.getLastLevel()), "Next Level");
+		Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
 		Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
 		Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
 		//Adding the buttons to the menus
@@ -241,22 +246,5 @@ public class GameIsaac extends BasicGameState {
             e.printStackTrace();
             return null;
         }
-    }
-
-	public Saves loadProgress(){
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
-		Saves saves;
-        try{
-            fis = new FileInputStream("save.txt");
-            in = new ObjectInputStream(fis);
-            saves = (Saves) in.readObject();
-            in.close();
-        }catch(IOException | ClassNotFoundException e){
-            saves = new Saves();
-			saves.setLastLevel(0);
-			saves.setLastWorld(0);
-        }
-		return saves;
     }
 }

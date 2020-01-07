@@ -20,30 +20,30 @@ import org.newdawn.slick.geom.Shape;
  * @author danya
  */
 public class PlayerTest {
-    
+
     private Player player;
     private Level level;
-    
+
     public PlayerTest() {
-     
+
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
         System.out.println("----- Test Player class -----");
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
-        
+
     }
-    
+
     @Before
     public void setUp() {
-        //level = new Level("test", 1, 1);
+//        level = new Level("test", 1, 1);
         player = Player.getPlayerInstance();
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -158,7 +158,7 @@ public class PlayerTest {
         player.setDashValue(0);
         assertEquals(dashValue, player.getDashValue());
     }
-    
+
     /**
      * Test of setGravity method, of class Player.
      */
@@ -180,7 +180,7 @@ public class PlayerTest {
         player.setIterations(20F);
         assertEquals(iterations, player.getIterations(), 0.0);
     }
-    
+
     /**
      * Test of setPlayer method, of class Player.
      */
@@ -272,7 +272,7 @@ public class PlayerTest {
 //    @Test
 //    public void testChangeGravity() {
 //        System.out.println("changeGravity");
-//        
+//
 //        /* To guarantee statement, branch, condition and path coverage we need two test case:
 //         * 1) there is a collision with an object of the current level during the transition, so
 //         *    the robot has to block
@@ -283,7 +283,7 @@ public class PlayerTest {
 //        float expResult = -0.5F;
 //        float result = player.changeGravity(signum(player.getGravity()));
 //        assertEquals(expResult, result, 0.0);
-//        
+//
 //        // Second case
 //        expResult = 0.5f;
 //        result = player.changeGravity(signum(player.getGravity()));
@@ -299,17 +299,17 @@ public class PlayerTest {
         System.out.println("dash");
         player.setPlayer(new Rectangle(200, 200,30,60));
         int dir = 1;    // the direction of the dash
-        
+
         // Check the dash on the right
         float vx = player.getvX();
         player.dash(dir);
         float vx1 = player.getvX();
-        assertTrue(vx1 > vx); 
-        
+        assertTrue(vx1 > vx);
+
         // Check the dash on the left
         player.dash(-dir);
         float vx2 = player.getvX();
         assertTrue(vx2 < vx1);
     }
-    
+
 }
