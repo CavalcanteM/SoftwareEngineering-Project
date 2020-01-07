@@ -86,7 +86,7 @@ public class ComicMenu extends BasicGameState {
             System.out.println("NEW INDEX "+ index);
         }*/
         // else if (index != saves.getLastWorld())
-        System.out.println("index " + index);
+//        System.out.println("index " + index);
         if (gc.getInput().isKeyPressed(Input.KEY_ENTER)){
             if(saves.getLastWorld() == 0 && index <2){
                 index++;

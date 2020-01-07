@@ -21,7 +21,7 @@ public class RestartLevel implements Command{
         gc.resume();
         try {
             //gc.reinit();
-            GalaxyComponent world = gs.getGalaxy().getChild(GameIsaac.loadedLevel);
+            GalaxyComponent world = gs.getGalaxy().getChild(GameIsaac.loadedWorld);
             Level level = (Level)world.getChild(GameIsaac.loadedLevel);
             gs.setLevel(level);
             gs.getLevel().init(gc);
