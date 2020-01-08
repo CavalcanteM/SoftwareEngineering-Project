@@ -16,7 +16,7 @@ public abstract class EntityFactory {
      *
      * @param x = x coordinate for the creation of the block (top left corner).
      * @param y = y coordinate for the creation of the block (top left corner).
-     * @return a new Upgrate instance. 
+     * @return a new Upgrate instance.
      */
     public abstract Entity create(int x, int y);
 

@@ -13,9 +13,9 @@ import Entity.Reward;
  * a Reward object with the implemented Entity interface type.
  */
 public class ConcreteFactoryReward extends EntityFactory{
-    
+
     /**
-     * Method create inherited from the class EntityFactory, to create one of the Entity objects. 
+     * Method create inherited from the class EntityFactory, to create one of the Entity objects.
      *
      * @param x = x coordinate for the creation of the block (top left corner).
      * @param y = y coordinate for the creation of the block (top left corner).
