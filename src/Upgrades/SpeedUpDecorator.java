@@ -32,12 +32,13 @@ public class SpeedUpDecorator extends UpgradeDecorator{
     }
 
     /**
-     * Check if the durate of the powerUp is ended. If ended, the powerUp is disactived
+     * Check if the durate of the powerUp is ended.If ended, the powerUp is disactived
+     * @param gc
+     * @param delta
+     * @throws org.newdawn.slick.SlickException
      */
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        System.out.println("Sono nell'update di SpeedUp");
-        System.out.println("Sono passati" +(System.currentTimeMillis() - this.activationTime));
         if (((System.currentTimeMillis() - this.activationTime) > this.durate)) {
             super.setSpeedUp(1);
             this.upgradeActive = false;
@@ -52,9 +53,7 @@ public class SpeedUpDecorator extends UpgradeDecorator{
     public void execute(){
         this.upgradeActive = true;
         this.activationTime = System.currentTimeMillis();
-        System.out.println("Sono entrato a "+activationTime);
         super.setSpeedUp(2);
-        System.out.println("attivo");
     }
 
 }

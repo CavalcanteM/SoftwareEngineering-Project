@@ -124,9 +124,6 @@ public class OptionMenu extends BasicGameState implements Serializable {
             tempSave += 70;
         }
         int tempKeys = this.yKey;
-        System.out.println("optionMenu " + options);
-        System.out.println("optionMenu " + options.getCommandMap());
-        System.out.println("optionMenu " + options.getCommandMap().keySet());
 
         for (String b : options.getCommandMap().keySet()) {
             if (b.equals("skinIndex")) {

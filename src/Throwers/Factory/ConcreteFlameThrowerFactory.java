@@ -6,6 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.SlickException;
 
+/**
+ * This class is one of the Concrete Creators that overrides the base factory
+ * method of ThrowersFactory, so it returns a different type of product, in this
+ * case, a FlameThrower
+ */
 public class ConcreteFlameThrowerFactory extends ThrowersFactory{
 
     protected int difficulty;
@@ -13,7 +18,14 @@ public class ConcreteFlameThrowerFactory extends ThrowersFactory{
     public ConcreteFlameThrowerFactory(int difficulty){
         this.difficulty = difficulty;
     }
-
+    /**
+     * Method create inherited from the class ThrowersFactory
+     * @param x
+     * @param y
+     * @param size
+     * @param type
+     * @return 
+     */
     @Override
     public Thrower create(int x, int y, int size, int type) {
 

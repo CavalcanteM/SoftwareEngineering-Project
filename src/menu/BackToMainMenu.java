@@ -8,7 +8,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
  * This Command changes the State of the game to the MainMenu regardless of the current one
- * @author danya
  */
 public class BackToMainMenu implements Command{
 
@@ -18,7 +17,5 @@ public class BackToMainMenu implements Command{
                 gc.resume();                            //game not paused
                 sbg.enterState(0,new FadeOutTransition(), new FadeInTransition()); //enter in mainmenu state
                 gc.setMusicOn(true);
-                System.out.println("state 0");
         }
-
 }

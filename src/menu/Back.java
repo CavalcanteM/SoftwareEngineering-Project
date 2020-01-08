@@ -7,7 +7,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Command that changes the State of the game from OptionMenu back to the prevoius one
- * @author danya
  */
 public class Back implements Command{
     

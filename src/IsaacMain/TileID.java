@@ -1,5 +1,9 @@
 package IsaacMain;
 
+/**
+ * This class is necessary in order to don't modify a lot of classes when the
+ * TileSet changes.
+ */
 public interface TileID {
 
     int TURRET_UP = 16;

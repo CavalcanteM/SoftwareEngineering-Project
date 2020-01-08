@@ -100,7 +100,7 @@ public class GameIsaac extends BasicGameState {
         Button restart = new Button(50, 150, new RestartLevel(this), "Restart");        //The constructor will decide, the function executed by the button
         Button exit = new Button(50, 150, new Exit(), "Quit");                          //Check the pakage menu to see all the commands
         Button next = new Button(50, 150, new NextLevel(this, loadedWorld, loadedLevel), "Next Level");
-        Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
+        Button options = new Button(50, 150, new ChangeControls(), "Settings");
         Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
 
         //Adding the buttons to the menus
@@ -190,14 +190,13 @@ public class GameIsaac extends BasicGameState {
         //this.galaxy = this.loadTreeLevel();
         if (this.galaxy == null) {
             this.galaxy = new LevelContainer("Centaurus");
-            System.out.println("Il load non ha funzionato");
 
             // Setting first world
             GalaxyComponent world1 = new LevelContainer("World 1");
-            GalaxyComponent level1 = new Level("Level 1-1", 1, 1, 1);
-            GalaxyComponent level2 = new Level("Level 1-2", 1, 2, 2);
-            GalaxyComponent level3 = new Level("Level 1-3", 1, 3, 3);
-            GalaxyComponent level4 = new Level("Level 1-4", 1, 4, 4);
+            GalaxyComponent level1 = new Level("Level 1-1", 4, 1, 1);
+            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 1);
+            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 1);
+            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 1);
             world1.add(level1);
             world1.add(level2);
             world1.add(level3);
@@ -206,10 +205,10 @@ public class GameIsaac extends BasicGameState {
 
             // Setting second world
             GalaxyComponent world2 = new LevelContainer("World 2");
-            GalaxyComponent level5 = new Level("Level 2-1", 1, 5, 1);
-            GalaxyComponent level6 = new Level("Level 2-2", 1, 6, 1);
-            GalaxyComponent level7 = new Level("Level 2-3", 1, 7, 1);
-            GalaxyComponent level8 = new Level("Level 2-4", 1, 8, 1);
+            GalaxyComponent level5 = new Level("Level 2-1", 5, 5, 4);
+            GalaxyComponent level6 = new Level("Level 2-2", 5, 6, 4);
+            GalaxyComponent level7 = new Level("Level 2-3", 5, 7, 4);
+            GalaxyComponent level8 = new Level("Level 2-4", 5, 8, 4);
             world2.add(level5);
             world2.add(level6);
             world2.add(level7);
@@ -218,10 +217,10 @@ public class GameIsaac extends BasicGameState {
 
             // Setting third world
             GalaxyComponent world3 = new LevelContainer("World 3");
-            GalaxyComponent level9 = new Level("Level 3-1", 1, 9, 1);
-            GalaxyComponent level10 = new Level("Level 3-2", 1, 10, 1);
-            GalaxyComponent level11 = new Level("Level 3-3", 1, 11, 1);
-            GalaxyComponent level12 = new Level("Level 3-4", 1, 12, 1);
+            GalaxyComponent level9 = new Level("Level 3-1", 5, 9, 7);
+            GalaxyComponent level10 = new Level("Level 3-2", 5, 10, 7);
+            GalaxyComponent level11 = new Level("Level 3-3", 5, 11, 7);
+            GalaxyComponent level12 = new Level("Level 3-4", 5, 12, 7);
             world3.add(level9);
             world3.add(level10);
             world3.add(level11);
@@ -230,10 +229,10 @@ public class GameIsaac extends BasicGameState {
 
             // Setting fourth world
             GalaxyComponent world4 = new LevelContainer("World 4");
-            GalaxyComponent level13 = new Level("Level 4-1", 1, 13, 1);
-            GalaxyComponent level14 = new Level("Level 4-2", 1, 14, 1);
-            GalaxyComponent level15 = new Level("Level 4-3", 1, 15, 1);
-            GalaxyComponent level16 = new Level("Level 4-4", 1, 16, 1);
+            GalaxyComponent level13 = new Level("Level 4-1", 5, 13, 10);
+            GalaxyComponent level14 = new Level("Level 4-2", 5, 14, 10);
+            GalaxyComponent level15 = new Level("Level 4-3", 5, 15, 10);
+            GalaxyComponent level16 = new Level("Level 4-4", 5, 16, 10);
             world4.add(level13);
             world4.add(level14);
             world4.add(level15);
@@ -299,6 +298,5 @@ public class GameIsaac extends BasicGameState {
             progress.setLastLevel(nextLevel);
             progress.saveProgress();
         }
-        System.out.println("GamiIsaac-> MondoSalvato: " + progress.getLastWorld() + " - LivelloSalvato: " + progress.getLastLevel());
     }
 }

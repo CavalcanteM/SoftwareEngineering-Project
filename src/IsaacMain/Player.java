@@ -1,6 +1,5 @@
 package IsaacMain;
 
-import Upgrades.UpgradeDecorator;
 import Upgrades.UpgradeComponent;
 import static java.lang.Math.signum;
 import java.util.concurrent.Executors;
@@ -80,17 +79,30 @@ public class Player implements UpgradeComponent {
     /*--------------------
      * Getter methods
      *--------------------*/
+    
+    /**
+     * Getter method for the parameter hitbox
+     * @return 
+     */
 
     @Override
     public Shape getPlayer() {
         return hitbox;
     }
-
+    
+    /**
+     * @return the boolean variable this.appear
+     */
     @Override
-    public boolean isAppear() {
-        return appear;
+    public boolean isAppear(){
+        return this.appear;
     }
 
+    /**
+     * Getter method for the parameter numHearts
+     * Method inherited from the interface UpgradeComponent
+     * @return 
+     */
     @Override
     public int getNumHearts() {
         return numHearts;
@@ -105,7 +117,11 @@ public class Player implements UpgradeComponent {
     public int getNumVoidHearts() {
         return numVoidHearts;
     }
-
+    
+    /**
+     * Getter method for the parameter animations
+     * @return 
+     */
     @Override
     public Animations getAnimations(){
         return animations;
@@ -114,31 +130,20 @@ public class Player implements UpgradeComponent {
     /*--------------------
      * Setter methods
      *--------------------*/
-    /**
-     * Setter method for the parameter dashValue
-     * @param dashValue
-     */
-    public void setDashValue(int dashValue) {
-        this.dashValue = dashValue;
-    }
 
     /**
-     * Setter method for the parameter gravity
-     * @param gravity
+     * Setter method for the parameter commands
+     * @param commands 
      */
-    public void setGravity(float gravity) {
-        this.gravity = gravity;
-    }
-
     @Override
     public void setCommands(Mapping commands){
         this.commands = commands;
     }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
+    
+    /**
+     * Setter method for the parameter speed
+     * @param speed
+     */
     @Override
     public void setSpeedUp(float speedUp) {
         this.speedUp = speedUp;
@@ -173,13 +178,17 @@ public class Player implements UpgradeComponent {
     /*--------------------
      * Other methods
      *--------------------*/
-
+    
+    /**
+     * This method is necessary in the decorators.
+     */
     @Override
     public void execute(){
     }
 
     /**
-     *
+     * Implementation of the method "update" of the interface UpgradeComponent
+     * This method is a sort of costructor.
      * @param gc
      * @throws SlickException
      */
@@ -204,7 +213,7 @@ public class Player implements UpgradeComponent {
     }
 
     /**
-     *
+     * Implementation of the method "update" of the interface UpgradeComponent
      * @param gc
      * @param delta
      * @throws SlickException
@@ -238,8 +247,8 @@ public class Player implements UpgradeComponent {
     }
 
     /**
+     * Implementation of the method "update" of the interface UpgradeComponent
      * Renders the animation and the rotation of the character
-     *
      * @param gc
      * @param g
      * @throws SlickException
@@ -343,7 +352,7 @@ public class Player implements UpgradeComponent {
     }
 
     /**
-     *
+     * Allows movements on the X axis checking the collisions
      */
     private void moveWithCollisionsX() {
         // X movement collisions
@@ -377,7 +386,6 @@ public class Player implements UpgradeComponent {
 
     /**
      * Manages the movement on the X axis.
-     *
      * @param in the key button we have pressed
      */
     private void set_speedx(Input in) {
@@ -449,7 +457,6 @@ public class Player implements UpgradeComponent {
 
     /**
      * Draw the hearts that represent the current life of the character
-     *
      * @param dim1 the width of the hearts in pixels
      * @param dim2 the height of the hearts in pixels
      * @throws SlickException
@@ -476,7 +483,6 @@ public class Player implements UpgradeComponent {
 
     /**
      * Manages the damage on the character
-     *
      * @param damage The number of mid hearts to subtract
      */
     @Override
@@ -484,7 +490,6 @@ public class Player implements UpgradeComponent {
         if ((System.currentTimeMillis() - this.lastHitTime) > 1000) {
 
             this.lastHitTime = System.currentTimeMillis();
-            System.out.println(System.currentTimeMillis());
             this.numHearts -= damage;
             if (this.numHearts <= 0) {
                 this.isDead = true;
@@ -520,18 +525,11 @@ public class Player implements UpgradeComponent {
         this.isDead = false;
         this.speedUp = 1;
     }
-
-    @Override
-    public void setAnimations(Animations animations) {
-        try {
-            animations.createAnimations();
-        } catch (SlickException ex) {
-            ex.printStackTrace();
-        }
-
-    }
-
-    @Override
+    
+    /**
+     * Load from commands the "skinIndex" and set the attribute this.animations
+     * with the correct animation.
+     */
     public void selectAnimations(){
         switch(this.commands.getCommandMap().get("skinIndex")){
             case 0: {
@@ -558,7 +556,8 @@ public class Player implements UpgradeComponent {
     }
 
     /**
-     *
+     * This method has to change the player's appear attribute in order to let
+     * the player image appears and disappears.
      */
     public void blink(){
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();

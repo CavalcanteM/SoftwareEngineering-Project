@@ -15,8 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * This class manages the selection of one of the level that the player has already player
- * After the player completes a level it is added to the list of levels showed in this window 
- * @author danya
+ * After the player completes a level it is added to the list of levels showed in this window
  */
 public class LevelSelector extends BasicGameState {
 
@@ -53,7 +52,6 @@ public class LevelSelector extends BasicGameState {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        System.out.println("LevelSelector-> init");
         menu = new ArrayList<>();
         this.page = 0;
         int i = 0;

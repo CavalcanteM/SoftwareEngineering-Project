@@ -8,6 +8,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * Command that selects and starts the next level to be played
+ */
 public class NextLevel implements Command {
 
     private GameIsaac gs;
@@ -21,7 +24,6 @@ public class NextLevel implements Command {
     @Override
     public void execute(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException {
         //Check if the actualLevel is the last level of the world
-        System.out.println("NextLevel-> LoadedWorld: " + GameIsaac.loadedWorld + " LoadedLevel: " + GameIsaac.loadedLevel);
         if (gs.getGalaxy().getChild(GameIsaac.loadedWorld).getChildren().size() == GameIsaac.loadedLevel + 1) {
             sbg.enterState(4);
             //Check if the actualWorld is the last world of the galaxy
@@ -48,5 +50,4 @@ public class NextLevel implements Command {
         if (actualWorld != GameIsaac.loadedWorld) {
         }
     }
-
 }

@@ -11,6 +11,9 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * This class provides all the tools required to create a generic menu 
+ */
 public class Menu{
 	
 	private int h;
@@ -37,6 +40,11 @@ public class Menu{
 		});
 	}
 	
+        /**
+         * Creates a new menu with the buttons contained in the ArrayList, without the background overlay
+         * @param buttons
+         * @param overlay 
+         */
 	public Menu(ArrayList<Button> buttons, Boolean overlay) {
 		this.h=0;
 		this.l=0;
@@ -86,6 +94,11 @@ public class Menu{
 		this.l=max+20;
 	}
 	
+        /**
+         * Initiaizes the menu and the buttons in their positions
+         * @param gc
+         * @throws SlickException 
+         */
 	public void init(GameContainer gc) throws SlickException {
 		background = new Rectangle(0,0,gc.getWidth(),gc.getHeight());
 		
@@ -103,6 +116,12 @@ public class Menu{
 		
 	}
 
+        /**
+         * Renders the  buttons on the screen and the background overlay
+         * @param gc
+         * @param g
+         * @throws SlickException 
+         */
 	public void render(GameContainer gc, Graphics g) throws SlickException {
             if(!overlay){
 		g.setColor(new Color(0,0,0, 0.65f));
@@ -118,6 +137,13 @@ public class Menu{
 		}
 	}
 	
+        /**
+         * Contains the keyboard and the mouse listner for all the buttons
+         * @param gc
+         * @param delta
+         * @param sbg
+         * @throws SlickException 
+         */
 	public void update(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException {
 		int posX = Mouse.getX();
 		int posY = Mouse.getY();

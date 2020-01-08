@@ -10,7 +10,7 @@ public class IsaacAnimations extends BasicAnimations{
     }
     
     /**
-     * 
+     * Loads the frame for the run animation at the specified index 
      * @param index
      * @return 
      */
@@ -20,7 +20,7 @@ public class IsaacAnimations extends BasicAnimations{
     }
     
     /**
-     * 
+     * Loads the frame for the idle animation at the specified index 
      * @param index
      * @return 
      */
@@ -30,13 +30,12 @@ public class IsaacAnimations extends BasicAnimations{
     }
     
     /**
-     * 
+     * Loads the frame for the death animation at the specified index
      * @param index
      * @return 
      */
     @Override
     public Image setDeathAnimationFrame(int index) throws SlickException{
         return new Image("./graphics/png/Dead (" + (index+1) + ").png");
-    }
-    
+    }   
 }

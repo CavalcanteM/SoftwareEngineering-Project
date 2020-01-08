@@ -1,6 +1,5 @@
 package Upgrades;
 
-import IsaacMain.Player;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -52,15 +51,6 @@ public class ShieldDecorator extends UpgradeDecorator {
         super.render(gc, g);
     }
 
-//    /**
-//     * 
-//     * @return the parameter upgradeActive
-//     */
-//    
-//    public boolean isUpgradeActive(){
-//        return upgradeActive;
-//    }
-//    
     /**
      * Activation of the powerUp
      */
@@ -71,8 +61,11 @@ public class ShieldDecorator extends UpgradeDecorator {
     }
 
     /**
-     * Check if the durate of the powerUp is ended. If ended, the powerUp is
+     * Check if the durate of the powerUp is ended.If ended, the powerUp is
      * disactived
+     * @param gc
+     * @param delta
+     * @throws org.newdawn.slick.SlickException
      */
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {

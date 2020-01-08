@@ -11,7 +11,7 @@
  </layer>
  <layer id="11" name="Upgrades" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+   H4sIAAAAAAAECmNgGLxAfPA6bdRlgyQERtPIIImIUWeMhsAgDoHRcmIQRw4VnTYaz1QMzFGjhn0IAABUhfM1AAwAAA==
   </data>
  </layer>
  <layer id="9" name="Turrets" width="32" height="24">
@@ -56,7 +56,7 @@
  </layer>
  <layer id="15" name="Rewards" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGHgQj8MJuMRxKB9xwqPhw8CALwzwyQ2VxDIc/DBUwnq4unM4pCF8fkCWQ2YjxycucWQ1o2z6hQCt4gOXubjE6efjgbVppPufGqE/HMMQABJ3mj0ADAAA
+   H4sIAAAAAAAECmNgGHgQP/BOGJIuGA03/NE2HMJnOPgBfyyNytI6BIZDGsLnB2Q5ZDatw3XUfPJDgN7xRG/7yA8Z2ugc6f6nRqgOxzAEAN45EIgADAAA
   </data>
  </layer>
 </map>

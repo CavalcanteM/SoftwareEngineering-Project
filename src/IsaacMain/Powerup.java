@@ -78,7 +78,6 @@ public class Powerup implements Iterable<Entity> {
     }
 
     /**
-     * 
      * @return the upgradeDecorator associated with the upgrade Entity
      */
     public UpgradeComponent Powerup(){

@@ -66,7 +66,6 @@ public class ShootingEnemyClient {
         this.turret_number = (int) ceil((float) (difficulty * array.size()) / 10);
         Collections.shuffle(array);
         Collections.shuffle(array);
-        System.out.println("Showing " + turret_number + " turret(s) of " + array.size());
         return new ArrayList<ShootingEnemy>(array.subList(0, this.turret_number));
     }
 

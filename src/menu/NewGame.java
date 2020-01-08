@@ -7,6 +7,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+/**
+ * Command that starts a new game entering in the State 3
+ */
 public class NewGame implements Command {
 
     @Override
@@ -18,7 +21,6 @@ public class NewGame implements Command {
 
         sbg.getState(3).init(gc, sbg);
         sbg.enterState(3, new FadeOutTransition(), new FadeInTransition());
-        System.out.println("state 3");
     }
 
 }

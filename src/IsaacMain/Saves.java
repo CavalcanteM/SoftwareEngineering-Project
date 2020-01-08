@@ -7,16 +7,28 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * This class implements the progress save functionality on file
+ * In this obect will be saved the first level not completed and it's world
+ */
 public class Saves implements Serializable {
 
     private int lastWorld;
     private int lastLevel;
 
+    /**
+     * Creates a new Save with the given parameters
+     * @param lastWorld
+     * @param lastLevel 
+     */
     public Saves(int lastWorld, int lastLevel) {
         this.lastWorld = lastWorld;
         this.lastLevel = lastLevel;
     }
 
+    /**
+     * Creates a new Save on the first level
+     */
     public Saves() {
         this.lastWorld = 0;
         this.lastLevel = 0;
@@ -38,6 +50,9 @@ public class Saves implements Serializable {
         this.lastLevel = lastLevel;
     }
 
+    /**
+     * Saves the object on the file "save.txt"
+     */
     public void saveProgress() {
         try {
             FileOutputStream fos = new FileOutputStream("save.txt");
@@ -50,6 +65,10 @@ public class Saves implements Serializable {
         }
     }
 
+    /**
+     * Loads the object contained in the "save.txt" file, a blank one if file missing
+     * @return a Saves object
+     */
     public Saves loadProgress() {
         Saves saves;
         try {
@@ -59,8 +78,6 @@ public class Saves implements Serializable {
             in.close();
         } catch (IOException | ClassNotFoundException e) {
             saves = new Saves();
-            saves.setLastLevel(0);
-            saves.setLastWorld(0);
         }
         return saves;
     }

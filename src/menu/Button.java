@@ -11,8 +11,6 @@ import org.newdawn.slick.state.StateBasedGame;
  * This class will create the template for all the buttons in the game. It uses
  * the COMMAND Behavioral Design Pattern for the implamentation of the
  * functionalities triggered by the buttons
- *
- * @author Forse Lorenzo
  */
 public class Button {
 

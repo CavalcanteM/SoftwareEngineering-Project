@@ -8,6 +8,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * Command that restarts the current level in all it's aspects
+ */
 public class RestartLevel implements Command{
     
     private GameIsaac gs;

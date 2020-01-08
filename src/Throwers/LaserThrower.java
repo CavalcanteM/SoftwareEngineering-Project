@@ -10,6 +10,9 @@ import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.particles.ConfigurableEmitter;
 import org.newdawn.slick.particles.ParticleSystem;
 
+/**
+ * This class is an implementation of the interface Thrower.
+ */
 public class LaserThrower implements Thrower {
 
     private ConcreteThrower ct;
@@ -28,7 +31,15 @@ public class LaserThrower implements Thrower {
     private long actualTime;
     private Sound sound;
     private int difficulty;
-
+    
+    /**
+     * @param x Coordinate in pixels
+     * @param y Coordinate in pixels
+     * @param size Size of the flame length
+     * @param type This is detected by the TileID
+     * @param difficulty This parameter changes the offTime of the Thrower
+     * @throws SlickException 
+     */
     public LaserThrower(float x, float y, int size, int type, int difficulty) throws SlickException {
         this.difficulty = difficulty;
         this.lastTime = System.currentTimeMillis();
@@ -99,22 +110,34 @@ public class LaserThrower implements Thrower {
         }
         this.ft.addEmitter(laser);
     }
-
+    
+    /**
+     * @return the Shape of the ConcreteThrower.
+     */
     @Override
     public Shape getHitBox() {
         return this.ct.getHitBox();
     }
 
+    /**
+     * @return True if the Thrower is active, viceversa False.
+     */
     @Override
     public boolean isActive() {
         return active;
     }
-
+    
+    /**
+     * @return the shape with witch colliding the player undergo damage.
+     */
     @Override
     public Shape getDamageBox() {
         return damageBox;
     }
-
+    
+    /**
+     * Updates the value of this.active.
+     */
     private void updateActive() {
         if ((System.currentTimeMillis() - this.lastTime) > this.actualTime) {
             this.active = !this.active;
@@ -126,7 +149,10 @@ public class LaserThrower implements Thrower {
             this.lastTime = System.currentTimeMillis();
         }
     }
-
+    
+    /**
+     * Renders the ConfigurableEmitter.
+     */
     @Override
     public void render() {
         if (this.active) {
@@ -134,7 +160,11 @@ public class LaserThrower implements Thrower {
             ShapeRenderer.textureFit(this.damageBox, imm);
         }
     }
-
+    
+    /**
+     * Update the ConfigurableEmitter and play the Thrower's sound.
+     * @param delta 
+     */
     @Override
     public void update(int delta) {
         this.ft.update(delta);
@@ -149,7 +179,10 @@ public class LaserThrower implements Thrower {
             this.sound.stop();
         }
     }
-
+    
+    /**
+     * @return the number of half hearts to deduct to the Player.
+     */
     @Override
     public int doDamage() {
         if (this.active) {

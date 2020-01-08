@@ -10,7 +10,7 @@ public class AdventurerAnimations extends BasicAnimations {
     }
     
     /**
-     * 
+     * Loads the frame for the run animation at the specified index 
      * @param index
      * @return 
      */
@@ -20,7 +20,7 @@ public class AdventurerAnimations extends BasicAnimations {
     }
     
     /**
-     * 
+     * Loads the frame for the idle animation at the specified index 
      * @param index
      * @return 
      */
@@ -30,7 +30,7 @@ public class AdventurerAnimations extends BasicAnimations {
     }
     
     /**
-     * 
+     * Loads the frame for the death animation at the specified index
      * @param index
      * @return 
      */
@@ -38,9 +38,5 @@ public class AdventurerAnimations extends BasicAnimations {
     public Image setDeathAnimationFrame(int index) throws SlickException{
         super.setDimensions(68, 70);
         return new Image("./graphics/adventurer/Dead__00" + index + ".png");
-    }
-    
-    
-    
-    
+    }    
 }

@@ -49,8 +49,6 @@ public interface UpgradeComponent {
 
     public void execute();
 
-    public void setAnimations(Animations animations);
-
     public void selectAnimations();
 
     public Animations getAnimations();

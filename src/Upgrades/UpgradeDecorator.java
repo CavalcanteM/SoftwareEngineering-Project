@@ -83,11 +83,6 @@ public class UpgradeDecorator implements UpgradeComponent{
     }
 
     @Override
-    public void setAnimations(Animations animations) {
-        player.selectAnimations();
-    }
-
-    @Override
     public Animations getAnimations() {
         return player.getAnimations();
     }

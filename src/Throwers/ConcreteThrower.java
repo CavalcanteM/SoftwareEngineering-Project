@@ -3,14 +3,21 @@ package Throwers;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
-/*  
-    A ConcreteThrower is the Thrower itself, all implementation of the Thrower
-    interface has a ConcreteThrower.
-*/
+/**
+ * A ConcreteThrower is the Thrower itself, all implementation of the Thrower
+ * interface has a ConcreteThrower.
+ */
 public class ConcreteThrower {
     
     private Polygon hitBox;
-
+    
+    /**
+     * The costructor creates the ConcreteThrower's Shape according to the type
+     * that is detected by the TileID.
+     * @param x
+     * @param y
+     * @param type 
+     */
     public ConcreteThrower(float x, float y, int type) {
         this.hitBox = new Polygon();
         switch (type){
@@ -36,6 +43,9 @@ public class ConcreteThrower {
         }
     }
     
+    /**
+     * @return the Shape created in the constructor.
+     */
     public Shape getHitBox(){
         return this.hitBox;
     }

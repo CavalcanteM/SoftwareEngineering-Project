@@ -3,13 +3,11 @@ package ShootingEnemy.bullet;
 
 import ShootingEnemy.ShootingEnemy;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.tiled.TiledMap;
@@ -59,8 +57,6 @@ public class Bullet {
         double distance = Math.sqrt(x * x + y * y);
         vX = x / Math.abs(distance) * velocity;
         vY = y / Math.abs(distance) * velocity;
-
-        //System.out.println("Start: " + x1 + "," + y1 + " to: " + x2 + "," + y2 + ". Directions: " + vX + "," + vY + ". Components: " + x + " " + y + " Distance: " + distance);
     }
 
     public Shape getShape() {

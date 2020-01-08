@@ -95,7 +95,6 @@ public class HiddenThreeShotTurret implements ShootingEnemy {
         bulletList.remove(bul);
         if (++j % 3 == 0) {
             visible = false;
-            System.out.println("Visible= "+visible);
         }
     }
     

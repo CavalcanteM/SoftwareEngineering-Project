@@ -142,21 +142,17 @@ public class ComicMenu extends BasicGameState {
     private Saves getSaves() throws SlickException {
         Saves saves;
         try {
-            System.out.println("caricamento file");
             FileInputStream fis = new FileInputStream("save.txt");
             ObjectInputStream in = new ObjectInputStream(fis);
             saves = (Saves) in.readObject();
             in.close();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("creazione file");
             saves = new Saves();
             saves.setLastLevel(0);
             saves.setLastWorld(0);
             imgent = new Image("./graphics/comic/comic_world" + index + "enter" + index + ".jpg");
             imgent = imgent.getScaledCopy(960, 720);
         }
-
-        System.out.println("ho letto dal file il mondo " + saves.getLastWorld());
         return saves;
     }
 }

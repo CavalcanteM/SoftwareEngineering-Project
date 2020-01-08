@@ -10,7 +10,7 @@ public class JackLanternAnimations extends BasicAnimations {
     }
     
     /**
-     * 
+     * Loads the frame for the run animation at the specified index 
      * @param index
      * @return 
      */
@@ -20,7 +20,7 @@ public class JackLanternAnimations extends BasicAnimations {
     }
     
     /**
-     * 
+     * Loads the frame for the idle animation at the specified index 
      * @param index
      * @return 
      */
@@ -30,7 +30,7 @@ public class JackLanternAnimations extends BasicAnimations {
     }
     
     /**
-     * 
+     * Loads the frame for the death animation at the specified index
      * @param index
      * @return 
      */

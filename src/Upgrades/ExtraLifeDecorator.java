@@ -1,7 +1,5 @@
 package Upgrades;
 
-import IsaacMain.Player;
-
 /**
  * The extraLife upgrades
  */
