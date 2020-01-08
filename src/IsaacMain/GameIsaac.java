@@ -18,22 +18,22 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameIsaac extends BasicGameState {
 
-    private Level level;
+    private GalaxyComponent level;
     private Player player;
     private Menu pause;
     private Menu end;
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
-	private Saves progress;
+    private Saves progress;
     public static int loadedLevel;
     public static int loadedWorld;
 
-    public void setLevel(Level level) {
+    public void setLevel(GalaxyComponent level) {
         this.level = level;
     }
 
-    public Level getLevel() {
+    public GalaxyComponent getLevel() {
         return level;
     }
 

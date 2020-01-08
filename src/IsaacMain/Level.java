@@ -57,27 +57,33 @@ public class Level implements GalaxyComponent {
     public TiledMap getMap() {
         return map;
     }
-
+    
+    @Override
     public ArrayList<ShootingEnemy> getShootingEnemy() {
         return turrets;
     }
-
+    
+    @Override
     public ArrayList<Entity> getRewards() {
         return rewards;
     }
-
+    
+    @Override
     public ArrayList<Entity> getBlock() {
         return blocks;
     }
-
+    
+    @Override
     public ArrayList<StaticDamage> getSpikes() {
         return spikes;
     }
-
+    
+    @Override
     public Powerup getPowerup(){
         return up;
     }
-
+    
+    @Override
     public Points getPts() {
         return pts;
     }
@@ -199,4 +205,5 @@ public class Level implements GalaxyComponent {
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+        
 }

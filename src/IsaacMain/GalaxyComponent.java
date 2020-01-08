@@ -1,5 +1,9 @@
 package IsaacMain;
 
+import Entity.Entity;
+import ShootingEnemy.ShootingEnemy;
+import StaticEnemy.StaticDamage;
+import Throwers.Thrower;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
@@ -7,6 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public interface GalaxyComponent extends Serializable {
+    
     
     public void init(GameContainer gc) throws SlickException;
     
@@ -19,4 +24,19 @@ public interface GalaxyComponent extends Serializable {
     public ArrayList<GalaxyComponent> getChildren();
     
     public GalaxyComponent getChild(int index);
+    
+    public ArrayList<ShootingEnemy> getShootingEnemy();
+
+    public ArrayList<Entity> getRewards();
+
+    public ArrayList<Entity> getBlock();
+
+    public ArrayList<StaticDamage> getSpikes();
+    
+    public Powerup getPowerup();
+
+    public Points getPts();
+    
+    public ArrayList<Thrower> getThrowers();
+    
 }

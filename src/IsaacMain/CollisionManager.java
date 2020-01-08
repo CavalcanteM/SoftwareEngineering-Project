@@ -47,7 +47,7 @@ public class CollisionManager implements Mediator {
      *
      * @param level
      */
-    public CollisionManager(Level level) {
+    public CollisionManager(GalaxyComponent level) {
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
 
@@ -211,7 +211,7 @@ public class CollisionManager implements Mediator {
      *
      * @param level the current level of the game
      */
-    public void setParameters(Level level) {
+    public void setParameters(GalaxyComponent level) {
         this.blocks = level.getBlock();
         this.pts = level.getPts();
         this.spikes = level.getSpikes();

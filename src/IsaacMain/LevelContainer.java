@@ -1,5 +1,9 @@
 package IsaacMain;
 
+import Entity.Entity;
+import ShootingEnemy.ShootingEnemy;
+import StaticEnemy.StaticDamage;
+import Throwers.Thrower;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -58,4 +62,40 @@ public class LevelContainer implements GalaxyComponent {
     public void render(GameContainer gc, Graphics g) throws SlickException {
 
     }
+
+    @Override
+    public ArrayList<ShootingEnemy> getShootingEnemy() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Entity> getRewards() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Entity> getBlock() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<StaticDamage> getSpikes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Powerup getPowerup() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Points getPts() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Thrower> getThrowers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
