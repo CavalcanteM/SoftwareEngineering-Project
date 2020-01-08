@@ -1,9 +1,6 @@
 package IsaacMain;
 
-import Upgrades.ShieldDecorator;
-import Upgrades.ExtraLifeDecorator;
-import Upgrades.SpeedUpDecorator;
-import Upgrades.UpgradeDecorator;
+import Upgrades.*;
 import Entity.Entity;
 import java.util.ArrayList;
 import java.util.Random;
@@ -84,8 +81,8 @@ public class Powerup implements Iterable<Entity> {
      * 
      * @return the upgradeDecorator associated with the upgrade Entity
      */
-    public UpgradeDecorator Powerup(){
-        UpgradeDecorator uc;
+    public UpgradeComponent Powerup(){
+        UpgradeComponent uc;
         switch(this.string){
             case "ExtraLife":
                 uc = new ExtraLifeDecorator(Player.getPlayerInstance());

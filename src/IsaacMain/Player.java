@@ -2,17 +2,11 @@ package IsaacMain;
 
 import Upgrades.UpgradeDecorator;
 import Upgrades.UpgradeComponent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import static java.lang.Math.signum;
-import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import menu.Mapping;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -27,7 +21,7 @@ import org.newdawn.slick.geom.Shape;
 import skins.*;
 
 public class Player implements UpgradeComponent {
-    private static Player playerInstance = null;
+    private static UpgradeComponent playerInstance = null;
     private final int LEFT = -1, RIGHT = 1;
     private float gravity = 0.3f;
     private float speed = 5;
@@ -60,19 +54,24 @@ public class Player implements UpgradeComponent {
         try {
             // Initialization of the sounds for change gravity, death and hurt
             this.gravityfx = new Sound("./src/sound/change_gravity.wav");
-            this.deathfx = new Sound("./src/sound/death.wav");
+            this.deathfx = new Sound("./sOverriderc/sound/death.wav");
             this.hurtfx = new Sound("./src/sound/hurt.wav");
         } catch (SlickException ex){}
         
     }
 
-    public static Player getPlayerInstance() {
+    
+    public static UpgradeComponent getPlayerInstance() {
         if (playerInstance == null) {
             Player.playerInstance = new Player();
         }
         return Player.playerInstance;
     }
 
+    public static void setPlayerInstance(UpgradeComponent newInstance){
+        playerInstance = newInstance;
+    }
+    
     /*--------------------
      * Getter methods
      *--------------------*/
@@ -156,6 +155,7 @@ public class Player implements UpgradeComponent {
         this.gravity = gravity;
     }
     
+    @Override
     public void setCommands(Mapping commands){
         this.commands = commands;
     }
@@ -222,6 +222,10 @@ public class Player implements UpgradeComponent {
      * Other methods
      *--------------------*/
 
+    @Override
+    public void execute(){
+    }
+    
     /**
      *
      * @param gc
@@ -274,9 +278,9 @@ public class Player implements UpgradeComponent {
         moveWithCollisionsX();
 
         //if the speedUpDecorator is active, control if the the activation time is ended.
-        if (this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()) {
+        /*if (this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()) {
             this.speedUpDecorator.updateActive();
-        }
+        }*/
 
         /* Temporary code: used only for graphically testing the damage
          */
@@ -370,11 +374,6 @@ public class Player implements UpgradeComponent {
 
         if (this.isChangingGravity) {
             this.rotate(30);
-        }
-
-        //Rendering of the shield when it's active
-        if (this.shield) {
-            this.shieldDecorator.render(gc, g);
         }
 
         this.drawHearts(35, 30);
@@ -534,7 +533,7 @@ public class Player implements UpgradeComponent {
      * @param damage The number of mid hearts to subtract
      */
     @Override
-    synchronized public void getDamaged(int damage) {
+    public void getDamaged(int damage) {
         if ((System.currentTimeMillis() - this.lastHitTime) > 1000) {
 
             this.lastHitTime = System.currentTimeMillis();

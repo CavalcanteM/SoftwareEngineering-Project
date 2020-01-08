@@ -1,7 +1,6 @@
 package IsaacMain;
 
-import Upgrades.ShieldDecorator;
-import Upgrades.UpgradeDecorator;
+import Upgrades.*;
 import Throwers.Thrower;
 import Entity.Entity;
 import StaticEnemy.StaticDamage;
@@ -19,7 +18,7 @@ import org.newdawn.slick.geom.Shape;
 public class CollisionManager implements Mediator {
 
     //It keeps a reference for all objects that can cause collisions
-    private Player playerInstance;
+    private UpgradeComponent playerInstance;
     private ArrayList<Entity> blocks;
     private Points pts;
     private Powerup power;
@@ -29,7 +28,6 @@ public class CollisionManager implements Mediator {
     private ArrayList<StaticDamage> spikes;
     private ArrayList<Thrower> throwers, lasers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
-    private UpgradeDecorator shieldDecorator;
     private long lastUpgrade = 0;
     private long timeBetweenUpgrade;
     private int i= 0;
@@ -71,9 +69,7 @@ public class CollisionManager implements Mediator {
         if (!this.intesting){
             playerHitbox = playerInstance.getPlayer();
         }
-        if (this.shieldDecorator != null && this.shieldDecorator.isUpgradeActive()) {
-            this.shieldDecorator.updateActive();
-        }
+        
         if (pts != null) {
             getReward();
         }
@@ -86,11 +82,7 @@ public class CollisionManager implements Mediator {
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 this.test3 = true;
-                if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
-                    shieldDecorator.getDamaged(t.doDamage());
-                } else {
-                    playerInstance.getDamaged(t.doDamage());
-                }
+                playerInstance.getDamaged(t.doDamage());
             }
             if (playerHitbox.intersects(t.getHitBox())) {
                 return true;
@@ -103,11 +95,7 @@ public class CollisionManager implements Mediator {
                 if (playerHitbox.intersects(spikes.get(i).getHitbox())) {
                     /*this assignment is used in the test of this class and the next linee must be commented*/
                     test2=true;
-                    if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
-                        shieldDecorator.getDamaged(spikes.get(i).doDamage());
-                    } else {
-                        playerInstance.getDamaged(spikes.get(i).doDamage());
-                    }
+                    playerInstance.getDamaged(spikes.get(i).doDamage());
                 }
             }
         }
@@ -137,11 +125,7 @@ public class CollisionManager implements Mediator {
 
                     if (bulletshape != null) {
                         if (playerHitbox.intersects(bulletshape)) {
-                            if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
-                                shieldDecorator.getDamaged(bullet.getDamage());
-                            } else {
-                                playerInstance.getDamaged(bullet.getDamage());
-                            }
+                            playerInstance.getDamaged(bullet.getDamage());
                             bullet.remove();
                         }
                     }
@@ -178,12 +162,18 @@ public class CollisionManager implements Mediator {
                 test6 = true;
                 //Activation of powerups and decision on the time that must pass before generating the next powerup
                 lastUpgrade = System.currentTimeMillis();
-                if (power.Powerup() instanceof ShieldDecorator) {
-                    this.shieldDecorator = power.Powerup();
-                    this.shieldDecorator.activation();
-                } else {
-                    power.Powerup().activation();
+                if(power.Powerup() instanceof ShieldDecorator){
+                    playerInstance = new ShieldDecorator(playerInstance);
+                    
+                } else if(power.Powerup() instanceof ExtraLifeDecorator){
+                    playerInstance = new ExtraLifeDecorator(playerInstance);
+                    
+                } else if(power.Powerup() instanceof SpeedUpDecorator){
+                    UpgradeComponent up = new SpeedUpDecorator(playerInstance);
+                    Player.setPlayerInstance(up);
+                    up.execute();
                 }
+                playerInstance.execute();
                 this.upgrade = null;
                 Random ran = new Random();
                 this.timeBetweenUpgrade = ran.nextInt(10000);
@@ -224,10 +214,6 @@ public class CollisionManager implements Mediator {
         this.upgrade = null;
         this.power = level.getPowerup();
         this.getUpgrade();
-    }
-
-    public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
-        this.shieldDecorator = shieldDecorator;
     }
     
     /**

@@ -15,17 +15,18 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import Upgrades.UpgradeComponent;
 
 public class GameIsaac extends BasicGameState {
 
     private Level level;
-    private Player player;
+    private UpgradeComponent player;
     private Menu pause;
     private Menu end;
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
-	private Saves progress;
+    private Saves progress;
     public static int loadedLevel;
     public static int loadedWorld;
 
@@ -109,7 +110,7 @@ public class GameIsaac extends BasicGameState {
         end.init(gc);
         level.init(gc);
         this.collisionManager = new CollisionManager(level);
-        this.player.setCollisionManager(this.collisionManager);
+        Player.getPlayerInstance().setCollisionManager(this.collisionManager);
         player.init(gc);
     }
 
@@ -125,7 +126,7 @@ public class GameIsaac extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         level.render(gc, g);
-        if (player.isAppear()) {
+        if (Player.getPlayerInstance().isAppear()) {
             player.render(gc, g);
         }
         if (gc.isPaused()) {
@@ -151,7 +152,7 @@ public class GameIsaac extends BasicGameState {
 
         if (!gc.isPaused()) {
             level.update(gc, delta);
-            player.update(gc, delta);
+            Player.getPlayerInstance().update(gc, delta);
 
             if (player.getNumHearts() <= 0 | !level.getPts().iterator().hasNext() | gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
                 gc.pause();

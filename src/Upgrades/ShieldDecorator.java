@@ -23,8 +23,8 @@ public class ShieldDecorator extends UpgradeDecorator{
      * The object's constructor
      * @param player 
      */
-    public ShieldDecorator(Player player) {
-        super();
+    public ShieldDecorator(UpgradeComponent player) {
+        super(player);
         durate = 20000;
     }
 
@@ -51,13 +51,14 @@ public class ShieldDecorator extends UpgradeDecorator{
         }
         shape = new Rectangle(super.getPlayer().getCenterX()-35, super.getPlayer().getCenterY()-35, 70, 70);
         ShapeRenderer.textureFit(shape, imm);
+        super.render(gc, g);
     }
     
     /**
      * 
      * @return the parameter upgradeActive
      */
-    @Override
+    
     public boolean isUpgradeActive(){
         return upgradeActive;
     }
@@ -65,8 +66,7 @@ public class ShieldDecorator extends UpgradeDecorator{
     /**
      * Activation of the powerUp
      */
-    @Override
-    public void activation(){
+    public void execute(){
         upgradeActive = true;
         this.activationTime = System.currentTimeMillis();
         super.setShieldDecorator(this);
@@ -76,12 +76,12 @@ public class ShieldDecorator extends UpgradeDecorator{
     /**
      * Check if the durate of the powerUp is ended. If ended, the powerUp is disactived
      */
-    @Override
-    public void updateActive() {
+    public void update(GameContainer gc, int delta) throws SlickException {
         if ((this.upgradeActive && ((System.currentTimeMillis() - this.activationTime) > this.durate)) || !super.hasShield()) {
             this.upgradeActive = false;
             super.setShield(upgradeActive);
         }
+        super.update(gc, delta);
     }
     
     /**

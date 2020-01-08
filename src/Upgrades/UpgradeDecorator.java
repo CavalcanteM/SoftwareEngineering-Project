@@ -1,10 +1,13 @@
 package Upgrades;
 
+import IsaacMain.CollisionManager;
 import IsaacMain.Player;
+import menu.Mapping;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
+import skins.Animations;
 
 /**
  * This class is extended by all the type of decorator
@@ -14,37 +17,29 @@ public class UpgradeDecorator implements UpgradeComponent{
 
     protected UpgradeComponent player;
 
-    public UpgradeDecorator() {
-        player = Player.getPlayerInstance();
+    public UpgradeDecorator(UpgradeComponent player) {
+        this.player = player;
     }
     
-    public Shape getHitbox(){
-        return null;
-    }
     
-    public void updateActive(){
-    }
-    
-    public boolean isUpgradeActive(){
-        return false;
-    }
-    
-    public void activation(){
-        
+    @Override
+    public Shape getPlayer(){
+        return player.getPlayer();
     }
     
     @Override
     public void init(GameContainer gc) throws SlickException {
+        player.init(gc);
     }
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        player.update(gc, delta);
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        player.render(gc, g);
     }
 
     
@@ -99,8 +94,41 @@ public class UpgradeDecorator implements UpgradeComponent{
     }
 
     @Override
-    public Shape getPlayer() {
-        return player.getPlayer();
+    public void execute() {
     }
-    
+
+    @Override
+    public void setCommands(Mapping options) {
+        player.setCommands(options);
+    }
+
+    @Override
+    public void setAnimations(Animations animations) {
+        player.selectAnimations();
+    }
+
+    @Override
+    public Animations getAnimations() {
+        return player.getAnimations();
+    }
+
+    @Override
+    public void selectAnimations() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void resetStats() {
+        player.resetStats();
+    }
+
+    @Override
+    public void setCollisionManager(CollisionManager collision) {
+        player.setCollisionManager(collision);
+    }
+
+    @Override
+    public boolean isAppear() {
+        return player.isAppear();
+    }
 }
