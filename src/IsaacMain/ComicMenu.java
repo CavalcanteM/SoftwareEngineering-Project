@@ -17,12 +17,13 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
- * This class manages the comics that appear at the beginning and at the and of each world
+ * This class manages the comics that appear at the beginning and at the and of
+ * each world
+ *
  * @author danya
  */
 public class ComicMenu extends BasicGameState {
 
-    private Saves saves;
     private Image imgent;
     private int exitphoto = 0;
     private int index = 0;
@@ -32,21 +33,23 @@ public class ComicMenu extends BasicGameState {
     private final int hSkip = 50;
     private final int lSkip = 150;
     private boolean flag = false;
-    
+
     /**
      * method getID inherited from the class BasicGameState
+     *
      * @return the ID of this state
      */
     @Override
     public int getID() {
         return 4;
     }
-    
+
     /**
      * Method init inherited from the class BasicGameState
+     *
      * @param gc
      * @param sbg
-     * @throws SlickException 
+     * @throws SlickException
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -54,13 +57,14 @@ public class ComicMenu extends BasicGameState {
         skipB = new Rectangle(xSkip, ySkip, lSkip, hSkip);
 
     }
-    
+
     /**
      * Method render inherited from the class BasicGameState
+     *
      * @param gc
      * @param sbg
      * @param g
-     * @throws SlickException 
+     * @throws SlickException
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -72,22 +76,22 @@ public class ComicMenu extends BasicGameState {
         g.setColor(Color.black);
         g.drawString("Skip", xSkip + (lSkip / 2) - (g.getFont().getWidth("Skip") / 2), ySkip + (hSkip / 2) - (g.getFont().getHeight("skip") / 2));
     }
-    
+
     /**
      * method inherited from the class BasicGameState
+     *
      * @param gc
      * @param sbg
      * @param i
-     * @throws SlickException 
+     * @throws SlickException
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 
         if (flag == false) {
-            this.saves = getSaves();
             flag = true;
             exitphoto = index + 1;
-            imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "level" + saves.getLastLevel() + "enter" + index + ".jpg");
+            imgent = new Image("./graphics/comic/comic_world" + GameIsaac.loadedWorld + "level" + GameIsaac.loadedLevel + "enter" + index + ".jpg");
             imgent = imgent.getScaledCopy(960, 720);
         }
 
@@ -95,16 +99,19 @@ public class ComicMenu extends BasicGameState {
         int posY = gc.getInput().getMouseY();
 
         if (gc.getInput().isKeyPressed(Input.KEY_ENTER) || gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
-            if (saves.getLastWorld() == 0 && index < 2) {
+            if (GameIsaac.loadedWorld == 0 && index < 2) {
                 index++;
-                imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "level" + saves.getLastLevel() + "enter" + index + ".jpg");
+                imgent = new Image("./graphics/comic/comic_world" + GameIsaac.loadedWorld + "level" + GameIsaac.loadedLevel + "enter" + index + ".jpg");
                 imgent = imgent.getScaledCopy(960, 720);
-            } else if (saves.getLastWorld() != 0 && index < exitphoto) {
+            } else if (GameIsaac.loadedWorld != 0 && index < exitphoto) {
                 index++;
-                imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "level" + saves.getLastLevel() + "enter" + index + ".jpg");
+                imgent = new Image("./graphics/comic/comic_world" + GameIsaac.loadedWorld + "level" + GameIsaac.loadedLevel + "enter" + index + ".jpg");
                 imgent = imgent.getScaledCopy(960, 720);
-
+                if (GameIsaac.loadedLevel == 3 && GameIsaac.loadedWorld == 3) {
+                    sbg.enterState(0);
+                }
             } else {
+
                 flag = false;
                 index = 0;
                 gc.getInput().clearKeyPressedRecord();
@@ -120,12 +127,13 @@ public class ComicMenu extends BasicGameState {
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
     }
-    
+
     /**
-     * Deserializion of saves from file 
+     * Deserializion of saves from file
+     *
      * @return an object of the class Saves that contains the last world played
      * and the last level played
-     * @throws SlickException 
+     * @throws SlickException
      */
     private Saves getSaves() throws SlickException {
         Saves saves;
