@@ -107,16 +107,20 @@ public class ComicMenu extends BasicGameState {
                 index++;
                 imgent = new Image("./graphics/comic/comic_world" + GameIsaac.loadedWorld + "level" + GameIsaac.loadedLevel + "enter" + index + ".jpg");
                 imgent = imgent.getScaledCopy(960, 720);
-                if (GameIsaac.loadedLevel == 3 && GameIsaac.loadedWorld == 3) {
+                
+            } else if (GameIsaac.loadedLevel == 3 && GameIsaac.loadedWorld == 3) {
+                    index = 0;
+                    flag = false;
                     sbg.enterState(0);
-                }
-            } else {
+                } 
+            else {
 
                 flag = false;
                 index = 0;
                 gc.getInput().clearKeyPressedRecord();
                 sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
             }
+            
         }
 
         if (gc.getInput().isMouseButtonDown(0) && posX > this.xSkip && posX < (this.xSkip + lSkip)
