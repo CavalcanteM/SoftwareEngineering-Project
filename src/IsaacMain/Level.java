@@ -26,7 +26,8 @@ public class Level implements GalaxyComponent {
     private ArrayList<StaticDamage> spikes;
     private ArrayList<ShootingEnemy> turrets;
 
-    private ArrayList<Thrower> flameThrowers, laserThrowers;
+    //private ArrayList<Thrower> flameThrowers, laserThrowers;
+    private ArrayList<Thrower> throwers;
     private int score, index, difficulty;
     private String name;
     private Points pts;
@@ -49,12 +50,8 @@ public class Level implements GalaxyComponent {
         return score;
     }
 
-    public ArrayList<Thrower> getLaserThrowers() {
-        return laserThrowers;
-    }
-
     public ArrayList<Thrower> getThrowers() {
-        return flameThrowers;
+        return throwers;
     }
 
     public TiledMap getMap() {
@@ -104,8 +101,10 @@ public class Level implements GalaxyComponent {
         this.rewards = entityClient.getEntities("Rewards");
         ThrowersClient throwers_client = new ThrowersClient(this.map, this.difficulty);
         this.upgrades = entityClient.getEntities("Upgrades");
-        this.flameThrowers = throwers_client.getThrowers("Fire");
-        this.laserThrowers = throwers_client.getThrowers("Laser");
+        
+        this.throwers = throwers_client.getThrowers("Fire");
+        this.throwers.addAll(throwers_client.getThrowers("Laser"));
+        
         //Create an array list of turrets calling the List creator
         this.turrets = new ShootingEnemyClient(this.map, this.difficulty).getList();
         if(this.index == 4){
@@ -129,10 +128,7 @@ public class Level implements GalaxyComponent {
         if (!this.pts.iterator().hasNext()) {
             gc.pause();
         }
-        for (Thrower t : flameThrowers) {
-            t.update(delta);
-        }
-        for (Thrower t : laserThrowers) {
+        for (Thrower t : throwers) {
             t.update(delta);
         }
 
@@ -175,10 +171,7 @@ public class Level implements GalaxyComponent {
 
         up.render(gc, g);
 
-        for(Thrower t: flameThrowers){
-            t.render();
-        }
-        for (Thrower t : laserThrowers) {
+        for(Thrower t: throwers){
             t.render();
         }
 

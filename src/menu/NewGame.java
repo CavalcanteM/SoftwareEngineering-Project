@@ -26,7 +26,7 @@ public class NewGame implements Command{
           gc.setMusicOn(false);
 //        System.out.println("state 1");
             
-            
+
             sbg.getState(3).init(gc, sbg);
             sbg.enterState(3,new FadeOutTransition(), new FadeInTransition());
             System.out.println("state 3");

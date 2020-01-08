@@ -25,6 +25,7 @@ public class GameIsaac extends BasicGameState {
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
+	private Saves progress;
     public static int loadedLevel;
     public static int loadedWorld;
 
@@ -65,20 +66,30 @@ public class GameIsaac extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         player = Player.getPlayerInstance();   // Using Singleton class Player
+
         //Inizialize the Level list and set the first level as current level
         this.initLevelList();
         level = (Level) galaxy.getChild(loadedWorld).getChild(loadedLevel);
-        System.out.println("Livello caricato: " + loadedLevel + " - MondoCaricato: " + loadedWorld);
+
+        //Initialize the menu
         pause = new Menu();
         end = new Menu();
         deathMenu = new Menu();
-        //Initialize the menu
+
+        /*
+         * Creation of the buttons present in the menus
+         * Application of the Command design pattern,
+         * the constructor will decide the function executed by the button instantiating a Command 
+         * as third parameter
+         * Check the package menu to see all the available commands
+        */
         Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
         Button restart = new Button(50, 150, new RestartLevel(this), "Restart");       //The constructor will decide, the function executed by the button
         Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
-        Button next = new Button(50, 150, new NextLevel(this, loadedWorld, loadedLevel), "Next Level");
+        Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
         Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
         Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
+
         //Adding the buttons to the menus
         pause.addButton(resume);
         pause.addButton(restart);
@@ -92,6 +103,7 @@ public class GameIsaac extends BasicGameState {
         deathMenu.addButton(restart);
         deathMenu.addButton(main);
         deathMenu.addButton(exit);
+
         deathMenu.init(gc);
         pause.init(gc);
         end.init(gc);
@@ -102,7 +114,8 @@ public class GameIsaac extends BasicGameState {
     }
 
     /**
-     *
+     * Method render inherited from BasicGameState
+     * Managed the render of the elements of this state
      * @param gc
      * @param sbg
      * @param g
@@ -147,6 +160,7 @@ public class GameIsaac extends BasicGameState {
             if (player.getNumHearts() <= 0) {
                 deathMenu.update(gc, delta, sbg);
             } else if (!level.getPts().iterator().hasNext()) {
+				saveProgress();
                 end.update(gc, delta, sbg);
             } else {
                 pause.update(gc, delta, sbg);
@@ -221,11 +235,9 @@ public class GameIsaac extends BasicGameState {
      * Save the tree level in the file
      */
     public void saveTreeLevel() {
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
         try {
-            fos = new FileOutputStream("treeLevel.txt");
-            out = new ObjectOutputStream(fos);
+            FileOutputStream fos = new FileOutputStream("treeLevel.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fos);
             out.writeObject(galaxy);
             out.flush();
             out.close();
@@ -241,11 +253,9 @@ public class GameIsaac extends BasicGameState {
      * null
      */
     public GalaxyComponent loadTreeLevel() {
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
         try {
-            fis = new FileInputStream("treeLevel.txt");
-            in = new ObjectInputStream(fis);
+            FileInputStream fis = new FileInputStream("treeLevel.txt");
+            ObjectInputStream in = new ObjectInputStream(fis);
             GalaxyComponent galaxy = (GalaxyComponent) in.readObject();
             in.close();
             return galaxy;
@@ -254,4 +264,28 @@ public class GameIsaac extends BasicGameState {
             return null;
         }
     }
+	
+	public void saveProgress(){
+		progress=new Saves().loadProgress();
+		int nextWorld=loadedWorld, nextLevel=loadedLevel;
+		
+		if (galaxy.getChild(loadedWorld).getChildren().size() == loadedLevel + 1) {
+			//Check if the actualWorld is the last world of the galaxy
+			if (galaxy.getChildren().size() == loadedWorld + 1) {
+				//Game complete da modificare
+			} else {
+				nextWorld ++;
+				nextLevel = 0;                      
+			}
+		} else {
+			nextLevel++;
+		}
+		
+	if( (progress.getLastWorld()<nextWorld) | ((progress.getLastWorld()==nextWorld)&&(progress.getLastLevel()<nextLevel)) ){
+			progress.setLastWorld(nextWorld);
+			progress.setLastLevel(nextLevel);
+			progress.saveProgress();
+		}
+		System.out.println("GamiIsaac-> MondoSalvato: "+progress.getLastWorld()+" - LivelloSalvato: "+progress.getLastLevel());
+	}
 }

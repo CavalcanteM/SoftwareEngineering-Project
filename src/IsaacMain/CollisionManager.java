@@ -20,7 +20,6 @@ public class CollisionManager implements Mediator {
 
     //It keeps a reference for all objects that can cause collisions
     private Player playerInstance;
-    private Level level;
     private ArrayList<Entity> blocks;
     private Points pts;
     private Powerup power;
@@ -49,7 +48,6 @@ public class CollisionManager implements Mediator {
      * @param level
      */
     public CollisionManager(Level level) {
-        this.level = level;
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
 
@@ -88,20 +86,6 @@ public class CollisionManager implements Mediator {
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 this.test3 = true;
-                if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
-                    shieldDecorator.getDamaged(t.doDamage());
-                } else {
-                    playerInstance.getDamaged(t.doDamage());
-                }
-            }
-            if (playerHitbox.intersects(t.getHitBox())) {
-                return true;
-            }
-        }
-
-        for (Thrower t : lasers) {
-            if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
-                this.test4 = true;
                 if (shieldDecorator != null && shieldDecorator.isUpgradeActive()) {
                     shieldDecorator.getDamaged(t.doDamage());
                 } else {
@@ -177,7 +161,7 @@ public class CollisionManager implements Mediator {
         if (playerHitbox.intersects(this.reward)) {
             /*This assignment is used for the test of this class*/
             test1=true;
-            //pts.getSound().play(1f, 0.1f);
+            pts.getSound().play(1f, 0.1f);
             if (pts.iterator().hasNext()) {
                 this.reward = pts.iterator().next().getHitBox();
             }
@@ -234,8 +218,7 @@ public class CollisionManager implements Mediator {
         if (pts.iterator().hasNext()) {
             reward = pts.iterator().next().getHitBox();
         }
-        this.throwers = level.getThrowers();
-        this.lasers = level.getLaserThrowers();
+        this.throwers = level.getThrowers();                // Loads the Throwers    
         this.turrets = level.getShootingEnemy();
         this.lastUpgrade = 0;
         this.upgrade = null;
@@ -266,8 +249,7 @@ public class CollisionManager implements Mediator {
         this.reward = reward;
         this.throwers = new ArrayList<>();
         this.throwers.add(t.get(0));
-        this.lasers = new ArrayList<>();
-        this.lasers.add(t.get(1));
+        this.throwers.add(t.get(1));
         this.turrets = new ArrayList<ShootingEnemy>();
         this.turrets.add(tbt);
         ArrayList<Entity> upgrades = new ArrayList<Entity>();
