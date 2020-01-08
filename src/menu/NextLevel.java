@@ -27,7 +27,8 @@ public class NextLevel implements Command {
             //Check if the actualWorld is the last world of the galaxy
             if (gs.getGalaxy().getChildren().size() == GameIsaac.loadedWorld + 1) {
                 //Game complete da modificare
-                gc.exit();
+                sbg.enterState(4);
+                //gc.exit();
             } else {
                 GameIsaac.loadedWorld++;
                 GameIsaac.loadedLevel = 0;

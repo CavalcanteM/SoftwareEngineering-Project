@@ -30,7 +30,7 @@ public class CollisionManager implements Mediator {
     private long lastHitTime = System.currentTimeMillis() - 3000;
     private long lastUpgrade = 0;
     private long timeBetweenUpgrade;
-    private int i= 0;
+    private int i = 0;
     /*This parameters are used only in the test of the class*/
     protected boolean intesting = false;
     protected boolean test1 = false;
@@ -45,8 +45,9 @@ public class CollisionManager implements Mediator {
      *
      * @param level
      */
-    public CollisionManager(GalaxyComponent level) {
+    public CollisionManager(Level level) {
         this.setParameters(level);
+
         this.playerInstance = Player.getPlayerInstance();
 
     }
@@ -66,10 +67,10 @@ public class CollisionManager implements Mediator {
      */
     @Override
     public boolean collidesWith() {
-        if (!this.intesting){
+        if (!this.intesting) {
             playerHitbox = playerInstance.getPlayer();
         }
-        
+
         if (pts != null) {
             getReward();
         }
@@ -94,7 +95,7 @@ public class CollisionManager implements Mediator {
             for (i = 0; i < spikes.size(); i++) {
                 if (playerHitbox.intersects(spikes.get(i).getHitbox())) {
                     /*this assignment is used in the test of this class and the next linee must be commented*/
-                    test2=true;
+                    test2 = true;
                     Player.getPlayerInstance().getDamaged(spikes.get(i).doDamage());
                 }
             }
@@ -144,7 +145,7 @@ public class CollisionManager implements Mediator {
     private void getReward() {
         if (playerHitbox.intersects(this.reward)) {
             /*This assignment is used for the test of this class*/
-            test1=true;
+            test1 = true;
             pts.getSound().play(1f, 0.1f);
             if (pts.iterator().hasNext()) {
                 this.reward = pts.iterator().next().getHitBox();
@@ -162,20 +163,22 @@ public class CollisionManager implements Mediator {
                 test6 = true;
                 //Activation of powerups and decision on the time that must pass before generating the next powerup
                 lastUpgrade = System.currentTimeMillis();
-                if(power.Powerup() instanceof ShieldDecorator){
+                if (power.Powerup() instanceof ShieldDecorator) {
                     UpgradeComponent shield = new ShieldDecorator(playerInstance);
                     Player.setPlayerInstance(shield);
                     shield.execute();
-                    
-                } else if(power.Powerup() instanceof ExtraLifeDecorator){
-                    playerInstance = new ExtraLifeDecorator(playerInstance);
-                    
-                } else if(power.Powerup() instanceof SpeedUpDecorator){
+
+                } else if (power.Powerup() instanceof ExtraLifeDecorator) {
+                    UpgradeComponent life = new ExtraLifeDecorator(playerInstance);
+                    Player.setPlayerInstance(life);
+                    life.execute();
+
+                } else if (power.Powerup() instanceof SpeedUpDecorator) {
                     UpgradeComponent up = new SpeedUpDecorator(playerInstance);
                     Player.setPlayerInstance(up);
                     up.execute();
                 }
-                playerInstance.execute();
+                
                 this.upgrade = null;
                 Random ran = new Random();
                 this.timeBetweenUpgrade = ran.nextInt(10000);
@@ -203,7 +206,8 @@ public class CollisionManager implements Mediator {
      *
      * @param level the current level of the game
      */
-    public void setParameters(GalaxyComponent level) {
+    public void setParameters(Level level) {
+
         this.blocks = level.getBlock();
         this.pts = level.getPts();
         this.spikes = level.getSpikes();
@@ -217,7 +221,7 @@ public class CollisionManager implements Mediator {
         this.power = level.getPowerup();
         this.getUpgrade();
     }
-    
+
     /**
      * This method is used only in the test of this class
      *

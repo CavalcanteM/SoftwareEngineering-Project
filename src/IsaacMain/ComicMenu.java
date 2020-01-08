@@ -59,7 +59,7 @@ public class ComicMenu extends BasicGameState {
             this.saves = getSaves();
             flag = true;
             exitphoto = index + 1;
-            imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "enter" + index + ".jpg");
+            imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "level" + saves.getLastLevel() + "enter" + index + ".jpg");
             imgent = imgent.getScaledCopy(960, 720);
         }
 
@@ -69,11 +69,11 @@ public class ComicMenu extends BasicGameState {
         if (gc.getInput().isKeyPressed(Input.KEY_ENTER) || gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
             if (saves.getLastWorld() == 0 && index < 2) {
                 index++;
-                imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "enter" + index + ".jpg");
+                imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "level" + saves.getLastLevel() + "enter" + index + ".jpg");
                 imgent = imgent.getScaledCopy(960, 720);
             } else if (saves.getLastWorld() != 0 && index < exitphoto) {
                 index++;
-                imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "enter" + index + ".jpg");
+                imgent = new Image("./graphics/comic/comic_world" + saves.getLastWorld() + "level" + saves.getLastLevel() + "enter" + index + ".jpg");
                 imgent = imgent.getScaledCopy(960, 720);
 
             } else {
