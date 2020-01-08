@@ -1,8 +1,8 @@
 package Upgrades;
 
 import IsaacMain.Player;
-import org.newdawn.slick.*;
-import org.newdawn.slick.geom.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 
 /**
  * This powerup doubles the speed
@@ -17,16 +17,16 @@ public class SpeedUpDecorator extends UpgradeDecorator{
      * 
      * @param player 
      */
-    public SpeedUpDecorator(Player player) {
-        super();
+    public SpeedUpDecorator(UpgradeComponent player) {
+        super(player);
         this.durate = 5000;
+        execute();
     }
 
     /**
      * 
      * @return the parameter upgradeActive
      */
-    @Override
     public boolean isUpgradeActive(){
         return upgradeActive;
     }        
@@ -35,22 +35,25 @@ public class SpeedUpDecorator extends UpgradeDecorator{
      * Check if the durate of the powerUp is ended. If ended, the powerUp is disactived
      */
     @Override
-    public void updateActive() {
-        if (this.upgradeActive && ((System.currentTimeMillis() - this.activationTime) > this.durate)) {
+    public void update(GameContainer gc, int delta) throws SlickException {
+        System.out.println("Sono nell'update di SpeedUp");
+        System.out.println("Sono passati" +(System.currentTimeMillis() - this.activationTime));
+        if (((System.currentTimeMillis() - this.activationTime) > this.durate)) {
             super.setSpeedUp(1);
             this.upgradeActive = false;
         }
+        super.update(gc, delta);
     }
 
     /**
      * The activation of this powerUp the speed doubles the
      */
     @Override
-    public void activation(){
+    public void execute(){
         this.upgradeActive = true;
         this.activationTime = System.currentTimeMillis();
+        System.out.println("Sono entrato a "+activationTime);
         super.setSpeedUp(2);
-        super.setSpeedUpDecorator(this);
         System.out.println("attivo");
     }
     

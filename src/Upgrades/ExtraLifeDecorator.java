@@ -7,19 +7,20 @@ import IsaacMain.Player;
  */
 public class ExtraLifeDecorator extends UpgradeDecorator{
 
+
     /**
      * this constructor call the UpgradeDecorator constructor
      * @param player 
      */
-    public ExtraLifeDecorator(Player player) {
-        super();
+    public ExtraLifeDecorator(UpgradeComponent player) {
+        super(player);
     }
     
     /**
      * Set an extraLife to the player
      */
     @Override
-    public void activation(){
+    public void execute(){
         if(super.getNumHearts() > super.getNumVoidHearts() - 2){
             super.setNumVoidHearts(super.getNumVoidHearts() + 2);
         }

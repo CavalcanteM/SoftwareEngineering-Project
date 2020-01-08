@@ -15,11 +15,12 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import Upgrades.UpgradeComponent;
 
 public class GameIsaac extends BasicGameState {
 
-    private GalaxyComponent level;
-    private Player player;
+    private Level level;
+    private UpgradeComponent player;
     private Menu pause;
     private Menu end;
     private Menu deathMenu;
@@ -29,11 +30,11 @@ public class GameIsaac extends BasicGameState {
     public static int loadedLevel;
     public static int loadedWorld;
 
-    public void setLevel(GalaxyComponent level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 
-    public GalaxyComponent getLevel() {
+    public Level getLevel() {
         return level;
     }
 
@@ -79,7 +80,7 @@ public class GameIsaac extends BasicGameState {
         /*
          * Creation of the buttons present in the menus
          * Application of the Command design pattern,
-         * the constructor will decide the function executed by the button instantiating a Command 
+         * the constructor will decide the function executed by the button instantiating a Command
          * as third parameter
          * Check the package menu to see all the available commands
          */
@@ -109,7 +110,7 @@ public class GameIsaac extends BasicGameState {
         end.init(gc);
         level.init(gc);
         this.collisionManager = new CollisionManager(level);
-        this.player.setCollisionManager(this.collisionManager);
+        Player.getPlayerInstance().setCollisionManager(this.collisionManager);
         player.init(gc);
     }
 
@@ -126,8 +127,8 @@ public class GameIsaac extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         level.render(gc, g);
-        if (player.isAppear()) {
-            player.render(gc, g);
+        if (Player.getPlayerInstance().isAppear()) {
+            Player.getPlayerInstance().render(gc, g);
         }
         if (gc.isPaused()) {
             if (!level.getPts().iterator().hasNext()) {
@@ -152,13 +153,13 @@ public class GameIsaac extends BasicGameState {
 
         if (!gc.isPaused()) {
             level.update(gc, delta);
-            player.update(gc, delta);
+            Player.getPlayerInstance().update(gc, delta);
 
-            if (player.getNumHearts() <= 0 | !level.getPts().iterator().hasNext() | gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            if (Player.getPlayerInstance().getNumHearts() <= 0 | !level.getPts().iterator().hasNext() | gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
                 gc.pause();
             }
         } else {
-            if (player.getNumHearts() <= 0) {
+            if (Player.getPlayerInstance().getNumHearts() <= 0) {
                 deathMenu.update(gc, delta, sbg);
             } else if (!level.getPts().iterator().hasNext()) {
                 saveProgress();
