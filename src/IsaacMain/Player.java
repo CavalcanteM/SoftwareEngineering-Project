@@ -31,9 +31,6 @@ public class Player implements UpgradeComponent {
     private float vX = 0;
     private float vY = 0;
     private float speedUp = 1;
-    private UpgradeDecorator speedUpDecorator;
-    private UpgradeDecorator shieldDecorator;
-    private boolean shield = false;
     private boolean isChangingGravity;
     private boolean rotated = false;
     private boolean isPaused;
@@ -54,7 +51,7 @@ public class Player implements UpgradeComponent {
         try {
             // Initialization of the sounds for change gravity, death and hurt
             this.gravityfx = new Sound("./src/sound/change_gravity.wav");
-            this.deathfx = new Sound("./sOverriderc/sound/death.wav");
+            this.deathfx = new Sound("./src/sound/death.wav");
             this.hurtfx = new Sound("./src/sound/hurt.wav");
         } catch (SlickException ex){}
         
@@ -75,55 +72,16 @@ public class Player implements UpgradeComponent {
     /*--------------------
      * Getter methods
      *--------------------*/
-    public int getLEFT() {
-        return LEFT;
-    }
-
-    public int getRIGHT() {
-        return RIGHT;
-    }
-
-    public int getDashValue() {
-        return dashValue;
-    }
-
-    public float getGravity() {
-        return gravity;
-    }
-
-    public float getIterations() {
-        return iterations;
-    }
 
     @Override
     public Shape getPlayer() {
         return hitbox;
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
-    public float getvX() {
-        return vX;
-    }
-
-    public float getvY() {
-        return vY;
-    }
-
-    public boolean isPaused() {
-        return isPaused;
-    }
-
+    @Override
     public boolean isAppear() {
         return appear;
     }
-
-    public long getLastHitTime() {
-        return lastHitTime;
-    }
-
 
     @Override
     public int getNumHearts() {
@@ -135,15 +93,11 @@ public class Player implements UpgradeComponent {
         return numVoidHearts;
     }
 
+    @Override
     public Animations getAnimations(){
         return animations;
     }
 
-    @Override
-    public boolean hasShield() {
-        return shield;
-    }
-    
     /*--------------------
      * Setter Methods
      *--------------------*/
@@ -159,44 +113,14 @@ public class Player implements UpgradeComponent {
     public void setCommands(Mapping commands){
         this.commands = commands;
     }
-
-    @Override
-    public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator) {
-        this.speedUpDecorator = speedUpDecorator;
-    }
-
-    public void setIterations(float iterations) {
-        this.iterations = iterations;
-    }
-
-    public void setPlayer(Shape hitbox) {
-        this.hitbox = hitbox;
-    }
-
+    
     public void setSpeed(float speed) {
         this.speed = speed;
-    }
-
-    public void setvX(float vX) {
-        this.vX = vX;
-    }
-
-    public void setvY(float vY) {
-        this.vY = vY;
     }
 
     @Override
     public void setSpeedUp(float speedUp) {
         this.speedUp = speedUp;
-    }
-
-    @Override
-    public void setShield(boolean shield) {
-        this.shield = shield;
-    }
-
-    public void setIsPaused(boolean isPaused) {
-        this.isPaused = isPaused;
     }
 
     @Override
@@ -211,11 +135,6 @@ public class Player implements UpgradeComponent {
 
     public void setCollisionManager(CollisionManager collision) {
         this.collision = collision;
-    }
-
-    @Override
-    public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
-        this.shieldDecorator = shieldDecorator;
     }
 
     /*--------------------
@@ -276,11 +195,6 @@ public class Player implements UpgradeComponent {
 
         //X collisions
         moveWithCollisionsX();
-
-        //if the speedUpDecorator is active, control if the the activation time is ended.
-        /*if (this.speedUpDecorator != null && this.speedUpDecorator.isUpgradeActive()) {
-            this.speedUpDecorator.updateActive();
-        }*/
 
         /* Temporary code: used only for graphically testing the damage
          */
@@ -561,6 +475,7 @@ public class Player implements UpgradeComponent {
     /**
      * Resets the number of hearts and the speed of the character
      */
+    @Override
     public void resetStats() {
         this.numVoidHearts = 6;
         this.numHearts = this.numVoidHearts;
@@ -570,11 +485,10 @@ public class Player implements UpgradeComponent {
         this.vY = 0;
         this.vX = 0;
         this.isDead = false;
-        this.shield = false;
         this.speedUp = 1;
     }
 
-
+    @Override
     public void setAnimations(Animations animations) {
         try {
             animations.createAnimations();
@@ -583,7 +497,8 @@ public class Player implements UpgradeComponent {
         }
 
     }
-
+    
+    @Override
     public void selectAnimations(){
         switch(this.commands.getCommandMap().get("skinIndex")){
             case 0: {

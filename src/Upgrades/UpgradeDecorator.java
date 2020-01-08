@@ -47,11 +47,6 @@ public class UpgradeDecorator implements UpgradeComponent{
     public int getNumHearts() {
         return player.getNumHearts();
     }
-
-    @Override
-    public boolean hasShield(){
-        return player.hasShield();
-    }
     
     @Override
     public void setNumHearts(int numHearts) {
@@ -69,23 +64,8 @@ public class UpgradeDecorator implements UpgradeComponent{
     }
 
     @Override
-    public void setShield(boolean shield) {
-        player.setShield(shield);
-    }
-
-    @Override
     public int getNumVoidHearts() {
         return player.getNumVoidHearts();
-    }
-
-    @Override
-    public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator) {
-        player.setSpeedUpDecorator(speedUpDecorator);
-    }
-    
-    @Override
-    public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
-        player.setShieldDecorator(shieldDecorator);
     }
 
     @Override
@@ -114,7 +94,7 @@ public class UpgradeDecorator implements UpgradeComponent{
 
     @Override
     public void selectAnimations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        player.selectAnimations();
     }
 
     @Override

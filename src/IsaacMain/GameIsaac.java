@@ -127,7 +127,7 @@ public class GameIsaac extends BasicGameState {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         level.render(gc, g);
         if (Player.getPlayerInstance().isAppear()) {
-            player.render(gc, g);
+            Player.getPlayerInstance().render(gc, g);
         }
         if (gc.isPaused()) {
             if (!level.getPts().iterator().hasNext()) {

@@ -20,6 +20,7 @@ public class SpeedUpDecorator extends UpgradeDecorator{
     public SpeedUpDecorator(UpgradeComponent player) {
         super(player);
         this.durate = 5000;
+        execute();
     }
 
     /**
@@ -40,8 +41,6 @@ public class SpeedUpDecorator extends UpgradeDecorator{
         if (((System.currentTimeMillis() - this.activationTime) > this.durate)) {
             super.setSpeedUp(1);
             this.upgradeActive = false;
-        }else{
-            super.setSpeedUp(2);
         }
         super.update(gc, delta);
     }
@@ -55,7 +54,6 @@ public class SpeedUpDecorator extends UpgradeDecorator{
         this.activationTime = System.currentTimeMillis();
         System.out.println("Sono entrato a "+activationTime);
         super.setSpeedUp(2);
-        super.setSpeedUpDecorator(this);
         System.out.println("attivo");
     }
     

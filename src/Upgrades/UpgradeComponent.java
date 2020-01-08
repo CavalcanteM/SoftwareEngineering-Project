@@ -27,7 +27,7 @@ public interface UpgradeComponent {
     public int getNumHearts();
 
     public static UpgradeComponent getPlayerInstance() {
-        return null;
+        return Player.getPlayerInstance();
     }
     public void resetStats() ;
     
@@ -36,26 +36,18 @@ public interface UpgradeComponent {
     public boolean isAppear();
             
     public int getNumVoidHearts();
-
-    public boolean hasShield();
-
+    
     public void setCommands(Mapping options);
 
     public void setNumHearts(int numHearts);
 
     public void setNumVoidHearts(int NumVoidHearts);
 
-    public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator);
-
     public void setSpeedUp(float speedUp);
-
-    public void setShield(boolean shield);
 
     public Shape getPlayer();
 
     public void execute();
-
-    public void setShieldDecorator(UpgradeDecorator shieldDecorator);
 
     public void setAnimations(Animations animations);
 

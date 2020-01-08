@@ -82,7 +82,7 @@ public class CollisionManager implements Mediator {
         for (Thrower t : throwers) {
             if (playerHitbox.intersects(t.getDamageBox()) && t.isActive()) {
                 this.test3 = true;
-                playerInstance.getDamaged(t.doDamage());
+                Player.getPlayerInstance().getDamaged(t.doDamage());
             }
             if (playerHitbox.intersects(t.getHitBox())) {
                 return true;
@@ -95,7 +95,7 @@ public class CollisionManager implements Mediator {
                 if (playerHitbox.intersects(spikes.get(i).getHitbox())) {
                     /*this assignment is used in the test of this class and the next linee must be commented*/
                     test2=true;
-                    playerInstance.getDamaged(spikes.get(i).doDamage());
+                    Player.getPlayerInstance().getDamaged(spikes.get(i).doDamage());
                 }
             }
         }
@@ -163,7 +163,9 @@ public class CollisionManager implements Mediator {
                 //Activation of powerups and decision on the time that must pass before generating the next powerup
                 lastUpgrade = System.currentTimeMillis();
                 if(power.Powerup() instanceof ShieldDecorator){
-                    playerInstance = new ShieldDecorator(playerInstance);
+                    UpgradeComponent shield = new ShieldDecorator(playerInstance);
+                    Player.setPlayerInstance(shield);
+                    shield.execute();
                     
                 } else if(power.Powerup() instanceof ExtraLifeDecorator){
                     playerInstance = new ExtraLifeDecorator(playerInstance);
