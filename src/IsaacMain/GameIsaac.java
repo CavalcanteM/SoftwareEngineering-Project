@@ -63,46 +63,58 @@ public class GameIsaac extends BasicGameState {
      * @throws SlickException
      */
     @Override
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-            player = Player.getPlayerInstance();   // Using Singleton class Player
-            //Inizialize the Level list and set the first level as current level
-            this.initLevelList();
-            level = (Level) galaxy.getChild(loadedWorld).getChild(loadedLevel);
-            System.out.println("Livello caricato: "+loadedLevel+" - MondoCaricato: "+loadedWorld);
-            pause = new Menu();
-            end = new Menu();
-            deathMenu = new Menu();
-            //Initialize the menu
-            Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
-            Button restart = new Button(50, 150, new RestartLevel(this), "Restart");       //The constructor will decide, the function executed by the button
-            Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
-            Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
-            Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
-            Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
-            //Adding the buttons to the menus
-            pause.addButton(resume);
-            pause.addButton(restart);
-            pause.addButton(options);
-            pause.addButton(main);
-            pause.addButton(exit);
-            end.addButton(next);
-            end.addButton(restart);
-            end.addButton(main);
-            end.addButton(exit);
-            deathMenu.addButton(restart);
-            deathMenu.addButton(main);
-            deathMenu.addButton(exit);
-            deathMenu.init(gc);
-            pause.init(gc);
-            end.init(gc);
-            level.init(gc);
-            this.collisionManager = new CollisionManager(level);
-            this.player.setCollisionManager(this.collisionManager);
-            player.init(gc);
-	}
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        player = Player.getPlayerInstance();   // Using Singleton class Player
+
+        //Inizialize the Level list and set the first level as current level
+        this.initLevelList();
+        level = (Level) galaxy.getChild(loadedWorld).getChild(loadedLevel);
+
+        //Initialize the menu
+        pause = new Menu();
+        end = new Menu();
+        deathMenu = new Menu();
+
+        /*
+         * Creation of the buttons present in the menus
+         * Application of the Command design pattern,
+         * the constructor will decide the function executed by the button instantiating a Command 
+         * as third parameter
+         * Check the package menu to see all the available commands
+        */
+        Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
+        Button restart = new Button(50, 150, new RestartLevel(this), "Restart");       //The constructor will decide, the function executed by the button
+        Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
+        Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
+        Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
+        Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
+
+        //Adding the buttons to the menus
+        pause.addButton(resume);
+        pause.addButton(restart);
+        pause.addButton(options);
+        pause.addButton(main);
+        pause.addButton(exit);
+        end.addButton(next);
+        end.addButton(restart);
+        end.addButton(main);
+        end.addButton(exit);
+        deathMenu.addButton(restart);
+        deathMenu.addButton(main);
+        deathMenu.addButton(exit);
+
+        deathMenu.init(gc);
+        pause.init(gc);
+        end.init(gc);
+        level.init(gc);
+        this.collisionManager = new CollisionManager(level);
+        this.player.setCollisionManager(this.collisionManager);
+        player.init(gc);
+    }
 
     /**
-     *
+     * Method render inherited from BasicGameState
+     * Managed the render of the elements of this state
      * @param gc
      * @param sbg
      * @param g
@@ -110,21 +122,21 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-		level.render(gc, g);
-    if(player.isAppear()){
-        player.render(gc, g);
+		
+	level.render(gc, g);
+        if (player.isAppear()) {
+            player.render(gc, g);
+        }
+        if (gc.isPaused()) {
+            if (!level.getPts().iterator().hasNext()) {
+                end.render(gc, g);
+            } else if (player.getNumHearts() <= 0) {
+                deathMenu.render(gc, g);
+            } else {
+                pause.render(gc, g);
+            }
+        }
     }
-		if (gc.isPaused()) {
-			if (!level.getPts().iterator().hasNext()) {
-				end.render(gc, g);
-			} else if (player.getNumHearts() <= 0) {
-				deathMenu.render(gc, g);
-			} else {
-				pause.render(gc, g);
-			}
-		}
-	}
 
     /**
      *
@@ -167,7 +179,7 @@ public class GameIsaac extends BasicGameState {
 
             // Setting first world
             GalaxyComponent world1 = new LevelContainer("World 1");
-            GalaxyComponent level1 = new Level("Level 1-1", 4, 1, 1);
+            GalaxyComponent level1 = new Level("Level 1-1", 4, 16, 1);
 //            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
 //            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
 //            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);
@@ -208,11 +220,9 @@ public class GameIsaac extends BasicGameState {
      * Save the tree level in the file
      */
     public void saveTreeLevel() {
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
         try {
-            fos = new FileOutputStream("treeLevel.txt");
-            out = new ObjectOutputStream(fos);
+            FileOutputStream fos = new FileOutputStream("treeLevel.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fos);
             out.writeObject(galaxy);
 			out.flush();
             out.close();
@@ -228,11 +238,9 @@ public class GameIsaac extends BasicGameState {
      * null
      */
     public GalaxyComponent loadTreeLevel() {
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
         try {
-            fis = new FileInputStream("treeLevel.txt");
-            in = new ObjectInputStream(fis);
+            FileInputStream fis = new FileInputStream("treeLevel.txt");
+            ObjectInputStream in = new ObjectInputStream(fis);
             GalaxyComponent galaxy = (GalaxyComponent) in.readObject();
             in.close();
             return galaxy;

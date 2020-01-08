@@ -29,14 +29,13 @@ public class ComicMenu extends BasicGameState {
 
     private Saves saves;
     private Image imgent;
-    private int lastworld;
     private int exitphoto = 0;
     private int index = 0;
     private Shape skipB;
-    private int xSkip = 800;
-    private int ySkip = 650;
-    private int hSkip = 50;
-    private int lSkip = 150;
+    private final int xSkip = 800;
+    private final int ySkip = 650;
+    private final int hSkip = 50;
+    private final int lSkip = 150;
     private boolean flag = false;
 
     @Override
@@ -76,16 +75,6 @@ public class ComicMenu extends BasicGameState {
         int posX = gc.getInput().getMouseX();
         int posY = gc.getInput().getMouseY();
 
-        /*
-        System.out.println("acual index "+ index);
-        System.out.println("actual world " + saves.getLastWorld());
-        //if (index !=0 && (index != saves.getLastWorld()))
-        {
-            index = saves.getLastWorld();
-            System.out.println("NEW INDEX "+ index);
-        }*/
-        // else if (index != saves.getLastWorld())
-//        System.out.println("index " + index);
         if (gc.getInput().isKeyPressed(Input.KEY_ENTER) || gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
             if (saves.getLastWorld() == 0 && index < 2) {
                 index++;
@@ -112,15 +101,18 @@ public class ComicMenu extends BasicGameState {
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
     }
-
+    
+    /**
+     * 
+     * @return
+     * @throws SlickException 
+     */
     private Saves getSaves() throws SlickException {
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
         Saves saves;
         try {
             System.out.println("caricamento file");
-            fis = new FileInputStream("save.txt");
-            in = new ObjectInputStream(fis);
+            FileInputStream fis = new FileInputStream("save.txt");
+            ObjectInputStream in = new ObjectInputStream(fis);
             saves = (Saves) in.readObject();
             in.close();
         } catch (IOException | ClassNotFoundException e) {
