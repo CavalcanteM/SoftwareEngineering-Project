@@ -30,13 +30,13 @@ public interface UpgradeComponent {
         return Player.getPlayerInstance();
     }
     public void resetStats() ;
-    
+
     public void setCollisionManager(CollisionManager collision);
-    
+
     public boolean isAppear();
-            
+
     public int getNumVoidHearts();
-    
+
     public void setCommands(Mapping options);
 
     public void setNumHearts(int numHearts);
@@ -54,6 +54,6 @@ public interface UpgradeComponent {
     public void selectAnimations();
 
     public Animations getAnimations();
-    
+
     public void getDamaged(int damage);
 }

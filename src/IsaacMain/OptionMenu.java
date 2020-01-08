@@ -21,6 +21,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.KeyListener;
 
+/**
+ * This class manages the creation of a settings menu, in which the player can
+ * change the keys to move and change gravity, the skin and the volume of the
+ * game
+ *
+ * @author danya
+ */
 public class OptionMenu extends BasicGameState implements Serializable {
 
     final private int hButton = 50;
@@ -56,8 +63,13 @@ public class OptionMenu extends BasicGameState implements Serializable {
     private Button previousSkin;
     private boolean isChangingSkin;
 
+    /**
+     * Constructor of the class OptionMenu
+     *
+     * @throws SlickException
+     */
     public OptionMenu() throws SlickException {
-        
+
         this.options = new Mapping();
         Player.getPlayerInstance().setCommands(options);
         ml = new Mylistener();
@@ -66,30 +78,41 @@ public class OptionMenu extends BasicGameState implements Serializable {
         keyShapes = new ArrayList<>();
         move = "";
         keys = "";
-        System.out.println("optionMenu costruttore" + options);
 
-        //creo i tasti per i save
+        // creation of button to save changes
         saveBack = new Button(hButton, lButton, new Back(), "Back");
 
-        //aggiungo i tasti save alla lista per la stampa
+        // add the save button to the list to print
         saveButtons.add(saveBack);
-        //saveButtons.add(saveContinue);
+
+        // creation of buttons to change the volume
         frecciaDx = new Image("./src/graphics/png/freccia.png");
         frecciaSx = frecciaDx.getFlippedCopy(true, false);
-        
-        //PER QUANTO RIGUARDA I KEYS
-        //creo i tasti keys
-    }
 
+    }
+    
+    /**
+     * Getter method for the parameter move
+     * @return 
+     */
     public String getMove() {
         return move;
     }
-
+    
+    /**
+     * Method getID inherited from BasicGameState
+     * @return 
+     */
     @Override
     public int getID() {
         return 2; //state id di option
     }
-
+    
+    /**
+     * Method init inherited from BasicGameState
+     * @param gc
+     * @param sbg 
+     */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) {
 
@@ -102,8 +125,8 @@ public class OptionMenu extends BasicGameState implements Serializable {
         }
         int tempKeys = this.yKey;
         System.out.println("optionMenu " + options);
-                System.out.println("optionMenu " + options.getCommandMap());
-                        System.out.println("optionMenu " + options.getCommandMap().keySet());
+        System.out.println("optionMenu " + options.getCommandMap());
+        System.out.println("optionMenu " + options.getCommandMap().keySet());
 
         for (String b : options.getCommandMap().keySet()) {
             if (b.equals("skinIndex")) {
@@ -146,13 +169,20 @@ public class OptionMenu extends BasicGameState implements Serializable {
             ex.printStackTrace();
         }
     }
-
+    
+    /**
+     * Sets the volume of the music of the game
+     * @param i the new value of the volume
+     */
     public void setMusic(int i) {
         if (volume + i <= 10 && volume + i >= 0) {
             volume += i;
         }
     }
-
+    
+    /**
+     * Updates the values of the parameters of the commands map 
+     */
     protected void aggiornavalori() {
         move = "";
         keys = "";
@@ -164,7 +194,14 @@ public class OptionMenu extends BasicGameState implements Serializable {
             }
         }
     }
-
+    
+    /**
+     * Method render inherited from BasicGameState
+     * @param gc
+     * @param sbg
+     * @param g
+     * @throws SlickException 
+     */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setColor(Color.white);
@@ -200,7 +237,14 @@ public class OptionMenu extends BasicGameState implements Serializable {
         g.drawImage(frecciaDx, xVolume + offsetVolumeX, yVolume);
         g.drawImage(frecciaSx, xVolume - offsetVolumeX, yVolume);
     }
-
+    
+    /**
+     * Method update inherited from BasicGameState
+     * @param gc
+     * @param sbg
+     * @param delta
+     * @throws SlickException 
+     */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         int posX = Mouse.getX();
@@ -216,7 +260,7 @@ public class OptionMenu extends BasicGameState implements Serializable {
         for (Button b : this.saveButtons) {
             if (gc.getInput().isMouseButtonDown(0) && posX > this.xSave && posX < (this.xSave + b.getL())
                     && gc.getHeight() - posY > saveTemp && gc.getHeight() - posY < (saveTemp + b.getH())) {
-                
+
                 options.setValue("skinIndex", currentSkinIndex);
                 Player.getPlayerInstance().selectAnimations();
                 Player.getPlayerInstance().getAnimations().createAnimations();
@@ -243,12 +287,7 @@ public class OptionMenu extends BasicGameState implements Serializable {
             }
 
         }
-        //CHECK SE IL MOUSE è SUL VOLUME BUTTON
-        // if (gc.getInput().isMouseButtonDown(0) && posX>this.xKey && posX<(this.xKey+lKey) &&
-        //	gc.getHeight()-posY>350 && gc.getHeight()-posY<(380)){
-        //     gc.getInput().addKeyListener(new VolumeListener());
-        // }
-        //
+        
         if (gc.getInput().isMouseButtonDown(0) && posX > this.xVolume + offsetVolumeX && posX < (this.xVolume + offsetVolumeX + frecciaDx.getWidth())
                 && gc.getHeight() - posY > yVolume && gc.getHeight() - posY < (yVolume + frecciaDx.getHeight())) {
             if (gc.getInput().isMousePressed(0)) {
@@ -280,7 +319,10 @@ public class OptionMenu extends BasicGameState implements Serializable {
             }
         }
     }
-
+    
+    /**
+     * Nested class MyListener used to catch the key pressed to change the commands of the player
+     */
     private class Mylistener implements KeyListener {
 
         @Override

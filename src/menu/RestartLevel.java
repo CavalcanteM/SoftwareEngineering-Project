@@ -20,7 +20,6 @@ public class RestartLevel implements Command{
     public void execute(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException{
         gc.resume();
         try {
-            //gc.reinit();
             GalaxyComponent world = gs.getGalaxy().getChild(GameIsaac.loadedWorld);
             Level level = (Level)world.getChild(GameIsaac.loadedLevel);
             gs.setLevel(level);

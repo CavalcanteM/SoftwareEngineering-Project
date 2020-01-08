@@ -16,6 +16,10 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+/**
+ * This class manages the comics that appear at the beginning and at the and of each world
+ * @author danya
+ */
 public class ComicMenu extends BasicGameState {
 
     private Saves saves;
@@ -28,19 +32,36 @@ public class ComicMenu extends BasicGameState {
     private final int hSkip = 50;
     private final int lSkip = 150;
     private boolean flag = false;
-
+    
+    /**
+     * method getID inherited from the class BasicGameState
+     * @return the ID of this state
+     */
     @Override
     public int getID() {
         return 4;
     }
-
+    
+    /**
+     * Method init inherited from the class BasicGameState
+     * @param gc
+     * @param sbg
+     * @throws SlickException 
+     */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 
         skipB = new Rectangle(xSkip, ySkip, lSkip, hSkip);
 
     }
-
+    
+    /**
+     * Method render inherited from the class BasicGameState
+     * @param gc
+     * @param sbg
+     * @param g
+     * @throws SlickException 
+     */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.drawImage(imgent, 0, 0);
@@ -51,7 +72,14 @@ public class ComicMenu extends BasicGameState {
         g.setColor(Color.black);
         g.drawString("Skip", xSkip + (lSkip / 2) - (g.getFont().getWidth("Skip") / 2), ySkip + (hSkip / 2) - (g.getFont().getHeight("skip") / 2));
     }
-
+    
+    /**
+     * method inherited from the class BasicGameState
+     * @param gc
+     * @param sbg
+     * @param i
+     * @throws SlickException 
+     */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 
@@ -94,8 +122,9 @@ public class ComicMenu extends BasicGameState {
     }
     
     /**
-     * 
-     * @return
+     * Deserializion of saves from file 
+     * @return an object of the class Saves that contains the last world played
+     * and the last level played
      * @throws SlickException 
      */
     private Saves getSaves() throws SlickException {

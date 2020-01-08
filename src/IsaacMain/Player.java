@@ -20,6 +20,10 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import skins.*;
 
+/**
+ * Class representing the character of the game
+ * @author Isaac
+ */
 public class Player implements UpgradeComponent {
     private static UpgradeComponent playerInstance = null;
     private final int LEFT = -1, RIGHT = 1;
@@ -47,6 +51,10 @@ public class Player implements UpgradeComponent {
     private Sound hurtfx;
     private Animations animations;
 
+    /**
+     * Constructor of the class Player
+     * The constructor is private because the player has been implemented with the Singleton Behavioral Design Pattern
+     */
     private Player() {
         try {
             // Initialization of the sounds for change gravity, death and hurt
@@ -54,10 +62,10 @@ public class Player implements UpgradeComponent {
             this.deathfx = new Sound("./src/sound/death.wav");
             this.hurtfx = new Sound("./src/sound/hurt.wav");
         } catch (SlickException ex){}
-        
+
     }
 
-    
+
     public static UpgradeComponent getPlayerInstance() {
         if (playerInstance == null) {
             Player.playerInstance = new Player();
@@ -68,7 +76,7 @@ public class Player implements UpgradeComponent {
     public static void setPlayerInstance(UpgradeComponent newInstance){
         playerInstance = newInstance;
     }
-    
+
     /*--------------------
      * Getter methods
      *--------------------*/
@@ -88,6 +96,11 @@ public class Player implements UpgradeComponent {
         return numHearts;
     }
 
+    /**
+     * Getter method for the parameter numVoidHearts
+     * Method inherited from the interface UpgradeComponent
+     * @return
+     */
     @Override
     public int getNumVoidHearts() {
         return numVoidHearts;
@@ -99,21 +112,29 @@ public class Player implements UpgradeComponent {
     }
 
     /*--------------------
-     * Setter Methods
+     * Setter methods
      *--------------------*/
+    /**
+     * Setter method for the parameter dashValue
+     * @param dashValue
+     */
     public void setDashValue(int dashValue) {
         this.dashValue = dashValue;
     }
 
+    /**
+     * Setter method for the parameter gravity
+     * @param gravity
+     */
     public void setGravity(float gravity) {
         this.gravity = gravity;
     }
-    
+
     @Override
     public void setCommands(Mapping commands){
         this.commands = commands;
     }
-    
+
     public void setSpeed(float speed) {
         this.speed = speed;
     }
@@ -123,16 +144,28 @@ public class Player implements UpgradeComponent {
         this.speedUp = speedUp;
     }
 
+    /**
+     * Setter method for the parameter shield
+     * @param shield
+     */
     @Override
     public void setNumHearts(int numHearts) {
         this.numHearts = numHearts;
     }
 
+    /**
+     * Setter method for the parameter numVoidHearts
+     * @param numVoidHearts
+     */
     @Override
     public void setNumVoidHearts(int numVoidHearts) {
         this.numVoidHearts = numVoidHearts;
     }
 
+    /**
+     * Setter method for the parameter collision
+     * @param collision
+     */
     public void setCollisionManager(CollisionManager collision) {
         this.collision = collision;
     }
@@ -144,7 +177,7 @@ public class Player implements UpgradeComponent {
     @Override
     public void execute(){
     }
-    
+
     /**
      *
      * @param gc
@@ -179,7 +212,7 @@ public class Player implements UpgradeComponent {
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
 
-        
+
         // Gravity check and change
         if (gc.getInput().isKeyPressed((commands.getCommandMap().get("gravity"))))
             gravity = changeGravity(signum(gravity));
@@ -497,7 +530,7 @@ public class Player implements UpgradeComponent {
         }
 
     }
-    
+
     @Override
     public void selectAnimations(){
         switch(this.commands.getCommandMap().get("skinIndex")){
@@ -524,6 +557,9 @@ public class Player implements UpgradeComponent {
         }
     }
 
+    /**
+     *
+     */
     public void blink(){
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         final ScheduledFuture<?> blinkHandle;

@@ -8,14 +8,14 @@ import org.newdawn.slick.SlickException;
  * This powerup doubles the speed
  */
 public class SpeedUpDecorator extends UpgradeDecorator{
-    
+
     private long activationTime;
     private long durate;
     private boolean upgradeActive;
-    
+
     /**
-     * 
-     * @param player 
+     *
+     * @param player
      */
     public SpeedUpDecorator(UpgradeComponent player) {
         super(player);
@@ -24,13 +24,13 @@ public class SpeedUpDecorator extends UpgradeDecorator{
     }
 
     /**
-     * 
+     *
      * @return the parameter upgradeActive
      */
     public boolean isUpgradeActive(){
         return upgradeActive;
-    }        
-    
+    }
+
     /**
      * Check if the durate of the powerUp is ended. If ended, the powerUp is disactived
      */
@@ -56,5 +56,5 @@ public class SpeedUpDecorator extends UpgradeDecorator{
         super.setSpeedUp(2);
         System.out.println("attivo");
     }
-    
+
 }

@@ -6,8 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.SlickException;
 
-
-
 public class ConcreteFlameThrowerFactory extends ThrowersFactory{
 
     protected int difficulty;

@@ -26,7 +26,7 @@ public class CollisionManager implements Mediator {
     private Shape reward, playerHitbox;
     private ArrayList<ShootingEnemy> turrets;
     private ArrayList<StaticDamage> spikes;
-    private ArrayList<Thrower> throwers, lasers;
+    private ArrayList<Thrower> throwers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
     private long lastUpgrade = 0;
     private long timeBetweenUpgrade;
@@ -41,9 +41,10 @@ public class CollisionManager implements Mediator {
     protected boolean test6 = false;
 
     /**
+     * Constructor of the class CollisionManager
      * Inizialize all the instance of the class
      *
-     * @param level
+     * @param level the level that will interact with the CollisionManager
      */
     public CollisionManager(Level level) {
         this.setParameters(level);
@@ -52,6 +53,9 @@ public class CollisionManager implements Mediator {
 
     }
 
+    /**
+     * Standard constructor of the class CollisionManager
+     */
     public CollisionManager() {
         this.playerInstance = Player.getPlayerInstance();
     }
@@ -178,7 +182,7 @@ public class CollisionManager implements Mediator {
                     Player.setPlayerInstance(up);
                     up.execute();
                 }
-                
+
                 this.upgrade = null;
                 Random ran = new Random();
                 this.timeBetweenUpgrade = ran.nextInt(10000);
@@ -214,7 +218,7 @@ public class CollisionManager implements Mediator {
         if (pts.iterator().hasNext()) {
             reward = pts.iterator().next().getHitBox();
         }
-        this.throwers = level.getThrowers();                // Loads the Throwers    
+        this.throwers = level.getThrowers();                // Loads the Throwers
         this.turrets = level.getShootingEnemy();
         this.lastUpgrade = 0;
         this.upgrade = null;

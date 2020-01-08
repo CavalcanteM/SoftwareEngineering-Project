@@ -7,24 +7,28 @@ import Entity.Factory.ConcreteFactoryUpgrade;
 import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
 
-/*
-    This class is the client of the EntityFactory. In fact, the scope of this
-    class is the creation of an ArrayList<Entity> whose content change according
-    to the LayerName of the TileMap.
+/**
+ * This class is the client of the EntityFactory. In fact, the scope of this
+ * class is the creation of an ArrayList<Entity> whose content change according
+ * to the LayerName of the TileMap.
  */
 public class EntityClient {
 
     private static EntityFactory et;
     private final TiledMap map;
-
+    
+    /**
+     * Constructor of the class EntityClient
+     * @param map the TiledMap representing the current level
+     */
     public EntityClient(TiledMap map) {
         this.map = map;
     }
 
-    /*
-        Returns an ArrayList<Block> if layerName == "Obj
-        Returns an ArrayList<Rewards> if layerName == "Rewads"
-    Returns an ArrayList<Upgrades> if layerName == "Upgrade"
+    /**
+     * @return an ArrayList<Block> if layerName == "Obj",
+     * an ArrayList<Rewards> if layerName == "Rewards",
+     * an ArrayList<Upgrades> if layerName == "Upgrade"
      */
     public ArrayList<Entity> getEntities(String layerName) {
         int x, y;
@@ -43,7 +47,7 @@ public class EntityClient {
 
         for (y = 0; y < map.getHeight(); y++) {
             for (x = 0; x < map.getWidth(); x++) {
-                /**
+                /*
                  * In this "if" we check if in the tiles with coordinates(x,y)
                  * there is an object. If it is present, we create a shape 30x30
                  * pixels in the position of the object.

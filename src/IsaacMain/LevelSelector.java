@@ -13,15 +13,21 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * This class manages the selection of one of the level that the player has already player
+ * After the player completes a level it is added to the list of levels showed in this window 
+ * @author danya
+ */
 public class LevelSelector extends BasicGameState {
 
     private ArrayList<Menu> menu;
     private Saves progress;
     private int page;
-
-    public LevelSelector() {
-    }
-
+    
+    /**
+     * Increases an index representing the menu page with levels shown on the screen
+     * Every page represents a world
+     */
     public void increasePage() {
         if (page < progress.getLastWorld()) {
             page++;
@@ -29,12 +35,22 @@ public class LevelSelector extends BasicGameState {
             this.page = 0;
         }
     }
-
+    
+    /**
+     * method getID inherited from BasicGameState
+     * @return 
+     */
     @Override
     public int getID() {
         return 5;
     }
-
+    
+    /**
+     * Method init inherited from BasicGameState
+     * @param gc
+     * @param sbg
+     * @throws SlickException 
+     */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         System.out.println("LevelSelector-> init");
@@ -69,7 +85,14 @@ public class LevelSelector extends BasicGameState {
             m.init(gc);
         }
     }
-
+    
+    /**
+     * Method render inherited from BasicGameState
+     * @param gc
+     * @param sbg
+     * @param grphcs
+     * @throws SlickException 
+     */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         Image background = new Image("./graphics/background.png");
@@ -77,7 +100,14 @@ public class LevelSelector extends BasicGameState {
         background.draw(0, 0);
         menu.get(page).render(gc, grphcs);
     }
-
+    
+    /**
+     * Method update inherited from BasicGameState
+     * @param gc
+     * @param sbg
+     * @param i
+     * @throws SlickException 
+     */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         menu.get(page).update(gc, i, sbg);

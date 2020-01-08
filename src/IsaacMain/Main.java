@@ -4,6 +4,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.SlickException;
 
+/**
+ * This class defines the main class of the game
+ * @author danya
+ */
 public class Main {
     public static void main(String[] args) {
         try {

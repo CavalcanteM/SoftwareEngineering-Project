@@ -7,7 +7,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -58,14 +57,7 @@ public class Tutorial extends BasicGameState {
         if (JOptionPane.showConfirmDialog(null, "If you proceed all the previous achivements will be lost, do you want to proceed?", "WARNING",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             File f = new File("./save.txt");
-            if(f.delete())
-            {
-                System.out.println("Hai ricominciato ");
-            }
-            else
-            {
-                System.out.println("errore");
-            }
+            f.delete();
             sbg.getState(1).init(gc, sbg);
             
             // Reimposta il salvataggio ad essere quello del livello 0 pianeta 0.
