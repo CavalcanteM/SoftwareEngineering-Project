@@ -12,8 +12,8 @@ public class ConcreteFactoryBlock extends EntityFactory{
     
     /**
      * Method create inherited from the class EntityFactory
-     * @param x 
-     * @param y
+     * @param x indicates the x position of the block that will be created
+     * @param y indicates the y position of the block that will be created
      * @return 
      */
     @Override

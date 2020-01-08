@@ -15,12 +15,20 @@ public class Tutorial extends BasicGameState {
     Image img;
     int index;
     boolean notshown;
-
+/**
+ * returns the ID of the Tutorial State
+ * @return 
+ */
     @Override
     public int getID() {
         return 3;
     }
-
+/**
+ * This method initializes the Tutorial state so that it prepares its first image.
+ * @param gc GameContainer 
+ * @param sbg StateBasedGame object shared by states
+ * @throws SlickException 
+ */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 
@@ -28,7 +36,13 @@ public class Tutorial extends BasicGameState {
         index = 0;
         img = new Image("./graphics/tutorial/Image_" + index + ".jpg");
     }
-
+/**
+ * 
+ * @param gc GameContainer 
+ * @param sbg StateBasedGame object shared by states
+ * @param i indicates the delta time of updating
+ * @throws SlickException 
+ */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 
@@ -43,7 +57,13 @@ public class Tutorial extends BasicGameState {
         }
 
     }
-
+/**
+ * This function calls show_dialog and to draws the images on the screen
+ * @param gc GameContainer 
+ * @param sbg StateBasedGame object shared by states
+ * @param grphcs Graphic objecct needed for rendering
+ * @throws SlickException 
+ */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         if (index == 0 && notshown) {
@@ -51,7 +71,13 @@ public class Tutorial extends BasicGameState {
         }
         img.draw();
     }
-
+/**
+* This function serves to show the dialog 
+ * @param gc GameContainer 
+ * @param sbg StateBasedGame object shared by states
+ * @param grphcs Graphic objecct needed for rendering
+ * @throws SlickException 
+ */
     public void show_dialog(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         notshown = false;
         if (JOptionPane.showConfirmDialog(null, "If you proceed all the previous achivements will be lost, do you want to proceed?", "WARNING",

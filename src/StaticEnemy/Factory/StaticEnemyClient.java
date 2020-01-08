@@ -26,7 +26,10 @@ public class StaticEnemyClient {
         acidFactory = new AcidLakeFactory(difficulty);
         barrelFactory = new BarrelFactory(difficulty);
     }
-
+/**
+ * 
+ * @return 
+ */
     public ArrayList<StaticDamage> getStaticEnemyList() {
 
         ArrayList<StaticDamage> staticDamageArray = new ArrayList<>();

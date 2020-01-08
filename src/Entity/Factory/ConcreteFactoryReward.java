@@ -10,10 +10,10 @@ import Entity.Reward;
  */
 public class ConcreteFactoryReward extends EntityFactory{
     
-    /**
-     * Method create inherited from EntityFactory
-     * @param x
-     * @param y
+  /**
+     * Method create inherited from the class EntityFactory
+     * @param x indicates the x position of the reward that will be created
+     * @param y indicates the y position of the reward that will be created
      * @return 
      */
     @Override
