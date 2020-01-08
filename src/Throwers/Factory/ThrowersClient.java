@@ -2,7 +2,6 @@ package Throwers.Factory;
 
 import Throwers.Thrower;
 import java.util.ArrayList;
-import java.util.List;
 import org.newdawn.slick.tiled.TiledMap;
 
 /*

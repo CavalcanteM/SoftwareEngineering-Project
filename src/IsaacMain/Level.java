@@ -34,70 +34,109 @@ public class Level implements GalaxyComponent {
     private Powerup up;
     private Graphics g;
     private static final long serialversionUId = 1;
-
+    
+    /**
+     * Constructor of the class Level
+     * @param name the name of the level, it will be printed at the top right of the screen
+     * @param score the number of rewards the player has to collect in the level
+     * @param index the index of the level (used for loading the correct level)
+     * @param difficulty a number between 1 and 10 representing the difficulty of the level, that will influence the parameters of the enemies
+     */
     public Level(String name, int score, int index, int difficulty) {
         this.name = name;
         this.score = score;
         this.index = index;
         this.difficulty = difficulty;
     }
-
-    public Graphics getG() {
-        return g;
-    }
-
+    
+    /**
+     * Getter method for the parameter score
+     * @return an integer representing the score
+     */
     public int getScore() {
         return score;
     }
-
+    
+    /**
+     * Getter method for the parameter throwers
+     * @return an ArrayList of Thrower objects containing the throwers
+     */
     public ArrayList<Thrower> getThrowers() {
         return throwers;
     }
-
+    
+    /**
+     * Getter method for the parameter map of type TiledMap
+     * @return 
+     */
     public TiledMap getMap() {
         return map;
     }
     
+    /**
+     * Method getShootingEnemy inherited from the interface Galaxy Component
+     * @return 
+     */
     @Override
     public ArrayList<ShootingEnemy> getShootingEnemy() {
         return turrets;
     }
     
+    /**
+     * Method getRewards inherited from the interface Galaxy Component
+     * @return 
+     */
     @Override
     public ArrayList<Entity> getRewards() {
         return rewards;
     }
     
+    /**
+     * Method getBlock inherited from the interface Galaxy Component
+     * @return 
+     */
     @Override
     public ArrayList<Entity> getBlock() {
         return blocks;
     }
     
+    /**
+     * Method getSpikes inherited from the interface Galaxy Component
+     * @return 
+     */
     @Override
     public ArrayList<StaticDamage> getSpikes() {
         return spikes;
     }
     
+    /**
+     * Method getPowerup inherited from the interface Galaxy Component
+     * @return 
+     */
     @Override
     public Powerup getPowerup(){
         return up;
     }
     
+    /**
+     * Method getPts inherited from the interface Galaxy Component
+     * @return 
+     */
     @Override
     public Points getPts() {
         return pts;
     }
 
     /**
-     * Is a sort of constructor for this class
-     *
+     * Method init inherited from the interface galaxyComponent
+     * It is a sort of constructor of the class and sets the parameters of the class
      * @param gc
      * @throws org.newdawn.slick.SlickException
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
         /**
-         * difficulty parameter passed to every concrete factory to generate
+         * The difficulty parameter passed to every concrete factory to generate
          * objects that vary based on the difficulty level.
          */
         this.map = new TiledMap("\\src\\map_level\\Level_" + this.index + ".tmx");
@@ -128,7 +167,13 @@ public class Level implements GalaxyComponent {
         this.up = new Powerup(upgrades);
         this.up.init();
     }
-
+    
+    /**
+     * Method update inherited from the interface Galaxy Component
+     * @param gc
+     * @param delta
+     * @throws SlickException 
+     */
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         if (!this.pts.iterator().hasNext()) {
@@ -141,6 +186,7 @@ public class Level implements GalaxyComponent {
     }
 
     /**
+     * Method render inherited from the interface GalaxyComponent
      * This method is invoked only by GravitySlick.render() and has to render
      * the map
      *
@@ -188,18 +234,34 @@ public class Level implements GalaxyComponent {
         g.setColor(Color.white);
         g.drawString(this.name, 850, 5);
     }
-
+    
+    /**
+     * Method add inherited from the interface Galaxy Component
+     * Not inplemented in this class because it represent a "Leaf" according to the Composite pattern
+     * @param galaxyComponent 
+     */
     @Override
     public void add(GalaxyComponent galaxyComponent) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Method add inherited from the interface Galaxy Component
+     * Not inplemented in this class because it represent a "Leaf" according to the Composite pattern
+     * @return 
+     */
     @Override
     public ArrayList<GalaxyComponent> getChildren() {
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Method add inherited from the interface Galaxy Component
+     * Not inplemented in this class because it represent a "Leaf" according to the Composite pattern
+     * @param index
+     * @return 
+     */
     @Override
     public GalaxyComponent getChild(int index) {
         return null;

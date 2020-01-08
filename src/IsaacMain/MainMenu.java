@@ -6,7 +6,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -24,7 +23,7 @@ public class MainMenu extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        buttons = new ArrayList<Button>();
+        buttons = new ArrayList<>();
         buttons.add(new Button(50, 150, new NewGame(), "New Game"));
         buttons.add(new Button(50, 150, new ContinueGame(), "Continue Game"));
         buttons.add(new Button(50, 150, new ChooseLevel(), "Select Level"));
@@ -33,6 +32,7 @@ public class MainMenu extends BasicGameState {
         menu = new Menu(buttons, true);
         music = new Music("./src/sound/mainmenu.wav");
         music.play();
+        music.loop();
         menu.init(gc);
     }
 

@@ -2,17 +2,11 @@ package IsaacMain;
 
 import Upgrades.UpgradeDecorator;
 import Upgrades.UpgradeComponent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import static java.lang.Math.signum;
-import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import menu.Mapping;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -26,6 +20,10 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import skins.*;
 
+/**
+ * Class representing the character of the game
+ * @author Isaac
+ */
 public class Player implements UpgradeComponent {
     private static Player playerInstance = null;
     private final int LEFT = -1, RIGHT = 1;
@@ -55,7 +53,11 @@ public class Player implements UpgradeComponent {
     private Sound deathfx;
     private Sound hurtfx;
     private Animations animations;
-
+    
+    /**
+     * Constructor of the class Player
+     * The constructor is private because the player has been implemented with the Singleton Behavioral Design Pattern
+     */
     private Player() {
         try {
             // Initialization of the sounds for change gravity, death and hurt
@@ -66,153 +68,286 @@ public class Player implements UpgradeComponent {
         
     }
 
+    /**
+     * Get istance of the Singleton
+     * @return 
+     */
     public static Player getPlayerInstance() {
         if (playerInstance == null) {
             Player.playerInstance = new Player();
         }
         return Player.playerInstance;
     }
-
+    
     /*--------------------
      * Getter methods
      *--------------------*/
+    /**
+     * Getter method for the parameter LEFT
+     * @return 
+     */
     public int getLEFT() {
         return LEFT;
     }
-
+    
+    /**
+     * Getter method for the parameter RIGHT
+     * @return 
+     */
     public int getRIGHT() {
         return RIGHT;
     }
-
+    
+    /**
+     * Getter method for the parameter dashValue
+     * @return 
+     */
     public int getDashValue() {
         return dashValue;
     }
-
+    
+    /**
+     * Getter method for the parameter gravity
+     * @return 
+     */
     public float getGravity() {
         return gravity;
     }
-
+    
+    /**
+     * Getter method for the parameter iterations
+     * @return 
+     */
     public float getIterations() {
         return iterations;
     }
-
+    
+    /**
+     * Getter method for the parameter hitbox
+     * @return 
+     */
     @Override
     public Shape getPlayer() {
         return hitbox;
     }
-
+    
+    /**
+     * Getter method for the parameter speed
+     * @return 
+     */
     public float getSpeed() {
         return speed;
     }
-
+    
+    /**
+     * Getter method for the parameter vX
+     * @return 
+     */
     public float getvX() {
         return vX;
     }
-
+    
+    /**
+     * Getter method for the parameter vY
+     * @return 
+     */
     public float getvY() {
         return vY;
     }
-
+    
+    /**
+     * Getter method for the parameter isPaused
+     * @return 
+     */
     public boolean isPaused() {
         return isPaused;
     }
-
+    
+    /**
+     * Getter method for the parameter appear
+     * @return 
+     */
     public boolean isAppear() {
         return appear;
     }
-
+    
+    /**
+     * Getter method for the parameter lastHitTime
+     * @return 
+     */
     public long getLastHitTime() {
         return lastHitTime;
     }
 
-
+    /**
+     * Getter method for the parameter numHearts
+     * Method inherited from the interface UpgradeComponent
+     * @return 
+     */
     @Override
     public int getNumHearts() {
         return numHearts;
     }
-
+    
+    /**
+     * Getter method for the parameter numVoidHearts
+     * Method inherited from the interface UpgradeComponent
+     * @return 
+     */
     @Override
     public int getNumVoidHearts() {
         return numVoidHearts;
     }
-
+    
+    /**
+     * Getter method for the parameter animations
+     * @return 
+     */
     public Animations getAnimations(){
         return animations;
     }
-
+    
+    /**
+     * Check method for the parameter shield
+     * @return 
+     */
     @Override
     public boolean hasShield() {
         return shield;
     }
     
     /*--------------------
-     * Setter Methods
+     * Setter methods
      *--------------------*/
+    /**
+     * Setter method for the parameter dashValue
+     * @param dashValue 
+     */
     public void setDashValue(int dashValue) {
         this.dashValue = dashValue;
     }
-
+    
+    /**
+     * Setter method for the parameter gravity
+     * @param gravity 
+     */
     public void setGravity(float gravity) {
         this.gravity = gravity;
     }
     
+    /**
+     * Setter method for the parameter commands
+     * @param commands 
+     */
     public void setCommands(Mapping commands){
         this.commands = commands;
     }
-
+    
+    /**
+     * Setter method for the parameter speedUpDecorator
+     * @param speedUpDecorator 
+     */
     @Override
     public void setSpeedUpDecorator(UpgradeDecorator speedUpDecorator) {
         this.speedUpDecorator = speedUpDecorator;
     }
-
+    
+    /**
+     * Setter method for the parameter iterations
+     * @param iterations 
+     */
     public void setIterations(float iterations) {
         this.iterations = iterations;
     }
-
+    
+    /**
+     * Setter method for the parameter hitbox
+     * @param hitbox 
+     */
     public void setPlayer(Shape hitbox) {
         this.hitbox = hitbox;
     }
-
+    
+    /**
+     * Setter method for the parameter speed
+     * @param speed 
+     */
     public void setSpeed(float speed) {
         this.speed = speed;
     }
-
+    
+    /**
+     * Setter method for the parameter vX
+     * @param vX 
+     */
     public void setvX(float vX) {
         this.vX = vX;
     }
-
+    
+    /**
+     * Setter method for the parameter vY
+     * @param vY 
+     */
     public void setvY(float vY) {
         this.vY = vY;
     }
-
+    
+    /**
+     * Setter method for the parameter speedUp
+     * @param speedUp 
+     */
     @Override
     public void setSpeedUp(float speedUp) {
         this.speedUp = speedUp;
     }
-
+    
+    /**
+     * Setter method for the parameter shield
+     * @param shield 
+     */
     @Override
     public void setShield(boolean shield) {
         this.shield = shield;
     }
-
+    
+    /**
+     * Setter method for the parameter isPaused
+     * @param isPaused 
+     */
     public void setIsPaused(boolean isPaused) {
         this.isPaused = isPaused;
     }
-
+    
+    /**
+     * Setter method for the parameter numHearts
+     * @param numHearts 
+     */
     @Override
     public void setNumHearts(int numHearts) {
         this.numHearts = numHearts;
     }
-
+    
+    /**
+     * Setter method for the parameter numVoidHearts
+     * @param numVoidHearts 
+     */
     @Override
     public void setNumVoidHearts(int numVoidHearts) {
         this.numVoidHearts = numVoidHearts;
     }
-
+    
+    /**
+     * Setter method for the parameter collision
+     * @param collision 
+     */
     public void setCollisionManager(CollisionManager collision) {
         this.collision = collision;
     }
-
+    
+    /**
+     * Setter method for the parameter shieldDecorator
+     * @param shieldDecorator 
+     */
     @Override
     public void setShieldDecorator(UpgradeDecorator shieldDecorator) {
         this.shieldDecorator = shieldDecorator;
@@ -574,17 +709,10 @@ public class Player implements UpgradeComponent {
         this.shield = false;
         this.speedUp = 1;
     }
-
-
-    public void setAnimations(Animations animations) {
-        try {
-            animations.createAnimations();
-        } catch (SlickException ex) {
-            ex.printStackTrace();
-        }
-
-    }
-
+    
+    /**
+     * 
+     */
     public void selectAnimations(){
         switch(this.commands.getCommandMap().get("skinIndex")){
             case 0: {
@@ -609,7 +737,10 @@ public class Player implements UpgradeComponent {
             }
         }
     }
-
+    
+    /**
+     * 
+     */
     public void blink(){
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         final ScheduledFuture<?> blinkHandle;

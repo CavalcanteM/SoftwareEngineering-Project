@@ -43,11 +43,11 @@ public class ShootingEnemyClient {
                  * map this method creates an array list of different objects
                  * that match the ID.
                  */
-                if (map.getTileId(x, y, turretsLayer) >= TileID.TurretUp && map.getTileId(x, y, turretsLayer) <= TileID.TurretLeft) {
+                if (map.getTileId(x, y, turretsLayer) >= TileID.TURRET_UP && map.getTileId(x, y, turretsLayer) <= TileID.TURRET_LEFT) {
                     array.add(threeFactory.create(x, y, calculateHitboxArea(x, y), difficulty));
                 }
                 try {
-                    if (map.getTileId(x, y, hiddenTurretsLayer) >= TileID.TurretUp && map.getTileId(x, y, hiddenTurretsLayer) <= TileID.TurretLeft) {
+                    if (map.getTileId(x, y, hiddenTurretsLayer) >= TileID.TURRET_UP && map.getTileId(x, y, hiddenTurretsLayer) <= TileID.TURRET_LEFT) {
                         array.add(randomthreeshotFactory.create(x, y, calculateHitboxArea(x, y), difficulty));
                     }
                 } catch (Exception e) {

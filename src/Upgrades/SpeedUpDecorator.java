@@ -1,8 +1,6 @@
 package Upgrades;
 
 import IsaacMain.Player;
-import org.newdawn.slick.*;
-import org.newdawn.slick.geom.*;
 
 /**
  * This powerup doubles the speed

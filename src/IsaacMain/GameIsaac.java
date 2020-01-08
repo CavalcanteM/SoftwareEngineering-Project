@@ -16,6 +16,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * Main state of the game
+ * @author danya
+ */
 public class GameIsaac extends BasicGameState {
 
     private GalaxyComponent level;
@@ -28,25 +32,41 @@ public class GameIsaac extends BasicGameState {
     private Saves progress;
     public static int loadedLevel;
     public static int loadedWorld;
-
+    
+    /**
+     * Setter method for the parameter level
+     * @param level the level running in the game
+     */
     public void setLevel(GalaxyComponent level) {
         this.level = level;
     }
-
+    
+    /**
+     * Getter method for the parameter level
+     * @return the current level running in the game
+     */
     public GalaxyComponent getLevel() {
         return level;
     }
-
+    
+    /**
+     * Getter method for the parameter collisionManager
+     * @return the current istance of the collision manager
+     */
     public CollisionManager getCollisionManager() {
         return collisionManager;
     }
-
+    
+    /**
+     * Getter method for the parameter galaxy
+     * @return the tree containing all worlds and levels
+     */
     public GalaxyComponent getGalaxy() {
         return galaxy;
     }
 
     /**
-     *
+     * Method getID inherited from BasicGameState
      * @return the ID of this state
      */
     @Override
@@ -83,9 +103,9 @@ public class GameIsaac extends BasicGameState {
          * as third parameter
          * Check the package menu to see all the available commands
          */
-        Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
-        Button restart = new Button(50, 150, new RestartLevel(this), "Restart");       //The constructor will decide, the function executed by the button
-        Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
+        Button resume = new Button(50, 150, new Resume(), "Resume");                    //Creating the single button
+        Button restart = new Button(50, 150, new RestartLevel(this), "Restart");        //The constructor will decide, the function executed by the button
+        Button exit = new Button(50, 150, new Exit(), "Quit");                          //Check the pakage menu to see all the commands
         Button next = new Button(50, 150, new NextLevel(this, loadedWorld, loadedLevel), "Next Level");
         Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
         Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
@@ -124,7 +144,6 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         level.render(gc, g);
         if (player.isAppear()) {
             player.render(gc, g);

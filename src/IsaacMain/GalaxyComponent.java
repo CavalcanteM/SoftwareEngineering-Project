@@ -10,8 +10,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+/**
+ * Interface at the base of the Composite design pattern used to implement a tree
+ * of classes that contains the worlds of the game and the levels of each world
+ * @author danya
+ */
 public interface GalaxyComponent extends Serializable {
-    
     
     public void init(GameContainer gc) throws SlickException;
     

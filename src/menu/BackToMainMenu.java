@@ -6,6 +6,10 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+/**
+ * This Command changes the State of the game to the MainMenu regardless of the current one
+ * @author danya
+ */
 public class BackToMainMenu implements Command{
 
 	@Override

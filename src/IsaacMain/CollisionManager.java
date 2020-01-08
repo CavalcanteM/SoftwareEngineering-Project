@@ -27,13 +27,16 @@ public class CollisionManager implements Mediator {
     private Shape reward, playerHitbox;
     private ArrayList<ShootingEnemy> turrets;
     private ArrayList<StaticDamage> spikes;
-    private ArrayList<Thrower> throwers, lasers;
+    private ArrayList<Thrower> throwers;
     private long lastHitTime = System.currentTimeMillis() - 3000;
     private UpgradeDecorator shieldDecorator;
     private long lastUpgrade = 0;
     private long timeBetweenUpgrade;
     private int i= 0;
-    /*This parameters are used only in the test of the class*/
+    
+    /*
+     * These parameters are used only in the test of the class
+     */
     protected boolean intesting = false;
     protected boolean test1 = false;
     protected boolean test2 = false;
@@ -43,16 +46,20 @@ public class CollisionManager implements Mediator {
     protected boolean test6 = false;
 
     /**
+     * Constructor of the class CollisionManager
      * Inizialize all the instance of the class
      *
-     * @param level
+     * @param level the level that will interact with the CollisionManager
      */
     public CollisionManager(GalaxyComponent level) {
         this.setParameters(level);
         this.playerInstance = Player.getPlayerInstance();
 
     }
-
+    
+    /** 
+     * Standard constructor of the class CollisionManager
+     */
     public CollisionManager() {
         this.playerInstance = Player.getPlayerInstance();
     }

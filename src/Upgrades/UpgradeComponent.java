@@ -19,7 +19,7 @@ public interface UpgradeComponent {
     /**
      * All the next method are inserted in this interface to allow the use of 
      * the player methods in the decorator class 
-     * 
+     * @return 
      */
     public int getNumHearts();
     

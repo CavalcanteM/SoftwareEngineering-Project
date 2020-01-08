@@ -84,11 +84,13 @@ public class HiddenThreeShotTurret implements ShootingEnemy {
         }
 
     }
-
+    
+    @Override
     public boolean isVisible() {
         return visible;
     }
-
+    
+    @Override
     public void removeBullet(Bullet bul) {
         bulletList.remove(bul);
         if (++j % 3 == 0) {
@@ -97,7 +99,6 @@ public class HiddenThreeShotTurret implements ShootingEnemy {
         }
     }
     
-
     @Override
     public Shape getHitbox() {
        return hitboxturret;

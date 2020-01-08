@@ -12,61 +12,56 @@ public class Saves implements Serializable {
     private int lastWorld;
     private int lastLevel;
 
-	public Saves(int lastWorld, int lastLevel) {
-		this.lastWorld = lastWorld;
-		this.lastLevel = lastLevel;
-	}
+    public Saves(int lastWorld, int lastLevel) {
+        this.lastWorld = lastWorld;
+        this.lastLevel = lastLevel;
+    }
 
-
-	public Saves(){
-		this.lastWorld = 0;
-		this.lastLevel = 0;
-	}
+    public Saves() {
+        this.lastWorld = 0;
+        this.lastLevel = 0;
+    }
 
     public int getLastWorld() {
-	return lastWorld;
+        return lastWorld;
     }
 
     public int getLastLevel() {
-	return lastLevel;
+        return lastLevel;
     }
 
     public void setLastWorld(int lastWorld) {
-	this.lastWorld = lastWorld;
+        this.lastWorld = lastWorld;
     }
 
-	public void setLastLevel(int lastLevel) {
-		this.lastLevel = lastLevel;
-	}
+    public void setLastLevel(int lastLevel) {
+        this.lastLevel = lastLevel;
+    }
 
-	public void saveProgress(){
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
-        try{
-            fos = new FileOutputStream("save.txt");
-            out = new ObjectOutputStream(fos);
+    public void saveProgress() {
+        try {
+            FileOutputStream fos = new FileOutputStream("save.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fos);
             out.writeObject(this);
-			out.flush();
+            out.flush();
             out.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-	public Saves loadProgress(){
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
-		Saves saves;
-        try{
-            fis = new FileInputStream("save.txt");
-            in = new ObjectInputStream(fis);
+    public Saves loadProgress() {
+        Saves saves;
+        try {
+            FileInputStream fis = new FileInputStream("save.txt");
+            ObjectInputStream in = new ObjectInputStream(fis);
             saves = (Saves) in.readObject();
             in.close();
-        }catch(IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             saves = new Saves();
-			saves.setLastLevel(0);
-			saves.setLastWorld(0);
+            saves.setLastLevel(0);
+            saves.setLastWorld(0);
         }
-		return saves;
+        return saves;
     }
 }
