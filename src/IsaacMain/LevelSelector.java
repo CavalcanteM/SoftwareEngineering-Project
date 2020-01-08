@@ -20,7 +20,6 @@ public class LevelSelector extends BasicGameState {
     private int page;
 
     public LevelSelector() {
-        menu = new ArrayList<>();
     }
 
     public void increasePage() {
@@ -39,6 +38,7 @@ public class LevelSelector extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         System.out.println("LevelSelector-> init");
+        menu = new ArrayList<>();
         this.page = 0;
         int i = 0;
         progress = new Saves().loadProgress();
@@ -48,7 +48,7 @@ public class LevelSelector extends BasicGameState {
         for (i = 0; i < progress.getLastWorld(); i++) {															//This loop will create menus and buttons for the completed worlds
             menu.add(new Menu());
             for (int j = 1; j <= 4; j++) {
-                menu.get(i).addButton(new Button(50, 150, new SelectLevel(i, j - 1), "Level " + i + " - " + j));
+                menu.get(i).addButton(new Button(50, 150, new SelectLevel(i, j - 1), "Level " + (i+1) + " - " + j));
             }
             menu.get(i).addButton(next);
             menu.get(i).addButton(main);

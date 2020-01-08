@@ -82,11 +82,11 @@ public class GameIsaac extends BasicGameState {
          * the constructor will decide the function executed by the button instantiating a Command 
          * as third parameter
          * Check the package menu to see all the available commands
-        */
+         */
         Button resume = new Button(50, 150, new Resume(), "Resume");               //Creating the single button
         Button restart = new Button(50, 150, new RestartLevel(this), "Restart");       //The constructor will decide, the function executed by the button
         Button exit = new Button(50, 150, new Exit(), "Quit");			//Check the pakage menu to see all the commands
-        Button next = new Button(50, 150, new NextLevel(this,loadedWorld,loadedLevel), "Next Level");
+        Button next = new Button(50, 150, new NextLevel(this, loadedWorld, loadedLevel), "Next Level");
         Button options = new Button(50, 150, new ChangeControls(this.getID()), "Settings");
         Button main = new Button(50, 150, new BackToMainMenu(), "Main Menu");
 
@@ -114,8 +114,9 @@ public class GameIsaac extends BasicGameState {
     }
 
     /**
-     * Method render inherited from BasicGameState
-     * Managed the render of the elements of this state
+     * Method render inherited from BasicGameState Managed the render of the
+     * elements of this state
+     *
      * @param gc
      * @param sbg
      * @param g
@@ -160,7 +161,7 @@ public class GameIsaac extends BasicGameState {
             if (player.getNumHearts() <= 0) {
                 deathMenu.update(gc, delta, sbg);
             } else if (!level.getPts().iterator().hasNext()) {
-				saveProgress();
+                saveProgress();
                 end.update(gc, delta, sbg);
             } else {
                 pause.update(gc, delta, sbg);
@@ -194,9 +195,9 @@ public class GameIsaac extends BasicGameState {
             // Setting second world
             GalaxyComponent world2 = new LevelContainer("World 2");
             GalaxyComponent level5 = new Level("Level 2-1", 4, 5, 1);
-            GalaxyComponent level6 = new Level("Level 1-4", 5, 6, 1);
-            GalaxyComponent level7 = new Level("Level 1-4", 5, 7, 1);
-            GalaxyComponent level8 = new Level("Level 1-8", 7, 8, 1);
+            GalaxyComponent level6 = new Level("Level 2-2", 5, 6, 1);
+            GalaxyComponent level7 = new Level("Level 2-3", 5, 7, 1);
+            GalaxyComponent level8 = new Level("Level 2-4", 7, 8, 1);
             world2.add(level5);
             world2.add(level6);
             world2.add(level7);
@@ -216,11 +217,11 @@ public class GameIsaac extends BasicGameState {
             galaxy.add(world3);
 
             // Setting fourth world
-            GalaxyComponent world4 = new LevelContainer("World 3");
-            GalaxyComponent level13 = new Level("Level 3-1", 5, 13, 1);
-            GalaxyComponent level14 = new Level("Level 3-2", 5, 14, 1);
-            GalaxyComponent level15 = new Level("Level 3-3", 5, 15, 1);
-            GalaxyComponent level16 = new Level("Level 3-4", 5, 16, 1);
+            GalaxyComponent world4 = new LevelContainer("World 4");
+            GalaxyComponent level13 = new Level("Level 4-1", 5, 13, 1);
+            GalaxyComponent level14 = new Level("Level 4-2", 5, 14, 1);
+            GalaxyComponent level15 = new Level("Level 4-3", 5, 15, 1);
+            GalaxyComponent level16 = new Level("Level 4-4", 5, 16, 1);
             world4.add(level13);
             world4.add(level14);
             world4.add(level15);
@@ -264,28 +265,28 @@ public class GameIsaac extends BasicGameState {
             return null;
         }
     }
-	
-	public void saveProgress(){
-		progress=new Saves().loadProgress();
-		int nextWorld=loadedWorld, nextLevel=loadedLevel;
-		
-		if (galaxy.getChild(loadedWorld).getChildren().size() == loadedLevel + 1) {
-			//Check if the actualWorld is the last world of the galaxy
-			if (galaxy.getChildren().size() == loadedWorld + 1) {
-				//Game complete da modificare
-			} else {
-				nextWorld ++;
-				nextLevel = 0;                      
-			}
-		} else {
-			nextLevel++;
-		}
-		
-	if( (progress.getLastWorld()<nextWorld) | ((progress.getLastWorld()==nextWorld)&&(progress.getLastLevel()<nextLevel)) ){
-			progress.setLastWorld(nextWorld);
-			progress.setLastLevel(nextLevel);
-			progress.saveProgress();
-		}
-		System.out.println("GamiIsaac-> MondoSalvato: "+progress.getLastWorld()+" - LivelloSalvato: "+progress.getLastLevel());
-	}
+
+    public void saveProgress() {
+        progress = new Saves().loadProgress();
+        int nextWorld = loadedWorld, nextLevel = loadedLevel;
+
+        if (galaxy.getChild(loadedWorld).getChildren().size() == loadedLevel + 1) {
+            //Check if the actualWorld is the last world of the galaxy
+            if (galaxy.getChildren().size() == loadedWorld + 1) {
+                //Game complete da modificare
+            } else {
+                nextWorld++;
+                nextLevel = 0;
+            }
+        } else {
+            nextLevel++;
+        }
+
+        if ((progress.getLastWorld() < nextWorld) | ((progress.getLastWorld() == nextWorld) && (progress.getLastLevel() < nextLevel))) {
+            progress.setLastWorld(nextWorld);
+            progress.setLastLevel(nextLevel);
+            progress.saveProgress();
+        }
+        System.out.println("GamiIsaac-> MondoSalvato: " + progress.getLastWorld() + " - LivelloSalvato: " + progress.getLastLevel());
+    }
 }

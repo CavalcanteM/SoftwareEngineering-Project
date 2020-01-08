@@ -73,20 +73,29 @@ public class ShootingEnemyClient {
     private Shape calculateHitboxArea(int x, int y) {
 
         int hitboxID = map.getTileId(x, y, turretsHitboxLayer);
-        Shape[] hitboxarea = {null};
-        int k = 0;
+        Shape[] temp = {null};
+        Shape[] result = {null};
+        int j = 0, k = 0;
         for (y = 0; y < map.getHeight(); y++) {
             for (x = 0; x < map.getWidth(); x++) {
                 if (map.getTileId(x, y, turretsHitboxLayer) == hitboxID) {
                     if (k == 0) {
-                        hitboxarea[0] = new Rectangle(x * 30, y * 30, 30, 30);
+                        temp[0] = new Rectangle(x * 30, y * 30, 30, 30);
                         k++;
                     } else {
-                        hitboxarea = hitboxarea[0].union(new Rectangle(x * 30, y * 30, 30, 30));
+                        temp = temp[0].union(new Rectangle(x * 30, y * 30, 30, 30));
                     }
                 }
             }
+            if (j == 0 && k == 1) {
+                result[0] = temp[0];
+                j++;
+            }
+            else if (j != 0) {
+                result = temp[0].union(result[0]);
+            }
+            k = 0;
         }
-        return hitboxarea[0];
+        return result[0];
     }
 }

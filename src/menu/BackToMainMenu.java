@@ -13,6 +13,7 @@ public class BackToMainMenu implements Command{
 		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 gc.resume();                            //game not paused
                 sbg.enterState(0,new FadeOutTransition(), new FadeInTransition()); //enter in mainmenu state
+                gc.setMusicOn(true);
                 System.out.println("state 0");
         }
 

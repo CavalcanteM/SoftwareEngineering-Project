@@ -19,7 +19,7 @@
  </layer>
  <layer id="10" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2UMQrAMAwD84r0/z8tpghEcCGLoiHyYjvLSTJkjFQSSAK3JfCQ4UnzibHYK/+UBrA7vloDs//4Sg07fMX9Vy52sMqzyjdYXWc+ZkXv2PXmKNYSviOB7+9z3R+O3XzoSPcm8AJzLO5LAAwAAA==
+   H4sIAAAAAAAECu2RMQoAIAwDfYX+/6fSIRBKBZeYwbq0ulxyjtGnDbSB3wwsKjxpf7EGO/NfZQC74qszMPvEV2a44Sv+P3NxBys6q3qDVU3mY1fMih1vjsNZfuNzd5f/cI4cDv9gOvsjQ0+/gQ1DN+jcAAwAAA==
   </data>
  </layer>
  <layer id="1" name="Walls" width="32" height="24">

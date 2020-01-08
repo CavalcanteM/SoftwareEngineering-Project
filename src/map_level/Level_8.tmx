@@ -12,9 +12,9 @@
    H4sIAAAAAAAECmNgGLpAaOg6fdTloyEwGgKjIUCVEBCmiimjhoyGwGgIjIbAaAiQEgICpCgehGoBqMq8UgAMAAA=
   </data>
  </layer>
- <layer id="10" name="TurretsHitbox" width="32" height="24" locked="1">
+ <layer id="10" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3TUQqAIBAEUE9R3f+ktsTAsFj40c4QKciqhG+0au0bbTtjzvaqE834VTb2fcqAZxSVcyi8bMDP66p5+GgHBoYatsuH7fDZXr7+w/v7/ceN8x3o38AlIoPLD9fx/+G8OwaGGja6mofLVZWBzTyuzpC90bwqw8i6W6vK8Pa+Hery58QADAAA
+   H4sIAAAAAAAECu3TXQqAMAwD4J1Cvf9JtQ+BUKrswaQMFcZ+HPuyomOs8WxXzNmmutGMr7Jx7lMG7HH0OYfDZIN9XneN4Yd3uNDkRIawu3zYHT7bv58+DMP06/WPEnMNDCUvCWQoX5oWO/4/XG3HoKEPG83Nw+XelYHNPFZnyF41V2WorLs1VYa3zz0BwKGkiAAMAAA=
   </data>
  </layer>
  <layer id="1" name="Walls" width="32" height="24">

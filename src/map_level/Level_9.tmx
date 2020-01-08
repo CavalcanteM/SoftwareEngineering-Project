@@ -5,57 +5,57 @@
   <image source="TileSet_map_4.png" width="150" height="480"/>
  </tileset>
  <tileset firstgid="161" source="Tileset_map_2.tsx"/>
- <layer id="2" name="Background" width="32" height="24">
+ <layer id="2" name="Background" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECrWWsQ3AIAwEqbNOtsk6SRG2jimQUITMG7jCspCf5w8ackrptcpQv8zXq8fmtxXVvbPLjOJWfSlu1VfNSenUnJSO4lJ9KS7VV81J6dSclI7iUn0pLtVXzUnp1JyUjuJSfSku1VfNSel2/D1W/g8re9s7LvdT1xGmiNZ7g3p2tO/kn2GZ2dO7hyh31c/yn/beJfuo97K2zId5/Gv0Z905/wDEKtsiAAwAAA==
   </data>
  </layer>
- <layer id="12" name="Upgrades" width="32" height="24">
+ <layer id="12" name="Upgrades" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGAWjITAaAqMhMBoCoyEwGgKkhoAvqRoGUP1QcusABtOo1YMoBEbTLG0jAwB4Ch1KAAwAAA==
   </data>
  </layer>
- <layer id="9" name="Turrets" width="32" height="24">
+ <layer id="9" name="Turrets" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGJxAiICzCMkT0D4qPUxDQHiY+mukeUuAgIcJyRPQPio9GgKjITAaAqMhMBoCIzoEADUO234ADAAA
   </data>
  </layer>
  <layer id="10" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu2UWQrAIAwFvUS3Q/X+1zHvQ3gEDW6tCgZCY7XOGKTOzRGvaDxGwvI2EvOt0cK/BM5Z6xJz4L1iPcA8s0PN3+XWNfzA089cZuu6ntxDZHSy3ykDnaP58GMH9i2p9bl5jH30uXlcwkmtZZ6ue/Hxn0lFYKbm/3gPhx3rdMC6T7OdYiXX2Xq3fcZ0YN/Zb/vuAQhyw+IADAAA
+   H4sIAAAAAAAECu2Qaw6AIAyDvYSv+1/U1YSkaRjhoeiPLZluDPhKl+U/cZoUL6HyKCTmo+GxsY4o8Xebc94HOj45DXxNTgPmzE41n6ute/iJp/9a5ui+J7mridFkfZs1ml/zoY81sN6WWt/NPe7Rd3PfwvH2Mk/rmXxP34x1vDsiHAgHwoFwIBx424ELUHkICAAMAAA=
   </data>
  </layer>
- <layer id="3" name="StaticEnemies" width="32" height="24">
+ <layer id="3" name="StaticEnemies" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGAUjLQR4gB4GYVIANymKh6FaUsNrGAbBkPMSKM2O9HRLi0jjAxoKwpQA9PzkRsAwQvIEtBOU9iaggpA8Ae0DJg3LA4M5H8DqIxiNHFiwtAajkeVG2fQPAWrlQ3LNwZcPSUnr+MyhVqjaAg1CxtQyl1hz7IAKkTE2fQCbwenhAAwAAA==
   </data>
  </layer>
- <layer id="4" name="Rewards" width="32" height="24">
+ <layer id="4" name="Rewards" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGBqAnwRnkqKWBGOHhdLRsBkW0TisPEFMmiRGDShQkNUhs9EDDJ8cutpRPvkhQGw4E6uOfJeQr3Mwu418X43qHA2BoRkClOZHSvUPzVDD7moAV+WrMgAMAAA=
   </data>
  </layer>
- <layer id="5" name="Fire" width="32" height="24">
+ <layer id="5" name="Fire" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGAWjITAaAqMhMBoCtAwBeaDhIDwKRkNgNAQGJgQUBsbaUVtHQ2DQhgAA8MEDjAAMAAA=
   </data>
  </layer>
- <layer id="7" name="Laser" width="32" height="24">
+ <layer id="7" name="Laser" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECu3QAQ0AAAzCMITcv87bgKRTsDQRAQIECBAgQGBH4HZWnRKoFHiCZ17UAAwAAA==
   </data>
  </layer>
- <layer id="1" name="Walls" width="32" height="24">
+ <layer id="1" name="Walls" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECu1WWw7CMAzbXbgRCAH3YDyEBOMccFjij0xR5GVZ1/5RqVrjxjaL2oyh67pjo/kW3blxmktYsb9PcFv6X8Vfa4taDCYGDqylv8iPA7XwXgwbCZUXzIthD/G9LZh38jsvgp0dzrwY5mhFIdPNYkWGjsS8cBb7RJ5LKQqZPxPK5jFuhGV1p/K2Ir5mPoX/Smggz99Jgcaeob2j5Mn6jddp2X+maov306E5XwUqPlU7ktQc+H+ixMS+p6u2x22MnMw5ic7iwQqaddZ/EI4/F0vinfG0S/ZumZ5sNdas7bdX36d3gpkaOUrV8O/P+19U5Ll7GnHtHnRY/fHfIbpvS/asH9aey74TwGqNjQjZyXR/qaXkAgAMAAA=
   </data>
  </layer>
- <layer id="8" name="LaserMax" width="32" height="24">
+ <layer id="8" name="LaserMax" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECu3QAQ0AAAzCMFTcv9TbgKRTsDQRAQIECBAgQIAAgQ2B29isvnwWo9kfAAwAAA==
   </data>
  </layer>
- <layer id="6" name="FireMax" width="32" height="24">
+ <layer id="6" name="FireMax" width="32" height="24" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAECmNgGAWjITAaAqMhQNsQEAcaD8KjYDQERkNgNAQGOgREB9oBo/aPhsAgCAEAoApbxQAMAAA=
   </data>
