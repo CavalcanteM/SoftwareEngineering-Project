@@ -145,10 +145,10 @@ public class Level implements GalaxyComponent {
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         map.render(0, 0, map.getLayerIndex("Background"));
-        map.render(0, 0, map.getLayerIndex("Laser"));
-        map.render(0, 0, map.getLayerIndex("Walls"));
         map.render(0, 0, map.getLayerIndex("StaticEnemies"));
         map.render(0, 0, map.getLayerIndex("Fire"));
+        map.render(0, 0, map.getLayerIndex("Laser"));
+        map.render(0, 0, map.getLayerIndex("Walls"));
 
 
         /**

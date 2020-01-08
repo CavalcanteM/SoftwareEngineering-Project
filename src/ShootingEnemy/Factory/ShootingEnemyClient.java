@@ -92,7 +92,7 @@ public class ShootingEnemyClient {
                 j++;
             }
             else if (j != 0) {
-                result = result[0].union(temp[0]);
+                result = temp[0].union(result[0]);
             }
             k = 0;
         }
