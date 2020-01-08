@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="24" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="1">
  <tileset firstgid="1" source="Tileset_map.tsx"/>
- <tileset firstgid="81" name="Tileset_map_2" tilewidth="30" tileheight="30" tilecount="80" columns="5">
+ <tileset firstgid="81" name="TileSet_map_2" tilewidth="30" tileheight="30" tilecount="80" columns="5">
+  <image source="TileSet_map_2.png" width="150" height="480"/>
+ </tileset>
+ <tileset firstgid="161" name="TileSet_map_2" tilewidth="30" tileheight="30" tilecount="80" columns="5">
   <image source="TileSet_map_2.png" width="150" height="480"/>
  </tileset>
  <layer id="2" name="Background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECsWWSwrEMAxDc84epz9mbj0W1GC6MC90RBfGhaiyXrJItjHGHrWZ+hK+XX1i/Rvl6t1srbm4qa+Lm/rSnC4dzenSubior4uL+tKcLh3N6dK5uKivi4v60pwuHc3p0s1y6a7SfXnvsz6pd3FR38zxVtdeHlHnVfWbZnryftC/a1PEWzmzxDPznpK2m0+9dN555iRz1XbziVdlp2eWun/yk6zJXfvb/LkXT3rlmdmHHx3guPAADAAA
+   H4sIAAAAAAAECu3SQREAAAyDMCzWv5kJWR4Y4LJq8oABBhhggAEGGGCAgRcGDna7txMADAAA
   </data>
  </layer>
  <layer id="9" name="Turrets" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAUjJQSEcHhUEIf4qPBoCIyGwGgIjIbAaAiMhsBoCIyGwPALAQDGXTRhAAwAAA==
+   H4sIAAAAAAAECmNgGAWjITAaAqMhMBoCAxUCggNl8Qi2V3gE+33U66MhMBoCoyEACgEAQaNWZwAMAAA=
   </data>
  </layer>
  <layer id="10" name="TurretsHitbox" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGHggDnQCMibkIgmgAlyYkF5s8sh2g9iEAC67QeLkAFraLwl0EC4Mc+uo/aSlP1i4EUPjCnuQOAyQGv4wfcTQQ8F+YvwxqgZ3CIgBpdAxbtXUl0G3G8SnJxi1f2THPz3T2qhdoyEwnEIAAIRIMa8ADAAA
+   H4sIAAAAAAAECu2UMQrAMAwD84r0/z8tpghEcCGLoiHyYjvLSTJkjFQSSAK3JfCQ4UnzibHYK/+UBrA7vloDs//4Sg07fMX9Vy52sMqzyjdYXWc+ZkXv2PXmKNYSviOB7+9z3R+O3XzoSPcm8AJzLO5LAAwAAA==
   </data>
  </layer>
  <layer id="1" name="Walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu1VywoCMQzs33kREd9+iHjT9c/NgIGl7WxCYk9aCKVN0tnOpNmplHIZZC851xpXKyDhPzpyR+LfBX+JW/AzEt+6Pvj547csnWRr17FzG5raYfwf5NRe3ewNtI3hr90Mv47zrrfewE9cFJ/po5p5dYriM31UM0snpSmKr/mZeSXJI/EtjaDVQ2zef9aZC1W5lkbQat5/ga1WHTVsCf6fYlq3kdlb671LAH8S07qtZ/Cz5Ee8t9YltBlW/eH/eWuy+AarOcaRhc+R+h5Wc4yjb+P3v4rv/jI+3nrk/uibsMzQPgP87PuP9AzNQf99A8sXbeAADAAA
+   H4sIAAAAAAAECu2V4WrDMAyE84yDQdvnWLqWwea+ee+D3FA9OSSpu/6pQNhWTjpZipLDMAy7J+lBvHvps+RdxC/+2+ofdXyb9OP20eLTl5CnSs+Jd1b/T+Eu0iIdpY+UjB++lr13Li2ezO6+xJ5ktjU5Zjyt+7svcV7wL9IRpw2yhp/w4H+krkHL33Xxe8xqH21/peU/Z4/frDlcEYu/q7zPsW5OYM6/hYefGnCnmItjstZx6d0YAdO+xmGmdt/SWGfsCPgi5V7caSm/oKlk/OTqutU5Rzz7R/CniU7GyJ/Ng30jzrZsXYrD132J7wX+rT5FnOehnoE1/O7LGC6S2Xhcx+VcpNFXxz84bD0k44/1MEeNs/3elbieUeaUeVrKX/87zxuScV88R6x17Qm79f49cryHH98esvX+PbiJAT/fsPif+s893Fe1pGmbAAwAAA==
   </data>
  </layer>
  <layer id="3" name="StaticEnemies" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAWjITAaAqMhgAgBHiATF0aoGmVREgJOlGimgl53KpgxasRoCIyGwOAJAVxlNkh8uABQuTmQZSeo3BxOZScA0tYWfgAMAAA=
+   H4sIAAAAAAAECmNgGAWDKQR4gY5BxoPJbaNuGQ0BYkIAOf0is4nRO6pmNAQGMgR4gJYj44F0y6jdoyEwFEMAOf8gs4eiX4a7mwHt5mOpAAwAAA==
   </data>
  </layer>
  <layer id="4" name="Rewards" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGAUjIQT4h6gnh6q7h2hwk+VsSuOIUv1kOXqYaCI27IhVN0yChareoFbYUcscqnpuCBo2HMJxOPhhCCYdujl5qMQvAPDEZHoADAAA
-  </data>
- </layer>
- <layer id="13" name="HiddenTurrets" width="32" height="24">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECmNgGNpAaGg7f9T1oyEwGgKjIUBxCIyWgxQH4agBoyEwGgKjITCiQgAAT/vP9wAMAAA=
+   H4sIAAAAAAAECmNgGAWjITAaAthCgB+b4KjYaAgAQ4BWaYMcc3HpwSU+1CNwuPprqMfLYHQ/clpBZg9Gt466aTQE6B0CAHDHM1UADAAA
   </data>
  </layer>
  <layer id="5" name="Fire" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
-  </data>
- </layer>
- <layer id="15" name="Upgrades" width="32" height="24">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QIQEAAAzDsLm4f6e3MDiQ4qIkIkCAAAECBAgQIECgFbh2HP0elaQPpAAMAAA=
+   H4sIAAAAAAAECmNgGAWjITAaAqMhQHwIyBOvlC4qFeliy6gloyEwGgKjITAaAqMhMHxCAADJx0euAAwAAA==
   </data>
  </layer>
  <layer id="7" name="Laser" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QAQ0AAAzCMITcv87bIKRTsDQRAQIECBAgQKBH4HpWnBCYFHgptvnmAAwAAA==
+   H4sIAAAAAAAECmNgGAWjITAaAqMhMBoCoyEwGgK4QkAKl8QAicsMkL2j1o6GwGgIDJ8QAACnWX2hAAwAAA==
   </data>
  </layer>
  <layer id="8" name="LaserMax" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QAQ0AAAwCIFPYP6p7jkMEEgwYMGDAgAEDBgwYuIE+aBizaCloAAwAAA==
+   H4sIAAAAAAAECmNgGAWjITAaAqMhMLhDQHxwO2/UdaMhMBoCoyFAtxAQo5tNoxYN5xAAAGKBle0ADAAA
+  </data>
+ </layer>
+ <layer id="11" name="Upgrades" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAECmNgGAWjITA8Q0CcDG+Ro4cMa0a1kBgCo/FCYoCNKh8NgdEQGLYhQOvykNbmD9uIGWIeAwCXwjJmAAwAAA==
   </data>
  </layer>
  <layer id="6" name="FireMax" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAECu3QgQAAAADDoPlTH+SFUGHAgAEDBgwYMGDAwMvAAITJ5mcADAAA
+   H4sIAAAAAAAECmNgGHpAfOg5edTFoyEwGgKjITAaAsMwBMSGoZ9GvTQaAqMhMPxDAAA1hrq1AAwAAA==
   </data>
  </layer>
 </map>
