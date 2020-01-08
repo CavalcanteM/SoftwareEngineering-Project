@@ -28,7 +28,7 @@ public class NextLevel implements Command {
             if (gs.getGalaxy().getChildren().size() == GameIsaac.loadedWorld + 1) {
                 //Game complete da modificare
                 sbg.enterState(4);
-                //gc.exit();
+
             } else {
                 GameIsaac.loadedWorld++;
                 GameIsaac.loadedLevel = 0;
