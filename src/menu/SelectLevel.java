@@ -20,7 +20,8 @@ public class SelectLevel implements Command{
 	public void execute(GameContainer gc, int delta, StateBasedGame sbg) throws SlickException {
 		GameIsaac.loadedLevel=Level;
 		GameIsaac.loadedWorld=World;
-		sbg.getState(1).init(gc, sbg); 
+                gc.getInput().clearKeyPressedRecord();
+		sbg.getState(1).init(gc, sbg);
 		sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());   //enter in state 1 -> game isaac
 		gc.setMusicOn(false);
 	}

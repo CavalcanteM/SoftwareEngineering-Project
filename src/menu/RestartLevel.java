@@ -30,6 +30,7 @@ public class RestartLevel implements Command{
             
             gs.getCollisionManager().setParameters(gs.getLevel());
             gc.resume();
+            gc.getInput().clearKeyPressedRecord();
             sbg.enterState(1);
         } catch(SlickException ex){
             ex.printStackTrace();

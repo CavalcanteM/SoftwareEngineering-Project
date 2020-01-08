@@ -135,10 +135,11 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+        
         if (!gc.isPaused()) {
             level.update(gc, delta);
             player.update(gc, delta);
-
+            
             if (player.getNumHearts() <= 0 | !level.getPts().iterator().hasNext() | gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
                 gc.pause();
             }

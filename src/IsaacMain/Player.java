@@ -258,6 +258,7 @@ public class Player implements UpgradeComponent {
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
 
+        
         // Gravity check and change
         if (gc.getInput().isKeyPressed((commands.get("gravity"))))
             gravity = changeGravity(signum(gravity));

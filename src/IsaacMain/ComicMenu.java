@@ -106,6 +106,7 @@ public class ComicMenu extends BasicGameState {
 		posY>ySkip && posY<(ySkip+hSkip)){
             flag = false;
             index = 0;
+            gc.getInput().clearKeyPressedRecord();
             sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
         }
     }
