@@ -26,8 +26,20 @@ public class Points implements Iterable<Entity> {
     private Entity current;
     private Sound sound;
     private Image image;
+    private Image loaded_image;
 
     public Points(ArrayList<Entity> rwd, int nObj) throws SlickException{
+        this.image = new Image("./graphics/png/Nut.png");
+        this.loaded_image = this.image;
+        this.reward = rwd;
+        this.nObj = nObj+1;
+        this.ran = new Random();
+        this.sound = new Sound("./src/sound/item.wav");
+    }
+    
+    public Points(ArrayList<Entity> rwd, int nObj, Image image) throws SlickException{
+        this.image = new Image("./graphics/png/Nut.png");
+        this.loaded_image = image;
         this.reward = rwd;
         this.nObj = nObj+1;
         this.ran = new Random();
@@ -51,14 +63,17 @@ public class Points implements Iterable<Entity> {
         Set the Height and the Width of the reward's shapes according to the
         size of the reward pic.
     */
-    public void init() throws SlickException{
-        this.image = new Image("./graphics/png/Nut.png");
+    public void init() throws SlickException{ 
         for (Entity reward: reward) {
             reward.setHeightAndWidth(image.getHeight(), image.getWidth());
         }
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException{
+        if(nObj == 1){
+            this.image = this.loaded_image;
+            current.setHeightAndWidth(image.getHeight(), image.getWidth());
+        }
         if(nObj != 0){
             ShapeRenderer.textureFit(this.current.getHitBox(), image);
         }
