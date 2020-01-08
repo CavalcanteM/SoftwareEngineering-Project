@@ -7,9 +7,9 @@ import org.newdawn.slick.tiled.TiledMap;
 public class StaticEnemyClient {
 
     /*
-     * The "StaticDamageList" class uses the concrete factories multiple
+     * The "StaticEnemyClient" class uses the concrete StaticEnemy Factories multiple
      * times to create an ArrayList of StaticDamage objects, that will be used
-     * by the CollisionManager for checking the collisions. 
+     * by the CollisionManager to check the collisions with those objects.  
      */
     private int x;
     private int y;
@@ -18,6 +18,14 @@ public class StaticEnemyClient {
     private int difficulty;
     StaticEnemyFactory spikeFactory, acidFactory, barrelFactory;
 
+    /**
+     * Constructor to get at the beginning the different factories. Accepts a
+     * TiledMap map input and the difficulty (a parameters that changes between
+     * 0 and 10.
+     *
+     * @param map TiledMap map, representing a level.
+     * @param difficulty (0-10) value. 
+     */
     public StaticEnemyClient(TiledMap map, int difficulty) {
         this.map = map;
         this.objlayer = this.map.getLayerIndex("StaticEnemies");
@@ -26,10 +34,14 @@ public class StaticEnemyClient {
         acidFactory = new AcidLakeFactory(difficulty);
         barrelFactory = new BarrelFactory(difficulty);
     }
-/**
- * 
- * @return 
- */
+
+    /**
+     * This method is uset to get an array list of objcects, that all share the
+     * StaticDamage interface. The different factories will be used to achieve
+     * that, depending on the actual ID of the map layer.
+     *
+     * @return an ArrayList<StaticDamage>. 
+     */
     public ArrayList<StaticDamage> getStaticEnemyList() {
 
         ArrayList<StaticDamage> staticDamageArray = new ArrayList<>();
