@@ -4,9 +4,10 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 /**
- * This class represent the objects that the player has to collect to join a 
- * powerup.
- * This class is one of the Concrete Product Of the EntityFactory.
+ * *********Factory method - Concrete product *************
+ *
+ * This class represent the objects that the player has to collect to get a
+ * powerup. This class is one of the Concrete Product Of the EntityFactory.
  */
 public class Upgrade implements Entity {
 
@@ -15,9 +16,11 @@ public class Upgrade implements Entity {
     private final int y;
 
     /**
-     * Constructor of the class Upgrade
-     * @param x
-     * @param y
+     * Constructor of the class Upgrade, taking the dimentions of the final hitbox
+     * size.
+     *
+     * @param x = x coordinte on which I want the block to be located at.
+     * @param y = y coordinte on which I want the block to be located at.
      */
     public Upgrade(int x, int y) {
         this.x = x;
@@ -26,19 +29,21 @@ public class Upgrade implements Entity {
     }
 
     /**
-     * method getHitbox inherited from Entity
-     * @return the upgrade hitbox
+     * Override of the getHitbox method, implementing the Entity interface.
+     *
+     * @return a Shape. 
      */
     @Override
     public Shape getHitBox() {
         return Hitbox;
     }
-    
+
     /**
-     * This class has this method implemented because the hitbox of a powerup
-     * changes according to the size of the reward image.
-     * @param i
-     * @param j 
+     * Method setHeightAndWidth inherited from the class Entity, used of I need
+     * to change the size of the htibox.
+     *
+     * @param i = new height of the rectangle hitbox.
+     * @param y = new width of the rectangle hitbox.
      */
     @Override
     public void setHeightAndWidth(int i, int j) {

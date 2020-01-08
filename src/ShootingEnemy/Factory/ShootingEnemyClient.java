@@ -12,14 +12,24 @@ import org.newdawn.slick.tiled.TiledMap;
 public class ShootingEnemyClient {
 
     /**
-     * The "StaticDamageList" class uses the concrete factories multiple times
-     * to create an ArrayList of StaticDamage objects, that will be used by the
-     * CollisionManager for checking the collisions.
+     * The "ShootingEnemyClient" class uses the concrete Shooting Enemy
+     * Factories in different situations to create an ArrayList of StaticDamage
+     * objects, that will be used by the CollisionManager to check the
+     * collisions with the turrets, in particular.
      */
     private int x, y, difficulty, turret_number;
     private final int turretsLayer, turretsHitboxLayer, hiddenTurretsLayer;
     private final TiledMap map;
 
+    /**
+     * Constructor, the corresponding layer index of the different levels of the
+     * map are taken, in particualr refering to "Turrets", "TurretsHitbox" and
+     * "HiddenTurrets". Finaly, the difficulty parameter will be used a
+     * multiplier in some cases to increase the provoked damage.
+     *
+     * @param map = Tiled map object.
+     * @param difficulty the multiplier.
+     */
     public ShootingEnemyClient(TiledMap map, int difficulty) {
         this.map = map;
         this.turretsLayer = this.map.getLayerIndex("Turrets");
@@ -69,6 +79,11 @@ public class ShootingEnemyClient {
         return new ArrayList<ShootingEnemy>(array.subList(0, this.turret_number));
     }
 
+    /**
+     * This method is used to get the actual final shape of the hibox of the
+     * turret, in particular merging all the contiguous blocks in the
+     * LayerHibbox layer of the map.
+     */
     private Shape calculateHitboxArea(int x, int y) {
 
         int hitboxID = map.getTileId(x, y, turretsHitboxLayer);
@@ -89,8 +104,7 @@ public class ShootingEnemyClient {
             if (j == 0 && k == 1) {
                 result[0] = temp[0];
                 j++;
-            }
-            else if (j != 0) {
+            } else if (j != 0) {
                 result = temp[0].union(result[0]);
             }
             k = 0;
