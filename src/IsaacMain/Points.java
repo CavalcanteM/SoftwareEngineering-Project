@@ -58,7 +58,8 @@ public class Points implements Iterable<Entity> {
     public int getnObj() {
         return nObj;
     }
-
+    
+    
     /*
         Set the Height and the Width of the reward's shapes according to the
         size of the reward pic.

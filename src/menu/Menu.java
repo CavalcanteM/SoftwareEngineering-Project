@@ -90,7 +90,7 @@ public class Menu{
 		background = new Rectangle(0,0,gc.getWidth(),gc.getHeight());
 		
 		this.x = Math.round((gc.getWidth()-this.l)/2);
-		this.y = Math.round((gc.getHeight()-this.h)/2);
+		this.y = Math.round((gc.getHeight()-this.h)/2)+10;
 		menu = new Rectangle(this.x,this.y,this.l,this.h);
 		
 		this.x+=10;
