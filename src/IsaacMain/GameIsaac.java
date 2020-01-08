@@ -123,8 +123,8 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		
-	level.render(gc, g);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        level.render(gc, g);
         if (player.isAppear()) {
             player.render(gc, g);
         }
@@ -148,11 +148,11 @@ public class GameIsaac extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        
+
         if (!gc.isPaused()) {
             level.update(gc, delta);
             player.update(gc, delta);
-            
+
             if (player.getNumHearts() <= 0 | !level.getPts().iterator().hasNext() | gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
                 gc.pause();
             }
@@ -181,39 +181,52 @@ public class GameIsaac extends BasicGameState {
 
             // Setting first world
             GalaxyComponent world1 = new LevelContainer("World 1");
-            GalaxyComponent level1 = new Level("Level 1-1", 4, 16, 1);
-//            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
-//            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
-//            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);
+            GalaxyComponent level1 = new Level("Level 1-1", 4, 1, 1);
+            GalaxyComponent level2 = new Level("Level 1-2", 5, 2, 2);
+            GalaxyComponent level3 = new Level("Level 1-3", 5, 3, 3);
+            GalaxyComponent level4 = new Level("Level 1-4", 5, 4, 4);
             world1.add(level1);
-//            world1.add(level2);
-//            world1.add(level3);
-//            world1.add(level4);
+            world1.add(level2);
+            world1.add(level3);
+            world1.add(level4);
             galaxy.add(world1);
 
             // Setting second world
             GalaxyComponent world2 = new LevelContainer("World 2");
-            GalaxyComponent level5 = new Level("Level 2-1", 4, 1, 1);
-//           GalaxyComponent level6 = new Level("Level 1-4", 5, 2, 1);
-//            GalaxyComponent level7 = new Level("Level 1-4", 5, 7);
-//            GalaxyComponent level8 = new Level("Level 1-8", 7, 8);
+            GalaxyComponent level5 = new Level("Level 2-1", 4, 5, 1);
+            GalaxyComponent level6 = new Level("Level 1-4", 5, 6, 1);
+            GalaxyComponent level7 = new Level("Level 1-4", 5, 7, 1);
+            GalaxyComponent level8 = new Level("Level 1-8", 7, 8, 1);
             world2.add(level5);
-//            world1.add(level6);
-//            world1.add(level7);
-//            world1.add(level8);
+            world2.add(level6);
+            world2.add(level7);
+            world2.add(level8);
             galaxy.add(world2);
+
             // Setting third world
-            //GalaxyComponent world3 = new LevelContainer("World 3");
-            //GalaxyComponent level9 = new Level("Level 3-1", 5);
-            //GalaxyComponent level10 = new Level("Level 3-2", 5);
-            //GalaxyComponent level11 = new Level("Level 3-3", 5);
-            //GalaxyComponent level12 = new Level("Level 3-4", 5);
+            GalaxyComponent world3 = new LevelContainer("World 3");
+            GalaxyComponent level9 = new Level("Level 3-1", 5, 9, 1);
+            GalaxyComponent level10 = new Level("Level 3-2", 5, 10, 1);
+            GalaxyComponent level11 = new Level("Level 3-3", 5, 11, 1);
+            GalaxyComponent level12 = new Level("Level 3-4", 5, 12, 1);
+            world3.add(level9);
+            world3.add(level10);
+            world3.add(level11);
+            world3.add(level12);
+            galaxy.add(world3);
+
             // Setting fourth world
-            //GalaxyComponent world4 = new LevelContainer("World 4");
-            //GalaxyComponent level13 = new Level("Level 4-1", 5);
-            //GalaxyComponent level2 = new Level("Level 4-2", 5);
-            //GalaxyComponent level2 = new Level("Level 4-3", 5);
-            //GalaxyComponent level2 = new Level("Level 4-4", 5);
+            GalaxyComponent world4 = new LevelContainer("World 3");
+            GalaxyComponent level13 = new Level("Level 3-1", 5, 13, 1);
+            GalaxyComponent level14 = new Level("Level 3-2", 5, 14, 1);
+            GalaxyComponent level15 = new Level("Level 3-3", 5, 15, 1);
+            GalaxyComponent level16 = new Level("Level 3-4", 5, 16, 1);
+            world4.add(level13);
+            world4.add(level14);
+            world4.add(level15);
+            world4.add(level16);
+            galaxy.add(world4);
+
             this.saveTreeLevel();
         }
     }
@@ -226,7 +239,7 @@ public class GameIsaac extends BasicGameState {
             FileOutputStream fos = new FileOutputStream("treeLevel.txt");
             ObjectOutputStream out = new ObjectOutputStream(fos);
             out.writeObject(galaxy);
-			out.flush();
+            out.flush();
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -246,7 +259,7 @@ public class GameIsaac extends BasicGameState {
             GalaxyComponent galaxy = (GalaxyComponent) in.readObject();
             in.close();
             return galaxy;
-        }catch(IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
