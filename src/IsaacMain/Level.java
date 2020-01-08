@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -107,7 +108,17 @@ public class Level implements GalaxyComponent {
         this.laserThrowers = throwers_client.getThrowers("Laser");
         //Create an array list of turrets calling the List creator
         this.turrets = new ShootingEnemyClient(this.map, this.difficulty).getList();
-        this.pts = new Points(rewards, score);
+        if(this.index == 4){
+            this.pts = new Points(rewards, score, new Image("./graphics/pieces/harmAndLeg_resized.png"));
+        }else if(this.index == 8){
+            this.pts = new Points(rewards, score, new Image("./graphics/pieces/body_resized.png"));
+        }else if(this.index == 12){
+            this.pts = new Points(rewards, score, new Image("./graphics/pieces/head_resized.png"));
+        }else if(this.index == 16){
+            this.pts = new Points(rewards, score, new Image("./graphics/pieces/cpu_resized.png"));
+        }else{
+            this.pts = new Points(rewards, score); 
+        }
         this.pts.init();
         this.up = new Powerup(upgrades);
         this.up.init();

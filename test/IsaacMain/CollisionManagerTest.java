@@ -8,7 +8,7 @@ import Entity.Entity;
 import Entity.Reward;
 import Entity.Upgrade;
 import ShootingEnemy.ThreeBulletsTurret;
-import StaticEnemy.HalfHeartSpike;
+import StaticEnemy.Spike;
 import StaticEnemy.StaticDamage;
 import java.util.ArrayList;
 import org.junit.After;
@@ -74,7 +74,7 @@ public class CollisionManagerTest {
         pts = new Points(points,3);
         reward = points.get(0).getHitBox();
         spikes = new ArrayList<StaticDamage>();
-        spikes.add(new HalfHeartSpike(329,300,1));
+        spikes.add(new Spike(329,300,1,2));
         blocks = new ArrayList<Entity>();
         blocks.add(new Block(449,400));
         t = new ArrayList<Thrower>();
