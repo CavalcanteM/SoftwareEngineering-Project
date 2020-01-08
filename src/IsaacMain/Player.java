@@ -13,6 +13,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import menu.Mapping;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -49,7 +50,7 @@ public class Player implements UpgradeComponent {
     private int numVoidHearts = 6; // Measured in mid hearts
     private CollisionManager collision;
     private long lastHitTime = System.currentTimeMillis() - 3000;
-    private HashMap<String, Integer> commands;
+    private Mapping commands;
     private Sound gravityfx;
     private Sound deathfx;
     private Sound hurtfx;
@@ -135,14 +136,11 @@ public class Player implements UpgradeComponent {
         return numVoidHearts;
     }
 
-    public HashMap<String, Integer> getCommands() {
-        return commands;
-    }
-
     public Animations getAnimations(){
         return animations;
     }
 
+    @Override
     public boolean hasShield() {
         return shield;
     }
@@ -156,6 +154,10 @@ public class Player implements UpgradeComponent {
 
     public void setGravity(float gravity) {
         this.gravity = gravity;
+    }
+    
+    public void setCommands(Mapping commands){
+        this.commands = commands;
     }
 
     @Override
@@ -236,10 +238,6 @@ public class Player implements UpgradeComponent {
          */
         hitbox = new Rectangle(31, gc.getHeight() - 90, 29, 59);
 
-
-        // Loads the current set of commands from a file
-        this.initCommandList();
-
         // Initialization of the animations (has to be changed)
         this.selectAnimations();
         //this.animations = new SantaAnimations(11, 16, 17);
@@ -260,7 +258,7 @@ public class Player implements UpgradeComponent {
 
         
         // Gravity check and change
-        if (gc.getInput().isKeyPressed((commands.get("gravity"))))
+        if (gc.getInput().isKeyPressed((commands.getCommandMap().get("gravity"))))
             gravity = changeGravity(signum(gravity));
 
         // y acceleration
@@ -298,7 +296,7 @@ public class Player implements UpgradeComponent {
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         if(gc.isPaused()){
-            if (gc.getInput().isKeyPressed((commands.get("gravity"))) || (gc.getInput().isKeyPressed((commands.get("dash")))));
+            if (gc.getInput().isKeyPressed((commands.getCommandMap().get("gravity"))) || (gc.getInput().isKeyPressed((commands.getCommandMap().get("dash")))));
         }
         //used to hyde the hitbox
         hideHitbox(g);
@@ -439,17 +437,17 @@ public class Player implements UpgradeComponent {
     private void set_speedx(Input in) {
 
         // If we hold down A, the character will move to the left
-        if (in.isKeyDown(commands.get("left"))) {
+        if (in.isKeyDown(commands.getCommandMap().get("left"))) {
             vX = -speed;
             this.isMovingRight = false;
-            if (in.isKeyPressed(commands.get("dash"))) {
+            if (in.isKeyPressed(commands.getCommandMap().get("dash"))) {
                 dash(LEFT);
             }
             // If we hold down D, the character will move to the right
-        } else if (in.isKeyDown(commands.get("right"))) {
+        } else if (in.isKeyDown(commands.getCommandMap().get("right"))) {
             vX = speed;
             this.isMovingRight = true;
-            if (in.isKeyPressed(commands.get("dash"))) {
+            if (in.isKeyPressed(commands.getCommandMap().get("dash"))) {
                 dash(RIGHT);
             }
             // The character doesn't move
@@ -577,41 +575,6 @@ public class Player implements UpgradeComponent {
         this.speedUp = 1;
     }
 
-    public void initCommandList() {
-        this.commands = this.loadCommands();
-        if (this.commands == null) {
-            commands = new HashMap<>();
-            commands.put("right", Input.KEY_D);
-            commands.put("left", Input.KEY_A);
-            commands.put("dash", Input.KEY_LSHIFT);
-            commands.put("gravity", Input.KEY_SPACE);
-            commands.put("skinIndex", 0);
-        }
-    }
-
-    /**
-     * Load the tree level from the file
-     *
-     * @return galaxy if the load operation works successfully, else it returns
-     * null
-     */
-    public HashMap<String, Integer> loadCommands() {
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
-        try {
-            fis = new FileInputStream("options");
-            in = new ObjectInputStream(fis);
-            HashMap<String, Integer> map = (HashMap<String, Integer>) in.readObject();
-            in.close();
-            return map;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
 
     public void setAnimations(Animations animations) {
         try {
@@ -623,7 +586,7 @@ public class Player implements UpgradeComponent {
     }
 
     public void selectAnimations(){
-        switch(this.commands.get("skinIndex")){
+        switch(this.commands.getCommandMap().get("skinIndex")){
             case 0: {
                this.animations =  new IsaacAnimations(58, 70, 8, 10, 10);
                break;
