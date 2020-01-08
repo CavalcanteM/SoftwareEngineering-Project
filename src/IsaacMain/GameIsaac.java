@@ -25,6 +25,7 @@ public class GameIsaac extends BasicGameState {
     private Menu deathMenu;
     private CollisionManager collisionManager;
     private GalaxyComponent galaxy;
+	private Saves progress;
     public static int loadedLevel;
     public static int loadedWorld;
 
@@ -159,6 +160,7 @@ public class GameIsaac extends BasicGameState {
             if (player.getNumHearts() <= 0) {
                 deathMenu.update(gc, delta, sbg);
             } else if (!level.getPts().iterator().hasNext()) {
+				saveProgress();
                 end.update(gc, delta, sbg);
             } else {
                 pause.update(gc, delta, sbg);
@@ -249,4 +251,28 @@ public class GameIsaac extends BasicGameState {
             return null;
         }
     }
+	
+	public void saveProgress(){
+		progress=new Saves().loadProgress();
+		int nextWorld=loadedWorld, nextLevel=loadedLevel;
+		
+		if (galaxy.getChild(loadedWorld).getChildren().size() == loadedLevel + 1) {
+			//Check if the actualWorld is the last world of the galaxy
+			if (galaxy.getChildren().size() == loadedWorld + 1) {
+				//Game complete da modificare
+			} else {
+				nextWorld ++;
+				nextLevel = 0;                      
+			}
+		} else {
+			nextLevel++;
+		}
+		
+	if( (progress.getLastWorld()<nextWorld) | ((progress.getLastWorld()==nextWorld)&&(progress.getLastLevel()<nextLevel)) ){
+			progress.setLastWorld(nextWorld);
+			progress.setLastLevel(nextLevel);
+			progress.saveProgress();
+		}
+		System.out.println("GamiIsaac-> MondoSalvato: "+progress.getLastWorld()+" - LivelloSalvato: "+progress.getLastLevel());
+	}
 }
