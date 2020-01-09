@@ -10,7 +10,7 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * This class is the client that uses the Concrete EntityFactories to get the
  * needed ArrayList of objects that shares the Entity interface. The target of
- * this class is the creation of an ArrayList<Entity> whose parteciapting
+ * this class is the creation of annumHearts whose parteciapting
  * objects depends on the name of the layer of the map.
  */
 public class EntityClient {

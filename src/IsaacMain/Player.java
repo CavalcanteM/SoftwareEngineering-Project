@@ -141,8 +141,8 @@ public class Player implements UpgradeComponent {
     }
     
     /**
-     * Setter method for the parameter speed
-     * @param speed
+     * Setter method for the parameter speedUp
+     * @param speedUp
      */
     @Override
     public void setSpeedUp(float speedUp) {
@@ -150,8 +150,8 @@ public class Player implements UpgradeComponent {
     }
 
     /**
-     * Setter method for the parameter shield
-     * @param shield
+     * Setter method for the parameter numHearts
+     * @param numHearts
      */
     @Override
     public void setNumHearts(int numHearts) {

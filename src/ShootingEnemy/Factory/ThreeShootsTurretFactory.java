@@ -10,7 +10,7 @@ public class ThreeShootsTurretFactory extends ShootingEnemyFactory {
      *
      * @param x x position of the turret
      * @param y y position of the turret
-     * @param activationArea activation area of the turret
+     * @param hitboxArea activation area of the turret
      * @param difficulty this increases the damage of the bullet that are shot
      * by the turret
      * @return

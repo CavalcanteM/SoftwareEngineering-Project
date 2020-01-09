@@ -11,13 +11,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.ShapeRenderer;
 
-/*
-    After StaticLevel has taken informations from the "Upgrades" layer of the 
-    TiledMap and EntityClient has produced an ArrayList<Entity>, this class has 
-    the scope of randomly iterates this ArrayList<Entity>, return to the
-    CollisionManager the Entity of the current upgrade and renders on Graphics g
-    the image of the upgrade.
-*/
+/**
+ *  After StaticLevel has taken informations from the "Upgrades" layer of the 
+ *  TiledMap and EntityClient has produced an <pre>{@code ArrayList<Entity>}</pre>
+ *  , this class has the scope of randomly iterates this <pre>{@code ArrayList<Entity>}</pre>
+ *  return to the CollisionManager the Entity of the current upgrade and renders
+ *  on Graphics g the image of the upgrade.
+ */
 public class Powerup implements Iterable<Entity> {
     
     private final ArrayList<Entity> upgrade;

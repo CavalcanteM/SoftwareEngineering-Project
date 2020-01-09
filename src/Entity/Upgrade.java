@@ -43,7 +43,7 @@ public class Upgrade implements Entity {
      * to change the size of the htibox.
      *
      * @param i = new height of the rectangle hitbox.
-     * @param y = new width of the rectangle hitbox.
+     * @param j = new width of the rectangle hitbox.
      */
     @Override
     public void setHeightAndWidth(int i, int j) {

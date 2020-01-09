@@ -7,8 +7,8 @@ import org.newdawn.slick.tiled.TiledMap;
 
 /**
  * This class is the client of the EntityFactory. In fact, the scope of this
- * class is the creation of an ArrayList<Thrower> whose content change according
- * to the LayerName of the TileMap.
+ * class is the creation of an <pre>{@code ArrayList<Thrower>}</pre>; whose 
+ * content change according to the LayerName of the TileMap.
  */
 public class ThrowersClient {
     private final TiledMap map;
@@ -25,8 +25,8 @@ public class ThrowersClient {
     }
     
     /**
-     * @return an ArrayList<FlameThrower> if layerName == "Fire",
-     * an ArrayList<LaserThrower> if layerName == "Laser",
+     * @return an <pre>{@code ArrayList<FlameThrower>}</pre> if layerName == "Fire",
+     * an <pre>{@code ArrayList<LaserThrower>}</pre> if layerName == "Laser",
      */
     public ArrayList<Thrower> getThrowers(String layerName){
         int x, y, z;

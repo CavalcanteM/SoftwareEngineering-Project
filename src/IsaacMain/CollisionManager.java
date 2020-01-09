@@ -228,13 +228,14 @@ public class CollisionManager implements Mediator {
 
     /**
      * This method is used only in the test of this class
-     *
      * @param blocks
      * @param pts
      * @param spikes
      * @param player
      * @param reward
      * @param t
+     * @param tbt
+     * @param upgrade 
      */
     public void setParameters(ArrayList<Entity> blocks, Points pts, ArrayList<StaticDamage> spikes, Shape player, Shape reward, ArrayList<Thrower> t, ThreeBulletsTurret tbt, Entity upgrade) {
         this.intesting = true;

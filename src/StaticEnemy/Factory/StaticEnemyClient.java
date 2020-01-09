@@ -40,7 +40,7 @@ public class StaticEnemyClient {
      * StaticDamage interface. The different factories will be used to achieve
      * that, depending on the actual ID of the map layer.
      *
-     * @return an ArrayList<StaticDamage>. 
+     * @return an <pre>{@code ArrayList<StaticDamage>}</pre>. 
      */
     public ArrayList<StaticDamage> getStaticEnemyList() {
 

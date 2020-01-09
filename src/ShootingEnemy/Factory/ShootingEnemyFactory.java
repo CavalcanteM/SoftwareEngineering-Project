@@ -8,7 +8,7 @@ public abstract class ShootingEnemyFactory {
  * 
  * @param x x position of the shootingenemy
  * @param y y position of the shootingenemy
- * @param activationArea activation area of the turret
+ * @param hitboxArea activation area of the turret
  * @param difficulty this increases the damage of the bullet that are shot by the turret
  * @return 
  */
