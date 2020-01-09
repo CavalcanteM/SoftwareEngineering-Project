@@ -99,8 +99,7 @@ public class HiddenThreeShotTurret implements ShootingEnemy {
      */
     @Override
     public void render(Graphics g, TiledMap map) throws SlickException {
-        g.setColor(Color.yellow);
-        g.draw(this.hitboxArea);
+     
         if (visible == true) {
             map.render(x * 30, y * 30, x, y, 1, 1, map.getLayerIndex("HiddenTurrets"), true);
         }
